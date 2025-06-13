@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, ChevronDown, Globe } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import {
   Accordion,
@@ -98,6 +98,7 @@ const navLinks: NavLinkItem[] = [
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -120,7 +121,7 @@ const Header = () => {
                     </HoverCardTrigger>
                     <HoverCardContent
                       className="w-screen max-w-4xl bg-slate-800 text-white p-6 shadow-xl rounded-lg mt-2"
-                      sideOffset={18} // Adjust to position below the header
+                      sideOffset={18} 
                       align="start"
                     >
                       <h3 className="text-lg font-bold mb-4">{link.megaMenuData.title}</h3>
@@ -176,8 +177,8 @@ const Header = () => {
                 <DropdownMenuItem>Français</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="outline" className="text-sm h-9">Login</Button>
-            <Button className="text-sm bg-blue-600 hover:bg-blue-700 h-9">Join Us</Button>
+            <Button variant="outline" className="text-sm h-9" onClick={() => navigate('/login')}>Login</Button>
+            <Button className="text-sm bg-blue-600 hover:bg-blue-700 h-9" onClick={() => navigate('/register')}>Join Us</Button>
             
             {/* Mobile Menu Trigger */}
             <div className="lg:hidden">
@@ -257,7 +258,7 @@ const Header = () => {
                 </Link>
               ))}
                <Link
-                  to="/all-categories" // Example link, or could trigger a modal/dropdown
+                  to="/all-categories" 
                   className="text-blue-600 hover:text-blue-700 text-xs font-medium"
                 >
                   More...
