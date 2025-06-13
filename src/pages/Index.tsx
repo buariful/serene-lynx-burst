@@ -1,17 +1,22 @@
-// Update this page (the content is just a fallback if you fail to update the page)
-
+import Header from '@/components/Header';
+import HeroSection from '@/components/HeroSection';
+import HospitalsGrid from '@/components/HospitalsGrid';
+import ShareButtons from '@/components/ShareButtons';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">
-          Start building your amazing project here!
-        </p>
-      </div>
-      <MadeWithDyad />
+    <div className="flex flex-col min-h-screen bg-white">
+      <Header />
+      <ShareButtons />
+      <main className="flex-grow">
+        <HeroSection />
+        <HospitalsGrid />
+      </main>
+      <footer className="bg-gray-100 p-4 text-center">
+        <p className="text-sm text-gray-600">&copy; {new Date().getFullYear()} MEDS Housing. All rights reserved.</p>
+        <MadeWithDyad />
+      </footer>
     </div>
   );
 };
