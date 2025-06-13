@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Logo = () => {
   return (
-    <div className="flex flex-col items-start">
-      <h1 className="text-2xl font-bold text-blue-600">MEDS Housing</h1>
-      <p className="text-xs text-gray-500">Global housing for the medical community</p>
-    </div>
+    <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700">
+      Rentals.ca
+    </Link>
   );
 };
 
