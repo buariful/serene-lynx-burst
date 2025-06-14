@@ -7,8 +7,7 @@ import SearchResultPropertyCard from '@/components/SearchResultPropertyCard';
 import { Property } from '@/types/property';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 
-// Sample data - replace with actual data fetching
-// Added more diverse coordinates for Toronto
+// Sample data
 const sampleProperties: Property[] = [
   { id: '101', imageUrl: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=300&auto=format&fit=crop', address: '1944 Yonge Street, Davisville, Toronto', beds: 1, baths: 1, price: 2200, currency: 'CAD', amenities: ['Elevator', 'Laundry', 'Parking'], lat: 43.6977, lng: -79.3973 },
   { id: '102', imageUrl: 'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=300&auto=format&fit=crop', address: '700 King Street West, Fashion District, Toronto', beds: 2, baths: 2, price: 3500, currency: 'CAD', amenities: ['Gym', 'Pool', 'Concierge'], lat: 43.6445, lng: -79.4015 },
@@ -23,60 +22,42 @@ const SearchResultsPage = () => {
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [properties, setProperties] = useState<Property[]>(sampleProperties);
-  const [highlightedCardId, setHighlightedCardId] = useState<string | null>(null);
+  // Removed highlightedCardId state
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
     if (location.state && location.state.searchTerm) {
       setSearchTerm(location.state.searchTerm);
-      // TODO: Fetch properties based on searchTerm
       console.log("Search term received:", location.state.searchTerm);
     }
   }, [location.state]);
 
-  const handleMarkerClick = (id: string) => {
-    console.log("Marker clicked, scrolling to card:", id);
-    setHighlightedCardId(id);
+  const handleMapMarkerClick = (id: string) => {
+    console.log("Map marker clicked:", id);
+    // Basic scroll to card, no complex state update for highlighting
     const cardElement = cardRefs.current[id];
     if (cardElement) {
       cardElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-    // Optionally remove highlight after a delay
-    setTimeout(() => {
-        if (highlightedCardId === id) setHighlightedCardId(null);
-    }, 3000);
-  };
-
-  const handleCardHover = (id: string | null) => {
-    // For future use: could highlight map marker on card hover
-    // console.log("Card hover:", id);
-  };
-  
-  const handleCardClick = (id: string) => {
-    // For future use: could focus map on card click
-    console.log("Card clicked:", id);
-    setHighlightedCardId(id); // Highlight card on click as well
   };
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow flex flex-col md:flex-row" style={{ '--header-height': '68px' } as React.CSSProperties}>
-        {/* Left Column (60% width): Interactive map */}
         <div className="w-full md:w-3/5 h-[50vh] md:h-auto md:sticky md:top-[var(--header-height)] md:max-h-[calc(100vh-var(--header-height))]">
           <InteractiveMap 
             properties={properties} 
-            onMarkerClick={handleMarkerClick}
-            highlightedPropertyId={highlightedCardId} // Pass for potential marker highlighting
+            onMarkerClick={handleMapMarkerClick} // Simplified click handler
+            // highlightedPropertyId prop removed
           />
         </div>
 
-        {/* Right Column (40% width): Scrollable list of property cards */}
         <div className="w-full md:w-2/5 p-4 md:overflow-y-auto md:max-h-[calc(100vh-var(--header-height))]">
           <h1 className="text-2xl font-bold mb-4">
             Search Results {searchTerm ? `for "${searchTerm}"` : ''}
           </h1>
-          <div className="grid grid-cols-1 gap-4"> {/* Changed to single column */}
+          <div className="grid grid-cols-1 gap-4">
             {properties.map((property) => (
               <div 
                 key={property.id} 
@@ -85,9 +66,7 @@ const SearchResultsPage = () => {
               >
                 <SearchResultPropertyCard 
                   property={property} 
-                  onHover={handleCardHover}
-                  onClick={() => handleCardClick(property.id)}
-                  isHighlighted={highlightedCardId === property.id}
+                  // onHover, onClick, and isHighlighted props removed
                 />
               </div>
             ))}

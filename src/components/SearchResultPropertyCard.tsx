@@ -5,9 +5,9 @@ import { BedDouble, Bath, ParkingCircle, Building, WashingMachine } from 'lucide
 
 interface SearchResultPropertyCardProps {
   property: Property;
-  onHover?: (id: string | null) => void;
-  onClick?: (id: string) => void;
-  isHighlighted?: boolean;
+  // onHover?: (id: string | null) => void; // Removed
+  // onClick?: (id: string) => void; // Removed
+  // isHighlighted?: boolean; // Removed
 }
 
 const amenityIcons: { [key: string]: React.ElementType } = {
@@ -16,20 +16,18 @@ const amenityIcons: { [key: string]: React.ElementType } = {
   Parking: ParkingCircle,
 };
 
-const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ property, onHover, onClick, isHighlighted }) => {
+const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ property }) => {
   return (
     <div 
-      className={`bg-white rounded-lg shadow-md overflow-hidden flex border border-gray-200 hover:shadow-lg transition-all duration-200 cursor-pointer ${isHighlighted ? 'ring-2 ring-blue-600 shadow-xl' : ''}`}
-      onMouseEnter={() => onHover && onHover(property.id)}
-      onMouseLeave={() => onHover && onHover(null)}
-      onClick={() => onClick && onClick(property.id)} // Card click can also trigger map focus or other actions
+      className={`bg-white rounded-lg shadow-md overflow-hidden flex border border-gray-200 hover:shadow-lg transition-all duration-200 cursor-pointer`}
+      // onMouseEnter, onMouseLeave, onClick related to map interaction removed
     >
       {/* Left Column (40%): Image */}
       <div className="w-2/5 flex-shrink-0">
         <img 
           src={property.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'} 
           alt={property.address} 
-          className="w-full h-40 object-cover" // Fixed height for image
+          className="w-full h-40 object-cover"
         />
       </div>
 
@@ -58,7 +56,6 @@ const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ pro
           )}
         </div>
         
-        {/* Price and Button Section */}
         <div className="mt-auto">
             <p className="text-sm font-bold text-blue-600 mb-2">
             ${property.price.toLocaleString()} {property.currency}/month
@@ -71,6 +68,7 @@ const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ pro
                 onClick={(e) => {
                     e.stopPropagation(); 
                     console.log("Check availability for:", property.id);
+                    // This button's functionality is independent of map highlighting
                 }}
                 >
                 Check Availability

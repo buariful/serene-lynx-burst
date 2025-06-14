@@ -15,17 +15,17 @@ L.Icon.Default.mergeOptions({
 interface InteractiveMapProps {
   properties: Property[];
   onMarkerClick: (id: string) => void;
-  highlightedPropertyId?: string | null;
+  // highlightedPropertyId prop removed
 }
 
 const MarkersComponent: React.FC<{ 
   properties: Property[]; 
   onMarkerClick: (id: string) => void;
-  highlightedPropertyId?: string | null;
-}> = ({ properties, onMarkerClick, highlightedPropertyId }) => {
+  // highlightedPropertyId prop removed
+}> = ({ properties, onMarkerClick }) => {
   const map = useMap();
   const markerClusterGroupRef = useRef<L.MarkerClusterGroup | null>(null);
-  const markersRef = useRef<{ [key: string]: L.Marker }>({});
+  // markersRef is no longer needed as we don't interact with specific markers based on highlight
   const isMountedRef = useRef(true);
 
   useEffect(() => {
@@ -50,7 +50,6 @@ const MarkersComponent: React.FC<{
     
     const mcg = markerClusterGroupRef.current;
     mcg.clearLayers();
-    markersRef.current = {}; 
 
     properties.forEach(property => {
       if (property.lat && property.lng) {
@@ -58,17 +57,17 @@ const MarkersComponent: React.FC<{
         marker.bindPopup(`<b>${property.address}</b><br>$${property.price.toLocaleString()} ${property.currency}/month`);
         marker.on('click', (e) => {
           if (isMountedRef.current) {
-            onMarkerClick(property.id);
+            onMarkerClick(property.id); // This now just logs and scrolls in parent
           }
           L.DomEvent.stopPropagation(e);
         });
         mcg.addLayer(marker);
-        markersRef.current[property.id] = marker;
       }
     });
 
   }, [properties, map, onMarkerClick]);
 
+  // Cleanup effect for marker cluster group
   useEffect(() => {
     const mcg = markerClusterGroupRef.current;
     return () => {
@@ -80,37 +79,12 @@ const MarkersComponent: React.FC<{
     };
   }, [map]);
 
-  useEffect(() => {
-    if (!isMountedRef.current || !map || !map.getContainer()) {
-      return;
-    }
-
-    if (highlightedPropertyId && markersRef.current[highlightedPropertyId]) {
-      const marker = markersRef.current[highlightedPropertyId];
-      const mcg = markerClusterGroupRef.current;
-
-      if (mcg && mcg.hasLayer(marker)) { // Check if marker is part of the cluster group
-        // If marker is in a cluster, zoomToShowLayer is needed.
-        // For simplicity now, we'll just try to open popup.
-        // This might not work if the marker is hidden in a cluster.
-        // A more robust solution would re-introduce zoomToShowLayer with careful checks.
-        marker.openPopup();
-        if (!map.getBounds().contains(marker.getLatLng())) {
-          map.panTo(marker.getLatLng());
-        }
-      } else if (map.hasLayer(marker)) { // If marker is directly on map (not in cluster or cluster disabled)
-         marker.openPopup();
-         if (!map.getBounds().contains(marker.getLatLng())) {
-          map.panTo(marker.getLatLng());
-        }
-      }
-    }
-  }, [highlightedPropertyId, map]);
+  // useEffect for highlightedPropertyId has been removed.
 
   return null;
 };
 
-const InteractiveMap: React.FC<InteractiveMapProps> = ({ properties, onMarkerClick, highlightedPropertyId }) => {
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ properties, onMarkerClick }) => {
   const defaultPosition: L.LatLngExpression = [43.6532, -79.3832]; // Toronto
 
   return (
@@ -127,8 +101,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ properties, onMarkerCli
       />
       <MarkersComponent 
         properties={properties} 
-        onMarkerClick={onMarkerClick} 
-        highlightedPropertyId={highlightedPropertyId} 
+        onMarkerClick={onMarkerClick}
       />
     </MapContainer>
   );
