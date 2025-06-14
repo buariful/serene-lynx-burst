@@ -4,7 +4,7 @@ import 'leaflet.markercluster';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import { Property } from '@/types/property';
 
-// Fix leaflet's default icon path issue often seen with bundlers like Vite
+// Fix leaflet's default icon path issue
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -15,22 +15,27 @@ L.Icon.Default.mergeOptions({
 interface InteractiveMapProps {
   properties: Property[];
   onMarkerClick: (id: string) => void;
-  highlightedPropertyId?: string | null; // Optional: for future use if card hover highlights marker
+  highlightedPropertyId?: string | null;
 }
 
-const MarkersComponent: React.FC<{ properties: Property[]; onMarkerClick: (id: string) => void }> = ({ properties, onMarkerClick }) => {
+const MarkersComponent: React.FC<{ 
+  properties: Property[]; 
+  onMarkerClick: (id: string) => void;
+  highlightedPropertyId?: string | null;
+}> = ({ properties, onMarkerClick, highlightedPropertyId }) => {
   const map = useMap();
   const markerClusterGroupRef = useRef<L.MarkerClusterGroup | null>(null);
+  const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
   useEffect(() => {
-    // Initialize marker cluster group
     if (!markerClusterGroupRef.current) {
       markerClusterGroupRef.current = L.markerClusterGroup();
       map.addLayer(markerClusterGroupRef.current);
     }
     
     const mcg = markerClusterGroupRef.current;
-    mcg.clearLayers(); // Clear existing markers before adding new ones
+    mcg.clearLayers();
+    markersRef.current = {}; // Clear old marker references
 
     properties.forEach(property => {
       if (property.lat && property.lng) {
@@ -38,24 +43,40 @@ const MarkersComponent: React.FC<{ properties: Property[]; onMarkerClick: (id: s
         marker.bindPopup(`<b>${property.address}</b><br>$${property.price.toLocaleString()} ${property.currency}/month`);
         marker.on('click', (e) => {
           onMarkerClick(property.id);
-          L.DomEvent.stopPropagation(e); // Prevent map click event
+          L.DomEvent.stopPropagation(e);
         });
         mcg.addLayer(marker);
+        markersRef.current[property.id] = marker; // Store marker reference
       }
     });
 
-    // Note: We don't remove the cluster group on cleanup if map persists,
-    // only clear its layers. If map itself is unmounted, it's handled.
-
   }, [properties, map, onMarkerClick]);
 
-  return null; // Markers are added directly to the map instance via the effect
+  useEffect(() => {
+    if (highlightedPropertyId && markersRef.current[highlightedPropertyId]) {
+      const marker = markersRef.current[highlightedPropertyId];
+      if (markerClusterGroupRef.current) {
+        // Ensure the marker is visible (zooms in if it's in a cluster)
+        // and then open the popup.
+        markerClusterGroupRef.current.zoomToShowLayer(marker, () => {
+          marker.openPopup();
+          // Pan to the marker if it's not fully visible after zoom/popup
+          if (!map.getBounds().contains(marker.getLatLng())) {
+            map.panTo(marker.getLatLng());
+          }
+        });
+      }
+    } else {
+      // Optionally close all popups if no property is highlighted
+      // map.closePopup(); 
+    }
+  }, [highlightedPropertyId, map]);
+
+  return null;
 };
 
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ properties, onMarkerClick, highlightedPropertyId }) => {
-  const defaultPosition: L.LatLngExpression = [43.6532, -79.3832]; // Toronto coordinates
-
-  // TODO: Implement logic to highlight a specific marker based on highlightedPropertyId if needed
+  const defaultPosition: L.LatLngExpression = [43.6532, -79.3832]; // Toronto
 
   return (
     <MapContainer 
@@ -69,7 +90,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ properties, onMarkerCli
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MarkersComponent properties={properties} onMarkerClick={onMarkerClick} />
+      <MarkersComponent 
+        properties={properties} 
+        onMarkerClick={onMarkerClick} 
+        highlightedPropertyId={highlightedPropertyId} 
+      />
     </MapContainer>
   );
 };
