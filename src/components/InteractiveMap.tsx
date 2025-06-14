@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import 'leaflet.markercluster';
+// import 'leaflet.markercluster'; // Temporarily removed
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import { Property } from '@/types/property';
 
@@ -15,17 +15,14 @@ L.Icon.Default.mergeOptions({
 interface InteractiveMapProps {
   properties: Property[];
   onMarkerClick: (id: string) => void;
-  // highlightedPropertyId prop removed
 }
 
 const MarkersComponent: React.FC<{ 
   properties: Property[]; 
   onMarkerClick: (id: string) => void;
-  // highlightedPropertyId prop removed
 }> = ({ properties, onMarkerClick }) => {
   const map = useMap();
-  const markerClusterGroupRef = useRef<L.MarkerClusterGroup | null>(null);
-  // markersRef is no longer needed as we don't interact with specific markers based on highlight
+  const layerGroupRef = useRef<L.LayerGroup | null>(null); // Using a simple LayerGroup for markers
   const isMountedRef = useRef(true);
 
   useEffect(() => {
@@ -38,18 +35,14 @@ const MarkersComponent: React.FC<{
   useEffect(() => {
     if (!map) return;
 
-    if (typeof L.markerClusterGroup !== 'function') {
-      console.error("L.markerClusterGroup is not a function. Check leaflet.markercluster import.");
-      return;
-    }
-
-    if (!markerClusterGroupRef.current) {
-      markerClusterGroupRef.current = L.markerClusterGroup();
-      map.addLayer(markerClusterGroupRef.current);
+    // Initialize a LayerGroup if it doesn't exist and add to map
+    if (!layerGroupRef.current) {
+      layerGroupRef.current = L.layerGroup();
+      map.addLayer(layerGroupRef.current);
     }
     
-    const mcg = markerClusterGroupRef.current;
-    mcg.clearLayers();
+    const lg = layerGroupRef.current;
+    lg.clearLayers(); // Clear previous markers
 
     properties.forEach(property => {
       if (property.lat && property.lng) {
@@ -57,29 +50,27 @@ const MarkersComponent: React.FC<{
         marker.bindPopup(`<b>${property.address}</b><br>$${property.price.toLocaleString()} ${property.currency}/month`);
         marker.on('click', (e) => {
           if (isMountedRef.current) {
-            onMarkerClick(property.id); // This now just logs and scrolls in parent
+            onMarkerClick(property.id);
           }
           L.DomEvent.stopPropagation(e);
         });
-        mcg.addLayer(marker);
+        lg.addLayer(marker); // Add marker to the LayerGroup
       }
     });
 
   }, [properties, map, onMarkerClick]);
 
-  // Cleanup effect for marker cluster group
+  // Cleanup effect for the LayerGroup
   useEffect(() => {
-    const mcg = markerClusterGroupRef.current;
+    const lg = layerGroupRef.current;
     return () => {
-      if (mcg && map && map.hasLayer(mcg)) {
-        map.removeLayer(mcg);
-        markerClusterGroupRef.current = null;
-        console.log("MarkerClusterGroup removed from map on unmount");
+      if (lg && map && map.hasLayer(lg)) {
+        map.removeLayer(lg);
+        layerGroupRef.current = null;
+        console.log("Marker LayerGroup removed from map on unmount");
       }
     };
   }, [map]);
-
-  // useEffect for highlightedPropertyId has been removed.
 
   return null;
 };
