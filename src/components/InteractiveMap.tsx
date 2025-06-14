@@ -26,6 +26,14 @@ const MarkersComponent: React.FC<{
   const map = useMap();
   const markerClusterGroupRef = useRef<L.MarkerClusterGroup | null>(null);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
+  const isMountedRef = useRef(true); // Ref to track mounted state
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false; // Set to false on unmount
+    };
+  }, []);
 
   useEffect(() => {
     if (!map) return;
@@ -49,7 +57,9 @@ const MarkersComponent: React.FC<{
         const marker = L.marker([property.lat, property.lng]);
         marker.bindPopup(`<b>${property.address}</b><br>$${property.price.toLocaleString()} ${property.currency}/month`);
         marker.on('click', (e) => {
-          onMarkerClick(property.id);
+          if (isMountedRef.current) { // Check if component is still mounted
+            onMarkerClick(property.id);
+          }
           L.DomEvent.stopPropagation(e);
         });
         mcg.addLayer(marker);
@@ -57,14 +67,28 @@ const MarkersComponent: React.FC<{
       }
     });
 
+    // Cleanup function for this effect
     return () => {
-      if (markerClusterGroupRef.current && map && map.hasLayer(markerClusterGroupRef.current)) {
-        // map.removeLayer(markerClusterGroupRef.current); // Let's not remove the whole group on property changes, only clear layers.
-                                                        // The group itself persists with the map instance.
+      if (mcg && map && map.hasLayer(mcg)) {
+        // mcg.clearLayers(); // Clearing layers is done at the start of the effect
       }
     };
 
   }, [properties, map, onMarkerClick]);
+
+
+  // Effect for component unmount cleanup of the marker cluster group
+  useEffect(() => {
+    const mcg = markerClusterGroupRef.current;
+    return () => {
+      if (mcg && map && map.hasLayer(mcg)) {
+        map.removeLayer(mcg);
+        markerClusterGroupRef.current = null; // Clear the ref
+        console.log("MarkerClusterGroup removed from map on unmount");
+      }
+    };
+  }, [map]);
+
 
   useEffect(() => {
     if (highlightedPropertyId && markersRef.current[highlightedPropertyId] && markerClusterGroupRef.current && map) {
@@ -72,19 +96,18 @@ const MarkersComponent: React.FC<{
       const mcg = markerClusterGroupRef.current;
       
       try {
-        // Check if map is still valid before calling operations on it
-        if (!map.getContainer()) {
-          console.warn("Map container not found, skipping marker highlight effect.");
+        if (!map.getContainer() || !isMountedRef.current) {
+          console.warn("Map container not found or component unmounted, skipping marker highlight effect.");
           return;
         }
 
         mcg.zoomToShowLayer(marker, () => {
-          // Re-check conditions inside the async callback
-          if (map && map.getContainer() && markersRef.current[highlightedPropertyId] === marker) {
-            if (map.hasLayer(marker)) { // Ensure marker is actually on map (not removed by another process)
+          if (!isMountedRef.current || !map.getContainer()) return; // Check again in async callback
+
+          if (markersRef.current[highlightedPropertyId] === marker) {
+            if (map.hasLayer(marker)) {
                marker.openPopup();
             }
-            // Pan to the marker if it's not fully visible after zoom/popup
             if (!map.getBounds().contains(marker.getLatLng())) {
               map.panTo(marker.getLatLng());
             }
@@ -109,6 +132,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ properties, onMarkerCli
         scrollWheelZoom={true} 
         style={{ height: '100%', width: '100%', border: 'none', outline: 'none' }}
         className="interactive-map-container"
+        // key={properties.map(p => p.id).join('-')} // Adding a key might force re-mount, could be a temporary test if issues persist
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
