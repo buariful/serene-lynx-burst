@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, ChevronDown, UserCircle, Bell, Globe } from 'lucide-react';
+import { Menu, ChevronDown, UserCircle, Bell, Globe } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Accordion,
@@ -20,51 +18,27 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// Updated main navigation links for desktop
 const navLinks = [
+  { href: '/medical-schools', label: 'Medical School' },
+  { href: '/hospitals', label: 'Hospital' },
   { href: '/landlords', label: 'Landlords' },
-  { href: '/rent-report', label: 'RentReport' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact Us' },
 ];
 
-const drawerSections = [
-  {
-    title: "Tenant Services",
-    items: [
-      { label: "Tenant Insurance", href: "/tenant-insurance" },
-      { label: "Search Near Me", href: "/search-near-me" },
-      { label: "Search by Map", href: "/search-by-map" },
-    ],
-  },
-  {
-    title: "Landlord Tools",
-    items: [
-      { label: "Post a Rental", href: "/post-rental" },
-      { label: "Verify Identity", href: "/verify-identity" },
-      { label: "Pricing", href: "/pricing" },
-    ],
-  },
-  {
-    title: "Company",
-    items: [
-      { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Contact Us", href: "/contact" },
-    ],
-  },
-  {
-    title: "Legal",
-    items: [
-      { label: "Terms & Conditions", href: "/terms" },
-      { label: "Privacy Policy", href: "/privacy" },
-    ],
-  },
-  {
-    title: "Niche",
-    items: [
-      { label: "Medical Rentals", href: "/medical-rentals" },
-      { label: "Job Board", href: "/job-board" },
-    ],
-  },
+// Updated items for the mobile drawer menu
+const drawerMenuItems = [
+  { label: "Tenant Insurance", href: "/tenant-insurance" },
+  { label: "Landlord Verify Identity", href: "/verify-identity" },
+  { label: "About", href: "/about" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Blog", href: "/blog" },
+  { label: "Job Board", href: "/job-board" },
+  { label: "Medical Rentals", href: "/medical-rentals" },
+  { label: "Search Near Me", href: "/search-near-me" },
+  { label: "Search by Map", href: "/search-by-map" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];
 
 const Header = () => {
@@ -132,7 +106,7 @@ const Header = () => {
             {/* Mobile Menu Trigger (Drawer) */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="h-9 w-9">
+                <Button variant="outline" size="icon" className="md:hidden h-9 w-9"> {/* Hide on md and up */}
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -144,31 +118,29 @@ const Header = () => {
                 </SheetHeader>
                 <div className="flex-grow overflow-y-auto p-4">
                   <Accordion type="multiple" className="w-full">
-                    {drawerSections.map((section) => (
-                      <AccordionItem value={section.title} key={section.title}>
-                        <AccordionTrigger className="text-base font-semibold hover:no-underline">
-                          {section.title}
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <nav className="flex flex-col space-y-1 pl-2">
-                            {section.items.map((item) => (
-                              <Link
-                                key={item.href}
-                                to={item.href}
-                                className="text-gray-700 hover:text-blue-600 py-1.5 text-sm rounded-md hover:bg-gray-100"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                {item.label}
-                              </Link>
-                            ))}
-                          </nav>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
+                    <AccordionItem value="main-menu">
+                      <AccordionTrigger className="text-base font-semibold hover:no-underline">
+                        Menu
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <nav className="flex flex-col space-y-1 pl-2">
+                          {drawerMenuItems.map((item) => (
+                            <Link
+                              key={item.href}
+                              to={item.href}
+                              className="text-gray-700 hover:text-blue-600 py-1.5 text-sm rounded-md hover:bg-gray-100"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </nav>
+                      </AccordionContent>
+                    </AccordionItem>
                   </Accordion>
                   
-                  {/* Mobile specific auth buttons if not logged in */}
-                  <div className="md:hidden mt-6 space-y-2 border-t pt-4">
+                  {/* Mobile specific auth buttons and actions */}
+                  <div className="mt-6 space-y-2 border-t pt-4">
                      <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="outline" className="w-full justify-start text-sm">
