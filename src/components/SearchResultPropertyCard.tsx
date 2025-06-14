@@ -1,34 +1,35 @@
 import React from 'react';
 import { Property } from '@/types/property';
 import { Button } from '@/components/ui/button';
-import { BedDouble, Bath, ParkingCircle, Building, WashingMachine } from 'lucide-react'; // Changed Elevator to Building
+import { BedDouble, Bath, ParkingCircle, Building, WashingMachine } from 'lucide-react';
 
 interface SearchResultPropertyCardProps {
   property: Property;
-  onHover?: (id: string | null) => void; // For map interaction
-  onClick?: (id: string) => void; // For map interaction
+  onHover?: (id: string | null) => void;
+  onClick?: (id: string) => void;
+  isHighlighted?: boolean;
 }
 
 const amenityIcons: { [key: string]: React.ElementType } = {
-  Elevator: Building, // Using Building icon for Elevator
+  Elevator: Building,
   Laundry: WashingMachine,
   Parking: ParkingCircle,
 };
 
-const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ property, onHover, onClick }) => {
+const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ property, onHover, onClick, isHighlighted }) => {
   return (
     <div 
-      className="bg-white rounded-lg shadow-md overflow-hidden flex border border-gray-200 hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+      className={`bg-white rounded-lg shadow-md overflow-hidden flex border border-gray-200 hover:shadow-lg transition-all duration-200 cursor-pointer ${isHighlighted ? 'ring-2 ring-blue-600 shadow-xl' : ''}`}
       onMouseEnter={() => onHover && onHover(property.id)}
       onMouseLeave={() => onHover && onHover(null)}
-      onClick={() => onClick && onClick(property.id)}
+      onClick={() => onClick && onClick(property.id)} // Card click can also trigger map focus or other actions
     >
       {/* Left Column (40%): Image */}
       <div className="w-2/5 flex-shrink-0">
         <img 
           src={property.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'} 
           alt={property.address} 
-          className="w-full h-full object-cover" 
+          className="w-full h-40 object-cover" // Fixed height for image
         />
       </div>
 
@@ -56,20 +57,26 @@ const SearchResultPropertyCard: React.FC<SearchResultPropertyCardProps> = ({ pro
             </div>
           )}
         </div>
-        <p className="text-sm font-bold text-blue-600 mb-2">
-          ${property.price.toLocaleString()} {property.currency}/month
-        </p>
-        <Button 
-          variant="primary" 
-          size="sm" 
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs h-8"
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent card click if button is clicked
-            console.log("Check availability for:", property.id);
-          }}
-        >
-          Check Availability
-        </Button>
+        
+        {/* Price and Button Section */}
+        <div className="mt-auto">
+            <p className="text-sm font-bold text-blue-600 mb-2">
+            ${property.price.toLocaleString()} {property.currency}/month
+            </p>
+            <div className="flex justify-end">
+                <Button 
+                variant="primary" 
+                size="sm" 
+                className="bg-blue-600 hover:bg-blue-700 text-white text-xs h-8 font-bold"
+                onClick={(e) => {
+                    e.stopPropagation(); 
+                    console.log("Check availability for:", property.id);
+                }}
+                >
+                Check Availability
+                </Button>
+            </div>
+        </div>
       </div>
     </div>
   );

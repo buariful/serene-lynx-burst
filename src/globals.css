@@ -99,3 +99,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Leaflet Marker Cluster Styles */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: hsla(var(--primary) / 0.6) !important;
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: hsla(var(--primary) / 0.8) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
