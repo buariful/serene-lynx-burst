@@ -28,6 +28,13 @@ const MarkersComponent: React.FC<{
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
   useEffect(() => {
+    if (!map) return;
+
+    if (typeof L.markerClusterGroup !== 'function') {
+      console.error("L.markerClusterGroup is not a function. Check leaflet.markercluster import.");
+      return;
+    }
+
     if (!markerClusterGroupRef.current) {
       markerClusterGroupRef.current = L.markerClusterGroup();
       map.addLayer(markerClusterGroupRef.current);
@@ -35,7 +42,7 @@ const MarkersComponent: React.FC<{
     
     const mcg = markerClusterGroupRef.current;
     mcg.clearLayers();
-    markersRef.current = {}; // Clear old marker references
+    markersRef.current = {}; 
 
     properties.forEach(property => {
       if (property.lat && property.lng) {
@@ -46,29 +53,46 @@ const MarkersComponent: React.FC<{
           L.DomEvent.stopPropagation(e);
         });
         mcg.addLayer(marker);
-        markersRef.current[property.id] = marker; // Store marker reference
+        markersRef.current[property.id] = marker;
       }
     });
+
+    return () => {
+      if (markerClusterGroupRef.current && map && map.hasLayer(markerClusterGroupRef.current)) {
+        // map.removeLayer(markerClusterGroupRef.current); // Let's not remove the whole group on property changes, only clear layers.
+                                                        // The group itself persists with the map instance.
+      }
+    };
 
   }, [properties, map, onMarkerClick]);
 
   useEffect(() => {
-    if (highlightedPropertyId && markersRef.current[highlightedPropertyId]) {
+    if (highlightedPropertyId && markersRef.current[highlightedPropertyId] && markerClusterGroupRef.current && map) {
       const marker = markersRef.current[highlightedPropertyId];
-      if (markerClusterGroupRef.current) {
-        // Ensure the marker is visible (zooms in if it's in a cluster)
-        // and then open the popup.
-        markerClusterGroupRef.current.zoomToShowLayer(marker, () => {
-          marker.openPopup();
-          // Pan to the marker if it's not fully visible after zoom/popup
-          if (!map.getBounds().contains(marker.getLatLng())) {
-            map.panTo(marker.getLatLng());
+      const mcg = markerClusterGroupRef.current;
+      
+      try {
+        // Check if map is still valid before calling operations on it
+        if (!map.getContainer()) {
+          console.warn("Map container not found, skipping marker highlight effect.");
+          return;
+        }
+
+        mcg.zoomToShowLayer(marker, () => {
+          // Re-check conditions inside the async callback
+          if (map && map.getContainer() && markersRef.current[highlightedPropertyId] === marker) {
+            if (map.hasLayer(marker)) { // Ensure marker is actually on map (not removed by another process)
+               marker.openPopup();
+            }
+            // Pan to the marker if it's not fully visible after zoom/popup
+            if (!map.getBounds().contains(marker.getLatLng())) {
+              map.panTo(marker.getLatLng());
+            }
           }
         });
+      } catch (e) {
+        console.error("Error during zoomToShowLayer or its callback:", e);
       }
-    } else {
-      // Optionally close all popups if no property is highlighted
-      // map.closePopup(); 
     }
   }, [highlightedPropertyId, map]);
 
