@@ -7,6 +7,9 @@ export interface Property {
   price: number;
   currency: string;
   city?: string; // Optional, for dynamic sections
+  amenities?: string[]; // New field for amenities
+  lat?: number; // Optional: latitude for map markers
+  lng?: number; // Optional: longitude for map markers
 }
 
 export interface FAQItem {
