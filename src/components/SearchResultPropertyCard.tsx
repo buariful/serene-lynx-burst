@@ -1,7 +1,7 @@
 import React from 'react';
 import { Property } from '@/types/property';
 import { Button } from '@/components/ui/button';
-import { BedDouble, Bath, ParkingCircle, Elevator, WashingMachine } from 'lucide-react'; // Example icons
+import { BedDouble, Bath, ParkingCircle, Building, WashingMachine } from 'lucide-react'; // Changed Elevator to Building
 
 interface SearchResultPropertyCardProps {
   property: Property;
@@ -10,7 +10,7 @@ interface SearchResultPropertyCardProps {
 }
 
 const amenityIcons: { [key: string]: React.ElementType } = {
-  Elevator: Elevator,
+  Elevator: Building, // Using Building icon for Elevator
   Laundry: WashingMachine,
   Parking: ParkingCircle,
 };
