@@ -23,14 +23,14 @@ const HospitalMegaMenu = () => {
   return (
     <div className="flex flex-col md:flex-row">
       {/* Canada Column */}
-      <div className="w-full md:w-1/2 p-4 md:border-r md:border-gray-700"> {/* Use a darker border for dark mode */}
-        <h3 className="font-semibold text-base mb-2 text-gray-900 dark:text-white">Canada</h3>
-        <ul className="max-h-[300px] md:max-h-[350px] overflow-y-auto pr-2"> {/* Adjusted max-h slightly */}
+      <div className="w-full md:w-1/2 pt-4 px-6 pb-6 md:border-r md:border-slate-700">
+        <h3 className="text-white font-semibold text-lg mb-3 text-center">Canada</h3>
+        <ul className="max-h-[350px] overflow-y-auto space-y-0.5 pr-2">
           {canadianProvincesAndTerritories.map(province => (
             <li key={province}>
               <Link
                 to={`/hospitals/ca/${generateSlug(province)}`}
-                className="block py-0.5 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="block py-1 text-gray-300 hover:text-white text-sm transition-colors duration-150"
               >
                 {province}
               </Link>
@@ -40,14 +40,14 @@ const HospitalMegaMenu = () => {
       </div>
 
       {/* United States Column */}
-      <div className="w-full md:w-1/2 p-4">
-        <h3 className="font-semibold text-base mb-2 text-gray-900 dark:text-white">United States</h3>
-        <ul className="max-h-[300px] md:max-h-[350px] overflow-y-auto pr-2"> {/* Adjusted max-h slightly */}
+      <div className="w-full md:w-1/2 pt-4 px-6 pb-6">
+        <h3 className="text-white font-semibold text-lg mb-3 text-center">United States</h3>
+        <ul className="max-h-[350px] overflow-y-auto space-y-0.5 pr-2">
           {usStatesAndTerritories.map(state => (
             <li key={state}>
               <Link
                 to={`/hospitals/us/${generateSlug(state)}`}
-                className="block py-0.5 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="block py-1 text-gray-300 hover:text-white text-sm transition-colors duration-150"
               >
                 {state}
               </Link>

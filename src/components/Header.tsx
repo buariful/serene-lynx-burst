@@ -76,9 +76,12 @@ const Header = () => {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent 
-                      className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" // Adjusted background and border
+                      className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-lg border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900"
                       sideOffset={8}
                     >
+                      <h2 className="pt-6 pb-4 px-6 text-xl font-semibold text-white text-center border-b border-slate-700">
+                        Search by hospital
+                      </h2>
                       <HospitalMegaMenu />
                     </PopoverContent>
                   </Popover>
