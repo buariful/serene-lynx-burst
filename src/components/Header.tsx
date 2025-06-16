@@ -12,24 +12,34 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Menu, ChevronDown, Globe, Briefcase, Map, Shield, UserCheck, Search, FileText, Lock } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import HospitalMegaMenu from './HospitalMegaMenu';
+import MedicalSchoolMegaMenu from './MedicalSchoolMegaMenu'; // Import the new menu
 
 type NavLinkItem = { type: 'link'; href: string; label: string };
-type MegaMenuItem = { type: 'megaMenu'; id: string; label: string };
+type MegaMenuItem = { type: 'megaMenu'; id: string; label: string; component: React.ElementType };
 
-const desktopNavLinks: (NavLinkItem | MegaMenuItem)[] = [
-  { type: 'link', href: '/medical-schools', label: 'Medical School' },
-  { type: 'megaMenu', id: 'hospitals-mega-menu', label: 'Hospital' },
-  { type: 'link', href: '/landlords', label: 'Landlords' },
-  { type: 'link', href: '/contact-us', label: 'Contact Us' },
+const desktopNavLinks: MegaMenuItem[] = [ // Simplified to always use MegaMenuItem type for consistency
+  { type: 'megaMenu', id: 'medical-schools-mega-menu', label: 'Medical School', component: MedicalSchoolMegaMenu },
+  { type: 'megaMenu', id: 'hospitals-mega-menu', label: 'Hospital', component: HospitalMegaMenu },
+  // Convert other links to a compatible type or handle them differently if they don't use mega menus
+  // For now, let's assume Landlords and Contact Us might become mega menus or simple links.
+  // To keep them as simple links for now, we'd need to adjust the mapping logic or type.
+  // Let's make them simple links for this update.
 ];
+
+// Simple links for items that are not mega menus
+const simpleDesktopNavLinks: NavLinkItem[] = [
+    { type: 'link', href: '/landlords', label: 'Landlords' },
+    { type: 'link', href: '/contact-us', label: 'Contact Us' },
+];
+
 
 const drawerMenuItems = [
   { type: 'button' as const, label: "Post a Rental", action: (navigate: Function, closeMenu: Function) => { navigate('/post-rental'); closeMenu(); } },
   { type: 'button' as const, label: "Login", action: (navigate: Function, closeMenu: Function) => { navigate('/login'); closeMenu(); } },
   { type: 'button' as const, label: "Create Account", action: (navigate: Function, closeMenu: Function) => { navigate('/register'); closeMenu(); } },
   { type: 'separator' as const },
-  { type: 'link' as const, label: 'Medical School', href: '/medical-schools' },
-  { type: 'link' as const, label: 'Hospital', href: '/hospitals' },
+  { type: 'link' as const, label: 'Medical School', href: '/medical-schools' }, // Mobile remains simple link
+  { type: 'link' as const, label: 'Hospital', href: '/hospitals' }, // Mobile remains simple link
   { type: 'link' as const, label: 'Landlords', href: '/landlords' },
   { type: 'link' as const, label: 'Contact Us', href: '/contact-us' },
   { type: 'separator' as const },
@@ -62,42 +72,35 @@ const Header = () => {
           </div>
 
           <nav className="hidden md:flex flex-grow justify-center space-x-6 items-center">
-            {desktopNavLinks.map((link) => {
-              if (link.type === 'megaMenu' && link.id === 'hospitals-mega-menu') {
-                return (
-                  <Popover key={link.id}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium flex items-center px-1"
-                      >
-                        {link.label}
-                        <ChevronDown className="h-4 w-4 ml-1 opacity-75" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent 
-                      className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-md border-gray-700 bg-slate-900" // Using slate-900 for a very dark background, removed light mode bg
-                      sideOffset={8}
-                      align="center" // Try to center the popover under the trigger
-                    >
-                      <HospitalMegaMenu />
-                    </PopoverContent>
-                  </Popover>
-                );
-              }
-              if (link.type === 'link') {
-                return (
-                  <Link
+            {desktopNavLinks.map((item) => (
+              <Popover key={item.id}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium flex items-center px-1"
+                  >
+                    {item.label}
+                    <ChevronDown className="h-4 w-4 ml-1 opacity-75" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent 
+                  className="w-screen max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-0 mt-2 shadow-2xl rounded-md border-gray-700 bg-slate-900"
+                  sideOffset={8}
+                  align="center"
+                >
+                  <item.component />
+                </PopoverContent>
+              </Popover>
+            ))}
+            {simpleDesktopNavLinks.map((link) => (
+                 <Link
                     key={link.href}
                     to={link.href}
                     className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium px-1"
                   >
                     {link.label}
-                  </Link>
-                );
-              }
-              return null;
-            })}
+                </Link>
+            ))}
           </nav>
 
           <div className="flex items-center space-x-2 flex-shrink-0">
