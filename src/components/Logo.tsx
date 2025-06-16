@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Logo = () => {
   return (
-    <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700">
-      Rentals.ca
+    <Link to="/" className="flex items-center">
+      {/* Ensure logo.png is in the public folder */}
+      <img src="/logo.png" alt="Rentals.ca Logo" className="h-8 w-auto" /> {/* Adjust height as needed, h-8 is 32px */}
     </Link>
   );
 };
