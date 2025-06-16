@@ -10,15 +10,15 @@ const cardData = [
     description: 'Explore listings by city, neighborhood, or even near specific medical institutions.',
     link: '/search-results',
     linkText: 'Start Searching',
-    imgSrc: 'https://source.unsplash.com/random/800x600?modern,apartment',
+    // imgSrc removed
   },
   {
     icon: <MapPin className="h-10 w-10 text-green-600 mb-4" />,
     title: 'Browse by Map',
     description: 'Visually find properties in your desired area using our interactive map search.',
-    link: '/search-map', // Assuming a map search page
+    link: '/search-map', 
     linkText: 'View Map',
-    imgSrc: 'https://source.unsplash.com/random/800x600?house,suburban',
+    // imgSrc removed
   },
   {
     icon: <UserPlus className="h-10 w-10 text-purple-600 mb-4" />,
@@ -26,7 +26,7 @@ const cardData = [
     description: 'Reach qualified tenants in the medical community by listing your rental with us.',
     link: '/post-rental',
     linkText: 'Become a Landlord',
-    imgSrc: 'https://source.unsplash.com/random/800x600?city,condo',
+    // imgSrc removed
   },
 ];
 
@@ -49,11 +49,7 @@ const ActionCards = () => {
               key={index}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col transition-all duration-300 hover:shadow-2xl"
             >
-              <img 
-                src={`${card.imgSrc}&sig=${index}`} // Add unique signature to vary images
-                alt={card.title} 
-                className="w-full h-48 object-cover" 
-              />
+              {/* img tag removed */}
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-center mb-3">{card.icon}</div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">
