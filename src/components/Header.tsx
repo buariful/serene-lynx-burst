@@ -8,30 +8,33 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ChevronDown, Globe, Bell } from 'lucide-react'; // Removed UserCircle as it's not used on desktop
+import { Menu, ChevronDown, Globe, Bell } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-// Navbar: Center-aligned navigation links
-const navLinks = [
+// Navbar: Center-aligned navigation links for desktop
+const desktopNavLinks = [
   { href: '/landlords', label: 'Landlords' },
-  { href: '/rent-report', label: 'RentReport' }, // Assuming a page for RentReport
+  { href: '/rent-report', label: 'RentReport' },
   { href: '/blog', label: 'Blog' },
 ];
 
-// Drawer Menu: Vertical list of items
+// Drawer Menu: Comprehensive list of items
+// Includes desktop nav links for mobile view, plus other drawer-specific items
 const drawerMenuItems = [
-  // Actions first, as they are prominent
-  { type: 'button', label: "Post a Rental", action: (navigate: Function, closeMenu: Function) => { navigate('/post-rental'); closeMenu(); } },
-  { type: 'button', label: "Login", action: (navigate: Function, closeMenu: Function) => { navigate('/login'); closeMenu(); } },
-  { type: 'button', label: "Create Account", action: (navigate: Function, closeMenu: Function) => { navigate('/register'); closeMenu(); } },
-  { type: 'separator' },
-  // Navigation links
-  { type: 'link', label: "Alerts", href: "/alerts" },
-  { type: 'link', label: "FAQs", href: "/faq" },
-  { type: 'link', label: "Rent Report", href: "/rent-report" },
-  { type: 'link', label: "Landlords", href: "/landlords" },
-  { type: 'link', label: "About", href: "/about" },
-  { type: 'link', label: "Careers", href: "/careers" },
+  // Actions first
+  { type: 'button' as const, label: "Post a Rental", action: (navigate: Function, closeMenu: Function) => { navigate('/post-rental'); closeMenu(); } },
+  { type: 'button' as const, label: "Login", action: (navigate: Function, closeMenu: Function) => { navigate('/login'); closeMenu(); } },
+  { type: 'button' as const, label: "Create Account", action: (navigate: Function, closeMenu: Function) => { navigate('/register'); closeMenu(); } },
+  { type: 'separator' as const },
+  // Navigation links (including those from desktop nav for mobile)
+  { type: 'link' as const, label: 'Landlords', href: '/landlords' },
+  { type: 'link' as const, label: 'RentReport', href: '/rent-report' },
+  { type: 'link' as const, label: 'Blog', href: '/blog' },
+  { type: 'link' as const, label: "Alerts", href: "/alerts", icon: Bell },
+  { type: 'link' as const, label: "FAQs", href: "/faq" },
+  // Note: 'Rent Report' and 'Landlords' are already covered above from desktopNavLinks
+  { type: 'link' as const, label: "About", href: "/about" },
+  { type: 'link' as const, label: "Careers", href: "/careers" },
 ];
 
 const Header = () => {
@@ -49,9 +52,9 @@ const Header = () => {
             <Logo />
           </div>
 
-          {/* Center: Navigation Links (Desktop) */}
+          {/* Center: Navigation Links (Desktop Only) */}
           <nav className="hidden md:flex flex-grow justify-center space-x-6">
-            {navLinks.map((link) => (
+            {desktopNavLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
@@ -62,8 +65,9 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Right Side: Actions (Desktop) & Mobile Menu Trigger */}
+          {/* Right Side: Actions & Drawer Trigger (All Screens) */}
           <div className="flex items-center space-x-2 flex-shrink-0">
+            {/* Desktop-specific items (language, post rental) */}
             <div className="hidden md:flex items-center space-x-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -83,20 +87,20 @@ const Header = () => {
               >
                 Post a Rental
               </Button>
-              {/* User profile dropdown removed from desktop */}
             </div>
             
-            {/* Mobile Menu Trigger (Drawer) */}
+            {/* Drawer Menu Trigger (Visible on all screens) */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden h-9 w-9">
+                {/* Removed md:hidden to make it visible on all screens */}
+                <Button variant="outline" size="icon" className="h-9 w-9">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[320px] p-0 flex flex-col">
                 <SheetHeader className="p-4 border-b">
                   <SheetTitle>
-                    <Logo /> {/* Or just "Menu" if logo is too much here */}
+                    <Logo />
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex-grow overflow-y-auto p-4">
@@ -106,7 +110,7 @@ const Header = () => {
                         return <hr key={`sep-${index}`} className="my-2"/>;
                       }
                       if (item.type === 'button' && item.action) {
-                        const actionFn = item.action; // Capture for closure
+                        const actionFn = item.action;
                         return (
                           <Button
                             key={item.label}
@@ -114,7 +118,7 @@ const Header = () => {
                             className={`w-full justify-start text-left h-auto py-2.5 ${item.label === "Post a Rental" ? "bg-blue-600 hover:bg-blue-700 text-white" : "text-gray-700 hover:bg-gray-100"}`}
                             onClick={() => actionFn(navigate, closeMobileMenu)}
                           >
-                            {item.label === "Alerts" && <Bell className="h-4 w-4 mr-2" />}
+                            {item.icon && <item.icon className="h-4 w-4 mr-2" />}
                             {item.label}
                           </Button>
                         );
@@ -127,7 +131,7 @@ const Header = () => {
                             className="text-gray-700 hover:text-blue-600 py-2.5 px-3 text-sm rounded-md hover:bg-gray-100 flex items-center"
                             onClick={closeMobileMenu}
                           >
-                            {item.label === "Alerts" && <Bell className="h-4 w-4 mr-2" />}
+                            {item.icon && <item.icon className="h-4 w-4 mr-2" />}
                             {item.label}
                           </Link>
                         );
@@ -136,7 +140,6 @@ const Header = () => {
                     })}
                   </nav>
                   
-                  {/* Language Toggle at the bottom of the drawer */}
                   <div className="mt-auto border-t pt-4">
                      <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -144,7 +147,7 @@ const Header = () => {
                             <Globe className="h-4 w-4 mr-2" /> English <ChevronDown className="h-4 w-4 ml-auto" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent side="top" align="start"> {/* Opens upwards */}
+                        <DropdownMenuContent side="top" align="start">
                           <DropdownMenuItem onSelect={() => { console.log("Lang: EN"); closeMobileMenu(); }}>English</DropdownMenuItem>
                           <DropdownMenuItem onSelect={() => { console.log("Lang: FR"); closeMobileMenu(); }}>Français</DropdownMenuItem>
                         </DropdownMenuContent>
