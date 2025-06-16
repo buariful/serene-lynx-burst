@@ -76,8 +76,9 @@ const Header = () => {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent 
-                      className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" // Adjusted background and border
+                      className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-md border-gray-700 bg-slate-900" // Using slate-900 for a very dark background, removed light mode bg
                       sideOffset={8}
+                      align="center" // Try to center the popover under the trigger
                     >
                       <HospitalMegaMenu />
                     </PopoverContent>
