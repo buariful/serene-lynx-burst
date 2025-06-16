@@ -19,9 +19,9 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { showSuccess, showError } from "@/utils/toast"; // Assuming you have toast utilities
+import { showSuccess, showError } from "@/utils/toast";
 
-type UserRole = "hospital" | "doctor" | "tenant" | "";
+type UserRole = "hospital" | "doctor" | "tenant" | ""; // Roles updated
 
 const RegisterPage = () => {
   const [fullName, setFullName] = useState("");
@@ -43,10 +43,9 @@ const RegisterPage = () => {
     }
     console.log("Registration attempt with:", { fullName, email, password, role });
     // TODO: Implement actual registration logic here
-    // For now, simulate a successful registration and redirect
     showSuccess("Registration successful! Please login.");
     setTimeout(() => {
-      navigate("/login"); // Redirect to login page after registration
+      navigate("/login");
     }, 1500);
   };
 
@@ -112,9 +111,9 @@ const RegisterPage = () => {
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="hospital">Hospital / Institution</SelectItem>
                   <SelectItem value="doctor">Doctor / Medical Professional</SelectItem>
                   <SelectItem value="tenant">Tenant / Renter</SelectItem>
+                  <SelectItem value="hospital">Hospital / Institution</SelectItem>
                 </SelectContent>
               </Select>
             </div>

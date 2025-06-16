@@ -9,29 +9,48 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { showSuccess, showError } from "@/utils/toast"; // Assuming you have toast utilities
+import { showSuccess, showError } from "@/utils/toast";
+
+type UserRole = "doctor" | "tenant" | "hospital" | "";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<UserRole>("");
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Basic validation
-    if (!email || !password) {
-      showError("Please fill in all fields.");
+    if (!email || !password || !role) {
+      showError("Please fill in all fields and select a role.");
       return;
     }
-    console.log("Login attempt with:", { email, password });
-    // TODO: Implement actual login logic here
-    // For now, simulate a successful login and redirect
+    console.log("Login attempt with:", { email, password, role });
+    // TODO: Implement actual login logic here (e.g., API call)
+
     showSuccess("Login successful! Redirecting...");
     setTimeout(() => {
-      navigate("/"); // Redirect to homepage after login
+      if (role === "doctor") {
+        navigate("/doctor/dashboard");
+      } else if (role === "hospital") {
+        // navigate("/hospital/dashboard"); // Future: Hospital dashboard
+        navigate("/");
+      } else if (role === "tenant") {
+        // navigate("/tenant/dashboard"); // Future: Tenant dashboard
+        navigate("/");
+      } else {
+        navigate("/");
+      }
     }, 1500);
   };
 
@@ -41,7 +60,7 @@ const LoginPage = () => {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Login</CardTitle>
           <CardDescription>
-            Welcome back! Please enter your credentials.
+            Welcome back! Please enter your credentials and select your role.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -68,6 +87,19 @@ const LoginPage = () => {
                 required
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="role">Login as</Label>
+              <Select value={role} onValueChange={(value) => setRole(value as UserRole)} required>
+                <SelectTrigger id="role">
+                  <SelectValue placeholder="Select your role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="doctor">Doctor / Medical Professional</SelectItem>
+                  <SelectItem value="tenant">Tenant / Renter</SelectItem>
+                  <SelectItem value="hospital">Hospital / Institution</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
               Login
             </Button>
@@ -75,7 +107,7 @@ const LoginPage = () => {
         </CardContent>
         <CardFooter className="flex flex-col items-center space-y-2">
           <Link
-            to="/forgot-password" // You might want to create this page later
+            to="/forgot-password"
             className="text-sm text-blue-600 hover:underline"
           >
             Forgot Password?
