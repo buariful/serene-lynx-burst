@@ -7,17 +7,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'; // Added Popover
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, ChevronDown, Globe, Briefcase, Map, Shield, UserCheck, Search, FileText, Lock } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import HospitalMegaMenu from './HospitalMegaMenu'; // Import the new mega menu component
+import HospitalMegaMenu from './HospitalMegaMenu';
 
-// Define types for navigation links
 type NavLinkItem = { type: 'link'; href: string; label: string };
 type MegaMenuItem = { type: 'megaMenu'; id: string; label: string };
 
-// Navbar: Center-aligned navigation links for desktop
 const desktopNavLinks: (NavLinkItem | MegaMenuItem)[] = [
   { type: 'link', href: '/medical-schools', label: 'Medical School' },
   { type: 'megaMenu', id: 'hospitals-mega-menu', label: 'Hospital' },
@@ -25,20 +23,16 @@ const desktopNavLinks: (NavLinkItem | MegaMenuItem)[] = [
   { type: 'link', href: '/contact-us', label: 'Contact Us' },
 ];
 
-// Drawer Menu: Comprehensive list of items
 const drawerMenuItems = [
-  // Primary Actions (Buttons)
   { type: 'button' as const, label: "Post a Rental", action: (navigate: Function, closeMenu: Function) => { navigate('/post-rental'); closeMenu(); } },
   { type: 'button' as const, label: "Login", action: (navigate: Function, closeMenu: Function) => { navigate('/login'); closeMenu(); } },
   { type: 'button' as const, label: "Create Account", action: (navigate: Function, closeMenu: Function) => { navigate('/register'); closeMenu(); } },
   { type: 'separator' as const },
-  // Main Navigation Links (also for mobile)
   { type: 'link' as const, label: 'Medical School', href: '/medical-schools' },
-  { type: 'link' as const, label: 'Hospital', href: '/hospitals' }, // Simple link for mobile drawer
+  { type: 'link' as const, label: 'Hospital', href: '/hospitals' },
   { type: 'link' as const, label: 'Landlords', href: '/landlords' },
   { type: 'link' as const, label: 'Contact Us', href: '/contact-us' },
   { type: 'separator' as const },
-  // Other Drawer Links
   { type: 'link' as const, label: 'Tenant Insurance', href: '/tenant-insurance', icon: Shield },
   { type: 'link' as const, label: 'Landlord Verify Identity', href: '/landlord-verify', icon: UserCheck },
   { type: 'link' as const, label: 'About', href: '/about' },
@@ -81,7 +75,10 @@ const Header = () => {
                         <ChevronDown className="h-4 w-4 ml-1 opacity-75" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-lg border dark:border-gray-700" sideOffset={8}>
+                    <PopoverContent 
+                      className="w-screen max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-0 mt-2 shadow-2xl rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" // Adjusted background and border
+                      sideOffset={8}
+                    >
                       <HospitalMegaMenu />
                     </PopoverContent>
                   </Popover>
