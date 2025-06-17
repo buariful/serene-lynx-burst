@@ -23,16 +23,16 @@ const HospitalMegaMenu: React.FC = () => {
       <h2 className="text-xl font-semibold text-white mb-4 text-center md:text-left">
         Search by hospital
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2"> {/* Adjusted gap for list */}
         {canadaHospitals.map((hospital) => (
           <Link
             key={hospital.name}
-            // Updated to use more specific query parameters
             to={`/search-results?category=hospital&name=${encodeURIComponent(hospital.name)}&city=${encodeURIComponent(hospital.location.split(', ')[0])}&province=${encodeURIComponent(hospital.location.split(', ')[1])}`}
-            className="block p-3 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors"
+            className="block py-1 text-gray-300 hover:text-white hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Simplified list item styling
           >
-            <h3 className="font-medium text-white">{hospital.name}</h3>
-            <p className="text-sm text-gray-300">{hospital.location}</p>
+            <h3 className="font-medium text-sm">{hospital.name}</h3> {/* Adjusted text size */}
+            {/* Location can be hidden or kept, let's keep it for now but smaller */}
+            <p className="text-xs text-gray-400">{hospital.location}</p> 
           </Link>
         ))}
       </div>
