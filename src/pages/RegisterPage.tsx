@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { showSuccess, showError } from "@/utils/toast";
 
-type UserRole = "hospital" | "doctor" | "tenant" | ""; // Roles updated
+type UserRole = "landlord" | "tenant" | "hospital" | "recruiter" | "";
 
 const RegisterPage = () => {
   const [fullName, setFullName] = useState("");
@@ -41,7 +41,12 @@ const RegisterPage = () => {
       showError("Passwords do not match.");
       return;
     }
-    console.log("Registration attempt with:", { fullName, email, password, role });
+    console.log("Registration attempt with:", {
+      fullName,
+      email,
+      password,
+      role,
+    });
     // TODO: Implement actual registration logic here
     showSuccess("Registration successful! Please login.");
     setTimeout(() => {
@@ -53,7 +58,9 @@ const RegisterPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Create an Account
+          </CardTitle>
           <CardDescription>
             Join MEDS Housing today! Choose your role to get started.
           </CardDescription>
@@ -106,18 +113,26 @@ const RegisterPage = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">I am a...</Label>
-              <Select value={role} onValueChange={(value) => setRole(value as UserRole)} required>
+              <Select
+                value={role}
+                onValueChange={(value) => setRole(value as UserRole)}
+                required
+              >
                 <SelectTrigger id="role">
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="doctor">Doctor / Medical Professional</SelectItem>
-                  <SelectItem value="tenant">Tenant / Renter</SelectItem>
-                  <SelectItem value="hospital">Hospital / Institution</SelectItem>
+                  <SelectItem value="landlord">Landlord</SelectItem>
+                  <SelectItem value="tenant">Tenant</SelectItem>
+                  <SelectItem value="hospital">Hospital</SelectItem>
+                  <SelectItem value="recruiter">Recruiter</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700"
+            >
               Register
             </Button>
           </form>
@@ -125,7 +140,10 @@ const RegisterPage = () => {
         <CardFooter className="flex flex-col items-center space-y-2">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
-            <Link to="/login" className="font-medium text-blue-600 hover:underline">
+            <Link
+              to="/login"
+              className="font-medium text-blue-600 hover:underline"
+            >
               Login
             </Link>
           </p>

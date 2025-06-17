@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { showSuccess, showError } from "@/utils/toast";
 
-type UserRole = "doctor" | "tenant" | "hospital" | "";
+type UserRole = "landlord" | "tenant" | "hospital" | "recruiter" | "";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -40,14 +40,14 @@ const LoginPage = () => {
 
     showSuccess("Login successful! Redirecting...");
     setTimeout(() => {
-      if (role === "doctor") {
-        navigate("/doctor/dashboard");
+      if (role === "landlord") {
+        navigate("/landlord/dashboard");
       } else if (role === "hospital") {
-        // navigate("/hospital/dashboard"); // Future: Hospital dashboard
-        navigate("/");
+        navigate("/hospital/dashboard");
       } else if (role === "tenant") {
-        // navigate("/tenant/dashboard"); // Future: Tenant dashboard
-        navigate("/");
+        navigate("/tenant/dashboard");
+      } else if (role === "recruiter") {
+        navigate("/recruiter/dashboard");
       } else {
         navigate("/");
       }
@@ -89,18 +89,26 @@ const LoginPage = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">Login as</Label>
-              <Select value={role} onValueChange={(value) => setRole(value as UserRole)} required>
+              <Select
+                value={role}
+                onValueChange={(value) => setRole(value as UserRole)}
+                required
+              >
                 <SelectTrigger id="role">
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="doctor">Doctor / Medical Professional</SelectItem>
-                  <SelectItem value="tenant">Tenant / Renter</SelectItem>
-                  <SelectItem value="hospital">Hospital / Institution</SelectItem>
+                  <SelectItem value="landlord">Landlord</SelectItem>
+                  <SelectItem value="tenant">Tenant</SelectItem>
+                  <SelectItem value="hospital">Hospital</SelectItem>
+                  <SelectItem value="recruiter">Recruiter</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700"
+            >
               Login
             </Button>
           </form>
@@ -114,7 +122,10 @@ const LoginPage = () => {
           </Link>
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{" "}
-            <Link to="/register" className="font-medium text-blue-600 hover:underline">
+            <Link
+              to="/register"
+              className="font-medium text-blue-600 hover:underline"
+            >
               Sign Up
             </Link>
           </p>
