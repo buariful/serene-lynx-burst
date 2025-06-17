@@ -19,18 +19,18 @@ const canadaHospitals = [
 
 const HospitalMegaMenu: React.FC = () => {
   return (
-    <div className="w-3/4 p-4"> {/* Overall padding for the content area, width set to 75% */}
+    <div className="w-full p-4"> {/* Changed back to w-full to fill parent PopoverContent */}
       <h2 className="text-xl font-semibold text-white mb-4 text-center md:text-left">
         Search by hospital
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2"> {/* Adjusted gap for list */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2">
         {canadaHospitals.map((hospital) => (
           <Link
             key={hospital.name}
             to={`/search-results?category=hospital&name=${encodeURIComponent(hospital.name)}&city=${encodeURIComponent(hospital.location.split(', ')[0])}&province=${encodeURIComponent(hospital.location.split(', ')[1])}`}
-            className="block py-1 text-gray-300 hover:text-white hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Simplified list item styling
+            className="block py-1 text-gray-300 hover:text-white hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
-            <h3 className="font-medium text-sm">{hospital.name}</h3> {/* Adjusted text size */}
+            <h3 className="font-medium text-sm">{hospital.name}</h3>
             <p className="text-xs text-gray-400">{hospital.location}</p> 
           </Link>
         ))}
