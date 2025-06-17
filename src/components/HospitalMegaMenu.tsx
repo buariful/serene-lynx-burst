@@ -1,37 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const canadianProvincesAndTerritories = [
-  "Alberta", "British Columbia", "Manitoba", "New Brunswick",
-  "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario",
-  "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"
+const canadaHospitals = [
+  { name: "Toronto General Hospital (University Health Network)", location: "Toronto, ON" },
+  { name: "Mount Sinai Hospital", location: "Toronto, ON" },
+  { name: "Sunnybrook Health Sciences Centre", location: "Toronto, ON" },
+  { name: "The Ottawa Hospital", location: "Ottawa, ON" },
+  { name: "Vancouver General Hospital", location: "Vancouver, BC" },
+  { name: "Royal Victoria Hospital (McGill University Health Centre)", location: "Montreal, QC" },
+  { name: "Jewish General Hospital", location: "Montreal, QC" },
+  { name: "Foothills Medical Centre", location: "Calgary, AB" },
+  { name: "Queen Elizabeth II Health Sciences Centre", location: "Halifax, NS" },
+  { name: "St. Paul's Hospital", location: "Vancouver, BC" },
+  { name: "Hamilton General Hospital", location: "Hamilton, ON" },
+  { name: "London Health Sciences Centre", location: "London, ON" },
+  // Add more Canadian hospitals as needed
 ];
 
-const HospitalMegaMenu = () => {
-  const generateSlug = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
-
+const HospitalMegaMenu: React.FC = () => {
   return (
-    <div className="p-4"> {/* Overall padding for the content area */}
+    <div className="w-full p-4"> {/* Overall padding for the content area, now full-width */}
       <h2 className="text-xl font-semibold text-white mb-4 text-center md:text-left">
         Search by hospital
       </h2>
-      <div className="flex flex-col md:flex-row">
-        {/* Canada Column */}
-        <div className="w-full md:pr-3"> {/* Takes full width now */}
-          <h3 className="font-bold text-white mb-2 text-sm">Canada</h3>
-          <ul className="space-y-0.5 max-h-[280px] md:max-h-[320px] overflow-y-auto pr-1">
-            {canadianProvincesAndTerritories.map(province => (
-              <li key={province}>
-                <Link
-                  to={`/hospitals/ca/${generateSlug(province)}`}
-                  className="block py-1 text-xs text-gray-300 hover:text-white transition-colors"
-                >
-                  {province}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {canadaHospitals.map((hospital) => (
+          <Link
+            key={hospital.name}
+            // Updated to use more specific query parameters
+            to={`/search-results?category=hospital&name=${encodeURIComponent(hospital.name)}&city=${encodeURIComponent(hospital.location.split(', ')[0])}&province=${encodeURIComponent(hospital.location.split(', ')[1])}`}
+            className="block p-3 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors"
+          >
+            <h3 className="font-medium text-white">{hospital.name}</h3>
+            <p className="text-sm text-gray-300">{hospital.location}</p>
+          </Link>
+        ))}
       </div>
     </div>
   );
