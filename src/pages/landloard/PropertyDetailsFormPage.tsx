@@ -35,9 +35,10 @@ import {
   Sofa,
   Clock,
   FileText,
-  ArrowRight, // General & Icons
+  ArrowRight,
+  ArrowLeft, // General & Icons
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
 
 const utilityOptions = [
@@ -90,6 +91,8 @@ const PropertyDetailsFormPage: React.FC = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
     console.log({
       selectedUtilities,
@@ -101,8 +104,7 @@ const PropertyDetailsFormPage: React.FC = () => {
       leaseTerm,
       parkingType,
     });
-    alert("Property details saved (simulation)!");
-    // TODO: Navigate to next step
+    navigate("/landlord/listing-details");
   };
 
   return (
@@ -380,12 +382,13 @@ const PropertyDetailsFormPage: React.FC = () => {
 
           {/* Navigation Button */}
           <div className="flex justify-between items-center pt-4">
-            <Link
-              to={"/landlord/post-rental"}
-              className="text-blue-500 font-medium hover:underline text-base"
+            <Button
+              variant="outline"
+              onClick={() => navigate("/landlord/post-rental")}
+              className="dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
             >
-              Back
-            </Link>
+              <ArrowLeft className="mr-2 h-4 w-4" /> Back
+            </Button>
 
             <Button
               size="lg"
