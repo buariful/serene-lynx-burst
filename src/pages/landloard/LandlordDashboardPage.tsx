@@ -14,12 +14,12 @@ import {
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
 
 const sidebarItems = [
-  { label: "Listings", icon: Building2, active: true },
-  { label: "Notifications", icon: Bell },
-  { label: "Drafts", icon: Pencil },
-  { label: "Alerts", icon: AlertCircle },
-  { label: "Favourites", icon: Heart },
-  { label: "Account", icon: User2 },
+  { label: "Listings", icon: Building2, path: "/landlord/dashboard" },
+  { label: "Notifications", icon: Bell, path: "/landlord/notifications" },
+  { label: "Drafts", icon: Pencil, path: "/landlord/drafts" },
+  { label: "Alerts", icon: AlertCircle, path: "/landlord/alerts" },
+  { label: "Favourites", icon: Heart, path: "/landlord/favourites" },
+  { label: "Account", icon: User2, path: "/landlord/account" },
 ];
 
 const tabs = ["All", "Active", "Pending", "Disabled"];
@@ -100,23 +100,20 @@ export default function LandlordDashboardPage() {
     <LandlordDashboardWrapper>
       <div className="flex min-h-screen">
         {/* Sidebar */}
-        <aside className="w-56 p-6">
+        {/* <aside className="w-56 p-6">
           <nav className="flex flex-col gap-1">
             {sidebarItems.map((item) => (
-              <button
+              <Link
                 key={item.label}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-medium text-base transition ${
-                  item.active
-                    ? "bg-white text-[#2563eb] shadow"
-                    : "text-[#7a9ca5] hover:bg-white/80 hover:text-[#2563eb]"
-                }`}
+                to={item.path}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-medium text-base transition text-[#7a9ca5] hover:bg-white/80 hover:text-[#2563eb]`}
               >
                 <item.icon className="w-4 h-4" />
                 {item.label}
-              </button>
+              </Link>
             ))}
           </nav>
-        </aside>
+        </aside> */}
 
         {/* Main Content */}
         <main className="flex-1 p-8">

@@ -21,6 +21,10 @@ import LandlordPostRentalPage from "./pages/landloard/LandlordPostRental";
 import PropertyDetailsFormPage from "./pages/landloard/PropertyDetailsFormPage";
 import PropertyListingDetailsPage from "./pages/landloard/PropertyListingDetailsPage";
 import ListingSuccessPage from "./pages/landloard/ListingSuccessPage";
+import NotificationsPage from "./pages/landloard/NotificationsPage";
+import DraftsPage from "./pages/landloard/DraftsPage";
+import AlertsPage from "./pages/landloard/AlertsPage";
+import FavouritesPage from "./pages/landloard/FavouritesPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -57,6 +61,10 @@ const App = () => (
 
           <Route path="/landlord">
             <Route path="dashboard" element={<LandlordDashboardPage />} />
+            <Route path="notifications" element={<NotificationsPage />} />
+            <Route path="drafts" element={<DraftsPage />} />
+            <Route path="alerts" element={<AlertsPage />} />
+            <Route path="favourites" element={<FavouritesPage />} />
             <Route path="post-rental" element={<LandlordPostRentalPage />} />
             <Route
               path="property-details"
