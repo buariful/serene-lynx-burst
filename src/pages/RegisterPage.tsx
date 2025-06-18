@@ -50,7 +50,11 @@ const RegisterPage = () => {
     // TODO: Implement actual registration logic here
     showSuccess("Registration successful! Please login.");
     setTimeout(() => {
-      navigate("/login");
+      if (role === "tenant") {
+        navigate("/tenant/dashboard");
+      } else {
+        navigate("/login");
+      }
     }, 1500);
   };
 
