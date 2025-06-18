@@ -16,7 +16,7 @@ import {
   ArrowRight,
   MapPin,
 } from "lucide-react";
-import { Link } from "react-router-dom"; // For potential back navigation or logo link
+import { Link, useNavigate } from "react-router-dom"; // For potential back navigation or logo link
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
 import InteractiveMap from "@/components/InteractiveMap";
 
@@ -58,12 +58,9 @@ const LandlordPostRentalPage: React.FC = () => {
   const handlePropertyTypeSelect = (typeId: string) => {
     setSelectedPropertyType(typeId);
   };
-
+  const navigate = useNavigate();
   const handleNext = () => {
-    console.log("Property Type:", selectedPropertyType);
-    console.log("Address:", address, "Unit:", unit);
-    // TODO: Navigate to the next step of the form
-    alert("Proceeding to next step (simulation)");
+    navigate("/landlord/property-details");
   };
 
   const handleApartmentTypeSelect = (typeId: string) => {
@@ -251,6 +248,7 @@ const LandlordPostRentalPage: React.FC = () => {
               className="bg-green-600 hover:bg-green-700 text-white rounded-md px-6 py-3 text-base"
               onClick={handleNext}
               disabled={!selectedPropertyType || !address} // Example disabled state
+              type="button"
             >
               Next Property Details <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

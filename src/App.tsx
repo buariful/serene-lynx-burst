@@ -18,6 +18,7 @@ import DoctorProfilePage from "./pages/doctor/DoctorProfilePage";
 import DoctorSettingsPage from "./pages/doctor/DoctorSettingsPage";
 import LandlordDashboardPage from "./pages/landloard/LandlordDashboardPage";
 import LandlordPostRentalPage from "./pages/landloard/LandlordPostRental";
+import PropertyDetailsFormPage from "./pages/landloard/PropertyDetailsFormPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -55,6 +56,10 @@ const App = () => (
           <Route path="/landlord">
             <Route path="dashboard" element={<LandlordDashboardPage />} />
             <Route path="post-rental" element={<LandlordPostRentalPage />} />
+            <Route
+              path="property-details"
+              element={<PropertyDetailsFormPage />}
+            />
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
