@@ -28,6 +28,7 @@ import FavouritesPage from "./pages/landloard/FavouritesPage";
 import LandlordAccountSettingsPage from "./pages/landloard/LandlordAccountSettingPage";
 import TenantDashboardPage from "./pages/tenant/TenantDashboardPage";
 import TenantAccountPage from "./pages/tenant/TenantAccountPage";
+import PropertyDetailsPage from "./pages/landloard/PropertyDetailsPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -64,6 +65,7 @@ const App = () => (
 
           <Route path="/landlord">
             <Route path="dashboard" element={<LandlordDashboardPage />} />
+            <Route path="property/:id" element={<PropertyDetailsPage />} />
             <Route path="notifications" element={<NotificationsPage />} />
             <Route path="drafts" element={<DraftsPage />} />
             <Route path="alerts" element={<AlertsPage />} />

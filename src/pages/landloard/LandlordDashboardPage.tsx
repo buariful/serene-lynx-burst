@@ -186,9 +186,12 @@ export default function LandlordDashboardPage() {
                 >
                   {listing.status}
                 </div>
-                <button className="mt-auto text-[#2563eb] hover:underline text-sm font-medium">
+                <Link
+                  to={`/landlord/property/${listing.id}`}
+                  className="mt-auto text-[#2563eb] hover:underline text-sm font-medium"
+                >
                   View Details
-                </button>
+                </Link>
               </div>
             ))}
           </div>
