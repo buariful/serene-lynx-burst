@@ -2,25 +2,23 @@ import React from "react";
 import Header from "@/components/Header";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Building2,
-  Bell,
-  Pencil,
-  AlertCircle,
+  LayoutGrid,
+  MessageCircle,
   Heart,
   User2,
+  PlusCircle,
 } from "lucide-react";
 import DashboardHeader from "./DashboardHeader";
 
 const sidebarItems = [
-  { label: "Listings", icon: Building2, path: "/landlord/dashboard" },
-  { label: "Notifications", icon: Bell, path: "/landlord/notifications" },
-  { label: "Drafts", icon: Pencil, path: "/landlord/drafts" },
-  { label: "Alerts", icon: AlertCircle, path: "/landlord/alerts" },
-  { label: "Favourites", icon: Heart, path: "/landlord/favourites" },
-  { label: "Account", icon: User2, path: "/landlord/account" },
+  { label: "My Ads", icon: LayoutGrid, path: "/hospital/my-ads" },
+  { label: "My Messages", icon: MessageCircle, path: "/hospital/my-messages" },
+  { label: "My Favourites", icon: Heart, path: "/hospital/my-favourites" },
+  { label: "My Profile", icon: User2, path: "/hospital/my-profile" },
+  { label: "Post Ad", icon: PlusCircle, path: "/hospital/post-ad" },
 ];
 
-const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
+const HospitalDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const location = useLocation();
@@ -58,4 +56,4 @@ const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export default LandlordDashboardWrapper;
+export default HospitalDashboardWrapper;

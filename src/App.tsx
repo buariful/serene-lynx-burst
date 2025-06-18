@@ -29,6 +29,12 @@ import LandlordAccountSettingsPage from "./pages/landloard/LandlordAccountSettin
 import TenantDashboardPage from "./pages/tenant/TenantDashboardPage";
 import TenantAccountPage from "./pages/tenant/TenantAccountPage";
 import PropertyDetailsPage from "./pages/landloard/PropertyDetailsPage";
+import HospitalLayout from "./pages/hospital/HospitalLayout";
+import MyAdsPage from "./pages/hospital/MyAdsPage";
+import MyMessagesPage from "./pages/hospital/MyMessagesPage";
+import MyFavouritesPage from "./pages/hospital/MyFavouritesPage";
+import MyProfilePage from "./pages/hospital/MyProfilePage";
+import PostAdPage from "./pages/hospital/PostAdPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -86,6 +92,15 @@ const App = () => (
           <Route path="/tenant">
             <Route path="dashboard" element={<TenantDashboardPage />} />
             <Route path="account" element={<TenantAccountPage />} />
+          </Route>
+
+          <Route path="/hospital" element={<HospitalLayout />}>
+            <Route path="dashboard" element={<MyAdsPage />} />
+            <Route path="my-ads" element={<MyAdsPage />} />
+            <Route path="my-messages" element={<MyMessagesPage />} />
+            <Route path="my-favourites" element={<MyFavouritesPage />} />
+            <Route path="my-profile" element={<MyProfilePage />} />
+            <Route path="post-ad" element={<PostAdPage />} />
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
