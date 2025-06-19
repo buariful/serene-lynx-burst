@@ -467,7 +467,11 @@ export default function PostAdFlow() {
       {currentStep === "category" && renderCategoryStep()}
       {currentStep === "subcategory" && renderSubcategoryStep()}
       {currentStep === "brand" && renderBrandStep()}
-      {currentStep === "location" && <LocationSelector />}
+      {currentStep === "location" && (
+        <div className="mt-8">
+          <LocationSelector />
+        </div>
+      )}
     </div>
   );
 }

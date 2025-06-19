@@ -130,7 +130,7 @@ function ProductCard({
   const navigate = useNavigate();
   return (
     <div
-      className="border rounded overflow-hidden hover:shadow-sm transition-shadow w-48 min-w-0 cursor-pointer hover:ring-2 hover:ring-blue-400"
+      className="border rounded overflow-hidden hover:shadow-sm transition-shadow w-40 min-w-0 cursor-pointer hover:ring-2 hover:ring-blue-400"
       onClick={() => navigate(`/hospital/product/${product.id}`)}
       role="button"
       tabIndex={0}
@@ -138,20 +138,22 @@ function ProductCard({
         if (e.key === "Enter") navigate(`/hospital/product/${product.id}`);
       }}
     >
-      <div className="h-24 bg-gray-200">
+      <div className="h-20 bg-gray-200">
         <img
           src={IMAGE_URLS[imageIndex % IMAGE_URLS.length]}
           alt={product.title}
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="p-2">
-        <h3 className="font-bold text-xs mb-1 truncate">{product.title}</h3>
-        <p className="text-gray-600 text-[10px] mb-1 truncate">
+      <div className="p-1">
+        <h3 className="font-bold text-[10px] mb-0.5 truncate">
+          {product.title}
+        </h3>
+        <p className="text-gray-600 text-[9px] mb-0.5 truncate">
           {product.description}
         </p>
         <div className="flex justify-between flex-col">
-          <span className="text-gray-500 text-[10px] truncate">
+          <span className="text-gray-500 text-[9px] truncate">
             {product.location}
           </span>
           <span
@@ -159,7 +161,7 @@ function ProductCard({
               product.price === "Please Contact"
                 ? "text-blue-600"
                 : "text-green-600"
-            } text-xs`}
+            } text-[10px]`}
           >
             {product.price}
           </span>
@@ -267,18 +269,20 @@ export default function HospitalMarketplacePage() {
         </div>
 
         {/* Recommended Section */}
-        <h2 className="text-[#3e4153] text-[18px] mb-4">Recommended for you</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
+          Recommended for you
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {filteredProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} imageIndex={idx} />
           ))}
         </div>
 
         {/* Popular listings in Real Estate */}
-        <h2 className="text-[#3e4153] text-[18px] mb-4">
+        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
           Popular listings in Real Estate
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
             .slice(0, 3)
             .map((product, idx) => (
@@ -291,10 +295,10 @@ export default function HospitalMarketplacePage() {
         </div>
 
         {/* Popular listings in Autos */}
-        <h2 className="text-[#3e4153] text-[18px] mb-4">
+        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
           Popular listings in Autos
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
             .slice(0, 4)
             .map((product, idx) => (
@@ -307,16 +311,17 @@ export default function HospitalMarketplacePage() {
         </div>
 
         {/* All Listings */}
-        <h2 className="text-[#3e4153] text-[18px] mb-4">Homepage Gallery</h2>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
+          Homepage Gallery
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {filteredProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} imageIndex={idx} />
           ))}
           {/* Your Ad Here placeholder */}
-          <div className="border rounded p-2 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
-            <div className="text-gray-500 mb-1 text-xs">Your Ad here</div>
-            <button className="text-blue-600 hover:underline text-xs">
+          <div className="border rounded p-1 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
+            <div className="text-gray-500 mb-1 text-[10px]">Your Ad here</div>
+            <button className="text-blue-600 hover:underline text-[10px]">
               See All
             </button>
           </div>
