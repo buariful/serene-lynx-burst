@@ -35,6 +35,9 @@ import MyMessagesPage from "./pages/hospital/MyMessagesPage";
 import MyFavouritesPage from "./pages/hospital/MyFavouritesPage";
 import MyProfilePage from "./pages/hospital/MyProfilePage";
 import PostAdPage from "./pages/hospital/PostAdPage";
+import PostAdDetailsPage from "./pages/hospital/PostAddDetailsPage";
+import HospitalMarketplacePage from "./pages/hospital/HospitalMarketPlace";
+import ProductDetailsPage from "./pages/hospital/ProductDetailsPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -94,13 +97,21 @@ const App = () => (
             <Route path="account" element={<TenantAccountPage />} />
           </Route>
 
+          <Route
+            path="/hospital/dashboard"
+            element={<HospitalMarketplacePage />}
+          />
+          <Route
+            path="/hospital/product/:id"
+            element={<ProductDetailsPage />}
+          />
           <Route path="/hospital" element={<HospitalLayout />}>
-            <Route path="dashboard" element={<MyAdsPage />} />
             <Route path="my-ads" element={<MyAdsPage />} />
             <Route path="my-messages" element={<MyMessagesPage />} />
             <Route path="my-favourites" element={<MyFavouritesPage />} />
             <Route path="my-profile" element={<MyProfilePage />} />
             <Route path="post-ad" element={<PostAdPage />} />
+            <Route path="post-ad-details" element={<PostAdDetailsPage />} />
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
