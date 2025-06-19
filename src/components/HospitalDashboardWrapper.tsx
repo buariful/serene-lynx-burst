@@ -14,7 +14,7 @@ import DashboardHeader from "./DashboardHeader";
 const sidebarItems = [
   { label: "Marketplace", icon: LayoutGrid, path: "/hospital/dashboard" },
   { label: "My Ads", icon: AppWindow, path: "/hospital/my-ads" },
-  { label: "My Messages", icon: MessageCircle, path: "/hospital/my-messages" },
+  // { label: "My Messages", icon: MessageCircle, path: "/hospital/my-messages" },
   { label: "My Favourites", icon: Heart, path: "/hospital/my-favourites" },
   { label: "My Profile", icon: User2, path: "/hospital/my-profile" },
   { label: "Post Ad", icon: PlusCircle, path: "/hospital/post-ad" },
