@@ -176,6 +176,7 @@ export default function HospitalMarketplacePage() {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const [searchInput, setSearchInput] = useState<string>("");
 
   // Show sidebar if a category is selected (not 'All') or search is active
   useEffect(() => {
@@ -185,6 +186,8 @@ export default function HospitalMarketplacePage() {
       setShowSidebar(false);
     }
   }, [selectedCategory, searchQuery]);
+
+  const isSearchActive = searchQuery.trim() !== "";
 
   // Close dropdown on outside click
   React.useEffect(() => {
@@ -205,6 +208,17 @@ export default function HospitalMarketplacePage() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showProfileMenu]);
+
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setSearchQuery(searchInput);
+  };
+
+  const handleBackToMain = () => {
+    setSearchQuery("");
+    setSearchInput("");
+    setSelectedCategory("All");
+  };
 
   const filteredProducts = SAMPLE_PRODUCTS.filter((product) => {
     const matchesLocation =
@@ -276,31 +290,26 @@ export default function HospitalMarketplacePage() {
 
           {/* Filters (hide if sidebar is shown) */}
           {!showSidebar && (
-            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 mb-8 w-full">
-              <input
-                type="text"
-                placeholder="Search for anything..."
-                className="p-2 border rounded flex-1 text-xs min-w-0 md:max-w-xs"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              {/* <div className="flex flex-col w-full md:w-auto">
-                <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
-                  Location
-                </label>
-                <select
-                  className="p-2 border text-xs rounded md:min-w-[140px]"
-                  value={selectedLocation}
-                  onChange={(e) => setSelectedLocation(e.target.value)}
+            <form
+              className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 mb-8 w-full"
+              onSubmit={handleSearch}
+            >
+              <div className="flex w-full md:w-auto">
+                <input
+                  type="text"
+                  placeholder="Search for anything..."
+                  className="p-2 border rounded-l flex-1 text-xs min-w-0 md:max-w-xs"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 rounded-r border-l-0 border"
+                  aria-label="Search"
                 >
-                  <option value="All">All Locations</option>
-                  {LOCATIONS.map((location) => (
-                    <option key={location} value={location}>
-                      {location}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
+                  Search
+                </button>
+              </div>
               <div className="flex flex-col w-full md:w-auto">
                 <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
                   Category
@@ -318,75 +327,112 @@ export default function HospitalMarketplacePage() {
                   ))}
                 </select>
               </div>
-            </div>
+            </form>
           )}
 
-          {/* Recommended Section */}
-          <h2 className="text-[#3e4153]  mb-2 font-semibold">
-            Recommended for you
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
-            {filteredProducts.map((product, idx) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                imageIndex={idx}
-              />
-            ))}
-          </div>
+          {/* If searching, only show search results and a back button */}
+          {isSearchActive ? (
+            <>
+              <div className="mb-4 flex justify-between items-center">
+                <span className="text-xs text-gray-500">
+                  Showing search results for:{" "}
+                  <span className="font-semibold">{searchQuery}</span>
+                </span>
+                <button
+                  onClick={handleBackToMain}
+                  className="text-xs text-blue-600 border border-blue-100 rounded px-3 py-1 hover:bg-blue-50 ml-2"
+                >
+                  Back to Main Page
+                </button>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product, idx) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      imageIndex={idx}
+                    />
+                  ))
+                ) : (
+                  <div className="col-span-full text-center text-gray-400 py-8">
+                    No results found.
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Recommended Section */}
+              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+                Recommended for you
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+                {filteredProducts.map((product, idx) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    imageIndex={idx}
+                  />
+                ))}
+              </div>
 
-          {/* Popular listings in Real Estate */}
-          <h2 className="text-[#3e4153]  mb-2 font-semibold">
-            Popular listings in Real Estate
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
-            {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
-              .slice(0, 3)
-              .map((product, idx) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  imageIndex={idx + 1}
-                />
-              ))}
-          </div>
+              {/* Popular listings in Real Estate */}
+              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+                Popular listings in Real Estate
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+                {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
+                  .slice(0, 3)
+                  .map((product, idx) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      imageIndex={idx + 1}
+                    />
+                  ))}
+              </div>
 
-          {/* Popular listings in Autos */}
-          <h2 className="text-[#3e4153]  mb-2 font-semibold">
-            Popular listings in Autos
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
-            {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
-              .slice(0, 4)
-              .map((product, idx) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  imageIndex={idx + 1}
-                />
-              ))}
-          </div>
+              {/* Popular listings in Autos */}
+              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+                Popular listings in Autos
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+                {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
+                  .slice(0, 4)
+                  .map((product, idx) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      imageIndex={idx + 1}
+                    />
+                  ))}
+              </div>
 
-          {/* All Listings */}
-          <h2 className="text-[#3e4153]  mb-2 font-semibold">
-            Homepage Gallery
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
-            {filteredProducts.map((product, idx) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                imageIndex={idx}
-              />
-            ))}
-            {/* Your Ad Here placeholder */}
-            <div className="border rounded p-1 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
-              <div className="text-gray-500 mb-1 text-[10px]">Your Ad here</div>
-              <button className="text-blue-600 hover:underline text-[10px]">
-                See All
-              </button>
-            </div>
-          </div>
+              {/* All Listings */}
+              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+                Homepage Gallery
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
+                {filteredProducts.map((product, idx) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    imageIndex={idx}
+                  />
+                ))}
+                {/* Your Ad Here placeholder */}
+                <div className="border rounded p-1 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
+                  <div className="text-gray-500 mb-1 text-[10px]">
+                    Your Ad here
+                  </div>
+                  <button className="text-blue-600 hover:underline text-[10px]">
+                    See All
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <Footer />
