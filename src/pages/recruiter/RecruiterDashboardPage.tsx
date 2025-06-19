@@ -64,6 +64,46 @@ const incomingMessages = [
   },
 ];
 
+// Dummy message history for each sender
+const messageHistories: Record<
+  string,
+  {
+    from: string;
+    date: string;
+    content: string;
+    sender: "recruiter" | "candidate";
+  }[]
+> = {
+  "Dr. Alice Smith": [
+    {
+      from: "Dr. Alice Smith",
+      date: "2024-06-03",
+      content: "Hello, I am interested in the Cardiology Consultant position.",
+      sender: "candidate",
+    },
+    {
+      from: "Recruiter",
+      date: "2024-06-03",
+      content: "Thank you for your interest, Dr. Smith! Please send your CV.",
+      sender: "recruiter",
+    },
+    {
+      from: "Dr. Alice Smith",
+      date: "2024-06-04",
+      content: "Is the Cardiology Consultant position still open?",
+      sender: "candidate",
+    },
+  ],
+  "Nurse David Kim": [
+    {
+      from: "Nurse David Kim",
+      date: "2024-06-05",
+      content: "Can you tell me more about the ICU Nurse role?",
+      sender: "candidate",
+    },
+  ],
+};
+
 const sidebarItems = [
   { key: "dashboard", label: "Dashboard" },
   { key: "jobs", label: "Jobs" },
@@ -82,6 +122,13 @@ const RecruiterDashboardPage = () => {
     type: "message" | "email";
   } | null>(null);
   const [appMessage, setAppMessage] = useState("");
+  const [openMessage, setOpenMessage] = useState<{
+    id: number;
+    from: string;
+    date: string;
+    content: string;
+  } | null>(null);
+  const [reply, setReply] = useState("");
 
   const handleSendMessage = (name: string) => {
     setMessagesSent((prev) => prev + 1);
@@ -94,6 +141,12 @@ const RecruiterDashboardPage = () => {
     setAppMessageTarget(null);
     setAppMessage("");
     alert(`${type === "email" ? "Email" : "Message"} sent to ${name}`);
+  };
+
+  const handleSendReply = () => {
+    setReply("");
+    setOpenMessage(null);
+    alert("Reply sent!");
   };
 
   return (
@@ -344,7 +397,11 @@ const RecruiterDashboardPage = () => {
               <div className="bg-white border rounded">
                 <ul>
                   {incomingMessages.map((msg) => (
-                    <li key={msg.id} className="border-b px-4 py-3">
+                    <li
+                      key={msg.id}
+                      className="border-b px-4 py-3 cursor-pointer hover:bg-blue-50"
+                      onClick={() => setOpenMessage(msg)}
+                    >
                       <div className="font-medium text-gray-800">
                         {msg.from}
                       </div>
@@ -361,6 +418,65 @@ const RecruiterDashboardPage = () => {
                   )}
                 </ul>
               </div>
+              {/* Modal for viewing and replying to a message */}
+              {openMessage && (
+                <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+                  <div className="bg-white rounded shadow-lg p-6 w-full max-w-md flex flex-col max-h-[80vh]">
+                    <h3 className="font-bold mb-2">
+                      Conversation with {openMessage.from}
+                    </h3>
+                    <div className="flex-1 overflow-y-auto mb-3 space-y-3 pr-1">
+                      {(
+                        messageHistories[openMessage.from] || [openMessage]
+                      ).map((msg, idx) => (
+                        <div
+                          key={idx}
+                          className={`flex flex-col ${
+                            msg.sender === "recruiter"
+                              ? "items-end"
+                              : "items-start"
+                          }`}
+                        >
+                          <div
+                            className={`rounded px-3 py-2 text-sm max-w-[80%] ${
+                              msg.sender === "recruiter"
+                                ? "bg-blue-100 text-blue-900"
+                                : "bg-gray-100 text-gray-800"
+                            }`}
+                          >
+                            {msg.content}
+                          </div>
+                          <div className="text-[10px] text-gray-400 mt-1">
+                            {msg.date}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <textarea
+                      className="w-full border rounded p-2 mb-3 text-xs"
+                      rows={3}
+                      value={reply}
+                      onChange={(e) => setReply(e.target.value)}
+                      placeholder="Write your reply..."
+                    />
+                    <div className="flex justify-end gap-2">
+                      <button
+                        className="text-xs px-3 py-1 rounded border border-gray-200 hover:bg-gray-100"
+                        onClick={() => setOpenMessage(null)}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded"
+                        onClick={handleSendReply}
+                        disabled={!reply.trim()}
+                      >
+                        Send Reply
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </>
           )}
 
