@@ -102,10 +102,7 @@ const App = () => (
             path="/hospital/dashboard"
             element={<HospitalMarketplacePage />}
           />
-          <Route
-            path="/hospital/product/:id"
-            element={<ProductDetailsPage />}
-          />
+          <Route path="/hospital/product/:id" element={<AddViewPage />} />
           <Route path="/post/view" element={<AddViewPage />} />
 
           <Route path="/hospital" element={<HospitalLayout />}>

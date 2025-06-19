@@ -1,7 +1,7 @@
 import DashboardHeader from "@/components/DashboardHeader";
 import Footer from "@/components/Footer";
 import HospitalHeader from "@/components/HospitalHeader";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -173,8 +173,18 @@ export default function HospitalMarketplacePage() {
   const [selectedLocation, setSelectedLocation] = useState<string>("Canada");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+
+  // Show sidebar if a category is selected (not 'All') or search is active
+  useEffect(() => {
+    if (selectedCategory !== "All" || searchQuery.trim() !== "") {
+      setShowSidebar(true);
+    } else {
+      setShowSidebar(false);
+    }
+  }, [selectedCategory, searchQuery]);
 
   // Close dropdown on outside click
   React.useEffect(() => {
@@ -213,113 +223,169 @@ export default function HospitalMarketplacePage() {
       {/* <DashboardHeader /> */}
       <HospitalHeader />
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-lg font-semibold mb-2 text-gray-500">
-            Canada's most trusted and loved marketplace
-          </h1>
-        </div>
-
-        {/* Filters */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 mb-8 w-full">
-          <input
-            type="text"
-            placeholder="Search for anything..."
-            className="p-2 border rounded flex-1 text-xs min-w-0 md:max-w-xs"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <div className="flex flex-col w-full md:w-auto">
-            <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
-              Location
-            </label>
-            <select
-              className="p-2 border text-xs rounded md:min-w-[140px]"
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-            >
-              <option value="All">All Locations</option>
-              {LOCATIONS.map((location) => (
-                <option key={location} value={location}>
-                  {location}
-                </option>
-              ))}
-            </select>
+      <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh]">
+        {/* Sidebar for categories (only when filtering/searching) */}
+        {showSidebar && (
+          <aside className="w-48 mr-6 flex-shrink-0 min-h-full flex flex-col">
+            <div className="bg-white border rounded shadow-sm p-2 flex-1">
+              <h3 className="text-xs font-semibold mb-2 text-[#3e4153]">
+                Categories
+              </h3>
+              <ul className="space-y-1">
+                <li>
+                  <button
+                    className={`w-full text-left px-2 py-1 rounded text-xs font-medium transition-colors ${
+                      selectedCategory === "All"
+                        ? "bg-blue-600 text-white"
+                        : "hover:bg-gray-100 text-gray-700"
+                    }`}
+                    onClick={() => {
+                      setSelectedCategory("All");
+                    }}
+                  >
+                    All Categories
+                  </button>
+                </li>
+                {CATEGORIES.map((category) => (
+                  <li key={category}>
+                    <button
+                      className={`w-full text-left px-2 py-1 rounded text-xs font-medium transition-colors ${
+                        selectedCategory === category
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-100 text-gray-700"
+                      }`}
+                      onClick={() => {
+                        setSelectedCategory(category);
+                      }}
+                    >
+                      {category}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        )}
+        <div className={showSidebar ? "flex-1" : "w-full"}>
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-lg font-semibold mb-2 text-gray-500">
+              Canada's most trusted and loved marketplace
+            </h1>
           </div>
-          <div className="flex flex-col w-full md:w-auto">
-            <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
-              Category
-            </label>
-            <select
-              className="p-2 border text-xs rounded md:min-w-[140px]"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option value="All">All Categories</option>
-              {CATEGORIES.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
 
-        {/* Recommended Section */}
-        <h2 className="text-[#3e4153]  mb-2 font-semibold">
-          Recommended for you
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
-          {filteredProducts.map((product, idx) => (
-            <ProductCard key={product.id} product={product} imageIndex={idx} />
-          ))}
-        </div>
+          {/* Filters (hide if sidebar is shown) */}
+          {!showSidebar && (
+            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 mb-8 w-full">
+              <input
+                type="text"
+                placeholder="Search for anything..."
+                className="p-2 border rounded flex-1 text-xs min-w-0 md:max-w-xs"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {/* <div className="flex flex-col w-full md:w-auto">
+                <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
+                  Location
+                </label>
+                <select
+                  className="p-2 border text-xs rounded md:min-w-[140px]"
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                >
+                  <option value="All">All Locations</option>
+                  {LOCATIONS.map((location) => (
+                    <option key={location} value={location}>
+                      {location}
+                    </option>
+                  ))}
+                </select>
+              </div> */}
+              <div className="flex flex-col w-full md:w-auto">
+                <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
+                  Category
+                </label>
+                <select
+                  className="p-2 border text-xs rounded md:min-w-[140px]"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="All">All Categories</option>
+                  {CATEGORIES.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
 
-        {/* Popular listings in Real Estate */}
-        <h2 className="text-[#3e4153]  mb-2 font-semibold">
-          Popular listings in Real Estate
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
-          {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
-            .slice(0, 3)
-            .map((product, idx) => (
+          {/* Recommended Section */}
+          <h2 className="text-[#3e4153]  mb-2 font-semibold">
+            Recommended for you
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+            {filteredProducts.map((product, idx) => (
               <ProductCard
                 key={product.id}
                 product={product}
-                imageIndex={idx + 1}
+                imageIndex={idx}
               />
             ))}
-        </div>
+          </div>
 
-        {/* Popular listings in Autos */}
-        <h2 className="text-[#3e4153]  mb-2 font-semibold">
-          Popular listings in Autos
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
-          {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
-            .slice(0, 4)
-            .map((product, idx) => (
+          {/* Popular listings in Real Estate */}
+          <h2 className="text-[#3e4153]  mb-2 font-semibold">
+            Popular listings in Real Estate
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+            {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
+              .slice(0, 3)
+              .map((product, idx) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  imageIndex={idx + 1}
+                />
+              ))}
+          </div>
+
+          {/* Popular listings in Autos */}
+          <h2 className="text-[#3e4153]  mb-2 font-semibold">
+            Popular listings in Autos
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+            {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
+              .slice(0, 4)
+              .map((product, idx) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  imageIndex={idx + 1}
+                />
+              ))}
+          </div>
+
+          {/* All Listings */}
+          <h2 className="text-[#3e4153]  mb-2 font-semibold">
+            Homepage Gallery
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
+            {filteredProducts.map((product, idx) => (
               <ProductCard
                 key={product.id}
                 product={product}
-                imageIndex={idx + 1}
+                imageIndex={idx}
               />
             ))}
-        </div>
-
-        {/* All Listings */}
-        <h2 className="text-[#3e4153]  mb-2 font-semibold">Homepage Gallery</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
-          {filteredProducts.map((product, idx) => (
-            <ProductCard key={product.id} product={product} imageIndex={idx} />
-          ))}
-          {/* Your Ad Here placeholder */}
-          <div className="border rounded p-1 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
-            <div className="text-gray-500 mb-1 text-[10px]">Your Ad here</div>
-            <button className="text-blue-600 hover:underline text-[10px]">
-              See All
-            </button>
+            {/* Your Ad Here placeholder */}
+            <div className="border rounded p-1 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
+              <div className="text-gray-500 mb-1 text-[10px]">Your Ad here</div>
+              <button className="text-blue-600 hover:underline text-[10px]">
+                See All
+              </button>
+            </div>
           </div>
         </div>
       </div>

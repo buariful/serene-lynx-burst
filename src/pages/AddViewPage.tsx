@@ -25,6 +25,11 @@ export default function JobListingPage() {
           {/* Left Column */}
           <div className="md:w-2/3">
             {/* Job Header */}
+            <img
+              src="https://media.istockphoto.com/id/475352876/photo/man-applying-for-a-job-on-the-internet.jpg?s=612x612&w=0&k=20&c=SQeciz8vqdGWu_KJoGC7yK8xmpBl69UewPtZSyWSrOI="
+              alt=""
+              className="rounded mb-5"
+            />
             <div className="mb-6">
               <h1 className="text-2xl font-semibold text-[#3e4153]">
                 ECOLOGISTIQUE INC.
