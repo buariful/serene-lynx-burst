@@ -38,6 +38,7 @@ import PostAdPage from "./pages/hospital/PostAdPage";
 import PostAdDetailsPage from "./pages/hospital/PostAddDetailsPage";
 import HospitalMarketplacePage from "./pages/hospital/HospitalMarketPlace";
 import ProductDetailsPage from "./pages/hospital/ProductDetailsPage";
+import AddViewPage from "./pages/AddViewPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -105,6 +106,8 @@ const App = () => (
             path="/hospital/product/:id"
             element={<ProductDetailsPage />}
           />
+          <Route path="/post/view" element={<AddViewPage />} />
+
           <Route path="/hospital" element={<HospitalLayout />}>
             <Route path="my-ads" element={<MyAdsPage />} />
             <Route path="my-messages" element={<MyMessagesPage />} />

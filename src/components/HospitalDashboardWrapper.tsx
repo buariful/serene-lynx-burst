@@ -7,11 +7,13 @@ import {
   Heart,
   User2,
   PlusCircle,
+  AppWindow,
 } from "lucide-react";
 import DashboardHeader from "./DashboardHeader";
 
 const sidebarItems = [
-  { label: "My Ads", icon: LayoutGrid, path: "/hospital/my-ads" },
+  { label: "Marketplace", icon: LayoutGrid, path: "/hospital/dashboard" },
+  { label: "My Ads", icon: AppWindow, path: "/hospital/my-ads" },
   { label: "My Messages", icon: MessageCircle, path: "/hospital/my-messages" },
   { label: "My Favourites", icon: Heart, path: "/hospital/my-favourites" },
   { label: "My Profile", icon: User2, path: "/hospital/my-profile" },

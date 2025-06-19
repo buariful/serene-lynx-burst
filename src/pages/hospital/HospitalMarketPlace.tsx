@@ -146,14 +146,12 @@ function ProductCard({
         />
       </div>
       <div className="p-1">
-        <h3 className="font-bold text-[10px] mb-0.5 truncate">
-          {product.title}
-        </h3>
-        <p className="text-gray-600 text-[9px] mb-0.5 truncate">
+        <h3 className="font-bold text-sm mb-1 truncate">{product.title}</h3>
+        <p className="text-gray-600 text-sm mb-1 truncate">
           {product.description}
         </p>
         <div className="flex justify-between flex-col">
-          <span className="text-gray-500 text-[9px] truncate">
+          <span className="text-gray-500 text-sm truncate">
             {product.location}
           </span>
           <span
@@ -161,7 +159,7 @@ function ProductCard({
               product.price === "Please Contact"
                 ? "text-blue-600"
                 : "text-green-600"
-            } text-[10px]`}
+            } text-sm`}
           >
             {product.price}
           </span>
@@ -228,7 +226,7 @@ export default function HospitalMarketplacePage() {
           <input
             type="text"
             placeholder="Search for anything..."
-            className="p-2 border rounded flex-1 min-w-0 md:max-w-xs"
+            className="p-2 border rounded flex-1 text-xs min-w-0 md:max-w-xs"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -237,7 +235,7 @@ export default function HospitalMarketplacePage() {
               Location
             </label>
             <select
-              className="p-2 border rounded md:min-w-[140px]"
+              className="p-2 border text-xs rounded md:min-w-[140px]"
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
             >
@@ -254,7 +252,7 @@ export default function HospitalMarketplacePage() {
               Category
             </label>
             <select
-              className="p-2 border rounded md:min-w-[140px]"
+              className="p-2 border text-xs rounded md:min-w-[140px]"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -269,20 +267,20 @@ export default function HospitalMarketplacePage() {
         </div>
 
         {/* Recommended Section */}
-        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
+        <h2 className="text-[#3e4153]  mb-2 font-semibold">
           Recommended for you
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
           {filteredProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} imageIndex={idx} />
           ))}
         </div>
 
         {/* Popular listings in Real Estate */}
-        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
+        <h2 className="text-[#3e4153]  mb-2 font-semibold">
           Popular listings in Real Estate
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
           {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
             .slice(0, 3)
             .map((product, idx) => (
@@ -295,10 +293,10 @@ export default function HospitalMarketplacePage() {
         </div>
 
         {/* Popular listings in Autos */}
-        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
+        <h2 className="text-[#3e4153]  mb-2 font-semibold">
           Popular listings in Autos
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
           {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
             .slice(0, 4)
             .map((product, idx) => (
@@ -311,9 +309,7 @@ export default function HospitalMarketplacePage() {
         </div>
 
         {/* All Listings */}
-        <h2 className="text-[#3e4153] text-xs mb-2 font-semibold">
-          Homepage Gallery
-        </h2>
+        <h2 className="text-[#3e4153]  mb-2 font-semibold">Homepage Gallery</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {filteredProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} imageIndex={idx} />
