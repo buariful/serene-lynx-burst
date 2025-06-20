@@ -12,6 +12,12 @@ const hospitalCities = [
   { name: "Edmonton", href: "/hospitals" },
   { name: "Niagara Falls", href: "/hospitals" },
   { name: "Quebec City", href: "/hospitals" },
+  { name: "Ottawa", href: "/hospitals" },
+  { name: "Victoria", href: "/hospitals" },
+  { name: "Hamilton", href: "/hospitals" },
+  { name: "Toronto", href: "/hospitals" },
+  { name: "Saint John", href: "/hospitals" },
+  { name: "Edmonton", href: "/hospitals" },
 ];
 
 const medicalSchoolCities = [
@@ -28,6 +34,7 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSection />
         <FeaturedRentals /> {/* Or a dynamically chosen city */}
+        <div className="my-10"></div>
         <DynamicCityGrid
           title="Apartments for rent near hospitals available now!"
           subtitle="Home to healthcare professionals across Canada."

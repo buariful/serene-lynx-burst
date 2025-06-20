@@ -2,12 +2,15 @@ import React from "react";
 import { Property } from "@/types/property";
 import { Button } from "@/components/ui/button";
 import { BedDouble, Bath } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface PropertyCardProps {
   property: Property;
+  id: number;
 }
 
-const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
+const PropertyCard: React.FC<PropertyCardProps> = ({ property, id }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
       <img
@@ -37,6 +40,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           variant="outline"
           size="sm"
           className="w-full mt-auto border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+          onClick={() => navigate(`/hospital/product/${id}`)}
         >
           Details
         </Button>

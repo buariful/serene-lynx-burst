@@ -13,11 +13,12 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import CityMap from "@/components/ui/cityMap";
 
 // Sample data
 const sampleProperties: Property[] = [
   {
-    id: "101",
+    id: 101,
     imageUrl:
       "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=300&auto=format&fit=crop",
     address: "1944 Yonge Street, Davisville, Toronto",
@@ -30,7 +31,7 @@ const sampleProperties: Property[] = [
     lng: -79.3973,
   },
   {
-    id: "102",
+    id: 102,
     imageUrl:
       "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=300&auto=format&fit=crop",
     address: "700 King Street West, Fashion District, Toronto",
@@ -43,7 +44,7 @@ const sampleProperties: Property[] = [
     lng: -79.4015,
   },
   {
-    id: "103",
+    id: 103,
     imageUrl:
       "https://images.unsplash.com/photo-1592595896551-fed1334a653f?q=80&w=300&auto=format&fit=crop",
     address: "25 Telegram Mews, CityPlace, Toronto",
@@ -56,7 +57,7 @@ const sampleProperties: Property[] = [
     lng: -79.3954,
   },
   {
-    id: "104",
+    id: 104,
     imageUrl:
       "https://images.unsplash.com/photo-1560185007-c5ca91ba2960?q=80&w=300&auto=format&fit=crop",
     address: "123 Queen Street East, Moss Park, Toronto",
@@ -69,7 +70,7 @@ const sampleProperties: Property[] = [
     lng: -79.3718,
   },
   {
-    id: "105",
+    id: 105,
     imageUrl:
       "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=300&auto=format&fit=crop",
     address: "500 University Avenue, Discovery District, Toronto",
@@ -82,7 +83,7 @@ const sampleProperties: Property[] = [
     lng: -79.389,
   },
   {
-    id: "106",
+    id: 106,
     imageUrl:
       "https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=300&auto=format&fit=crop",
     address: "88 Harbour St, Harbourfront, Toronto",
@@ -95,7 +96,7 @@ const sampleProperties: Property[] = [
     lng: -79.3787,
   },
   {
-    id: "107",
+    id: 107,
     imageUrl:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=300&auto=format&fit=crop",
     address: "20 Blue Jays Way, Entertainment District, Toronto",
@@ -140,10 +141,11 @@ const SearchResultsPage = () => {
         style={{ "--header-height": "68px" } as React.CSSProperties}
       >
         <div className="w-full md:w-3/5 h-full md:sticky md:top-[var(--header-height)] md:max-h-none">
-          <InteractiveMap
+          {/* <InteractiveMap
             properties={properties}
             onMarkerClick={handleMapMarkerClick}
-          />
+          /> */}
+          <CityMap />
         </div>
         <div className="w-full md:w-2/5 p-4 h-full overflow-y-auto">
           <h1 className="text-2xl font-bold mb-4">
