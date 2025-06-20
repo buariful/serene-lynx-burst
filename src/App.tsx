@@ -42,6 +42,7 @@ import AddViewPage from "./pages/AddViewPage";
 import RecruiterDashboardPage from "./pages/recruiter/RecruiterDashboardPage";
 import LandlordPage from "./pages/landloard/LandlordPage";
 import ContactUsPage from "./pages/ContactUsPage";
+import HospitalListPage from "./pages/hospital/HospitalListPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -123,6 +124,8 @@ const App = () => (
             path="/recruiter/dashboard"
             element={<RecruiterDashboardPage />}
           />
+
+          <Route path="/hospitals" element={<HospitalListPage />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

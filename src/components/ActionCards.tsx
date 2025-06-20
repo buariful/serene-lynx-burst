@@ -18,7 +18,7 @@ const cardData = [
     title: "Browse by Map",
     description:
       "Visually find properties in your desired area using our interactive map search.",
-    link: "/search-map",
+    link: "/search-results",
     linkText: "View Map",
     // imgSrc removed
   },

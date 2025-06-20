@@ -449,7 +449,7 @@ const drawerMenuItems = [
   {
     type: "link" as const,
     label: "Medical School",
-    href: "/medical-schools",
+    href: "/search-results",
   },
   {
     type: "link" as const,
