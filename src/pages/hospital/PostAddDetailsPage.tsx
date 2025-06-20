@@ -100,10 +100,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">
+      <h1 className="font-bold mb-4">
         Add photos to attract interest to your ad
       </h1>
-      <p className="mb-4">
+      <p className="mb-4 text-sm">
         Include pictures with different angles and details. You can upload a
         maximum of 10 photos, that are at least 300px wide or tall (we recommend
         at least 1000px).
@@ -112,9 +112,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
       </p>
 
       <div className="border-t border-b py-4 mb-4">
-        <h2 className="text-lg font-semibold mb-2">Menu</h2>
-        <label className="text-blue-600 hover:underline cursor-pointer">
-          Select Images
+        <h2 className="font-semibold mb-2">Menu</h2>
+        <label className="bg-blue-500  text-primary-foreground hover:bg-blue-600 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-3 py-1 cursor-pointer ">
           <input
             type="file"
             multiple
@@ -123,6 +122,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
             className="hidden"
             aria-label="Select images to upload"
           />
+          Select Images
         </label>
       </div>
 
@@ -175,27 +175,23 @@ export default function PostAdDetailsPage() {
         <div className="max-w-3xl mx-auto p-4 font-sans text-gray-800">
           {/* Ad Details Section */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold mb-6">Ad Details</h1>
+            <div className="flex justify-center">
+              <h1 className="text-lg font-semibold mb-6 text-gray-600">
+                Ad Details
+              </h1>
+            </div>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">Select Category:</h2>
+              <h2 className=" font-semibold mb-2">Select Category:</h2>
               <div className="flex items-center">
-                <span className="font-medium">
+                <span className="font-medium text-gray-600">
                   Services &gt; Childcare & Nanny
                 </span>
-                <button
-                  type="button"
-                  className="ml-4 text-blue-600 hover:underline"
-                  // TODO: Implement category change modal/step
-                  aria-label="Change category"
-                >
-                  Change category
-                </button>
               </div>
             </div>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">Ad Type</h2>
+              <h2 className=" font-semibold mb-2">Ad Type</h2>
               <div className="space-y-2">
                 <label className="flex items-center">
                   <input
@@ -203,7 +199,7 @@ export default function PostAdDetailsPage() {
                     name="adType"
                     checked={adType === "offering"}
                     onChange={() => setAdType("offering")}
-                    className="mr-2"
+                    className="mr-2 accent-green-600"
                     aria-label="I'm offering"
                   />
                   I'm offering
@@ -214,7 +210,7 @@ export default function PostAdDetailsPage() {
                     name="adType"
                     checked={adType === "wanting"}
                     onChange={() => setAdType("wanting")}
-                    className="mr-2"
+                    className="mr-2 accent-green-600"
                     aria-label="I want to find"
                   />
                   I want to find
@@ -223,16 +219,14 @@ export default function PostAdDetailsPage() {
             </div>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">
-                NEW Payment (optional)
-              </h2>
+              <h2 className="font-semibold mb-2">NEW Payment (optional)</h2>
               <div className="space-y-2">
                 <label className="flex items-center">
                   <input
                     type="checkbox"
                     checked={paymentOptions.cashless}
                     onChange={() => togglePaymentOption("cashless")}
-                    className="mr-2"
+                    className="mr-2 accent-green-600"
                     aria-label="Offer cashless payment"
                   />
                   Offer cashless payment
@@ -242,7 +236,7 @@ export default function PostAdDetailsPage() {
                     type="checkbox"
                     checked={paymentOptions.cash}
                     onChange={() => togglePaymentOption("cash")}
-                    className="mr-2"
+                    className="mr-2 accent-green-600"
                     aria-label="Cash accepted"
                   />
                   Cash accepted
@@ -251,12 +245,12 @@ export default function PostAdDetailsPage() {
             </div>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">Ad title:</h2>
+              <h2 className="font-semibold mb-2">Ad title:</h2>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
                 maxLength={70}
                 aria-label="Ad title"
               />
@@ -266,11 +260,11 @@ export default function PostAdDetailsPage() {
             </div>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">Description:</h2>
+              <h2 className="font-semibold mb-2">Description:</h2>
               <label className="flex items-center mb-2">
                 <input
                   type="checkbox"
-                  className="mr-2"
+                  className="mr-2 accent-green-600"
                   checked={exposureChecked}
                   onChange={() => setExposureChecked((v) => !v)}
                   aria-label="Increase your ad exposure"
@@ -281,38 +275,31 @@ export default function PostAdDetailsPage() {
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 border rounded h-32"
+                className="w-full p-2 border rounded h-32 focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
                 maxLength={1000}
                 aria-label="Ad description"
               />
-              <button
-                type="button"
-                className="mt-2 text-blue-600 hover:underline"
-                // TODO: Implement keyword/tag add logic
-              >
-                Add
-              </button>
             </div>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">Tags: (optional)</h2>
+              <h2 className="font-semibold mb-2">Tags: (optional)</h2>
               <input
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
                 aria-label="Tags"
               />
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold mb-2">Address:</h2>
+              <h2 className="font-semibold mb-2">Address:</h2>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Enter your postal code and/or street address above and select it from the suggested list."
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
                 aria-label="Address"
               />
             </div>
@@ -325,17 +312,17 @@ export default function PostAdDetailsPage() {
 
           {/* Contact Information Section */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold mb-4">Contact Information</h1>
+            <h1 className="text-lg font-bold mb-4">Contact Information</h1>
 
             <div className="border-b pb-4 mb-4">
-              <h2 className="text-lg font-semibold mb-2">Phone number:</h2>
+              <h2 className="font-semibold mb-2">Phone number:</h2>
               <p className="text-sm text-gray-600 mb-2">(optional)</p>
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="e.g. 123 456 7890"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
                 aria-label="Phone number"
               />
               <p className="text-sm text-gray-600 mt-1">
@@ -344,12 +331,12 @@ export default function PostAdDetailsPage() {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold mb-2">Email:</h2>
+              <h2 className=" font-semibold mb-2">Email:</h2>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
                 aria-label="Email"
               />
               <p className="text-sm text-gray-600 mt-1">
