@@ -207,9 +207,9 @@ const HospitalHeader = () => {
                 <DropdownMenuItem asChild>
                   <Link to="/hospital/my-ads">My Ads</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                {/* <DropdownMenuItem asChild>
                   <Link to="/hospital/my-messages">My Messages</Link>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem asChild>
                   <Link to="/hospital/my-favourites">My Favourites</Link>
                 </DropdownMenuItem>
