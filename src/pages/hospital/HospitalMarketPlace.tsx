@@ -419,7 +419,7 @@ export default function HospitalMarketplacePage() {
               <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
                 Homepage Gallery
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-4">
                 {filteredProducts.map((product, idx) => (
                   // <ProductCard
                   //   key={product.id}
