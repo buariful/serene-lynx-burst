@@ -27,7 +27,7 @@ const Index = () => {
       <Header />
       <main className="flex-grow">
         <HeroSection />
-        <FeaturedRentals city="Canada" /> {/* Or a dynamically chosen city */}
+        <FeaturedRentals /> {/* Or a dynamically chosen city */}
         <DynamicCityGrid
           title="Apartments for rent near hospitals available now!"
           subtitle="Home to healthcare professionals across Canada."

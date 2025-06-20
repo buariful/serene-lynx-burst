@@ -25,18 +25,18 @@ const Card2 = ({
               Verified
             </span>
           </div>
-          <button className="text-blue-600 text-sm hover:underline">
+          <button className="text-white  text-xs px-2 py-1 rounded-full bg-blue-500 hover:bg-blue-600">
             Details
           </button>
         </div>
 
-        <div className="text-gray-600 text-sm mb-2">
+        <div className="text-gray-600 text-sm mb-2 ">
           <span>House</span>
           <span className="mx-1">•</span>
           <span>7 minutes ago</span>
         </div>
 
-        <div className="text-sm mb-2">
+        <div className="text-sm mb-2 font-semibold text-gray-600">
           <span>5 BED</span>
           <span className="mx-1">•</span>
           <span>2 BATH</span>
@@ -44,7 +44,7 @@ const Card2 = ({
           <span>1250 FT²</span>
         </div>
 
-        <div className="text-sm">
+        <div className="text-sm font-semibold text-gray-600">
           <p>2003 13 Avenue South, Lethbridge, AB</p>
         </div>
       </div>
