@@ -14,7 +14,15 @@ const LOCATIONS: Location[] = [
     children: [
       { id: "banff", name: "Banff/Canmore" },
       { id: "calgary", name: "Calgary" },
-      { id: "edmonton", name: "Edmonton Area" },
+      {
+        id: "edmonton",
+        name: "Edmonton Area",
+        children: [
+          { id: "Edmonton", name: "Edmonton" },
+          { id: "st-Albert", name: "St. Albert" },
+          { id: "Strathcona", name: "Strathcona County" },
+        ],
+      },
       { id: "fort-mcmurray", name: "Fort McMurray" },
       { id: "grande-prairie", name: "Grande Prairie" },
       { id: "lethbridge", name: "Lethbridge" },
@@ -46,11 +54,12 @@ export default function LocationSelector() {
   };
   const navigate = useNavigate();
 
-  const currentChildren = () => {
-    if (selectedLocations.length === 0) return LOCATIONS;
-    const lastSelected = selectedLocations[selectedLocations.length - 1];
-    return lastSelected.children || [];
-  };
+  const columns: Location[][] = [LOCATIONS];
+  selectedLocations.forEach((location) => {
+    if (location.children && location.children.length > 0) {
+      columns.push(location.children);
+    }
+  });
 
   return (
     <div className="max-w-4xl mx-auto border border-gray-300 rounded shadow-sm">
@@ -67,16 +76,18 @@ export default function LocationSelector() {
       </div>
 
       {/* Location columns container */}
-      <div className="flex flex-row min-h-[200px]">
-        {/* Render each level of selection */}
-        {selectedLocations.length > 0 && (
-          <div className="border-r border-gray-300 w-1/3">
-            {LOCATIONS.map((loc) => (
+      <div className="flex flex-row min-h-[200px] overflow-x-auto">
+        {columns.map((column, colIndex) => (
+          <div
+            key={colIndex}
+            className="border-r border-gray-300 w-1/3 flex-shrink-0"
+          >
+            {column.map((loc) => (
               <button
                 key={loc.id}
-                onClick={() => handleLocationSelect(loc, 0)}
+                onClick={() => handleLocationSelect(loc, colIndex)}
                 className={`w-full p-2 text-left text-xs rounded transition-all duration-100 ${
-                  selectedLocations[0]?.id === loc.id
+                  selectedLocations[colIndex]?.id === loc.id
                     ? "bg-green-600 text-white"
                     : "hover:bg-gray-100"
                 }`}
@@ -85,49 +96,7 @@ export default function LocationSelector() {
               </button>
             ))}
           </div>
-        )}
-
-        {/* Render children of selected locations */}
-        {selectedLocations.map((loc, index) => {
-          if (!loc.children || index === selectedLocations.length - 1)
-            return null;
-          return (
-            <div key={index} className="border-r border-gray-300 w-1/3">
-              {loc.children?.map((child) => (
-                <button
-                  key={child.id}
-                  onClick={() => handleLocationSelect(child, index + 1)}
-                  className={`w-full p-2 text-left text-xs rounded transition-all duration-100 ${
-                    selectedLocations[index + 1]?.id === child.id
-                      ? "bg-green-600 text-white"
-                      : "hover:bg-gray-100"
-                  }`}
-                >
-                  {child.name}
-                </button>
-              ))}
-            </div>
-          );
-        })}
-
-        {/* Current level children */}
-        <div className="w-1/3">
-          {currentChildren().map((loc) => (
-            <button
-              key={loc.id}
-              onClick={() =>
-                handleLocationSelect(loc, selectedLocations.length)
-              }
-              className={`w-full p-2 text-left text-xs rounded transition-all duration-100 ${
-                selectedLocations[selectedLocations.length]?.id === loc.id
-                  ? "bg-green-600 text-white"
-                  : "hover:bg-gray-100"
-              }`}
-            >
-              {loc.name}
-            </button>
-          ))}
-        </div>
+        ))}
       </div>
 
       {/* GO button */}
