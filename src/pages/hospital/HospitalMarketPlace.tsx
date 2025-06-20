@@ -1,6 +1,7 @@
 import DashboardHeader from "@/components/DashboardHeader";
 import Footer from "@/components/Footer";
 import HospitalHeader from "@/components/HospitalHeader";
+import Card2 from "@/components/ui/Card2";
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -280,6 +281,7 @@ export default function HospitalMarketplacePage() {
             </div>
           </aside>
         )}
+
         <div className={showSidebar ? "flex-1" : "w-full"}>
           {/* Header */}
           <div className="text-center mb-8">
@@ -345,14 +347,15 @@ export default function HospitalMarketplacePage() {
                   Back to Main Page
                 </button>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+              <div className="grid grid-cols-2 md:grid-cols-3  gap-5 mb-10">
                 {filteredProducts.length > 0 ? (
                   filteredProducts.map((product, idx) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      imageIndex={idx}
-                    />
+                    // <ProductCard
+                    //   key={product.id}
+                    //   product={product}
+                    //   imageIndex={idx}
+                    // />
+                    <Card2 />
                   ))
                 ) : (
                   <div className="col-span-full text-center text-gray-400 py-8">
@@ -364,72 +367,67 @@ export default function HospitalMarketplacePage() {
           ) : (
             <>
               {/* Recommended Section */}
-              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+              <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
                 Recommended for you
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
                 {filteredProducts.map((product, idx) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    imageIndex={idx}
-                  />
+                  // <ProductCard
+                  //   key={product.id}
+                  //   product={product}
+                  //   imageIndex={idx}
+                  // />
+                  <Card2 />
                 ))}
               </div>
 
               {/* Popular listings in Real Estate */}
-              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+              <h2 className="text-[#3e4153] text-2xl  mb-4 font-semibold">
                 Popular listings in Real Estate
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
                 {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
                   .slice(0, 3)
                   .map((product, idx) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      imageIndex={idx + 1}
-                    />
+                    // <ProductCard
+                    //   key={product.id}
+                    //   product={product}
+                    //   imageIndex={idx + 1}
+                    // />
+                    <Card2 />
                   ))}
               </div>
 
               {/* Popular listings in Autos */}
-              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+              <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
                 Popular listings in Autos
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-10">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
                 {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
                   .slice(0, 4)
                   .map((product, idx) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      imageIndex={idx + 1}
-                    />
+                    // <ProductCard
+                    //   key={product.id}
+                    //   product={product}
+                    //   imageIndex={idx + 1}
+                    // />
+                    <Card2 />
                   ))}
               </div>
 
               {/* All Listings */}
-              <h2 className="text-[#3e4153]  mb-2 font-semibold">
+              <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
                 Homepage Gallery
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
                 {filteredProducts.map((product, idx) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    imageIndex={idx}
-                  />
+                  // <ProductCard
+                  //   key={product.id}
+                  //   product={product}
+                  //   imageIndex={idx}
+                  // />
+                  <Card2 />
                 ))}
-                {/* Your Ad Here placeholder */}
-                <div className="border rounded p-1 flex flex-col items-center justify-center bg-gray-50 w-48 min-w-0">
-                  <div className="text-gray-500 mb-1 text-[10px]">
-                    Your Ad here
-                  </div>
-                  <button className="text-blue-600 hover:underline text-[10px]">
-                    See All
-                  </button>
-                </div>
               </div>
             </>
           )}
