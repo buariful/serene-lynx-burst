@@ -10,6 +10,12 @@ import RegisterPage from "./pages/RegisterPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
+import AboutPage from "./pages/AboutPage";
+import FAQPage from "./pages/FAQPage";
+import BlogPage from "./pages/BlogPage";
+import JobBoardPage from "./pages/JobBoardPage";
+import MedicalRentalsPage from "./pages/MedicalRentalsPage";
+import SearchNearMePage from "./pages/SearchNearMePage";
 
 // Doctor Dashboard Imports
 import DoctorLayout from "./components/doctor/DoctorLayout";
@@ -45,6 +51,8 @@ import RecruiterDashboardPage from "./pages/recruiter/RecruiterDashboardPage";
 import LandlordPage from "./pages/landloard/LandlordPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import HospitalListPage from "./pages/hospital/HospitalListPage";
+import LandlordVerifyPage from "./pages/LandlordVerifyPage";
+import TenantInsurancePage from "./pages/TenantInsurancePage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -131,6 +139,16 @@ const App = () => (
 
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+
+          <Route path="/landlord-verify" element={<LandlordVerifyPage />} />
+          <Route path="/tenant-insurance" element={<TenantInsurancePage />} />
+
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/job-board" element={<JobBoardPage />} />
+          <Route path="/medical-rentals" element={<MedicalRentalsPage />} />
+          <Route path="/search-near-me" element={<SearchNearMePage />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
