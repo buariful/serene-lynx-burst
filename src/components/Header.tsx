@@ -399,7 +399,7 @@ const desktopNavLinks: MegaMenuItem[] = [
 
 // Simple links for items that are not mega menus
 const simpleDesktopNavLinks: NavLinkItem[] = [
-  { type: "link", href: "/landlords", label: "Landlords" },
+  { type: "link", href: "/landloard/landlord-page", label: "Landlords" },
   { type: "link", href: "/contact-us", label: "Contact Us" },
 ];
 
@@ -459,7 +459,7 @@ const drawerMenuItems = [
   {
     type: "link" as const,
     label: "Landlords",
-    href: "/landlords",
+    href: "/landloard/landlord-page",
   },
   {
     type: "link" as const,

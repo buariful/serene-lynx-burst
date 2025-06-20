@@ -40,6 +40,7 @@ import HospitalMarketplacePage from "./pages/hospital/HospitalMarketPlace";
 import ProductDetailsPage from "./pages/hospital/ProductDetailsPage";
 import AddViewPage from "./pages/AddViewPage";
 import RecruiterDashboardPage from "./pages/recruiter/RecruiterDashboardPage";
+import LandlordPage from "./pages/landloard/LandlordPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -99,6 +100,7 @@ const App = () => (
             <Route path="account" element={<TenantAccountPage />} />
           </Route>
 
+          <Route path="/landloard/landlord-page" element={<LandlordPage />} />
           <Route
             path="/hospital/dashboard"
             element={<HospitalMarketplacePage />}
