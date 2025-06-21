@@ -23,7 +23,7 @@ const sampleProperties: Property[] = [
   {
     id: 101,
     imageUrl:
-      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=300&auto=format&fit=crop",
+      "https://media.architecturaldigest.com/photos/67bcc8747dfc89b75d51a6ab/16:9/w_2580,c_limit/Kishani%20Perera_Point%20Dume%20Project_Photographer%20Anthony%20Barcelo.jpg",
     // "https://images.rentals.ca/property-pictures/medium/oshawa-on/852001/apartment-533581394.jpg",
 
     address: "1944 Yonge Street, Davisville, Toronto",
@@ -38,7 +38,7 @@ const sampleProperties: Property[] = [
   {
     id: 102,
     imageUrl:
-      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=300&auto=format&fit=crop",
+      "https://www.moderngardenrooms.com/wp-content/uploads/2022/03/garden-room-bedroom-3-scaled.jpg",
 
     address: "700 King Street West, Fashion District, Toronto",
     beds: 2,

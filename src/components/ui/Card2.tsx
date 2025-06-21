@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Card2 = ({
   image = "http://img.freepik.com/free-vector/house-rent-concept-background_23-2147779983.jpg",
 }) => {
+  const navigate = useNavigate();
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden max-w-xs">
       {/* Image Section */}
@@ -25,7 +27,10 @@ const Card2 = ({
               Verified
             </span>
           </div>
-          <button className="text-white  text-xs px-2 py-1 rounded-full bg-blue-500 hover:bg-blue-600">
+          <button
+            onClick={() => navigate("/hospital/product/2")}
+            className="text-white  text-xs px-2 py-1 rounded-full bg-blue-500 hover:bg-blue-600"
+          >
             Details
           </button>
         </div>
