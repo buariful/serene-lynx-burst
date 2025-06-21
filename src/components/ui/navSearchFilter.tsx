@@ -20,6 +20,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { toast } from "sonner";
 
 const NavSearchFilter: React.FC = () => {
   const [isPriceRangeOpen, setPriceRangeOpen] = useState(false);
@@ -102,72 +103,100 @@ const NavSearchFilter: React.FC = () => {
 
   return (
     <div className="px-10 mx-auto p-4 rounded-lg shadow-sm">
-      <div className="flex items-center gap-3">
-        {/* Search input with icon */}
-        <div className="flex items-center border rounded-full border-gray-300 w-72 bg-gray-200">
-          <span className="px-2">
-            <CiSearch strokeWidth={2} className="text-blue-500" />
-          </span>
-          <input
-            type="text"
-            placeholder="Search City, Address or Ad#"
-            className="flex-1 text-sm outline-none bg-gray-200 text-gray-700 placeholder-gray-400 py-2 h-full rounded-full pl-1"
-          />
+      <div className="flex items-center gap-5 justify-between">
+        <div className="flex items-center gap-3">
+          {/* Search input with icon */}
+          <div className="flex items-center border rounded-full border-gray-300 w-72 bg-gray-200">
+            <span className="px-2">
+              <CiSearch strokeWidth={2} className="text-blue-500" />
+            </span>
+            <input
+              type="text"
+              placeholder="Search City, Address or Ad#"
+              className="flex-1 text-sm outline-none bg-gray-200 text-gray-700 placeholder-gray-400 py-2 h-full rounded-full pl-1"
+            />
+          </div>
+
+          {/* Individual Popovers */}
+          <Popover open={isPriceRangeOpen} onOpenChange={setPriceRangeOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="ghost">
+                Rent <ChevronDown className="h-4 w-4 ml-1" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent sideOffset={8} align="center" className="w-80">
+              {renderPriceFilter()}
+            </PopoverContent>
+          </Popover>
+
+          <Popover open={isAptTypeOpen} onOpenChange={setAptTypeOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="ghost">
+                Type <ChevronDown className="h-4 w-4 ml-1" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent sideOffset={8} align="center" className="w-80">
+              {renderAptTypeFilter()}
+            </PopoverContent>
+          </Popover>
+
+          <Popover open={isBedTypeOpen} onOpenChange={setBedTypeOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="ghost">
+                Beds <ChevronDown className="h-4 w-4 ml-1" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent sideOffset={8} align="center" className="w-72">
+              {renderBedFilter()}
+            </PopoverContent>
+          </Popover>
+
+          {/* All Filters Drawer */}
+          <Drawer direction="right">
+            <DrawerTrigger asChild>
+              <Button variant="outline">All Filters</Button>
+            </DrawerTrigger>
+            <DrawerContent className="h-full w-96">
+              <DrawerHeader>
+                <DrawerTitle>All Filters</DrawerTitle>
+              </DrawerHeader>
+              <div className="p-4 space-y-8">
+                {renderPriceFilter()}
+                {renderAptTypeFilter()}
+                {renderBedFilter()}
+              </div>
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Button>View Results</Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+
+          {/* Save Alert Button */}
+          <Button
+            variant="default"
+            onClick={() => toast.success("Alert saved successfully!")}
+          >
+            Save Alert
+          </Button>
         </div>
 
-        {/* Individual Popovers */}
-        <Popover open={isPriceRangeOpen} onOpenChange={setPriceRangeOpen}>
-          <PopoverTrigger asChild>
-            <Button variant="ghost">
-              Rent <ChevronDown className="h-4 w-4 ml-1" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent sideOffset={8} align="center" className="w-80">
-            {renderPriceFilter()}
-          </PopoverContent>
-        </Popover>
-
-        <Popover open={isAptTypeOpen} onOpenChange={setAptTypeOpen}>
-          <PopoverTrigger asChild>
-            <Button variant="ghost">
-              Type <ChevronDown className="h-4 w-4 ml-1" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent sideOffset={8} align="center" className="w-80">
-            {renderAptTypeFilter()}
-          </PopoverContent>
-        </Popover>
-
-        <Popover open={isBedTypeOpen} onOpenChange={setBedTypeOpen}>
-          <PopoverTrigger asChild>
-            <Button variant="ghost">
-              Beds <ChevronDown className="h-4 w-4 ml-1" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent sideOffset={8} align="center" className="w-72">
-            {renderBedFilter()}
-          </PopoverContent>
-        </Popover>
-
-        {/* All Filters Drawer */}
         <Drawer direction="right">
           <DrawerTrigger asChild>
-            <Button variant="outline">All Filters</Button>
+            <Button variant="outline" className="bg-gray-200">
+              Alerts
+            </Button>
           </DrawerTrigger>
           <DrawerContent className="h-full w-96">
             <DrawerHeader>
-              <DrawerTitle>All Filters</DrawerTitle>
+              <DrawerTitle>My Alerts</DrawerTitle>
             </DrawerHeader>
-            <div className="p-4 space-y-8">
-              {renderPriceFilter()}
-              {renderAptTypeFilter()}
-              {renderBedFilter()}
+            <div className="p-4">
+              <p className="text-gray-500 text-center text-lg">
+                No alerts found.
+              </p>
             </div>
-            <DrawerFooter>
-              <DrawerClose asChild>
-                <Button>View Results</Button>
-              </DrawerClose>
-            </DrawerFooter>
           </DrawerContent>
         </Drawer>
       </div>

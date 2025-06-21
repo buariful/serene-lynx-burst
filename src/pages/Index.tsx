@@ -8,16 +8,16 @@ import Footer from "@/components/Footer";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const hospitalCities = [
-  { name: "Ajax", href: "/hospitals" },
-  { name: "Edmonton", href: "/hospitals" },
-  { name: "Niagara Falls", href: "/hospitals" },
-  { name: "Quebec City", href: "/hospitals" },
-  { name: "Ottawa", href: "/hospitals" },
-  { name: "Victoria", href: "/hospitals" },
-  { name: "Hamilton", href: "/hospitals" },
-  { name: "Toronto", href: "/hospitals" },
-  { name: "Saint John", href: "/hospitals" },
-  { name: "Edmonton", href: "/hospitals" },
+  { name: "Ajax", href: "/apartment" },
+  { name: "Edmonton", href: "/apartment" },
+  { name: "Niagara Falls", href: "/apartment" },
+  { name: "Quebec City", href: "/apartment" },
+  { name: "Ottawa", href: "/apartment" },
+  { name: "Victoria", href: "/apartment" },
+  { name: "Hamilton", href: "/apartment" },
+  { name: "Toronto", href: "/apartment" },
+  { name: "Saint John", href: "/apartment" },
+  { name: "Edmonton", href: "/apartment" },
 ];
 
 const medicalSchoolCities = [

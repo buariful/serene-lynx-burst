@@ -76,12 +76,12 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
       <div className=" p-3 flex flex-col justify-between">
         <div>
           <h3
-            className="text-sm font-semibold text-gray-800 mb-1 truncate"
+            className="text-xl font-semibold text-gray-800 mb-1 truncate"
             title={property.address}
           >
             {property.address}
           </h3>
-          <div className="flex items-center text-xs text-gray-600 mb-1 space-x-2">
+          <div className="flex items-center  text-gray-600 mb-1 space-x-2">
             <span className="flex items-center">
               <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
             </span>
@@ -90,7 +90,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
             </span>
           </div>
           {property.amenities && property.amenities.length > 0 && (
-            <div className="text-xs text-gray-500 mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <div className=" text-gray-500 mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
               {property.amenities.slice(0, 3).map((amenity) => {
                 const IconComponent = amenityIcons[amenity];
                 return (
@@ -107,7 +107,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
         </div>
 
         <div className="mt-auto">
-          <p className="text-sm font-bold text-blue-600 mb-2">
+          <p className=" font-bold text-blue-600 mb-2">
             ${property.price.toLocaleString()} {property.currency}/month
           </p>
           <div className="flex justify-end">
