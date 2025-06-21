@@ -23,7 +23,8 @@ const sampleProperties: Property[] = [
   {
     id: 101,
     imageUrl:
-      "https://images.rentals.ca/property-pictures/medium/oshawa-on/852001/apartment-533581394.jpg",
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=300&auto=format&fit=crop",
+    // "https://images.rentals.ca/property-pictures/medium/oshawa-on/852001/apartment-533581394.jpg",
 
     address: "1944 Yonge Street, Davisville, Toronto",
     beds: 1,
@@ -37,7 +38,7 @@ const sampleProperties: Property[] = [
   {
     id: 102,
     imageUrl:
-      "https://images.rentals.ca/property-pictures/medium/oshawa-on/852001/apartment-533581396.jpg",
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=300&auto=format&fit=crop",
 
     address: "700 King Street West, Fashion District, Toronto",
     beds: 2,
@@ -64,7 +65,7 @@ const sampleProperties: Property[] = [
   {
     id: 104,
     imageUrl:
-      "https://images.rentals.ca/property-pictures/medium/oshawa-on/852001/apartment-533581395.jpg",
+      "https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg",
     address: "123 Queen Street East, Moss Park, Toronto",
     beds: 3,
     baths: 2,
@@ -77,7 +78,7 @@ const sampleProperties: Property[] = [
   {
     id: 105,
     imageUrl:
-      "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=300&auto=format&fit=crop",
+      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
     address: "500 University Avenue, Discovery District, Toronto",
     beds: 2,
     baths: 1,
@@ -103,7 +104,7 @@ const sampleProperties: Property[] = [
   {
     id: 107,
     imageUrl:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=300&auto=format&fit=crop",
+      "https://dongardner.com/cdn/shop/articles/706-front-1.jpg?v=1713538108&width=1100",
     address: "20 Blue Jays Way, Entertainment District, Toronto",
     beds: 2,
     baths: 2,
@@ -158,7 +159,7 @@ const ApartmentPage: React.FC = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              {/* <CarouselPrevious className="absolute" />
+              {/* <CarouselPrevious />
               <CarouselNext /> */}
             </Carousel>
           </div>
