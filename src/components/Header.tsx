@@ -115,7 +115,7 @@ const drawerMenuItems = [
   {
     type: "link" as const,
     label: "Medical School",
-    href: "/search-results",
+    href: "/apartment",
   },
   {
     type: "link" as const,
@@ -164,7 +164,7 @@ const drawerMenuItems = [
   {
     type: "link" as const,
     label: "Search by Map",
-    href: "/search-results",
+    href: "/apartment",
   },
   { type: "separator" as const },
   {

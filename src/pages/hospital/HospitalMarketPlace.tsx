@@ -5,6 +5,16 @@ import Card2 from "@/components/ui/Card2";
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 
 type Product = {
   id: string;
@@ -239,98 +249,83 @@ export default function HospitalMarketplacePage() {
       <HospitalHeader />
 
       <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh]">
-        {/* Sidebar for categories (only when filtering/searching) */}
-        {showSidebar && (
-          <aside className="w-48 mr-6 flex-shrink-0 min-h-full flex flex-col">
-            <div className="bg-white border rounded shadow-sm p-2 flex-1">
-              <h3 className="text-xs font-semibold mb-2 text-[#3e4153]">
-                Categories
-              </h3>
-              <ul className="space-y-1">
-                <li>
+        {/* Sidebar for categories */}
+        <aside className="w-48 mr-6 flex-shrink-0">
+          <div className="bg-white border rounded shadow-sm p-2 sticky top-4">
+            <h3 className=" font-semibold mb-2 text-[#3e4153]">Categories</h3>
+            <ul className="space-y-1">
+              <li>
+                <button
+                  className={`w-full text-left px-2 py-1 rounded  transition-colors ${
+                    selectedCategory === "All"
+                      ? "bg-blue-600 text-white"
+                      : "hover:bg-gray-100 text-gray-700"
+                  }`}
+                  onClick={() => setSelectedCategory("All")}
+                >
+                  All Categories
+                </button>
+              </li>
+              {CATEGORIES.map((category) => (
+                <li key={category}>
                   <button
-                    className={`w-full text-left px-2 py-1 rounded text-xs font-medium transition-colors ${
-                      selectedCategory === "All"
+                    className={`w-full text-left px-2 py-1 rounded  transition-colors ${
+                      selectedCategory === category
                         ? "bg-blue-600 text-white"
                         : "hover:bg-gray-100 text-gray-700"
                     }`}
-                    onClick={() => {
-                      setSelectedCategory("All");
-                    }}
+                    onClick={() => setSelectedCategory(category)}
                   >
-                    All Categories
+                    {category}
                   </button>
                 </li>
-                {CATEGORIES.map((category) => (
-                  <li key={category}>
-                    <button
-                      className={`w-full text-left px-2 py-1 rounded text-xs font-medium transition-colors ${
-                        selectedCategory === category
-                          ? "bg-blue-600 text-white"
-                          : "hover:bg-gray-100 text-gray-700"
-                      }`}
-                      onClick={() => {
-                        setSelectedCategory(category);
-                      }}
-                    >
-                      {category}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </aside>
-        )}
+              ))}
+            </ul>
+          </div>
+        </aside>
 
         <div className={showSidebar ? "flex-1" : "w-full"}>
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-lg font-semibold mb-2 text-gray-500">
-              Canada's most trusted and loved marketplace
-            </h1>
+          {/* Compact Nav/Filter Bar */}
+          <div className="mb-4 p-2 border rounded-md shadow-sm bg-white flex items-center justify-between">
+            <form onSubmit={handleSearch} className="flex-1 flex gap-2">
+              <input
+                type="text"
+                placeholder="Search for anything..."
+                className="p-2 border rounded flex-1 min-w-0"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              <Button type="submit">Search</Button>
+            </form>
+            <Drawer direction="right">
+              <DrawerTrigger asChild>
+                <Button variant="outline" className="ml-4">
+                  Filters
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="h-full w-96">
+                <DrawerHeader>
+                  <DrawerTitle>All Filters</DrawerTitle>
+                </DrawerHeader>
+                <div className="p-4">
+                  {/* Add filter options here */}
+                  <p>Filter options will be here.</p>
+                </div>
+                <DrawerFooter>
+                  <DrawerClose asChild>
+                    <Button>Apply</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
 
-          {/* Filters (hide if sidebar is shown) */}
-          {!showSidebar && (
-            <form
-              className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 mb-8 w-full"
-              onSubmit={handleSearch}
-            >
-              <div className="flex w-full md:w-auto">
-                <input
-                  type="text"
-                  placeholder="Search for anything..."
-                  className="p-2 border rounded-l flex-1 text-xs min-w-0 md:max-w-xs"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 rounded-r border-l-0 border"
-                  aria-label="Search"
-                >
-                  Search
-                </button>
-              </div>
-              <div className="flex flex-col w-full md:w-auto">
-                <label className="block text-xs font-medium mb-1 md:mb-0 md:sr-only">
-                  Category
-                </label>
-                <select
-                  className="p-2 border text-xs rounded md:min-w-[140px]"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                  <option value="All">All Categories</option>
-                  {CATEGORIES.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </form>
-          )}
+          {/* Header */}
+          {/* <div className="text-center mb-8">
+            <h1 className="text-xl font-semibold mb-2 text-gray-500">
+              Canada's most trusted and loved marketplace
+            </h1>
+          </div> */}
 
           {/* If searching, only show search results and a back button */}
           {isSearchActive ? (
@@ -350,12 +345,7 @@ export default function HospitalMarketplacePage() {
               <div className="grid grid-cols-2 md:grid-cols-3  gap-5 mb-10">
                 {filteredProducts.length > 0 ? (
                   filteredProducts.map((product, idx) => (
-                    // <ProductCard
-                    //   key={product.id}
-                    //   product={product}
-                    //   imageIndex={idx}
-                    // />
-                    <Card2 />
+                    <Card2 key={product.id} />
                   ))
                 ) : (
                   <div className="col-span-full text-center text-gray-400 py-8">
@@ -372,12 +362,7 @@ export default function HospitalMarketplacePage() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
                 {filteredProducts.map((product, idx) => (
-                  // <ProductCard
-                  //   key={product.id}
-                  //   product={product}
-                  //   imageIndex={idx}
-                  // />
-                  <Card2 />
+                  <Card2 key={product.id} />
                 ))}
               </div>
 
@@ -389,12 +374,7 @@ export default function HospitalMarketplacePage() {
                 {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
                   .slice(0, 3)
                   .map((product, idx) => (
-                    // <ProductCard
-                    //   key={product.id}
-                    //   product={product}
-                    //   imageIndex={idx + 1}
-                    // />
-                    <Card2 />
+                    <Card2 key={product.id} />
                   ))}
               </div>
 
@@ -406,12 +386,7 @@ export default function HospitalMarketplacePage() {
                 {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
                   .slice(0, 4)
                   .map((product, idx) => (
-                    // <ProductCard
-                    //   key={product.id}
-                    //   product={product}
-                    //   imageIndex={idx + 1}
-                    // />
-                    <Card2 />
+                    <Card2 key={product.id} />
                   ))}
               </div>
 
@@ -421,12 +396,7 @@ export default function HospitalMarketplacePage() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-4">
                 {filteredProducts.map((product, idx) => (
-                  // <ProductCard
-                  //   key={product.id}
-                  //   product={product}
-                  //   imageIndex={idx}
-                  // />
-                  <Card2 />
+                  <Card2 key={product.id} />
                 ))}
               </div>
             </>

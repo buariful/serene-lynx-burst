@@ -9,7 +9,7 @@ const cardData = [
     title: "Search by Location",
     description:
       "Explore listings by city, neighborhood, or even near specific medical institutions.",
-    link: "/search-results",
+    link: "/apartment",
     linkText: "Start Searching",
     // imgSrc removed
   },
@@ -18,7 +18,7 @@ const cardData = [
     title: "Browse by Map",
     description:
       "Visually find properties in your desired area using our interactive map search.",
-    link: "/search-results",
+    link: "/apartment",
     linkText: "View Map",
     // imgSrc removed
   },
