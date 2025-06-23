@@ -104,23 +104,24 @@ const LandlordPage = () => {
             Upgrade Your Listing to Move Faster
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-10 max-w-5xl mx-auto">
           {/* Limited Plan */}
-          <div className="border rounded-lg p-6 flex flex-col items-center shadow-sm bg-white">
+          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-sm bg-white">
             <span className="text-lg font-semibold mb-1">Limited</span>
             <span className="text-3xl font-bold text-blue-600 mb-1">$0</span>
             <span className="text-xs text-gray-400 mb-3">30 days</span>
             <div className="mb-3 text-blue-500">
-              <FaStar className="h-8 w-8 mx-auto" />
+              {/* <FaStar className="h-8 w-8 mx-auto" /> */}
+              <img src="/public/building.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Basic Listing
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Visible in Search
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Standard Support
               </li>
             </ul>
@@ -129,27 +130,27 @@ const LandlordPage = () => {
             </button>
           </div>
           {/* Promoted Plan */}
-          <div className="border rounded-lg p-6 flex flex-col items-center shadow-md bg-white">
+          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-md bg-white">
             <span className="text-lg font-semibold mb-1">Promoted</span>
             <span className="text-3xl font-bold text-blue-600 mb-1">$95</span>
             <span className="text-xs text-gray-400 mb-3">7 days</span>
             <div className="mb-3 text-yellow-500">
-              <FaRocket className="h-8 w-8 mx-auto" />
+              <img src="/public/building 2.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Highlighted Listing
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Top of Search Results
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Priority Support
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Promoted Badge on Listing
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+              <li className=" rounded px-3 py-1 text-sm flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Increased Inquiries
               </li>
             </ul>
@@ -158,27 +159,27 @@ const LandlordPage = () => {
             </button>
           </div>
           {/* Featured Plan */}
-          <div className="border rounded-lg p-6 flex flex-col items-center shadow-lg bg-white">
+          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-lg bg-white">
             <span className="text-lg font-semibold mb-1">Featured</span>
             <span className="text-3xl font-bold text-blue-600 mb-1">$199</span>
             <span className="text-xs text-gray-400 mb-3">3 days</span>
             <div className="mb-3 text-pink-500">
-              <FaCrown className="h-8 w-8 mx-auto" />
+              <img src="/public/building 3.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Premium Placement
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Maximum Visibility
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> 24/7 Dedicated Support
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Featured Badge on Listing
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+              <li className=" rounded px-3  text-sm flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Highest Priority in Search
               </li>
             </ul>
@@ -186,6 +187,44 @@ const LandlordPage = () => {
               Select Plan
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* Clients */}
+      <section className="mb-24 px-10 text-center">
+        <div className="text-center mb-16">
+          <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
+            Our Customers
+          </h2>
+          <p className="text-gray-500">
+            What other landlords like you have to say
+          </p>
+        </div>
+
+        <div className="">
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <p className="w-16 h-16 rounded-full text-white text-3xl bg-blue-500 font-bold grid place-content-center">
+              R
+            </p>
+
+            <div className="">
+              <h2 className="text-3xl font-semibold mb-2">Robert Judge</h2>
+              <div className="flex text-blue-500 items-center gap-1">
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+              </div>
+            </div>
+          </div>
+
+          <p className="text-lg mx-auto max-w-2xl">
+            Great rental site. Got lots of leads. I like that you can pause an
+            advert. It saves a lot of time with a rental that gets re-listed
+            every year. Information about the neighbourhood is a smart feature
+            for prospective tenants.
+          </p>
         </div>
       </section>
 
