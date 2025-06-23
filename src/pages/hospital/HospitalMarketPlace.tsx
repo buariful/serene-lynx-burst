@@ -17,7 +17,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaCheck } from "react-icons/fa";
 import {
   Accordion,
   AccordionItem,

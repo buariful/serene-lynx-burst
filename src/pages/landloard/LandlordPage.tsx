@@ -1,6 +1,9 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import { Button } from "@/components/ui/button";
 import React from "react";
+import { FaCheck } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const featuredListings = [
@@ -26,85 +29,193 @@ const featuredListings = [
 
 const LandlordPage = () => {
   return (
-    <div>
+    <div className="">
       <Header />
       <div className="bg-gray-50 min-h-screen">
         {/* Hero Section */}
-        <section className="bg-blue-700 text-white py-16 px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">
-            Find Your Next Tenant with Ease
-          </h1>
-          <p className="text-lg mb-6">
-            List your property and connect with thousands of qualified renters
-            across Canada.
-          </p>
-          <Link
-            to="/landlord/post-rental"
-            className="bg-white text-blue-700 font-semibold px-6 py-3 rounded shadow hover:bg-blue-100 transition"
-          >
-            Post a Rental
-          </Link>
-        </section>
-
-        {/* Search Bar */}
-        <section className="max-w-2xl mx-auto -mt-8 mb-12 px-4">
-          <form className="bg-white rounded shadow p-4 flex gap-2">
-            <input
-              type="text"
-              placeholder="Search by city, address, or postal code"
-              className="flex-1 px-3 py-2 border rounded focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800 transition"
-            >
-              Search
-            </button>
-          </form>
-        </section>
-
-        {/* Featured Listings */}
-        <section className="max-w-5xl mx-auto mb-16 px-4">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Featured Rentals
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {featuredListings.map((listing) => (
-              <div
-                key={listing.id}
-                className="bg-white rounded shadow p-4 flex flex-col"
+        <div
+          className="relative bg-cover bg-center py-32 md:py-48"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop')",
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="relative container mx-auto px-4 text-center z-10">
+            <h1 className="text-4xl md:text-6xl font-bold text-white">
+              It's Time To List Your Property
+            </h1>
+            <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+              Thousands of apartments, houses, and condos for rent across
+              Canada.
+            </p>
+            <div className="mt-10">
+              <Link
+                to="/landlord/post-rental"
+                className="bg-white text-blue-700 font-semibold px-6 py-3 rounded shadow hover:bg-blue-100 transition"
               >
-                <div className="h-40 bg-gray-200 rounded mb-4" />{" "}
-                {/* Placeholder for image */}
-                <h3 className="font-semibold text-lg mb-2">{listing.title}</h3>
-                <p className="text-gray-600 mb-1">{listing.location}</p>
-                <p className="text-blue-700 font-bold mb-3">{listing.price}</p>
-                <Link
-                  to="/search-results"
-                  className="mt-auto text-blue-700 hover:underline"
-                >
-                  View Details
-                </Link>
-              </div>
-            ))}
+                Post a Rental
+              </Link>
+            </div>
           </div>
-        </section>
-
-        {/* Info Section */}
-        <section className="max-w-4xl mx-auto mb-20 px-4">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">
-            Why List with Us?
-          </h2>
-          <ul className="list-disc pl-6 text-gray-700 space-y-2">
-            <li>
-              Reach a large audience of medical professionals and students.
-            </li>
-            <li>Easy-to-use listing tools and dashboard.</li>
-            <li>Secure messaging and application process.</li>
-            <li>Dedicated support for landlords.</li>
-          </ul>
-        </section>
+        </div>
       </div>
+
+      {/*  */}
+      <div className="mx-10 bg-blue-100 px-16 rounded-lg py-12 mb-20">
+        <div className="flex justify-between items-center gap-5 flex-col md:flex-row mb-16">
+          <h3 className="text-4xl font-bold">
+            Thousands of renters visit{" "}
+            <span className="text-blue-500">ScrubHub</span> every day to find
+            their new home.
+          </h3>
+
+          <div>
+            <img
+              src="https://www.moderngardenrooms.com/wp-content/uploads/2022/03/garden-room-bedroom-3-scaled.jpg"
+              alt=""
+              className="w-80 lg:w-[500px] h-auto rounded"
+            />
+          </div>
+        </div>
+
+        <div className="max-w-[700px] mx-auto flex flex-col items-center space-y-10">
+          <h2 className="text-blue-500 font-bold text-5xl">
+            We help them find Yours
+          </h2>
+          <p className="text-center text-base font-medium">
+            With over 20 years of expertise, Rentals.ca is dedicated to serving
+            landlords, property managers, and renters nationwide. Join Canada's
+            favourite platform for renters to discover your property
+            effortlessly.
+          </p>
+
+          <Button variant="default">List your property</Button>
+        </div>
+      </div>
+
+      {/* Plans and Pricing Section */}
+      <section className="my-8 px-10">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
+            Plans and Pricing
+          </h2>
+          <p className="text-gray-500 mb-6">
+            Upgrade Your Listing to Move Faster
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Limited Plan */}
+          <div className="border rounded-lg p-6 flex flex-col items-center shadow-sm bg-white">
+            <span className="text-lg font-semibold mb-1">Limited</span>
+            <span className="text-3xl font-bold text-blue-600 mb-1">$0</span>
+            <span className="text-xs text-gray-400 mb-3">30 days</span>
+            <div className="mb-3 text-blue-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 mx-auto"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+            </div>
+            <ul className="w-full mb-4">
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Basic Listing
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Visible in Search
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Standard Support
+              </li>
+            </ul>
+            <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
+              Select Plan
+            </button>
+          </div>
+          {/* Promoted Plan */}
+          <div className="border rounded-lg p-6 flex flex-col items-center shadow-md bg-white">
+            <span className="text-lg font-semibold mb-1">Promoted</span>
+            <span className="text-3xl font-bold text-blue-600 mb-1">$95</span>
+            <span className="text-xs text-gray-400 mb-3">7 days</span>
+            <div className="mb-3 text-yellow-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 mx-auto"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v8m0 0l3-3m-3 3l-3-3"
+                />
+              </svg>
+            </div>
+            <ul className="w-full mb-4">
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Highlighted Listing
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Top of Search Results
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Priority Support
+              </li>
+            </ul>
+            <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
+              Select Plan
+            </button>
+          </div>
+          {/* Featured Plan */}
+          <div className="border rounded-lg p-6 flex flex-col items-center shadow-lg bg-white">
+            <span className="text-lg font-semibold mb-1">Featured</span>
+            <span className="text-3xl font-bold text-blue-600 mb-1">$199</span>
+            <span className="text-xs text-gray-400 mb-3">3 days</span>
+            <div className="mb-3 text-pink-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 mx-auto"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+            <ul className="w-full mb-4">
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Premium Placement
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Maximum Visibility
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> 24/7 Dedicated Support
+              </li>
+            </ul>
+            <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
+              Select Plan
+            </button>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
