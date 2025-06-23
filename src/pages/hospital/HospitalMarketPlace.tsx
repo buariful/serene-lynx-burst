@@ -4,7 +4,7 @@ import HospitalHeader from "@/components/HospitalHeader";
 import Card2 from "@/components/ui/Card2";
 import { useState, useRef, useEffect } from "react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { LuSettings2 } from "react-icons/lu";
 import {
@@ -198,6 +198,8 @@ export default function HospitalMarketplacePage() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const [searchInput, setSearchInput] = useState<string>("");
+  const [searchParams] = useSearchParams();
+  const q = searchParams.get("q");
 
   // Show sidebar if a category is selected (not 'All') or search is active
   useEffect(() => {
@@ -297,7 +299,7 @@ export default function HospitalMarketplacePage() {
         <div className={showSidebar ? "flex-1" : "w-full"}>
           {/* Compact Nav/Filter Bar */}
           <h2 className="text-[#3e4153] text-2xl  font-semibold">
-            Jobs in Canada
+            {q ? q : "Jobs"} in Canada
           </h2>
 
           <FilterNav
