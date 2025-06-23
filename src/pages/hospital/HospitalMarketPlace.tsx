@@ -5,6 +5,8 @@ import Card2 from "@/components/ui/Card2";
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
+import { LuSettings2 } from "react-icons/lu";
 import {
   Drawer,
   DrawerClose,
@@ -15,6 +17,13 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
+import { FaArrowRight } from "react-icons/fa";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 type Product = {
   id: string;
@@ -286,8 +295,11 @@ export default function HospitalMarketplacePage() {
 
         <div className={showSidebar ? "flex-1" : "w-full"}>
           {/* Compact Nav/Filter Bar */}
-          <div className="mb-4 p-2 border rounded-md shadow-sm bg-white flex items-center justify-between">
-            <form onSubmit={handleSearch} className="flex-1 flex gap-2">
+          <h2 className="text-[#3e4153] text-2xl  font-semibold">
+            Jobs in Canada
+          </h2>
+          <div className="mb-4 p-2  rounded-md shadow-sm gap-3 bg-white flex items-center ">
+            {/* <form onSubmit={handleSearch} className="flex-1 flex gap-2">
               <input
                 type="text"
                 placeholder="Search for anything..."
@@ -296,20 +308,84 @@ export default function HospitalMarketplacePage() {
                 onChange={(e) => setSearchInput(e.target.value)}
               />
               <Button type="submit">Search</Button>
-            </form>
+            </form> */}
+
             <Drawer direction="right">
-              <DrawerTrigger asChild>
-                <Button variant="outline" className="ml-4">
-                  Filters
-                </Button>
-              </DrawerTrigger>
+              <div className="flex gap-2">
+                <DrawerTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className=" rounded-full flex items-center gap-3"
+                  >
+                    <span>Price</span>
+                    <IoIosArrowForward />
+                  </Button>
+                </DrawerTrigger>
+                <DrawerTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className=" rounded-full flex items-center gap-3"
+                  >
+                    <span>Price Type</span>
+                    <IoIosArrowForward />
+                  </Button>
+                </DrawerTrigger>
+
+                <DrawerTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className=" rounded-full flex items-center gap-3"
+                  >
+                    <span>Job Type</span>
+                    <IoIosArrowForward />
+                  </Button>
+                </DrawerTrigger>
+                <DrawerTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="bg-blue-500 hover:bg-blue-600 hover:text-white text-white rounded-full flex items-center gap-1"
+                  >
+                    <LuSettings2 />
+                    <span>All Filters</span>
+                  </Button>
+                </DrawerTrigger>
+              </div>
               <DrawerContent className="h-full w-96">
                 <DrawerHeader>
-                  <DrawerTitle>All Filters</DrawerTitle>
+                  <DrawerTitle>Filters</DrawerTitle>
                 </DrawerHeader>
                 <div className="p-4">
-                  {/* Add filter options here */}
-                  <p>Filter options will be here.</p>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue="categories"
+                  >
+                    <AccordionItem value="categories">
+                      <AccordionTrigger>
+                        <div className="justify-start">Categories</div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ul className="space-y-1">
+                          {CATEGORIES.map((category) => (
+                            <li key={category} className="pl-2 py-1">
+                              <DrawerClose asChild>
+                                <button
+                                  className={`w-full text-left px-2 py-1 rounded transition-colors ${
+                                    selectedCategory === category
+                                      ? "bg-blue-600 text-white"
+                                      : "hover:bg-gray-100 text-gray-700"
+                                  }`}
+                                  onClick={() => setSelectedCategory(category)}
+                                >
+                                  {category}
+                                </button>
+                              </DrawerClose>
+                            </li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
                 <DrawerFooter>
                   <DrawerClose asChild>
@@ -356,44 +432,7 @@ export default function HospitalMarketplacePage() {
             </>
           ) : (
             <>
-              {/* Recommended Section */}
-              <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
-                Recommended for you
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
-                {filteredProducts.map((product, idx) => (
-                  <Card2 key={product.id} />
-                ))}
-              </div>
-
-              {/* Popular listings in Real Estate */}
-              <h2 className="text-[#3e4153] text-2xl  mb-4 font-semibold">
-                Popular listings in Real Estate
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
-                {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
-                  .slice(0, 3)
-                  .map((product, idx) => (
-                    <Card2 key={product.id} />
-                  ))}
-              </div>
-
-              {/* Popular listings in Autos */}
-              <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
-                Popular listings in Autos
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
-                {SAMPLE_PRODUCTS.filter((p) => p.category === "Vehicles")
-                  .slice(0, 4)
-                  .map((product, idx) => (
-                    <Card2 key={product.id} />
-                  ))}
-              </div>
-
-              {/* All Listings */}
-              <h2 className="text-[#3e4153] text-2xl mb-4 font-semibold">
-                Homepage Gallery
-              </h2>
+              {/* Only display all filtered items in a single grid, no section titles */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-4">
                 {filteredProducts.map((product, idx) => (
                   <Card2 key={product.id} />
