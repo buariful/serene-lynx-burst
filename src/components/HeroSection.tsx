@@ -13,7 +13,7 @@ const HeroSection = () => {
     console.log("Search term:", searchTerm);
     // Navigate to search results page, optionally passing search term
     // For now, just navigating. We can pass searchTerm via state or query params later.
-    navigate("/search-results", { state: { searchTerm } });
+    navigate("/apartment", { state: { searchTerm } });
   };
 
   return (

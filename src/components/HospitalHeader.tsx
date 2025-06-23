@@ -130,7 +130,7 @@ const drawerMenuItems = [
   {
     type: "link" as const,
     label: "Search by Map",
-    href: "/search-results",
+    href: "/apartment",
   },
   { type: "separator" as const },
   {

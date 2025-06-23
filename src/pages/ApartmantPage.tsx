@@ -163,6 +163,51 @@ const ApartmentPage: React.FC = () => {
               <CarouselNext /> */}
             </Carousel>
           </div>
+          <div className="mb-8">
+            <Carousel opts={{ loop: true }}>
+              <CarouselContent>
+                {properties.map((property) => (
+                  <CarouselItem key={property.id} className="basis-full">
+                    <div className="w-full p-2">
+                      <PropertyCard2 property={property} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {/* <CarouselPrevious />
+              <CarouselNext /> */}
+            </Carousel>
+          </div>
+          <div className="mb-8">
+            <Carousel opts={{ loop: true }}>
+              <CarouselContent>
+                {properties.map((property) => (
+                  <CarouselItem key={property.id} className="basis-full">
+                    <div className="w-full p-2">
+                      <PropertyCard2 property={property} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {/* <CarouselPrevious />
+              <CarouselNext /> */}
+            </Carousel>
+          </div>
+          <div className="mb-8">
+            <Carousel opts={{ loop: true }}>
+              <CarouselContent>
+                {properties.map((property) => (
+                  <CarouselItem key={property.id} className="basis-full">
+                    <div className="w-full p-2">
+                      <PropertyCard2 property={property} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {/* <CarouselPrevious />
+              <CarouselNext /> */}
+            </Carousel>
+          </div>
 
           {/* Optionally keep the grid below for reference or remove it */}
           {/*

@@ -52,7 +52,7 @@ const CanadianLocationsMegamenu = () => {
           <ul className="space-y-2">
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Toronto, ON
@@ -60,7 +60,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Hamilton, ON
@@ -68,7 +68,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Vancouver, BC
@@ -76,7 +76,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 London, ON
@@ -84,7 +84,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Kelowna, BC
@@ -92,7 +92,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Ottawa, ON
@@ -107,7 +107,7 @@ const CanadianLocationsMegamenu = () => {
           <ul className="space-y-2">
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Alberta (5E)
@@ -115,7 +115,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 British Columbia (220)
@@ -123,7 +123,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Manitoba (4)
@@ -131,7 +131,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 New Brunswick (2)
@@ -139,7 +139,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Newfoundland and Labrador (2)
@@ -147,7 +147,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Nova Scotia (109)
@@ -155,7 +155,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Ontario (443)
@@ -163,7 +163,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Prince Edward Island (1)
@@ -171,7 +171,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Quebec (15)
@@ -179,7 +179,7 @@ const CanadianLocationsMegamenu = () => {
             </li>
             <li>
               <Link
-                to="/search-results"
+                to="/apartment"
                 className="hover:text-white hover:underline text-xs"
               >
                 Saskatchewan (1)

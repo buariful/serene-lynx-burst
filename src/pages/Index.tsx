@@ -21,10 +21,10 @@ const hospitalCities = [
 ];
 
 const medicalSchoolCities = [
-  { name: "Toronto", href: "/search-results" },
-  { name: "Vancouver", href: "/search-results" },
-  { name: "London", href: "/search-results" },
-  { name: "Montreal", href: "/search-results" },
+  { name: "Toronto", href: "/apartment" },
+  { name: "Vancouver", href: "/apartment" },
+  { name: "London", href: "/apartment" },
+  { name: "Montreal", href: "/apartment" },
 ];
 
 const Index = () => {
