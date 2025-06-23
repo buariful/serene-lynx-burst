@@ -24,6 +24,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { FilterNav } from "@/components/ui/filterNav";
 
 type Product = {
   id: string;
@@ -298,103 +299,11 @@ export default function HospitalMarketplacePage() {
           <h2 className="text-[#3e4153] text-2xl  font-semibold">
             Jobs in Canada
           </h2>
-          <div className="mb-4 p-2  rounded-md shadow-sm gap-3 bg-white flex items-center ">
-            {/* <form onSubmit={handleSearch} className="flex-1 flex gap-2">
-              <input
-                type="text"
-                placeholder="Search for anything..."
-                className="p-2 border rounded flex-1 min-w-0"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-              />
-              <Button type="submit">Search</Button>
-            </form> */}
 
-            <Drawer direction="right">
-              <div className="flex gap-2">
-                <DrawerTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className=" rounded-full flex items-center gap-3"
-                  >
-                    <span>Price</span>
-                    <IoIosArrowForward />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className=" rounded-full flex items-center gap-3"
-                  >
-                    <span>Price Type</span>
-                    <IoIosArrowForward />
-                  </Button>
-                </DrawerTrigger>
-
-                <DrawerTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className=" rounded-full flex items-center gap-3"
-                  >
-                    <span>Job Type</span>
-                    <IoIosArrowForward />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="bg-blue-500 hover:bg-blue-600 hover:text-white text-white rounded-full flex items-center gap-1"
-                  >
-                    <LuSettings2 />
-                    <span>All Filters</span>
-                  </Button>
-                </DrawerTrigger>
-              </div>
-              <DrawerContent className="h-full w-96">
-                <DrawerHeader>
-                  <DrawerTitle>Filters</DrawerTitle>
-                </DrawerHeader>
-                <div className="p-4">
-                  <Accordion
-                    type="single"
-                    collapsible
-                    defaultValue="categories"
-                  >
-                    <AccordionItem value="categories">
-                      <AccordionTrigger>
-                        <div className="justify-start">Categories</div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <ul className="space-y-1">
-                          {CATEGORIES.map((category) => (
-                            <li key={category} className="pl-2 py-1">
-                              <DrawerClose asChild>
-                                <button
-                                  className={`w-full text-left px-2 py-1 rounded transition-colors ${
-                                    selectedCategory === category
-                                      ? "bg-blue-600 text-white"
-                                      : "hover:bg-gray-100 text-gray-700"
-                                  }`}
-                                  onClick={() => setSelectedCategory(category)}
-                                >
-                                  {category}
-                                </button>
-                              </DrawerClose>
-                            </li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </div>
-                <DrawerFooter>
-                  <DrawerClose asChild>
-                    <Button>Apply</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          </div>
+          <FilterNav
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
 
           {/* Header */}
           {/* <div className="text-center mb-8">
