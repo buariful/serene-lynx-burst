@@ -18,6 +18,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 interface SearchResultPropertyCardProps {
   property: Property;
@@ -58,7 +59,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
 
   return (
     <div
-      className={`bg-white  shadow-md overflow-hidden   transition-all duration-200 cursor-grab`}
+      className={`bg-white  shadow-md overflow-hidden   transition-all duration-200 `}
     >
       {/* Left Column (40%): Image */}
       <div className="w-full bg-red-500 flex-shrink-0">
@@ -75,12 +76,13 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
       {/* Right Column (60%): Details */}
       <div className=" p-3 flex flex-col justify-between">
         <div>
-          <h3
-            className="text-xl font-semibold text-gray-800 mb-1 truncate"
-            title={property.address}
+          <Link
+            to={"/hospital/product/10"}
+            className="text-xl hover:underline font-semibold text-gray-800 mb-1 truncate"
+            // title={property.address}
           >
             {property.address}
-          </h3>
+          </Link>
           <div className="flex items-center  text-gray-600 mb-1 space-x-2">
             <span className="flex items-center">
               <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
