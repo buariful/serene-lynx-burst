@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaStar, FaRocket, FaCrown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const featuredListings = [
@@ -95,7 +95,7 @@ const LandlordPage = () => {
       </div>
 
       {/* Plans and Pricing Section */}
-      <section className="my-8 px-10">
+      <section className="mb-20 px-10">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
             Plans and Pricing
@@ -111,20 +111,7 @@ const LandlordPage = () => {
             <span className="text-3xl font-bold text-blue-600 mb-1">$0</span>
             <span className="text-xs text-gray-400 mb-3">30 days</span>
             <div className="mb-3 text-blue-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 mx-auto"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
+              <FaStar className="h-8 w-8 mx-auto" />
             </div>
             <ul className="w-full mb-4">
               <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
@@ -147,20 +134,7 @@ const LandlordPage = () => {
             <span className="text-3xl font-bold text-blue-600 mb-1">$95</span>
             <span className="text-xs text-gray-400 mb-3">7 days</span>
             <div className="mb-3 text-yellow-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 mx-auto"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v8m0 0l3-3m-3 3l-3-3"
-                />
-              </svg>
+              <FaRocket className="h-8 w-8 mx-auto" />
             </div>
             <ul className="w-full mb-4">
               <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
@@ -169,8 +143,14 @@ const LandlordPage = () => {
               <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Top of Search Results
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Priority Support
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Promoted Badge on Listing
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Increased Inquiries
               </li>
             </ul>
             <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
@@ -183,20 +163,7 @@ const LandlordPage = () => {
             <span className="text-3xl font-bold text-blue-600 mb-1">$199</span>
             <span className="text-xs text-gray-400 mb-3">3 days</span>
             <div className="mb-3 text-pink-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 mx-auto"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m0 0l4-4m-4 4l-4-4"
-                />
-              </svg>
+              <FaCrown className="h-8 w-8 mx-auto" />
             </div>
             <ul className="w-full mb-4">
               <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
@@ -205,8 +172,14 @@ const LandlordPage = () => {
               <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> Maximum Visibility
               </li>
-              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
                 <FaCheck className="text-blue-500" /> 24/7 Dedicated Support
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm mb-2 flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Featured Badge on Listing
+              </li>
+              <li className="border border-blue-500 rounded px-3 py-2 text-sm flex items-center gap-2">
+                <FaCheck className="text-blue-500" /> Highest Priority in Search
               </li>
             </ul>
             <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
