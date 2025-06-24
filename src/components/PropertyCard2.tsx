@@ -61,7 +61,6 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
     <div
       className={`bg-white  shadow-md overflow-hidden   transition-all duration-200 `}
     >
-      {/* Left Column (40%): Image */}
       <div className="w-full bg-red-500 flex-shrink-0">
         <img
           src={
@@ -72,47 +71,47 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           className="w-full h-full max-h-[50vh] object-cover"
         />
       </div>
-
-      {/* Right Column (60%): Details */}
-      <div className=" p-3 flex flex-col justify-between">
+      <div className="py-3 px-4">
         <div>
           <Link
             to={"/hospital/product/10"}
-            className="text-xl hover:underline font-semibold text-gray-800 mb-1 truncate"
+            className="text-xl hover:underline font-semibold text-gray-800  "
             // title={property.address}
           >
             {property.address}
           </Link>
-          <div className="flex items-center  text-gray-600 mb-1 space-x-2">
-            <span className="flex items-center">
-              <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
-            </span>
-            <span className="flex items-center">
-              <Bath className="w-3 h-3 mr-1" /> {property.baths} Bath
-            </span>
-          </div>
-          {property.amenities && property.amenities.length > 0 && (
-            <div className=" text-gray-500 mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
-              {property.amenities.slice(0, 3).map((amenity) => {
-                const IconComponent = amenityIcons[amenity];
-                return (
-                  <span key={amenity} className="flex items-center">
-                    {IconComponent && (
-                      <IconComponent className="w-3 h-3 mr-0.5" />
-                    )}
-                    {amenity}
-                  </span>
-                );
-              })}
-            </div>
-          )}
         </div>
+        <div className=" grid grid-cols-12">
+          <div className="col-span-8">
+            <div className="flex items-center  text-gray-600 mb-1 space-x-2">
+              <span className="flex items-center">
+                <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
+              </span>
+              <span className="flex items-center">
+                <Bath className="w-3 h-3 mr-1" /> {property.baths} Bath
+              </span>
+            </div>
+            {property.amenities && property.amenities.length > 0 && (
+              <div className=" text-gray-500 mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+                {property.amenities.slice(0, 3).map((amenity) => {
+                  const IconComponent = amenityIcons[amenity];
+                  return (
+                    <span key={amenity} className="flex items-center">
+                      {IconComponent && (
+                        <IconComponent className="w-3 h-3 mr-0.5" />
+                      )}
+                      {amenity}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+            <p className=" font-bold text-blue-600 ">
+              ${property.price.toLocaleString()} {property.currency}/month
+            </p>
+          </div>
 
-        <div className="mt-auto">
-          <p className=" font-bold text-blue-600 mb-2">
-            ${property.price.toLocaleString()} {property.currency}/month
-          </p>
-          <div className="flex justify-end">
+          <div className="mt-auto ml-auto col-span-4">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <Button

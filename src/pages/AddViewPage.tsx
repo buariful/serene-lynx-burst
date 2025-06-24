@@ -140,7 +140,7 @@ export default function JobListingPage() {
               {/* Company Info */}
               <div className="mb-6">
                 <h3 className="text-lg font-semibold">Eco-Logistique Inc.</h3>
-                <p className="text-gray-600">On Kijiji since January 2016</p>
+                <p className="text-gray-600">On Scrubhub since January 2016</p>
               </div>
 
               <div className="mb-6">
