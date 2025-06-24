@@ -149,7 +149,7 @@ const MapLogic = () => {
       allMarkerPoints.push(L.latLng(lat, lng));
       const icon = createMoneySquareMarker(amount);
       const leafletMarker = L.marker([lat, lng], { icon }).bindPopup(
-        `<b>${markerData.title}</b><br/><img src="${markerData.imageUrl}" style="width:50px; height:50px; border-radius:4px; margin-top:5px;" />`
+        `<a href="/hospital/product/2"><b>${markerData.title}</b><br/><img src="${markerData.imageUrl}" style="width:50px; height:50px; border-radius:4px; margin-top:5px;" /></a>`
       );
       leafletMarker.customData = markerData;
       markerClusterRef.current.addLayer(leafletMarker);
