@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { FaCheck, FaStar, FaRocket, FaCrown } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 
 const featuredListings = [
   {
@@ -200,31 +207,92 @@ const LandlordPage = () => {
             What other landlords like you have to say
           </p>
         </div>
-
-        <div className="">
-          <div className="flex items-center justify-center gap-3 mb-10">
-            <p className="w-16 h-16 rounded-full text-white text-3xl bg-blue-500 font-bold grid place-content-center">
-              R
-            </p>
-
-            <div className="">
-              <h2 className="text-3xl font-semibold mb-2">Robert Judge</h2>
-              <div className="flex text-blue-500 items-center gap-1">
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-              </div>
-            </div>
-          </div>
-
-          <p className="text-lg mx-auto max-w-2xl">
-            Great rental site. Got lots of leads. I like that you can pause an
-            advert. It saves a lot of time with a rental that gets re-listed
-            every year. Information about the neighbourhood is a smart feature
-            for prospective tenants.
-          </p>
+        <div className="max-w-2xl mx-auto relative">
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>
+                <div className="">
+                  <div className="flex items-center justify-center gap-3 mb-10">
+                    <p className="w-16 h-16 rounded-full text-white text-3xl bg-blue-500 font-bold grid place-content-center">
+                      R
+                    </p>
+                    <div className="">
+                      <h2 className="text-3xl font-semibold mb-2">
+                        Robert Judge
+                      </h2>
+                      <div className="flex text-blue-500 items-center gap-1">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-lg mx-auto max-w-2xl">
+                    Great rental site. Got lots of leads. I like that you can
+                    pause an advert. It saves a lot of time with a rental that
+                    gets re-listed every year. Information about the
+                    neighbourhood is a smart feature for prospective tenants.
+                  </p>
+                </div>
+              </CarouselItem>
+              <CarouselItem>
+                <div className="">
+                  <div className="flex items-center justify-center gap-3 mb-10">
+                    <p className="w-16 h-16 rounded-full text-white text-3xl bg-green-500 font-bold grid place-content-center">
+                      S
+                    </p>
+                    <div className="">
+                      <h2 className="text-3xl font-semibold mb-2">
+                        Samantha Lee
+                      </h2>
+                      <div className="flex text-blue-500 items-center gap-1">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-lg mx-auto max-w-2xl">
+                    The platform is easy to use and helped me find reliable
+                    tenants quickly. The support team was responsive and helpful
+                    throughout the process.
+                  </p>
+                </div>
+              </CarouselItem>
+              <CarouselItem>
+                <div className="">
+                  <div className="flex items-center justify-center gap-3 mb-10">
+                    <p className="w-16 h-16 rounded-full text-white text-3xl bg-purple-500 font-bold grid place-content-center">
+                      M
+                    </p>
+                    <div className="">
+                      <h2 className="text-3xl font-semibold mb-2">
+                        Michael Chen
+                      </h2>
+                      <div className="flex text-blue-500 items-center gap-1">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-lg mx-auto max-w-2xl">
+                    I appreciate the detailed analytics and the ability to
+                    manage multiple listings in one place. Highly recommended
+                    for busy landlords!
+                  </p>
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </section>
 
