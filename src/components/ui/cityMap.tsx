@@ -165,9 +165,9 @@ const MapLogic = () => {
         const data = marker.customData;
         if (data) {
           popupContent += `
-            <li style="display: flex; align-items: center; margin-bottom: 8px; list-style: none;">
-              <img src="${data.imageUrl}" width="40" height="40" style="margin-right: 10px; border-radius: 4px;" alt="${data.title}" />
-              <span style="font-family: sans-serif; font-size: 14px;">${data.title}</span>
+            <li style=" margin-bottom: 8px; list-style: none;">
+              <a href="/hospital/product/2" style="display: flex; align-items: center;"><img src="${data.imageUrl}" width="40" height="40" style="margin-right: 10px; border-radius: 4px;" alt="${data.title}" />
+              <span style="font-family: sans-serif; font-size: 14px;">${data.title}</span></a>
             </li>
           `;
         }
