@@ -40,7 +40,7 @@ const HospitalMegaMenu: React.FC = () => {
         {canadaHospitals.map((hospital) => (
           <Link
             key={hospital.name}
-            to={`/search-results?category=hospital&name=${encodeURIComponent(
+            to={`/apartment?category=hospital&name=${encodeURIComponent(
               hospital.name
             )}&city=${encodeURIComponent(
               hospital.location.split(", ")[0]
