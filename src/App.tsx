@@ -139,7 +139,7 @@ const App = () => (
             element={<RecruiterDashboardPage />}
           />
 
-          <Route path="/hospitals" element={<HospitalListPage />} />
+          {/* <Route path="/hospitals" element={<HospitalListPage />} /> */}
 
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
@@ -154,6 +154,7 @@ const App = () => (
           <Route path="/medical-rentals" element={<MedicalRentalsPage />} />
           <Route path="/search-near-me" element={<SearchNearMePage />} />
           <Route path="/apartment" element={<ApartmentPage />} />
+          <Route path="/hospital-list" element={<ApartmentPage />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
