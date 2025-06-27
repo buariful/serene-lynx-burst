@@ -224,4 +224,20 @@ const CityMap = () => {
   );
 };
 
+// Map with no markers or boundaries for public property details page
+export const CityMapNoMarker = () => {
+  return (
+    <MapContainer
+      center={[49.2827, -123.1207]}
+      zoom={12}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+    </MapContainer>
+  );
+};
+
 export default CityMap;

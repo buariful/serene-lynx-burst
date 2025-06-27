@@ -55,6 +55,8 @@ import LandlordVerifyPage from "./pages/LandlordVerifyPage";
 import TenantInsurancePage from "./pages/TenantInsurancePage";
 import ApartmentPage from "./pages/ApartmantPage";
 import RecruiterPostJob from "./pages/recruiter/RecruiterPostJob";
+import PropertyDetailsPublicPage from "./pages/PropertyDetailsPublicPage";
+import Layout from "./components/Layout/Layout";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -74,6 +76,14 @@ const App = () => (
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/search-results" element={<SearchResultsPage />} />
+          <Route
+            path="/toronto/:address"
+            element={
+              <Layout>
+                <PropertyDetailsPublicPage />
+              </Layout>
+            }
+          />
 
           {/* Doctor Dashboard Routes with Layout */}
           <Route path="/doctor" element={<DoctorLayout />}>
