@@ -40,7 +40,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, id }) => {
           variant="outline"
           size="sm"
           className="w-full mt-auto border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-          onClick={() => navigate(`/hospital/product/${id}`)}
+          onClick={() => navigate(`/toronto/${property.address}`)}
         >
           Details
         </Button>

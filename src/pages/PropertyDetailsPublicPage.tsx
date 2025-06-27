@@ -47,9 +47,15 @@ export default function PropertyDetailsPublicPage() {
   const email = "info@property.com";
   const address = "31 Tippett Road - North York, ON";
 
-  const images = [1, 2, 3, 4, 5].map(
-    (num) => `https://picsum.photos/seed/property${num}/800/500`
-  );
+  // const images = [1, 2, 3, 4, 5].map(
+  //   (num) => `https://picsum.photos/seed/property${num}/800/500`
+  // );
+
+  const images = [
+    "https://n-ep-sbh-aws-assets-prod-bfgkcubph2fde6f8.z03.azurefd.net/listing-images/Processed/l074388_4582a2bb-df43-4000-974f-f7f178b69687_11202021033343PM.jpeg",
+    "https://www.narcity.com/media-library/a-row-of-homes-in-kingston-ontario.jpg?id=34794961&width=1245&height=700&coordinates=45%2C0%2C45%2C0",
+    "https://www.squareyards.ca/blog/wp-content/uploads/2022/05/Rental-House-in-Canada.jpg",
+  ];
 
   const handleConfirm = () => {
     setOpen(false);
