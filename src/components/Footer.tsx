@@ -7,7 +7,7 @@ const footerLinks = {
     { label: "About Us", href: "/about" },
     { label: "Blog", href: "/blog" },
     { label: "Careers", href: "/careers" },
-    { label: "Contact Us", href: "/contact" },
+    { label: "Contact Us", href: "/contact-us" },
   ],
   tenants: [
     { label: "RentReport™", href: "/rent-report" },

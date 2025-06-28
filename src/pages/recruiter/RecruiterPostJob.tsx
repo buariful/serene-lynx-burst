@@ -5,17 +5,33 @@ import { showSuccess } from "../../utils/toast";
 
 interface RecruiterPostJobProps {
   setJobPosting: (val: boolean) => void;
+  jobToEdit?: {
+    title: string;
+    company: string;
+    type: string;
+    description: string;
+    image?: (File | string)[];
+  };
+  mode?: "post" | "edit";
 }
 
 const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
   setJobPosting,
+  jobToEdit,
+  mode = "post",
 }) => {
   const [job, setJob] = useState({
-    title: "",
-    company: "",
-    type: "",
-    description: "",
-    image: [] as File[],
+    title: jobToEdit?.title || "",
+    company: jobToEdit?.company || "",
+    type: jobToEdit?.type || "",
+    description: jobToEdit?.description || "",
+    image: jobToEdit?.image || [],
+  } as {
+    title: string;
+    company: string;
+    type: string;
+    description: string;
+    image: (File | string)[];
   });
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -51,7 +67,11 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Submitting job:", job);
-    showSuccess("Job posted successfully!");
+    if (mode === "edit") {
+      showSuccess("Job post updated successfully!");
+    } else {
+      showSuccess("Job posted successfully!");
+    }
     setTimeout(() => {
       setJobPosting(false);
     }, 2000);
@@ -60,7 +80,16 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
 
   return (
     <div className="max-w-xl mx-auto p-6 border rounded-lg shadow-sm bg-white">
-      <h2 className="text-2xl font-bold mb-6">Post a New Job</h2>
+      <button
+        type="button"
+        onClick={() => setJobPosting(false)}
+        className="mb-4 flex items-center text-blue-600 hover:underline focus:outline-none"
+      >
+        <span className="mr-2">←</span> Back
+      </button>
+      <h2 className="text-2xl font-bold mb-6">
+        {mode === "edit" ? "Edit Job" : "Post a New Job"}
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Title */}
         <div>
@@ -97,7 +126,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
         {/* Job Type */}
         <div>
           <label className="block font-medium mb-1">Job Type</label>
-          <Select.Root onValueChange={handleSelect}>
+          <Select.Root value={job.type} onValueChange={handleSelect}>
             <Select.Trigger className="w-full inline-flex items-center justify-between rounded-md border border-gray-300 p-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <Select.Value placeholder="Select job type" />
               <Select.Icon>
@@ -148,7 +177,12 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
           {Array.isArray(job.image) && job.image.length > 0 && (
             <div className="mt-3 grid grid-cols-3 gap-3">
               {job.image.map((file, index) => {
-                const previewUrl = URL.createObjectURL(file);
+                let previewUrl = "";
+                if (typeof file === "string") {
+                  previewUrl = file;
+                } else {
+                  previewUrl = URL.createObjectURL(file);
+                }
                 return (
                   <div
                     key={index}
@@ -158,7 +192,10 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
                       src={previewUrl}
                       alt={`Preview ${index}`}
                       className="object-cover w-full h-full"
-                      onLoad={() => URL.revokeObjectURL(previewUrl)}
+                      onLoad={() => {
+                        if (typeof file !== "string")
+                          URL.revokeObjectURL(previewUrl);
+                      }}
                     />
                     <button
                       type="button"
@@ -194,7 +231,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
         >
-          Post Job
+          {mode === "edit" ? "Save Changes" : "Post Job"}
         </button>
       </form>
     </div>

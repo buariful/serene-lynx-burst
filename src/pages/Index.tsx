@@ -8,23 +8,47 @@ import Footer from "@/components/Footer";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const hospitalCities = [
-  { name: "Ajax", href: "/apartment" },
-  { name: "Edmonton", href: "/apartment" },
-  { name: "Niagara Falls", href: "/apartment" },
-  { name: "Quebec City", href: "/apartment" },
-  { name: "Ottawa", href: "/apartment" },
-  { name: "Victoria", href: "/apartment" },
-  { name: "Hamilton", href: "/apartment" },
-  { name: "Toronto", href: "/apartment" },
-  { name: "Saint John", href: "/apartment" },
-  { name: "Edmonton", href: "/apartment" },
+  { name: "Toronto General Hospital", href: "/apartment" },
+  { name: "Vancouver General Hospital", href: "/apartment" },
+  { name: "Montreal General Hospital", href: "/apartment" },
+  { name: "St. Michael's Hospital", href: "/apartment" },
+  { name: "Sunnybrook Health Sciences Centre", href: "/apartment" },
+  { name: "The Ottawa Hospital", href: "/apartment" },
+  { name: "Foothills Medical Centre", href: "/apartment" },
+  { name: "Royal Alexandra Hospital", href: "/apartment" },
+  { name: "Jewish General Hospital", href: "/apartment" },
+  { name: "Hamilton General Hospital", href: "/apartment" },
 ];
 
 const medicalSchoolCities = [
-  { name: "Toronto", href: "/apartment" },
-  { name: "Vancouver", href: "/apartment" },
-  { name: "London", href: "/apartment" },
-  { name: "Montreal", href: "/apartment" },
+  { name: "University of Toronto Faculty of Medicine", href: "/apartment" },
+  {
+    name: "McGill University Faculty of Medicine and Health Sciences",
+    href: "/apartment",
+  },
+  {
+    name: "University of British Columbia Faculty of Medicine",
+    href: "/apartment",
+  },
+  {
+    name: "University of Alberta Faculty of Medicine & Dentistry",
+    href: "/apartment",
+  },
+  { name: "University of Ottawa Faculty of Medicine", href: "/apartment" },
+  {
+    name: "Western University Schulich School of Medicine & Dentistry",
+    href: "/apartment",
+  },
+  { name: "Queen's University Faculty of Health Sciences", href: "/apartment" },
+  { name: "Dalhousie University Faculty of Medicine", href: "/apartment" },
+  {
+    name: "University of Manitoba Max Rady College of Medicine",
+    href: "/apartment",
+  },
+  {
+    name: "Northern Ontario School of Medicine University (NOSM)",
+    href: "/apartment",
+  },
 ];
 
 const Index = () => {

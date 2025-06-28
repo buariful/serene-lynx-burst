@@ -4,11 +4,32 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import RecruiterPostJob from "./RecruiterPostJob";
+import { Heart, Share } from "lucide-react";
+import { GoBriefcase } from "react-icons/go";
+import { CiPhone } from "react-icons/ci";
+import { FaRegEye } from "react-icons/fa";
 
-const jobs = [
+const jobs: {
+  id: number;
+  title: string;
+  company: string;
+  type: string;
+  description: string;
+  image: (File | string)[];
+  status: string;
+  date: string;
+  applications: { id: number; name: string; date: string }[];
+}[] = [
   {
     id: 1,
     title: "Cardiology Consultant",
+    company: "Toronto General Hospital",
+    type: "full-time",
+    description:
+      "Seeking an experienced cardiology consultant to join our team.",
+    image: [
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+    ],
     status: "Open",
     date: "2024-06-01",
     applications: [
@@ -27,6 +48,10 @@ const jobs = [
   {
     id: 2,
     title: "ICU Nurse",
+    company: "Vancouver General Hospital",
+    type: "contract",
+    description: "ICU nurse needed for a 6-month contract.",
+    image: [],
     status: "Closed",
     date: "2024-05-20",
     applications: [
@@ -76,67 +101,208 @@ const RecruiterDashboardPage = () => {
   const closedJobs = jobs.filter((job) => job.status === "Closed").length;
 
   // Placeholder edit job UI
-  const EditJobUI = ({ jobId }: { jobId: number }) => (
-    <div className="bg-white border rounded p-8 max-w-xl mx-auto">
-      <h2 className="text-xl font-bold mb-4">Edit Job #{jobId}</h2>
-      <div className="mb-4 text-gray-500">Edit job form coming soon.</div>
-      <Button
-        variant="ghost"
-        onClick={() => {
-          setEditingJobId(null);
-          setActiveTab("dashboard");
-        }}
-      >
-        Cancel
-      </Button>
-      <Button
-        className="ml-2"
-        onClick={() => {
-          setEditingJobId(null);
-          setActiveTab("dashboard");
-        }}
-      >
-        Save
-      </Button>
-    </div>
-  );
-
-  // Placeholder view job UI
-  const ViewJobUI = ({ jobId }: { jobId: number }) => {
+  const EditJobUI = ({ jobId }: { jobId: number }) => {
     const job = jobs.find((j) => j.id === jobId);
     if (!job) return null;
     return (
-      <div className="bg-white border rounded p-8 max-w-xl mx-auto">
-        <h2 className="text-xl font-bold mb-4">{job.title}</h2>
-        <div className="mb-2">
-          Status: <span className="font-semibold">{job.status}</span>
+      <RecruiterPostJob
+        setJobPosting={() => {
+          setEditingJobId(null);
+          setActiveTab("dashboard");
+        }}
+        jobToEdit={{
+          title: job.title,
+          company: job.company,
+          type: job.type,
+          description: job.description,
+          image: job.image,
+        }}
+        mode="edit"
+      />
+    );
+  };
+
+  // View Job UI with AddViewPage left column style
+  const ViewJobUI = ({ jobId }: { jobId: number }) => {
+    const job = jobs.find((j) => j.id === jobId);
+    const [showPhone, setShowPhone] = useState(false);
+    if (!job) return null;
+    return (
+      <div className="max-w-2xl mx-auto p-4 font-sans">
+        <button
+          type="button"
+          onClick={() => setViewingJobId(null)}
+          className="mb-4 flex items-center text-blue-600 hover:underline focus:outline-none"
+        >
+          <span className="mr-2">←</span> Back
+        </button>
+        {/* Job Header */}
+        <img
+          src={
+            job.image && job.image.length > 0
+              ? typeof job.image[0] === "string"
+                ? job.image[0]
+                : undefined
+              : "https://media.istockphoto.com/id/475352876/photo/man-applying-for-a-job-on-the-internet.jpg?s=612x612&w=0&k=20&c=SQeciz8vqdGWu_KJoGC7yK8xmpBl69UewPtZSyWSrOI="
+          }
+          alt=""
+          className="rounded mb-5"
+        />
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold text-[#3e4153]">
+            {job.company || job.title}
+          </h1>
+          <div className="flex justify-between items-center mt-2">
+            <span className="text-gray-500">Posted {job.date}</span>
+          </div>
+          <div className="flex gap-4 mt-2 text-sm text-gray-600">
+            <span>
+              Status: <span className="font-semibold">{job.status}</span>
+            </span>
+            <span>
+              Applications:{" "}
+              <span className="font-semibold">{job.applications.length}</span>
+            </span>
+          </div>
         </div>
-        <div className="mb-2">Posted: {job.date}</div>
-        <Button variant="ghost" onClick={() => setViewingJobId(null)}>
-          Back
-        </Button>
+        <hr className="my-4" />
+        <div className="flex gap-4">
+          <button className="flex items-center gap-1 px-3 py-1 border border-[#3e4153] text-[#3e4153] hover:text-blue-500 hover:border-blue-500 font-semibold rounded-md text-sm">
+            <Heart className="w-4" />
+            <span>Save</span>
+          </button>
+          <button className="flex items-center gap-1 px-3 py-1 border border-[#3e4153] text-[#3e4153] hover:text-blue-500 hover:border-blue-500 font-semibold rounded-md text-sm">
+            <Share className="w-4" />
+            <span>Share</span>
+          </button>
+        </div>
+        <hr className="my-4" />
+        {/* Job Details */}
+        <div className="mb-6 flex items-center gap-2">
+          <span>
+            <GoBriefcase className="text-3xl" />
+          </span>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Job Type</h3>
+            <p>
+              {job.type
+                ? job.type.charAt(0).toUpperCase() +
+                  job.type.slice(1).replace("-", " ")
+                : "N/A"}
+            </p>
+          </div>
+        </div>
+        <hr className="my-4" />
+        {/* Description */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold mb-4">Description</h2>
+          <p className="whitespace-pre-line">
+            {job.description || "No description provided."}
+          </p>
+        </div>
+        <hr className="my-4" />
+        {/* Listed By Section */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Listed By</h2>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <p className="text-xl w-12 h-12 grid place-content-center rounded-full bg-green-200">
+                {job.company ? job.company.charAt(0) : job.title.charAt(0)}
+              </p>
+              <div>
+                <p className="font-medium">{job.company || job.title}</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <span className="text-yellow-400 text-2xl">★★★★★</span>
+                  <span className="text-xs text-gray-500">5.0 (44)</span>
+                </div>
+                <p className="text-sm text-gray-600">Professional Employer</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <CiPhone strokeWidth="1" className="text-blue-500 text-xl" />
+              <button
+                onClick={() => setShowPhone(!showPhone)}
+                className="font-[500] text-blue-600 hover:underline"
+              >
+                {showPhone ? "+1-514-969-6919" : "Reveal phone number"}
+              </button>
+            </div>
+            <div>
+              <p>Av Trans-Island, Montréal, H3W 386</p>
+            </div>
+            <div className="pt-4 border-t flex items-center gap-3 ">
+              <p className="text-gray-500 flex items-center gap-2 text-xs border rounded px-2 py-1 font-medium">
+                <FaRegEye /> <span>329 views</span>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
 
-  // Placeholder application details UI
+  // Application Details UI with full-page PDF viewer
   const ApplicationDetailsUI = ({ appId }: { appId: number }) => {
     const app = allApplications.find((a) => a.id === appId);
+    const [showPdf, setShowPdf] = useState(false);
+    const dummyPdfUrl = "https://msnlabs.com/img/resume-sample.pdf";
+    // Dummy applicant info
+    const dummyEmail = "alice.smith@email.com";
+    const dummyPhone = "+1-555-123-4567";
+    const dummyMessage = "Hello, I am interested in this position.";
     if (!app) return null;
     return (
-      <div className="bg-white border rounded p-8 max-w-xl mx-auto">
-        <h2 className="text-xl font-bold mb-4">Application Details</h2>
-        <div className="mb-2">
-          Applicant: <span className="font-semibold">{app.name}</span>
+      <>
+        <div className="bg-white border rounded p-8 max-w-xl mx-auto relative">
+          <h2 className="text-xl font-bold mb-4">Application Details</h2>
+          <div className="mb-2">
+            Applicant: <span className="font-semibold">{app.name}</span>
+          </div>
+          <div className="mb-2">
+            Applied for: <span className="font-semibold">{app.jobTitle}</span>
+          </div>
+          <div className="mb-2">Date: {app.date}</div>
+          <div className="mb-2">
+            Email: <span className="font-semibold">{dummyEmail}</span>
+          </div>
+          <div className="mb-2">
+            Phone: <span className="font-semibold">{dummyPhone}</span>
+          </div>
+          <div className="mb-4">
+            Message: <span className="font-normal">{dummyMessage}</span>
+          </div>
+          <Button
+            variant="default"
+            className="mt-4 mb-2"
+            onClick={() => setShowPdf(true)}
+          >
+            View Resume
+          </Button>
+          <Button variant="ghost" onClick={() => setViewingApplicationId(null)}>
+            Back
+          </Button>
         </div>
-        <div className="mb-2">
-          Applied for: <span className="font-semibold">{app.jobTitle}</span>
-        </div>
-        <div className="mb-2">Date: {app.date}</div>
-        <Button variant="ghost" onClick={() => setViewingApplicationId(null)}>
-          Back
-        </Button>
-      </div>
+        {showPdf && (
+          <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center">
+            <button
+              className="absolute top-6 right-8 text-white text-3xl font-bold z-50"
+              onClick={() => setShowPdf(false)}
+              aria-label="Close PDF"
+            >
+              ×
+            </button>
+            <div className="w-full max-w-3xl h-[90vh] bg-white rounded shadow-lg overflow-hidden flex flex-col">
+              <iframe
+                src={dummyPdfUrl}
+                title="Resume PDF"
+                width="100%"
+                height="100%"
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        )}
+      </>
     );
   };
 
@@ -352,8 +518,89 @@ const RecruiterDashboardPage = () => {
             !viewingApplicationId && (
               <div>
                 <h1 className="text-2xl font-bold mb-6">Profile</h1>
-                <div className="bg-white border rounded p-6">
-                  Profile details coming soon.
+                <div className="bg-white border rounded p-6 max-w-xl mx-auto">
+                  <form
+                    className="space-y-4"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      alert("Profile updated successfully!");
+                    }}
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          htmlFor="firstName"
+                          className="block font-medium mb-1"
+                        >
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          defaultValue="John"
+                          className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="First Name"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="lastName"
+                          className="block font-medium mb-1"
+                        >
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          id="lastName"
+                          name="lastName"
+                          defaultValue="Doe"
+                          className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="Last Name"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block font-medium mb-1"
+                        >
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          defaultValue="recruiter@email.com"
+                          className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="Email"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="block font-medium mb-1"
+                        >
+                          Phone
+                        </label>
+                        <input
+                          type="text"
+                          id="phone"
+                          name="phone"
+                          defaultValue="+1-555-987-6543"
+                          className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="Phone"
+                        />
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-full mt-4"
+                    >
+                      Save Profile
+                    </button>
+                  </form>
                 </div>
               </div>
             )}
