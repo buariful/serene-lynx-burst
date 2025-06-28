@@ -82,114 +82,84 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
     return (
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6 relative">
         <button
-          className="absolute top-4 left-4 bg-blue-600 text-white z-10  px-4 py-2 rounded hover:bg-blue-700 font-bold"
+          className="absolute top-4 left-4 z-10 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 font-bold"
           onClick={() => onAddressClick && onAddressClick(null)}
         >
           ← Back
         </button>
-        {/* Gallery & Map Tabs */}
+        {/* Gallery (no tabs, no map) */}
         <div className="mb-6">
           <div className="w-full">
-            <div className="mb-4 flex gap-2">
-              {/* <button
-                className={`px-4 py-2 rounded font-semibold ${
-                  showTab === "images"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700"
-                }`}
-                onClick={() => setShowTab("images")}
-              >
-                Images
-              </button>
-              <button
-                className={`px-4 py-2 rounded font-semibold ${
-                  showTab === "map"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700"
-                }`}
-                onClick={() => setShowTab("map")}
-              >
-                Map
-              </button> */}
-            </div>
-            {showTab === "images" && (
-              <div className="relative mt-12">
-                <div className="w-full mx-auto">
-                  <div className="flex overflow-x-auto gap-4">
-                    {images.map((src, idx) => (
-                      <img
-                        key={src}
-                        src={src}
-                        alt={`Property image ${idx + 1}`}
-                        className="rounded-lg w-80 h-60 object-cover flex-shrink-0"
-                      />
-                    ))}
-                  </div>
-                </div>
-                <button
-                  className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
-                  onClick={() => setFullscreenOpen(true)}
-                  title="View Fullscreen"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 text-blue-600"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 9V5.25A1.5 1.5 0 0 1 5.25 3.75H9m6 0h3.75c.828 0 1.5.672 1.5 1.5V9m0 6v3.75c0 .828-.672 1.5-1.5 1.5H15m-6 0H5.25a1.5 1.5 0 0 1-1.5-1.5V15"
+            <div className="relative">
+              <div className="w-full mx-auto">
+                <div className="flex overflow-x-auto gap-4 mt-14">
+                  {images.map((src, idx) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={`Property image ${idx + 1}`}
+                      className="rounded-lg w-80 h-60 object-cover flex-shrink-0"
                     />
-                  </svg>
-                </button>
-                {/* Fullscreen Modal */}
-                {fullscreenOpen && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
-                    <button
-                      className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
-                      onClick={() => setFullscreenOpen(false)}
-                      title="Close Fullscreen"
+                  ))}
+                </div>
+              </div>
+              <button
+                className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
+                onClick={() => setFullscreenOpen(true)}
+                title="View Fullscreen"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 text-blue-600"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 9V5.25A1.5 1.5 0 0 1 5.25 3.75H9m6 0h3.75c.828 0 1.5.672 1.5 1.5V9m0 6v3.75c0 .828-.672 1.5-1.5 1.5H15m-6 0H5.25a1.5 1.5 0 0 1-1.5-1.5V15"
+                  />
+                </svg>
+              </button>
+              {/* Fullscreen Modal */}
+              {fullscreenOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
+                  <button
+                    className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
+                    onClick={() => setFullscreenOpen(false)}
+                    title="Close Fullscreen"
+                  >
+                    <svg
+                      className="w-7 h-7 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
                     >
-                      <svg
-                        className="w-7 h-7 text-blue-600"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-full max-w-4xl mx-auto flex gap-4 overflow-x-auto">
+                      {images.map((src, idx) => (
+                        <img
+                          key={src}
+                          src={src}
+                          alt={`Property image ${idx + 1}`}
+                          className="rounded-lg w-[80vw] h-[80vh] object-contain bg-black"
                         />
-                      </svg>
-                    </button>
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="w-full max-w-4xl mx-auto flex gap-4 overflow-x-auto">
-                        {images.map((src, idx) => (
-                          <img
-                            key={src}
-                            src={src}
-                            alt={`Property image ${idx + 1}`}
-                            className="rounded-lg w-[80vw] h-[80vh] object-contain bg-black"
-                          />
-                        ))}
-                      </div>
+                      ))}
                     </div>
                   </div>
-                )}
-              </div>
-            )}
-            {/* {showTab === "map" && (
-              <div className="w-full h-80 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
-         
-                <span className="text-gray-500">[Map Placeholder]</span>
-              </div>
-            )} */}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         {/* Floor Plans */}
