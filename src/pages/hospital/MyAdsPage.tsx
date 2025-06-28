@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialAds = [
   {
@@ -15,6 +16,7 @@ const initialAds = [
 
 const MyAdsPage = () => {
   const [ads, setAds] = useState(initialAds);
+  const navigate = useNavigate();
 
   const handleDelete = (id: number) => {
     setAds((prev) => prev.filter((ad) => ad.id !== id));
@@ -36,7 +38,12 @@ const MyAdsPage = () => {
         {ads.map((ad) => (
           <li
             key={ad.id}
-            className="flex items-center bg-white border-b px-2 py-2 last:rounded-b"
+            className="flex items-center bg-white border-b px-2 py-2 last:rounded-b cursor-pointer"
+            onClick={() =>
+              navigate(`/hospital/device-details/${ad.id}`, {
+                state: { hideBuy: true },
+              })
+            }
           >
             <img
               src={ad.image}
@@ -61,7 +68,10 @@ const MyAdsPage = () => {
             </div>
             <div className="w-16 px-2">
               <button
-                onClick={() => handleDelete(ad.id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete(ad.id);
+                }}
                 className="text-xs text-red-600 hover:underline px-2 py-1 rounded border border-red-100 hover:bg-red-50"
               >
                 Delete

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { FaMicroscope, FaFilePdf, FaDollarSign } from "react-icons/fa";
 import {
   Carousel,
@@ -20,7 +20,7 @@ const sampleDevice = {
   name: "Portable Ultrasound Machine",
   type: "Imaging",
   status: "Available",
-  price: "$1,200/month or $12,000 to buy",
+  price: "$12,000 to buy",
   specifications: [
     { label: "Display", value: '15.6" LCD, 1920x1080' },
     { label: "Weight", value: "3.5 kg" },
@@ -46,6 +46,7 @@ const DeviceDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
   const [fullscreenOpen, setFullscreenOpen] = React.useState(false);
   // In a real app, fetch device details by id
   const device = sampleDevice; // Replace with fetched data
@@ -190,23 +191,25 @@ const DeviceDetailsPage = () => {
             </ul>
           </div>
           {/* Buy Button */}
-          <div className="pt-4 flex justify-end">
-            <Button
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 text-lg font-semibold rounded"
-              onClick={async () => {
-                toast({
-                  title: "Purchase Successful!",
-                  description:
-                    "Thank you for your purchase. Our team will contact you soon.",
-                  variant: "default",
-                });
-                await new Promise((res) => setTimeout(res, 2000));
-                navigate("/hospital/dashboard");
-              }}
-            >
-              Buy
-            </Button>
-          </div>
+          {!(location.state && location.state.hideBuy) && (
+            <div className="pt-4 flex justify-end">
+              <Button
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 text-lg font-semibold rounded"
+                onClick={async () => {
+                  toast({
+                    title: "Purchase Successful!",
+                    description:
+                      "Thank you for your purchase. Our team will contact you soon.",
+                    variant: "default",
+                  });
+                  await new Promise((res) => setTimeout(res, 2000));
+                  navigate("/hospital/dashboard");
+                }}
+              >
+                Buy
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

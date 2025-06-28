@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialFavourites = [
   {
@@ -15,6 +16,7 @@ const initialFavourites = [
 
 const MyFavouritesPage = () => {
   const [favourites, setFavourites] = useState(initialFavourites);
+  const navigate = useNavigate();
 
   const handleRemove = (id: number) => {
     setFavourites((prev) => prev.filter((ad) => ad.id !== id));
@@ -36,7 +38,8 @@ const MyFavouritesPage = () => {
         {favourites.map((ad) => (
           <li
             key={ad.id}
-            className="flex items-center bg-white border-b px-2 py-2 last:rounded-b"
+            className="flex items-center bg-white border-b px-2 py-2 last:rounded-b cursor-pointer"
+            onClick={() => navigate(`/hospital/device-details/${ad.id}`)}
           >
             <img
               src={ad.image}
@@ -61,7 +64,10 @@ const MyFavouritesPage = () => {
             </div>
             <div className="w-16 px-2">
               <button
-                onClick={() => handleRemove(ad.id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemove(ad.id);
+                }}
                 className="text-xs text-red-600 hover:underline px-2 py-1 rounded border border-red-100 hover:bg-red-50"
               >
                 Remove
