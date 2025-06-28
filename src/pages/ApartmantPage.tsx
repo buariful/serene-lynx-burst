@@ -120,7 +120,9 @@ const ApartmentPage: React.FC = () => {
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [properties, setProperties] = useState<Property[]>(sampleProperties);
-  // Removed highlightedCardId state
+  const [expandedPropertyId, setExpandedPropertyId] = useState<number | null>(
+    null
+  );
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
@@ -139,94 +141,42 @@ const ApartmentPage: React.FC = () => {
         style={{ "--header-height": "68px" } as React.CSSProperties}
       >
         <div className="w-full md:w-1/2 h-full md:sticky md:top-[var(--header-height)] md:max-h-none">
-          {/* <InteractiveMap
-            properties={properties}
-            onMarkerClick={handleMapMarkerClick}
-          /> */}
           <CityMap />
         </div>
 
         <div className="w-full md:w-1/2 p-4 h-full overflow-y-auto">
-          {/* Slider for property cards */}
-          <div className="mb-8">
-            <Carousel opts={{ loop: true }}>
-              <CarouselContent>
-                {properties.map((property) => (
-                  <CarouselItem key={property.id} className="basis-full">
-                    <div className="w-full p-2">
-                      <PropertyCard2 property={property} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              {/* <CarouselPrevious />
-              <CarouselNext /> */}
-            </Carousel>
-          </div>
-          <div className="mb-8">
-            <Carousel opts={{ loop: true }}>
-              <CarouselContent>
-                {properties.map((property) => (
-                  <CarouselItem key={property.id} className="basis-full">
-                    <div className="w-full p-2">
-                      <PropertyCard2 property={property} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              {/* <CarouselPrevious />
-              <CarouselNext /> */}
-            </Carousel>
-          </div>
-          <div className="mb-8">
-            <Carousel opts={{ loop: true }}>
-              <CarouselContent>
-                {properties.map((property) => (
-                  <CarouselItem key={property.id} className="basis-full">
-                    <div className="w-full p-2">
-                      <PropertyCard2 property={property} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              {/* <CarouselPrevious />
-              <CarouselNext /> */}
-            </Carousel>
-          </div>
-          <div className="mb-8">
-            <Carousel opts={{ loop: true }}>
-              <CarouselContent>
-                {properties.map((property) => (
-                  <CarouselItem key={property.id} className="basis-full">
-                    <div className="w-full p-2">
-                      <PropertyCard2 property={property} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              {/* <CarouselPrevious />
-              <CarouselNext /> */}
-            </Carousel>
-          </div>
-
-          {/* Optionally keep the grid below for reference or remove it */}
-          {/*
-          <div className="grid grid-cols-1 gap-4">
-            {properties.map((property) => (
-              <div 
-                key={property.id} 
-                id={`property-card-${property.id}`}
-                ref={el => cardRefs.current[property.id] = el}
-              >
-                <SearchResultPropertyCard 
-                  property={property} 
-                />
-              </div>
-            ))}
-          </div>
-          */}
-          {properties.length === 0 && (
-            <p>No properties found matching your search criteria.</p>
+          {expandedPropertyId ? (
+            <PropertyCard2
+              property={properties.find((p) => p.id === expandedPropertyId)!}
+              showDetails={true}
+              onAddressClick={() => setExpandedPropertyId(null)}
+            />
+          ) : (
+            <>
+              {[0, 1, 2, 3].map((i) => (
+                <div className="mb-8" key={i}>
+                  <Carousel opts={{ loop: true }}>
+                    <CarouselContent>
+                      {properties.map((property) => (
+                        <CarouselItem key={property.id} className="basis-full">
+                          <div className="w-full p-2">
+                            <PropertyCard2
+                              property={property}
+                              onAddressClick={() =>
+                                setExpandedPropertyId(property.id)
+                              }
+                            />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                </div>
+              ))}
+              {properties.length === 0 && (
+                <p>No properties found matching your search criteria.</p>
+              )}
+            </>
           )}
         </div>
       </main>
