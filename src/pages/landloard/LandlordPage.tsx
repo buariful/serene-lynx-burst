@@ -38,7 +38,7 @@ const LandlordPage = () => {
   return (
     <div className="">
       <Header />
-      <div className="bg-gray-50 min-h-screen">
+      <div className="bg-gray-50 mb-20">
         {/* Hero Section */}
         <div
           className="relative bg-cover bg-center py-32 md:py-48"
