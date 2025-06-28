@@ -10,6 +10,7 @@ const sidebarItems = [
   // { key: "orders", label: "Buying Orders" },
   { key: "rentals", label: "Rental Services" },
   { key: "profile", label: "Profile" },
+  { key: "marketplace", label: "Marketplace", route: "/tenant/marketplace" },
 ];
 
 const Dashboard = () => {
@@ -388,6 +389,15 @@ const TenantDashboardPage = () => {
     document.body.removeChild(link);
   };
 
+  const navigate = useNavigate();
+
+  const handleTabKeyPress = (key: string, route?: string) => {
+    setActiveTab(key);
+    if (route) {
+      navigate(route);
+    }
+  };
+
   return (
     <>
       <DashboardHeader />
@@ -403,7 +413,7 @@ const TenantDashboardPage = () => {
                     ? "bg-blue-600 text-white shadow"
                     : "text-[#7a9ca5] hover:bg-blue-50 hover:text-blue-600"
                 }`}
-                onClick={() => setActiveTab(item.key)}
+                onClick={() => handleTabKeyPress(item.key, item.route)}
               >
                 {item.label}
               </button>
