@@ -235,11 +235,12 @@ function DeviceCard({
   return (
     <div
       className="border rounded overflow-hidden hover:shadow-sm transition-shadow  cursor-pointer hover:ring-2 hover:ring-blue-400"
-      onClick={() => navigate(`/hospital/product/${device.id}`)}
+      onClick={() => navigate(`/hospital/device-details/${device.id}`)}
       role="button"
       tabIndex={0}
       onKeyPress={(e) => {
-        if (e.key === "Enter") navigate(`/hospital/product/${device.id}`);
+        if (e.key === "Enter")
+          navigate(`/hospital/device-details/${device.id}`);
       }}
     >
       <div className="h-32 bg-gray-200">
