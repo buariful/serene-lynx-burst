@@ -81,12 +81,12 @@ const drawerMenuItems = [
   {
     type: "link" as const,
     label: "Medical School",
-    href: "/medical-schools",
+    href: "/apartment",
   },
   {
     type: "link" as const,
     label: "Hospital",
-    href: "/hospitals",
+    href: "/apartment",
   },
   {
     type: "link" as const,
@@ -104,29 +104,29 @@ const drawerMenuItems = [
     label: "Tenant Insurance",
     href: "/tenant-insurance",
   },
-  {
-    type: "link" as const,
-    label: "Landlord Verify Identity",
-    href: "/landlord-verify",
-  },
+  // {
+  //   type: "link" as const,
+  //   label: "Landlord Verify Identity",
+  //   href: "/landlord-verify",
+  // },
   { type: "link" as const, label: "About", href: "/about" },
   { type: "link" as const, label: "FAQ", href: "/faq" },
   { type: "link" as const, label: "Blog", href: "/blog" },
-  {
-    type: "link" as const,
-    label: "Job Board",
-    href: "/job-board",
-  },
-  {
-    type: "link" as const,
-    label: "Medical Rentals",
-    href: "/medical-rentals",
-  },
-  {
-    type: "link" as const,
-    label: "Search Near Me",
-    href: "/search-near-me",
-  },
+  // {
+  //   type: "link" as const,
+  //   label: "Job Board",
+  //   href: "/job-board",
+  // },
+  // {
+  //   type: "link" as const,
+  //   label: "Medical Rentals",
+  //   href: "/medical-rentals",
+  // },
+  // {
+  //   type: "link" as const,
+  //   label: "Search Near Me",
+  //   href: "/search-near-me",
+  // },
   {
     type: "link" as const,
     label: "Search by Map",

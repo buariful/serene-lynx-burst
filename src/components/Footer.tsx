@@ -6,37 +6,37 @@ const footerLinks = {
   company: [
     { label: "About Us", href: "/about" },
     { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "/careers" },
+    // { label: "Careers", href: "/careers" },
     { label: "Contact Us", href: "/contact-us" },
   ],
   tenants: [
-    { label: "RentReport™", href: "/rent-report" },
-    { label: "FAQs for Tenants", href: "/faq-tenants" },
-    { label: "Avoid Scams", href: "/avoid-scams" },
-    { label: "Search Rentals", href: "/rent" },
+    // { label: "RentReport™", href: "/rent-report" },
+    { label: "FAQs for Tenants", href: "/faq" },
+    // { label: "Avoid Scams", href: "/avoid-scams" },
+    { label: "Search Rentals", href: "/tenant/marketplace" },
   ],
   landlords: [
-    { label: "Post a Rental", href: "/landlord/post-rental" },
-    { label: "Pricing", href: "/pricing-landlords" },
-    { label: "Landlord Resources", href: "/landlord-resources" },
-    { label: "FAQs for Landlords", href: "/faq-landlords" },
+    { label: "Post a Rental", href: "/login" },
+    { label: "Pricing", href: "/landlords" },
+    { label: "Landlord Resources", href: "/landlords" },
+    { label: "FAQs for Landlords", href: "/faq" },
   ],
   cities: [
     // Column 1
-    { label: "Toronto Rentals", href: "/rentals/toronto" },
-    { label: "Vancouver Rentals", href: "/rentals/vancouver" },
-    { label: "Montreal Rentals", href: "/rentals/montreal" },
-    { label: "Calgary Rentals", href: "/rentals/calgary" },
+    { label: "Toronto Rentals", href: "/toronto/rental" },
+    { label: "Vancouver Rentals", href: "/toronto/rental" },
+    { label: "Montreal Rentals", href: "/toronto/rental" },
+    { label: "Calgary Rentals", href: "/toronto/rental" },
     // Column 2
-    { label: "Edmonton Rentals", href: "/rentals/edmonton" },
-    { label: "Ottawa Rentals", href: "/rentals/ottawa" },
-    { label: "Winnipeg Rentals", href: "/rentals/winnipeg" },
-    { label: "Quebec City Rentals", href: "/rentals/quebec-city" },
-    // Column 3
-    { label: "Hamilton Rentals", href: "/rentals/hamilton" },
-    { label: "London Rentals", href: "/rentals/london" },
-    { label: "Victoria Rentals", href: "/rentals/victoria" },
-    { label: "Halifax Rentals", href: "/rentals/halifax" },
+    // { label: "Edmonton Rentals", href: "/rentals/edmonton" },
+    // { label: "Ottawa Rentals", href: "/rentals/ottawa" },
+    // { label: "Winnipeg Rentals", href: "/rentals/winnipeg" },
+    // { label: "Quebec City Rentals", href: "/rentals/quebec-city" },
+    // // Column 3
+    // { label: "Hamilton Rentals", href: "/rentals/hamilton" },
+    // { label: "London Rentals", href: "/rentals/london" },
+    // { label: "Victoria Rentals", href: "/rentals/victoria" },
+    // { label: "Halifax Rentals", href: "/rentals/halifax" },
   ],
 };
 
@@ -121,12 +121,12 @@ const Footer = () => {
             <p className="text-sm mb-4 md:mb-0">
               &copy; {currentYear} Rentals.ca. All rights reserved. A{" "}
               <a
-                href="https://gotarent.com"
+                href="https://scrubhub.ca"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-white"
               >
-                gotarent.com
+                Scrubhub.ca
               </a>{" "}
               network site.
             </p>

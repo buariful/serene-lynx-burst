@@ -65,7 +65,7 @@ const desktopNavLinks: MegaMenuItem[] = [
 
 // Simple links for items that are not mega menus
 const simpleDesktopNavLinks: NavLinkItem[] = [
-  { type: "link", href: "/landloard/landlord-page", label: "Landlords" },
+  { type: "link", href: "/landlords", label: "Landlords" },
   { type: "link", href: "/contact-us", label: "Contact Us" },
 ];
 
@@ -117,11 +117,11 @@ const drawerMenuItems = [
     label: "Medical School",
     href: "/apartment",
   },
-  {
-    type: "link" as const,
-    label: "Hospital",
-    href: "/hospitals",
-  },
+  // {
+  //   type: "link" as const,
+  //   label: "Hospital",
+  //   href: "/hospitals",
+  // },
   {
     type: "link" as const,
     label: "Landlords",
@@ -146,21 +146,21 @@ const drawerMenuItems = [
   { type: "link" as const, label: "About", href: "/about" },
   { type: "link" as const, label: "FAQ", href: "/faq" },
   { type: "link" as const, label: "Blog", href: "/blog" },
-  {
-    type: "link" as const,
-    label: "Job Board",
-    href: "/job-board",
-  },
-  {
-    type: "link" as const,
-    label: "Medical Rentals",
-    href: "/medical-rentals",
-  },
-  {
-    type: "link" as const,
-    label: "Search Near Me",
-    href: "/search-near-me",
-  },
+  // {
+  //   type: "link" as const,
+  //   label: "Job Board",
+  //   href: "/job-board",
+  // },
+  // {
+  //   type: "link" as const,
+  //   label: "Medical Rentals",
+  //   href: "/medical-rentals",
+  // },
+  // {
+  //   type: "link" as const,
+  //   label: "Search Near Me",
+  //   href: "/search-near-me",
+  // },
   {
     type: "link" as const,
     label: "Search by Map",
