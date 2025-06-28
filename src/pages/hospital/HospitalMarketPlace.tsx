@@ -32,8 +32,11 @@ type Product = {
   description: string;
   location: string;
   price: string;
+  isForSale: 0 | 1;
   category: string;
-  image: string;
+  image?: string;
+  type: string;
+  status: string;
 };
 
 const LOCATIONS = [
@@ -52,87 +55,118 @@ const LOCATIONS = [
 ];
 
 const CATEGORIES = [
-  "Vehicles",
-  "Pets",
-  "Jobs",
-  "Real Estate",
-  "Electronics",
-  "Home & Garden",
-  "Services",
+  "Diagnostic Devices",
+  "Surgical Instruments",
+  "Monitoring Equipment",
+  "Imaging Devices",
+  "Therapeutic Devices",
+  "Laboratory Equipment",
+  "Mobility Aids",
+  "Consumables & Disposables",
+  "Medical Furniture",
+  "IT & Software",
+  "Other",
 ];
 
 const SAMPLE_PRODUCTS: Product[] = [
   {
     id: "1",
-    title: "Econoline ford 36...",
-    description: "m'autoriser",
+    title: "Portable Ultrasound Machine",
+    description: "High-resolution imaging for bedside diagnostics.",
     location: "Canada",
-    price: "$6,900",
-    category: "Vehicles",
-    image: "https://via.placeholder.com/150?text=Truck",
+    price: "$1,200",
+    isForSale: 0,
+    category: "Imaging Devices",
+    // image: "https://via.placeholder.com/150?text=Ultrasound",
+    type: "Imaging",
+    status: "available",
   },
   {
     id: "2",
-    title: "American bulldogs",
-    description: "puppies for sale!",
+    title: "ECG Monitor",
+    description: "12-lead ECG with wireless connectivity.",
     location: "Canada",
-    price: "$800",
-    category: "Pets",
-    image: "https://via.placeholder.com/150?text=Dog",
+    price: "$300",
+    isForSale: 0,
+    category: "Monitoring Equipment",
+    image:
+      "https://www.sgs.com/-/media/sgscorp/images/temporary/tablet-showing-heart-test-result.cdn.en-BD.1.jpg",
+    type: "Monitoring",
+    status: "rented",
   },
   {
     id: "3",
-    title: "Fermentation Technician",
-    description: "Rapid...",
+    title: "Infusion Pump",
+    description: "Accurate fluid delivery for patient care.",
     location: "Canada",
-    price: "Please Contact",
-    category: "Jobs",
-    image: "https://via.placeholder.com/150?text=Job",
+    price: "$150",
+    isForSale: 1,
+    category: "Therapeutic Devices",
+    // image: "https://via.placeholder.com/150?text=Infusion+Pump",
+    type: "Therapeutic",
+    status: "available",
   },
   {
     id: "4",
-    title: "2014 Caterpillar D7E",
-    description: "LGP Crawler Doze...",
+    title: "Infusion Pump",
+    description: "Accurate fluid delivery for patient care.",
     location: "Canada",
-    price: "$1,234",
-    category: "Vehicles",
-    image: "https://via.placeholder.com/150?text=Bulldozer",
+    price: "$150",
+    isForSale: 0,
+    category: "Therapeutic Devices",
+    // image: "https://via.placeholder.com/150?text=Infusion+Pump",
+    type: "Therapeutic",
+    status: "available",
   },
   {
     id: "5",
-    title: "Morkie puppies",
-    description: "Bear Mountain",
+    title: "Surgical Table",
+    description: "Adjustable, stainless steel surgical table.",
     location: "Canada",
-    price: "$875",
-    category: "Pets",
-    image: "https://via.placeholder.com/150?text=Puppy",
+    price: "$2,000",
+    isForSale: 1,
+    category: "Medical Furniture",
+    image:
+      "https://res.cloudinary.com/armis/images/f_auto,q_auto/v1706810885/images/operating-room-with-security-alert-icons-1/operating-room-with-security-alert-icons-1.jpg?_i=AA",
+    type: "Furniture",
+    status: "available",
   },
+
   {
     id: "6",
-    title: "Indian cooking",
-    description: "looking for Indian cooking and other...",
-    location: "Mississauga / Peel Re...",
-    price: "Please Contact",
-    category: "Services",
-    image: "https://via.placeholder.com/150?text=Food",
+    title: "Wheelchair",
+    description: "Lightweight, foldable wheelchair for mobility.",
+    location: "Canada",
+    price: "$50",
+    isForSale: 1,
+    category: "Mobility Aids",
+    // image: "https://via.placeholder.com/150?text=Wheelchair",
+    type: "Mobility",
+    status: "available",
   },
   {
     id: "7",
-    title: "Econoline ford 36...",
-    description: "m'autoriser",
+    title: "Wheelchair",
+    description: "Lightweight, foldable wheelchair for mobility.",
     location: "Canada",
-    price: "$6,900",
-    category: "Vehicles",
-    image: "https://via.placeholder.com/150?text=Truck",
+    price: "$50",
+    isForSale: 0,
+    category: "Mobility Aids",
+    image: "https://m.media-amazon.com/images/I/71bIKgWuwSL._SS1000_.jpg",
+    type: "Mobility",
+    status: "unavailable",
   },
   {
     id: "8",
-    title: "American bulldogs",
-    description: "puppies for sale!",
+    title: "Wheelchair",
+    description: "Lightweight, foldable wheelchair for mobility.",
     location: "Canada",
-    price: "$800",
-    category: "Pets",
-    image: "https://via.placeholder.com/150?text=Dog",
+    price: "$50",
+    isForSale: 1,
+    category: "Mobility Aids",
+    // image: "https://via.placeholder.com/150?text=Wheelchair",
+    type: "Mobility",
+    status: "unavailable",
   },
 ];
 
@@ -190,6 +224,63 @@ function ProductCard({
   );
 }
 
+function DeviceCard({
+  device,
+  imageIndex = 0,
+}: {
+  device: Product;
+  imageIndex?: number;
+}) {
+  const navigate = useNavigate();
+  return (
+    <div
+      className="border rounded overflow-hidden hover:shadow-sm transition-shadow  cursor-pointer hover:ring-2 hover:ring-blue-400"
+      onClick={() => navigate(`/hospital/product/${device.id}`)}
+      role="button"
+      tabIndex={0}
+      onKeyPress={(e) => {
+        if (e.key === "Enter") navigate(`/hospital/product/${device.id}`);
+      }}
+    >
+      <div className="h-32 bg-gray-200">
+        <img
+          // src={device.image}
+          src={
+            device?.image ||
+            "https://medicalstall.com/wp-content/uploads/2025/01/OXTM-10-Liter-Oxygen-Concentrator-Medical-Stall-600x600.jpg"
+          }
+          alt={device.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="p-1">
+        <h3 className="font-bold text-sm mb-1 truncate">{device.title}</h3>
+        <p className="text-gray-600 text-xs mb-1 truncate">
+          {device.description}
+        </p>
+        <div className="flex flex-col gap-0.5 mt-1">
+          <span className="text-xs text-gray-500">Type: {device.type}</span>
+          <span
+            className={`text-xs font-semibold ${
+              device.status === "available"
+                ? "text-green-600"
+                : device.status === "rented"
+                ? "text-yellow-600"
+                : "text-gray-400"
+            }`}
+          >
+            Status:{" "}
+            {device.status.charAt(0).toUpperCase() + device.status.slice(1)}
+          </span>
+          <span className="text-xs text-blue-700 font-bold">
+            {device.price}
+            {!device.isForSale ? "/month" : ""}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 export default function HospitalMarketplacePage() {
   const [selectedLocation, setSelectedLocation] = useState<string>("Canada");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -331,8 +422,12 @@ export default function HospitalMarketplacePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3  gap-5 mb-10">
                 {filteredProducts.length > 0 ? (
-                  filteredProducts.map((product, idx) => (
-                    <Card2 key={product.id} />
+                  filteredProducts.map((device, idx) => (
+                    <DeviceCard
+                      key={device.id}
+                      device={device}
+                      imageIndex={idx}
+                    />
                   ))
                 ) : (
                   <div className="col-span-full text-center text-gray-400 py-8">
@@ -345,9 +440,19 @@ export default function HospitalMarketplacePage() {
             <>
               {/* Only display all filtered items in a single grid, no section titles */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-4">
-                {filteredProducts.map((product, idx) => (
-                  <Card2 key={product.id} />
-                ))}
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((device, idx) => (
+                    <DeviceCard
+                      key={device.id}
+                      device={device}
+                      imageIndex={idx}
+                    />
+                  ))
+                ) : (
+                  <div className="col-span-full text-center text-gray-400 py-8">
+                    No devices found in this category.
+                  </div>
+                )}
               </div>
             </>
           )}
