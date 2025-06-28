@@ -195,12 +195,25 @@ function JobCard({ job }: { job: (typeof JOBS)[number] }) {
         if (e.key === "Enter") navigate(`/tenant/job-details/${job.id}`);
       }}
     >
-      <div className="h-32 bg-blue-100 flex items-center justify-center">
-        <span className="text-blue-700 font-bold text-lg">{job.title}</span>
+      <div className="h-32 bg-gray-200">
+        <img
+          src={
+            "https://img.freepik.com/free-vector/job-interview-concept-illustration_114360-24598.jpg?semt=ais_hybrid&w=740"
+          }
+          alt={job.title}
+          className="w-full h-full object-cover"
+        />
       </div>
+      {/* https://img.freepik.com/free-vector/job-interview-concept-illustration_114360-24598.jpg?semt=ais_hybrid&w=740 */}
+      {/* <div className="h-32 bg-blue-100 flex items-center justify-center">
+        <span className="text-blue-700 font-bold text-lg">{job.title}</span>
+      </div> */}
       <div className="p-1">
-        <h3 className="font-bold text-sm mb-1 truncate">{job.company}</h3>
-        <p className="text-gray-600 text-xs mb-1 truncate">{job.location}</p>
+        <h3 className="font-bold text-sm mb-1 truncate">{job.title}</h3>
+        <p className=" text-xs mb-1 truncate">
+          {job.company}, {job.location}
+        </p>
+
         <div className="flex flex-col gap-0.5 mt-1">
           <span className="text-xs text-gray-500">{job.type}</span>
           <span className="text-xs font-semibold text-blue-700">
