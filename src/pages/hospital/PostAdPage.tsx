@@ -3,12 +3,14 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { X } from "lucide-react";
 import { FaFilePdf, FaPlus, FaTrash } from "react-icons/fa";
+import RecruiterPostJob from "../recruiter/RecruiterPostJob";
 
 const STATUS_OPTIONS = ["Available", "Out of stock"];
 const AD_TYPE_OPTIONS = ["For Rent", "For Sell"];
 
 export default function PostAdPage() {
   const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState<"device" | "job">("device");
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState(STATUS_OPTIONS[0]);
   const [adType, setAdType] = useState(AD_TYPE_OPTIONS[0]);
@@ -23,6 +25,58 @@ export default function PostAdPage() {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const docInputRef = useRef<HTMLInputElement>(null);
   const [stock, setStock] = useState("");
+
+  // Job form state for direct embedding
+  const [job, setJob] = useState({
+    title: "",
+    company: "",
+    type: "",
+    description: "",
+    image: [],
+  });
+
+  // Job form handlers (adapted from RecruiterPostJob)
+  const jobFileInputRef = useRef<HTMLInputElement | null>(null);
+  const handleJobChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setJob({ ...job, [e.target.name]: e.target.value });
+  };
+  const handleJobSelect = (value: string) => {
+    setJob({ ...job, type: value });
+  };
+  const handleJobFileButtonClick = () => {
+    jobFileInputRef.current?.click();
+  };
+  const handleJobFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+      setJob((prev) => ({ ...prev, image: filesArray }));
+    }
+  };
+  const handleJobRemoveImage = (index: number) => {
+    setJob((prev) => ({
+      ...prev,
+      image: prev.image.filter((_: File | string, i: number) => i !== index),
+    }));
+  };
+  const handleJobSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !job.title.trim() ||
+      !job.company.trim() ||
+      !job.type.trim() ||
+      !job.description.trim()
+    ) {
+      toast({
+        title: "Please fill all required job fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    toast({ title: "Job posted successfully!", variant: "default" });
+    setJob({ title: "", company: "", type: "", description: "", image: [] });
+  };
 
   // Image handlers
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,231 +154,375 @@ export default function PostAdPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-10 px-4">
-      <h1 className="text-2xl font-bold text-blue-700 mb-6">Post Device Ad</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-6 bg-white p-6 rounded shadow-md border"
-      >
-        {/* Title */}
-        <div>
-          <label className="block font-semibold mb-1">Title *</label>
-          <input
-            className="w-full border rounded px-3 py-2"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        {/* Stock Quantity */}
-        <div>
-          <label className="block font-semibold mb-1">Stock Quantity *</label>
-          <input
-            className="w-full border rounded px-3 py-2"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            type="number"
-            min="1"
-            required
-          />
-        </div>
-        {/* Status */}
-        <div>
-          <label className="block font-semibold mb-1">Status *</label>
-          <select
-            className="w-full border rounded px-3 py-2"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            required
-          >
-            {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </div>
-        {/* For Rent or For Sell */}
-        <div>
-          <label className="block font-semibold mb-1">Ad Type *</label>
-          <div className="flex gap-4">
-            {AD_TYPE_OPTIONS.map((type) => (
-              <label key={type} className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="adType"
-                  value={type}
-                  checked={adType === type}
-                  onChange={() => setAdType(type)}
-                  required
-                />
-                {type}
-              </label>
-            ))}
-          </div>
-        </div>
-        {/* Price */}
-        <div>
-          <label className="block font-semibold mb-1">
-            Price ({adType === "For Rent" ? "per month" : "to sell"}) *
-          </label>
-          <input
-            className="w-full border rounded px-3 py-2"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder={adType === "For Rent" ? "$ per month" : "$ to sell"}
-            type="number"
-            min="0"
-            required
-          />
-        </div>
-        {/* Specifications */}
-        <div>
-          <label className="block font-semibold mb-1">Specifications</label>
-          {specifications.map((spec, idx) => (
-            <div key={idx} className="flex gap-2 mb-2">
-              <input
-                className="border rounded px-2 py-1 flex-1"
-                placeholder="Label (e.g. Display)"
-                value={spec.label}
-                onChange={(e) => handleSpecChange(idx, "label", e.target.value)}
-              />
-              <input
-                className="border rounded px-2 py-1 flex-1"
-                placeholder={'Value (e.g. 15.6" LCD)'}
-                value={spec.value}
-                onChange={(e) => handleSpecChange(idx, "value", e.target.value)}
-              />
-              <button
-                type="button"
-                onClick={() => removeSpec(idx)}
-                className="text-red-500"
-              >
-                <FaTrash />
-              </button>
-            </div>
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            onClick={addSpec}
-            className="mt-1"
-          >
-            <FaPlus className="mr-1" />
-            Add Specification
-          </Button>
-        </div>
-        {/* Description */}
-        <div>
-          <label className="block font-semibold mb-1">Description *</label>
-          <textarea
-            className="w-full border rounded px-3 py-2"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            rows={3}
-          />
-        </div>
-        {/* Usage Instructions */}
-        <div>
-          <label className="block font-semibold mb-1">
-            Usage Instructions *
-          </label>
-          <textarea
-            className="w-full border rounded px-3 py-2"
-            value={usageInstructions}
-            onChange={(e) => setUsageInstructions(e.target.value)}
-            required
-            rows={2}
-          />
-        </div>
-        {/* Documents */}
-        <div>
-          <label className="block font-semibold mb-1">
-            Documents (PDF, optional)
-          </label>
-          <label className="inline-block">
-            <span className="sr-only">Choose PDF files</span>
-            <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
-              Select PDF(s)
-            </span>
+      <div className="flex gap-2 mb-8">
+        <Button
+          variant={activeTab === "device" ? "default" : "outline"}
+          onClick={() => setActiveTab("device")}
+        >
+          Post Device Ad
+        </Button>
+        <Button
+          variant={activeTab === "job" ? "default" : "outline"}
+          onClick={() => setActiveTab("job")}
+        >
+          Post a Job
+        </Button>
+      </div>
+      {activeTab === "device" ? (
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 bg-white p-6 rounded shadow-md border"
+        >
+          {/* Title */}
+          <div>
+            <label className="block font-semibold mb-1">Title *</label>
             <input
-              type="file"
-              accept="application/pdf"
-              multiple
-              ref={docInputRef}
-              onChange={handleDocChange}
-              className="hidden"
+              className="w-full border rounded px-3 py-2"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
             />
-          </label>
-          <ul className="space-y-1">
-            {documents.map((doc, idx) => (
-              <li
-                key={doc.name}
-                className="flex items-center gap-2 text-blue-700"
-              >
-                <FaFilePdf className="text-red-500" />
-                <span>{doc.name}</span>
+          </div>
+          {/* Stock Quantity */}
+          <div>
+            <label className="block font-semibold mb-1">Stock Quantity *</label>
+            <input
+              className="w-full border rounded px-3 py-2"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+              type="number"
+              min="1"
+              required
+            />
+          </div>
+          {/* Status */}
+          <div>
+            <label className="block font-semibold mb-1">Status *</label>
+            <select
+              className="w-full border rounded px-3 py-2"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required
+            >
+              {STATUS_OPTIONS.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* For Rent or For Sell */}
+          <div>
+            <label className="block font-semibold mb-1">Ad Type *</label>
+            <div className="flex gap-4">
+              {AD_TYPE_OPTIONS.map((type) => (
+                <label key={type} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="adType"
+                    value={type}
+                    checked={adType === type}
+                    onChange={() => setAdType(type)}
+                    required
+                  />
+                  {type}
+                </label>
+              ))}
+            </div>
+          </div>
+          {/* Price */}
+          <div>
+            <label className="block font-semibold mb-1">
+              Price ({adType === "For Rent" ? "per month" : "to sell"}) *
+            </label>
+            <input
+              className="w-full border rounded px-3 py-2"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder={adType === "For Rent" ? "$ per month" : "$ to sell"}
+              type="number"
+              min="0"
+              required
+            />
+          </div>
+          {/* Specifications */}
+          <div>
+            <label className="block font-semibold mb-1">Specifications</label>
+            {specifications.map((spec, idx) => (
+              <div key={idx} className="flex gap-2 mb-2">
+                <input
+                  className="border rounded px-2 py-1 flex-1"
+                  placeholder="Label (e.g. Display)"
+                  value={spec.label}
+                  onChange={(e) =>
+                    handleSpecChange(idx, "label", e.target.value)
+                  }
+                />
+                <input
+                  className="border rounded px-2 py-1 flex-1"
+                  placeholder={'Value (e.g. 15.6" LCD)'}
+                  value={spec.value}
+                  onChange={(e) =>
+                    handleSpecChange(idx, "value", e.target.value)
+                  }
+                />
                 <button
                   type="button"
-                  onClick={() => handleRemoveDoc(idx)}
+                  onClick={() => removeSpec(idx)}
                   className="text-red-500"
                 >
-                  <X />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        {/* Images */}
-        <div>
-          <label className="block font-semibold mb-1">Images *</label>
-          <label className="inline-block">
-            <span className="sr-only">Choose images</span>
-            <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
-              Select Images
-            </span>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              ref={imageInputRef}
-              onChange={handleImageChange}
-              className="hidden"
-            />
-          </label>
-          <div className="flex flex-wrap gap-3">
-            {images.map((img, idx) => (
-              <div
-                key={idx}
-                className="relative w-28 h-28 border rounded overflow-hidden"
-              >
-                <img
-                  src={img.url}
-                  alt="preview"
-                  className="object-cover w-full h-full"
-                />
-                <button
-                  type="button"
-                  className="absolute top-1 right-1 bg-white/80 rounded-full p-1 shadow border border-gray-200"
-                  onClick={() => handleRemoveImage(idx)}
-                  title="Remove"
-                >
-                  <X className="w-4 h-4 text-red-500" />
+                  <FaTrash />
                 </button>
               </div>
             ))}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addSpec}
+              className="mt-1"
+            >
+              <FaPlus className="mr-1" />
+              Add Specification
+            </Button>
           </div>
+          {/* Description */}
+          <div>
+            <label className="block font-semibold mb-1">Description *</label>
+            <textarea
+              className="w-full border rounded px-3 py-2"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              rows={3}
+            />
+          </div>
+          {/* Usage Instructions */}
+          <div>
+            <label className="block font-semibold mb-1">
+              Usage Instructions *
+            </label>
+            <textarea
+              className="w-full border rounded px-3 py-2"
+              value={usageInstructions}
+              onChange={(e) => setUsageInstructions(e.target.value)}
+              required
+              rows={2}
+            />
+          </div>
+          {/* Documents */}
+          <div>
+            <label className="block font-semibold mb-1">
+              Documents (PDF, optional)
+            </label>
+            <label className="inline-block">
+              <span className="sr-only">Choose PDF files</span>
+              <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
+                Select PDF(s)
+              </span>
+              <input
+                type="file"
+                accept="application/pdf"
+                multiple
+                ref={docInputRef}
+                onChange={handleDocChange}
+                className="hidden"
+              />
+            </label>
+            <ul className="space-y-1">
+              {documents.map((doc, idx) => (
+                <li
+                  key={doc.name}
+                  className="flex items-center gap-2 text-blue-700"
+                >
+                  <FaFilePdf className="text-red-500" />
+                  <span>{doc.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveDoc(idx)}
+                    className="text-red-500"
+                  >
+                    <X />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Images */}
+          <div>
+            <label className="block font-semibold mb-1">Images *</label>
+            <label className="inline-block">
+              <span className="sr-only">Choose images</span>
+              <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
+                Select Images
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                ref={imageInputRef}
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
+            <div className="flex flex-wrap gap-3">
+              {images.map((img, idx) => (
+                <div
+                  key={idx}
+                  className="relative w-28 h-28 border rounded overflow-hidden"
+                >
+                  <img
+                    src={img.url}
+                    alt="preview"
+                    className="object-cover w-full h-full"
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-1 right-1 bg-white/80 rounded-full p-1 shadow border border-gray-200"
+                    onClick={() => handleRemoveImage(idx)}
+                    title="Remove"
+                  >
+                    <X className="w-4 h-4 text-red-500" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Submit */}
+          <div className="pt-4 flex justify-end">
+            <Button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 text-lg font-semibold rounded"
+              type="submit"
+            >
+              Publish
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div className="max-w-xl mx-auto p-6 border rounded-lg shadow-sm bg-white">
+          <h2 className="text-2xl font-bold mb-6">Post a New Job</h2>
+          <form onSubmit={handleJobSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="title" className="block font-medium mb-1">
+                Job Title
+              </label>
+              <input
+                type="text"
+                name="title"
+                value={job.title}
+                onChange={handleJobChange}
+                required
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="e.g. Frontend Developer"
+              />
+            </div>
+            <div>
+              <label htmlFor="company" className="block font-medium mb-1">
+                Company Name
+              </label>
+              <input
+                type="text"
+                name="company"
+                value={job.company}
+                onChange={handleJobChange}
+                required
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="e.g. Acme Corp"
+              />
+            </div>
+            <div>
+              <label className="block font-medium mb-1">Job Type</label>
+              <select
+                className="w-full border border-gray-300 rounded-md p-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={job.type}
+                onChange={(e) => handleJobSelect(e.target.value)}
+                required
+              >
+                <option value="">Select job type</option>
+                <option value="contract">Contract</option>
+                <option value="part-time">Part-time</option>
+                <option value="full-time">Full-time</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="image" className="block font-medium mb-1">
+                Upload Images
+              </label>
+              <input
+                ref={jobFileInputRef}
+                id="image"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleJobFileChange}
+                className="hidden"
+              />
+              <Button
+                type="button"
+                onClick={handleJobFileButtonClick}
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Choose Images
+              </Button>
+              {Array.isArray(job.image) && job.image.length > 0 && (
+                <div className="mt-3 grid grid-cols-3 gap-3">
+                  {job.image.map((file: File | string, index: number) => {
+                    let previewUrl = "";
+                    if (typeof file === "string") {
+                      previewUrl = file;
+                    } else {
+                      previewUrl = URL.createObjectURL(file);
+                    }
+                    return (
+                      <div
+                        key={index}
+                        className="relative w-full aspect-square overflow-hidden rounded-md border"
+                      >
+                        <img
+                          src={previewUrl}
+                          alt={`Preview ${index}`}
+                          className="object-cover w-full h-full"
+                          onLoad={() => {
+                            if (typeof file !== "string")
+                              URL.revokeObjectURL(previewUrl);
+                          }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleJobRemoveImage(index)}
+                          className="absolute top-1 right-1 bg-blue-600 text-white rounded-full p-1 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 z-10"
+                          aria-label="Remove image"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            <div>
+              <label htmlFor="description" className="block font-medium mb-1">
+                Job Description
+              </label>
+              <textarea
+                name="description"
+                rows={5}
+                value={job.description}
+                onChange={handleJobChange}
+                required
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Describe the role, requirements, and perks..."
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            >
+              Post Job
+            </Button>
+          </form>
         </div>
-        {/* Submit */}
-        <div className="pt-4 flex justify-end">
-          <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 text-lg font-semibold rounded"
-            type="submit"
-          >
-            Publish
-          </Button>
-        </div>
-      </form>
+      )}
     </div>
   );
 }
