@@ -8,6 +8,15 @@ import { Heart, Share } from "lucide-react";
 import { GoBriefcase } from "react-icons/go";
 import { CiPhone } from "react-icons/ci";
 import { FaRegEye } from "react-icons/fa";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 const jobs: {
   id: number;
@@ -245,6 +254,10 @@ const RecruiterDashboardPage = () => {
   const ApplicationDetailsUI = ({ appId }: { appId: number }) => {
     const app = allApplications.find((a) => a.id === appId);
     const [showPdf, setShowPdf] = useState(false);
+    const [showEmailModal, setShowEmailModal] = useState(false);
+    const [emailSubject, setEmailSubject] = useState("");
+    const [emailMessage, setEmailMessage] = useState("");
+    const { toast } = useToast();
     const dummyPdfUrl = "https://msnlabs.com/img/resume-sample.pdf";
     // Dummy applicant info
     const dummyEmail = "alice.smith@email.com";
@@ -253,7 +266,7 @@ const RecruiterDashboardPage = () => {
     if (!app) return null;
     return (
       <>
-        <div className="bg-white border rounded p-8 max-w-xl mx-auto relative">
+        <div className="bg-white border rounded p-4 md:p-8 max-w-xl mx-auto relative">
           <h2 className="text-xl font-bold mb-4">Application Details</h2>
           <div className="mb-2">
             Applicant: <span className="font-semibold">{app.name}</span>
@@ -271,21 +284,89 @@ const RecruiterDashboardPage = () => {
           <div className="mb-4">
             Message: <span className="font-normal">{dummyMessage}</span>
           </div>
-          <Button
-            variant="default"
-            className="mt-4 mb-2"
-            onClick={() => setShowPdf(true)}
-          >
-            View Resume
-          </Button>
-          <Button variant="ghost" onClick={() => setViewingApplicationId(null)}>
-            Back
-          </Button>
+          <div className="flex flex-wrap gap-2 mt-6">
+            <Button variant="default" onClick={() => setShowPdf(true)}>
+              View Resume
+            </Button>
+
+            <Dialog open={showEmailModal} onOpenChange={setShowEmailModal}>
+              <DialogTrigger asChild>
+                <Button variant="secondary">Send Email</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Send Email to {app.name}</DialogTitle>
+                </DialogHeader>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    toast({
+                      title: "Email sent!",
+                      description: `Your email to ${dummyEmail} has been sent.`,
+                      variant: "default",
+                    });
+                    setShowEmailModal(false);
+                    setEmailSubject("");
+                    setEmailMessage("");
+                  }}
+                  className="space-y-4"
+                >
+                  <div>
+                    <label className="block text-sm font-medium mb-1">To</label>
+                    <input
+                      type="email"
+                      value={dummyEmail}
+                      disabled
+                      className="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      value={emailSubject}
+                      onChange={(e) => setEmailSubject(e.target.value)}
+                      required
+                      className="w-full border rounded px-3 py-2"
+                      placeholder="Subject"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Message
+                    </label>
+                    <textarea
+                      value={emailMessage}
+                      onChange={(e) => setEmailMessage(e.target.value)}
+                      required
+                      className="w-full border rounded px-3 py-2"
+                      rows={5}
+                      placeholder="Write your message here..."
+                    />
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" variant="default">
+                      Send Email
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+            <Button
+              variant="ghost"
+              onClick={() => setViewingApplicationId(null)}
+            >
+              Back
+            </Button>
+          </div>
         </div>
         {showPdf && (
           <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center">
             <button
-              className="absolute top-6 right-8 text-white text-3xl font-bold z-50"
+              className="absolute top-4 right-4 text-white text-3xl font-bold z-50"
               onClick={() => setShowPdf(false)}
               aria-label="Close PDF"
             >
