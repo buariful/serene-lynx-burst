@@ -1,20 +1,27 @@
 import { BriefcaseBusiness, Heart, Save, Share } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { GoBriefcase } from "react-icons/go";
 import { CiPhone } from "react-icons/ci";
 import { FaRegEye } from "react-icons/fa";
 import DashboardHeader from "@/components/DashboardHeader";
 import Footer from "@/components/Footer";
+import { showSuccess } from "@/utils/toast";
 
 export default function JobListingPage() {
   const [showPhone, setShowPhone] = useState(false);
   const [message, setMessage] = useState("");
   const [resume, setResume] = useState<File | null>(null);
+  const resumeRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log({ message, resume });
+    setMessage("");
+    setResume(null);
+    if (resumeRef.current.value) {
+      resumeRef.current.value = "";
+    }
+    showSuccess("Your application has been submitted successfully!");
   };
 
   return (
@@ -180,6 +187,7 @@ export default function JobListingPage() {
                   </label>
                   <input
                     type="file"
+                    ref={resumeRef}
                     onChange={(e) => setResume(e.target.files?.[0] || null)}
                     className="block w-full text-xs text-gray-500
                     file:mr-2 file:py-1 file:px-2
@@ -201,7 +209,7 @@ export default function JobListingPage() {
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1.5 px-4 rounded w-full text-xs"
                 >
-                  Send message
+                  Submit
                 </button>
               </form>
             </div>
