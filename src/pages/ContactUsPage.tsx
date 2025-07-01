@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Logo from "@/components/Logo";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { showSuccess } from "@/utils/toast";
+import FAQ from "@/components/FAQ";
+import { Mail, Phone, MapPin, Users } from "lucide-react";
 
 const ContactUsPage = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -14,26 +21,64 @@ const ContactUsPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setForm({ name: "", email: "", message: "" });
+    showSuccess("Thank you for contacting us! We'll be in touch soon.");
     // Here you would handle sending the form data to your backend or email service
   };
 
   return (
-    <div>
+    <div className="bg-gray-50 min-h-screen">
       <Header />
-      <div className="bg-gray-50 min-h-screen py-6 px-2">
-        <div className="max-w-md mx-auto bg-white rounded shadow p-3">
-          <h1 className="text-xl font-bold mb-3 text-blue-700">Contact Us</h1>
-          <p className="mb-4 text-gray-600 text-sm">
-            Have a question or need support? Fill out the form below and our
-            team will get back to you as soon as possible.
-          </p>
-          {submitted ? (
-            <div className="text-green-600 font-semibold text-center py-4 text-sm">
-              Thank you for contacting us! We'll be in touch soon.
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-3">
+      {/* Hero Section */}
+      <div className="flex flex-col items-center justify-center py-10 bg-gradient-to-b from-blue-50 to-gray-50">
+        <h1 className="text-3xl font-bold text-blue-700 mt-4 mb-2">
+          Contact Us
+        </h1>
+        <p className="text-gray-600 max-w-xl text-center mb-4">
+          Have a question, need support, or want to partner with us? Our team is
+          here to help you. Reach out and we'll get back to you as soon as
+          possible.
+        </p>
+      </div>
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-2 pb-12">
+        {/* Contact Options Card */}
+        <div className="md:col-span-1">
+          <Card className="md:col-span-1 flex flex-col gap-4 justify-between">
+            <CardHeader>
+              <CardTitle className="text-blue-700 text-lg">
+                Contact Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Mail className="text-blue-600" />
+                <span className="font-medium">support@yourdomain.com</span>
+                <Badge>Email</Badge>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="text-blue-600" />
+                <span className="font-medium">+1 (234) 567-890</span>
+                <Badge variant="secondary">Phone</Badge>
+              </div>
+              <div className="flex items-center gap-3">
+                <MapPin className="text-blue-600" />
+                <span className="font-medium">
+                  123 Main Street, Toronto, ON, Canada
+                </span>
+                <Badge variant="outline">Address</Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        {/* Contact Form Card */}
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle className="text-blue-700 text-lg">
+              Send Us a Message
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label
                   className="block text-gray-700 mb-0.5 text-xs"
@@ -85,40 +130,56 @@ const ContactUsPage = () => {
                   className="w-full px-2 py-1 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
                 />
               </div>
-              <button
+              <Button
                 type="submit"
-                className="bg-blue-700 text-white px-4 py-1.5 rounded text-sm hover:bg-blue-800 transition"
+                className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 rounded text-sm"
               >
                 Send Message
-              </button>
+              </Button>
             </form>
-          )}
-          <div className="mt-6 border-t pt-3 text-gray-700 text-xs">
-            <h2 className="text-base font-semibold mb-1">
-              Contact Information
-            </h2>
-            <p>
-              Email:{" "}
-              <a
-                href="mailto:support@yourdomain.com"
-                className="text-blue-700 hover:underline"
-              >
-                support@yourdomain.com
-              </a>
-            </p>
-            <p>
-              Phone:{" "}
-              <a
-                href="tel:+1234567890"
-                className="text-blue-700 hover:underline"
-              >
-                +1 (234) 567-890
-              </a>
-            </p>
-            <p>Address: 123 Main Street, Toronto, ON, Canada</p>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
+      {/* Support Team Section */}
+      <div className="max-w-5xl mx-auto px-2 pb-12">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-blue-700 text-lg flex items-center gap-2">
+              <Users className="w-5 h-5" /> Our Support Team
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-8 justify-center items-center">
+              <div className="flex flex-col items-center">
+                <Avatar>
+                  <AvatarImage src="/public/logo.png" alt="Support 1" />
+                  <AvatarFallback>AB</AvatarFallback>
+                </Avatar>
+                <span className="mt-2 font-medium text-sm">Alex Brown</span>
+                <span className="text-xs text-gray-500">Customer Success</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <Avatar>
+                  <AvatarImage src="/public/logo.png" alt="Support 2" />
+                  <AvatarFallback>JS</AvatarFallback>
+                </Avatar>
+                <span className="mt-2 font-medium text-sm">Jamie Smith</span>
+                <span className="text-xs text-gray-500">Tech Support</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <Avatar>
+                  <AvatarImage src="/public/logo.png" alt="Support 3" />
+                  <AvatarFallback>LK</AvatarFallback>
+                </Avatar>
+                <span className="mt-2 font-medium text-sm">Lee Kim</span>
+                <span className="text-xs text-gray-500">Partnerships</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      {/* FAQ Section */}
+      <FAQ />
       <Footer />
     </div>
   );
