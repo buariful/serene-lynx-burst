@@ -40,7 +40,10 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, id }) => {
           variant="outline"
           size="sm"
           className="w-full mt-auto border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-          onClick={() => navigate(`/toronto/${property.address}`)}
+          onClick={() => {
+            navigate(`/toronto/${property.address}`);
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
         >
           Details
         </Button>
