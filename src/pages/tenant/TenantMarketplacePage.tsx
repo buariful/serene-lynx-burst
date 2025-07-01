@@ -85,7 +85,8 @@ export default function TenantMarketplacePage() {
 
   // Filtered items
   const filteredRentals =
-    selectedCategory === "All" || selectedCategory === "Jobs"
+    // selectedCategory === "All" || selectedCategory === "Jobs"
+    selectedCategory === "All" || selectedCategory === "Other Rentals"
       ? RENTALS
       : RENTALS.filter((r) => r.category === selectedCategory);
   const filteredJobs =
