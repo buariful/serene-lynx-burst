@@ -11,6 +11,7 @@ const sidebarItems = [
   { key: "rentals", label: "Rental Services" },
   { key: "profile", label: "Profile" },
   { key: "marketplace", label: "Marketplace", route: "/tenant/marketplace" },
+  { key: "logout", label: "Logout", route: "/login" },
 ];
 
 const Dashboard = () => {

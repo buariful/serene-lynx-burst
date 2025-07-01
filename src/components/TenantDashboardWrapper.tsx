@@ -2,10 +2,12 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, User2 } from "lucide-react";
 import Header from "@/components/Header";
+import { IoIosLogOut } from "react-icons/io";
 
 const sidebarItems = [
   { label: "Dashboard", icon: Home, path: "/tenant/dashboard" },
   { label: "Account", icon: User2, path: "/tenant/account" },
+  { label: "Logout", icon: IoIosLogOut, path: "/login" },
 ];
 
 const TenantDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({

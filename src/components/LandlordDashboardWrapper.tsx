@@ -10,6 +10,7 @@ import {
   User2,
 } from "lucide-react";
 import DashboardHeader from "./DashboardHeader";
+import { IoIosLogOut } from "react-icons/io";
 
 const sidebarItems = [
   { label: "Listings", icon: Building2, path: "/landlord/dashboard" },
@@ -18,6 +19,7 @@ const sidebarItems = [
   { label: "Alerts", icon: AlertCircle, path: "/landlord/alerts" },
   { label: "Favourites", icon: Heart, path: "/landlord/favourites" },
   { label: "Account", icon: User2, path: "/landlord/account" },
+  { label: "Logout", icon: IoIosLogOut, path: "/login" },
 ];
 
 const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({

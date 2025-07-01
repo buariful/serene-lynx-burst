@@ -87,6 +87,7 @@ const sidebarItems = [
   { key: "jobs", label: "Jobs" },
   { key: "applicants", label: "Applicants" },
   { key: "profile", label: "Profile" },
+  { key: "logout", label: "Logout", route: "/login" },
 ];
 
 const RecruiterDashboardPage = () => {
@@ -387,6 +388,12 @@ const RecruiterDashboardPage = () => {
     );
   };
 
+  const handleTabClick = (key: string) => {
+    setActiveTab(key);
+    if (key === "logout") {
+      navigate("/login");
+    }
+  };
   return (
     <>
       <DashboardHeader />
@@ -402,7 +409,7 @@ const RecruiterDashboardPage = () => {
                     ? "bg-blue-600 text-white shadow"
                     : "text-[#7a9ca5] hover:bg-blue-50 hover:text-blue-600"
                 }`}
-                onClick={() => setActiveTab(item.key)}
+                onClick={() => handleTabClick(item.key)}
               >
                 {item.label}
               </button>

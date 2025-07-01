@@ -10,6 +10,7 @@ import {
   AppWindow,
 } from "lucide-react";
 import DashboardHeader from "./DashboardHeader";
+import { IoIosLogOut } from "react-icons/io";
 
 const sidebarItems = [
   { label: "Marketplace", icon: LayoutGrid, path: "/hospital/dashboard" },
@@ -18,6 +19,7 @@ const sidebarItems = [
   { label: "My Favourites", icon: Heart, path: "/hospital/my-favourites" },
   { label: "My Profile", icon: User2, path: "/hospital/my-profile" },
   { label: "Post Ad", icon: PlusCircle, path: "/hospital/post-ad" },
+  { label: "Logout", icon: IoIosLogOut, path: "/login" },
 ];
 
 const HospitalDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({

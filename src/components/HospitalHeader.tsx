@@ -219,6 +219,9 @@ const HospitalHeader = () => {
                 <DropdownMenuItem asChild>
                   <Link to="/hospital/post-ad">Post Ad</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/login">Logout</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
