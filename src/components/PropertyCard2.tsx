@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 interface SearchResultPropertyCardProps {
   property: Property;
@@ -164,12 +165,70 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
         </div>
         {/* Floor Plans */}
         <div className="mb-4">
-          <h3 className="text-lg font-semibold text-blue-600 mb-2">
-            Floor Plans
-          </h3>
-          <div className="bg-gray-50 rounded p-4">
-            2 Bedrooms, {property.baths} bath, 700 sq ft. Spacious open-concept
-            living and dining area, modern kitchen, and private balcony.
+          <div className="flex items-center justify-between mb-2">
+            <div className="ml-4 w-full">
+              <Tabs defaultValue="all" className="w-full">
+                <div className="flex items-center justify-between w-full ">
+                  <h3 className="text-lg font-semibold text-blue-600">
+                    Floor Plans
+                  </h3>
+                  <TabsList>
+                    <TabsTrigger value="all">All</TabsTrigger>
+                    <TabsTrigger value="0bed">0 Bed</TabsTrigger>
+                    <TabsTrigger value="1bed">1 Bed</TabsTrigger>
+                    <TabsTrigger value="2bed">2+ Bed</TabsTrigger>
+                  </TabsList>
+                </div>
+                <TabsContent value="all">
+                  <div className="space-y-2 mt-4">
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">0 Bedroom</div>
+                      <div>$1236 1 Bath 435 sq ft</div>
+                    </div>
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">1 Bedroom</div>
+                      <div>$1456 1 Bath 436 sq ft</div>
+                    </div>
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">2 Bedroom</div>
+                      <div>$1456 1 Bath 436 sq ft</div>
+                    </div>
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">2 Bedroom</div>
+                      <div>$1456 1 Bath 436 sq ft</div>
+                    </div>
+                  </div>
+                </TabsContent>
+                <TabsContent value="0bed">
+                  <div className="space-y-2 mt-4">
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">0 Bedroom</div>
+                      <div>$1236 1 Bath 435 sq ft</div>
+                    </div>
+                  </div>
+                </TabsContent>
+                <TabsContent value="1bed">
+                  <div className="space-y-2 mt-4">
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">1 Bedroom</div>
+                      <div>$1456 1 Bath 436 sq ft</div>
+                    </div>
+                  </div>
+                </TabsContent>
+                <TabsContent value="2bed">
+                  <div className="space-y-2 mt-4">
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">2 Bedroom</div>
+                      <div>$1456 1 Bath 436 sq ft</div>
+                    </div>
+                    <div className="bg-gray-50 rounded p-4">
+                      <div className="font-semibold">2 Bedroom</div>
+                      <div>$1456 1 Bath 436 sq ft</div>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
         </div>
         {/* Parking Information */}
