@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "./Logo"; // Assuming Logo is updated to "Rentals.ca"
+import { LogoWhite } from "./Logo"; // Assuming Logo is updated to "Rentals.ca"
 
 const footerLinks = {
   company: [
@@ -49,7 +49,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Logo & Company Info (spans more on smaller screens or is first) */}
           <div className="md:col-span-2 lg:col-span-1 mb-6 md:mb-0">
-            <Logo />{" "}
+            <LogoWhite />{" "}
             {/* Make sure Logo component text color is adaptable or white here */}
             <p className="mt-3 text-sm">Canada's home for rental properties.</p>
           </div>
