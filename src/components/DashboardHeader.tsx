@@ -104,6 +104,11 @@ const drawerMenuItems = [
     label: "Tenant Insurance",
     href: "/tenant-insurance",
   },
+  {
+    type: "link" as const,
+    label: "Tenant Notice",
+    href: "/tenant-notice",
+  },
   // {
   //   type: "link" as const,
   //   label: "Landlord Verify Identity",

@@ -59,6 +59,7 @@ import PropertyDetailsPublicPage from "./pages/PropertyDetailsPublicPage";
 import Layout from "./components/Layout/Layout";
 import DeviceDetailsPage from "./pages/hospital/DeviceDetailsPage";
 import TenantMarketplacePage from "./pages/tenant/TenantMarketplacePage";
+import TenantNoticePage from "./pages/tenant/TenantNoticePage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
@@ -168,6 +169,7 @@ const App = () => (
 
           <Route path="/landlord-verify" element={<LandlordVerifyPage />} />
           <Route path="/tenant-insurance" element={<TenantInsurancePage />} />
+          <Route path="/tenant-notice" element={<TenantNoticePage />} />
 
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FAQPage />} />

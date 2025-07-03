@@ -204,7 +204,8 @@ export default function LandlordDashboardPage() {
               {/* You can add your own SVG illustration here */}
             </svg>
             <Link
-              to="/landlord/post-rental"
+              // to="/landlord/post-rental"
+              to="/login"
               className="mt-3 flex items-center gap-1.5 px-6 py-2.5 bg-[#2563eb] text-white rounded-full font-semibold text-base shadow hover:bg-[#1d4fd7] transition"
             >
               <Plus className="w-4 h-4" />

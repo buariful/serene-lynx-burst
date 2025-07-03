@@ -85,7 +85,8 @@ const drawerMenuItems = [
       navigate: ReturnType<typeof useNavigate>,
       closeMenu: () => void
     ) => {
-      navigate("/landlord/post-rental");
+      // navigate("/landlord/post-rental");
+      navigate("/login");
       closeMenu();
     },
   },
@@ -137,6 +138,11 @@ const drawerMenuItems = [
     type: "link" as const,
     label: "Tenant Insurance",
     href: "/tenant-insurance",
+  },
+  {
+    type: "link" as const,
+    label: "Tenant Notice",
+    href: "/tenant-notice",
   },
   {
     type: "link" as const,
@@ -257,7 +263,7 @@ const Header = () => {
                 // Fix 2: Use a valid variant and custom className for styling
                 variant="default"
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm h-9"
-                onClick={() => navigate("/landlord/post-rental")}
+                onClick={() => navigate("/login")}
               >
                 Post a Rental
               </Button>

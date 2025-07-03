@@ -58,7 +58,8 @@ const LandlordPage = () => {
             </p>
             <div className="mt-10">
               <Link
-                to="/landlord/post-rental"
+                // to="/landlord/post-rental"
+                to="/login"
                 className="bg-white text-blue-700 font-semibold px-6 py-3 rounded shadow hover:bg-blue-100 transition"
               >
                 Post a Rental
