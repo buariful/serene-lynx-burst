@@ -132,7 +132,7 @@ const LoginPage = () => {
                 variant="outline"
                 className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
                 onClick={() => {
-                  showSuccess("Google login successful! Redirecting...");
+                  showSuccess("Facebook login successful! Redirecting...");
                   setTimeout(() => {
                     navigate("/hospital/dashboard");
                   }, 1500);
