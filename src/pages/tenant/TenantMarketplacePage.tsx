@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import DashboardHeader from "@/components/DashboardHeader";
 import Footer from "@/components/Footer";
+import { Search } from "lucide-react";
 
 const RENTAL_CATEGORIES = [
   "All",
@@ -81,16 +82,75 @@ const JOBS = [
 
 export default function TenantMarketplacePage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [activeTab, setActiveTab] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("price-asc");
   const navigate = useNavigate();
 
+  const sortOptions = [
+    { value: "price-asc", label: "Price: Low to High" },
+    { value: "price-desc", label: "Price: High to Low" },
+    { value: "title-asc", label: "Title: A-Z" },
+    { value: "title-desc", label: "Title: Z-A" },
+  ];
+
+  // Tabs: All, Rentals, Jobs
+  const tabs = ["All", "Rentals", "Jobs"];
+
   // Filtered items
-  const filteredRentals =
-    // selectedCategory === "All" || selectedCategory === "Jobs"
-    selectedCategory === "All" || selectedCategory === "Other Rentals"
-      ? RENTALS
-      : RENTALS.filter((r) => r.category === selectedCategory);
-  const filteredJobs =
-    selectedCategory === "All" || selectedCategory === "Jobs" ? JOBS : [];
+  let filteredRentals = RENTALS;
+  let filteredJobs = JOBS;
+  if (activeTab === "Rentals") {
+    filteredJobs = [];
+  } else if (activeTab === "Jobs") {
+    filteredRentals = [];
+  }
+  if (selectedCategory !== "All") {
+    filteredRentals = filteredRentals.filter(
+      (r) => r.category === selectedCategory
+    );
+    filteredJobs = filteredJobs.filter((j) => j.category === selectedCategory);
+  }
+  if (searchTerm.trim() !== "") {
+    filteredRentals = filteredRentals.filter(
+      (r) =>
+        r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.address.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    filteredJobs = filteredJobs.filter(
+      (j) =>
+        j.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (j.company &&
+          j.company.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  }
+  if (sortBy === "price-asc") {
+    filteredRentals = [...filteredRentals].sort((a, b) => {
+      const aPrice = parseInt(a.price.replace(/[^0-9]/g, ""), 10);
+      const bPrice = parseInt(b.price.replace(/[^0-9]/g, ""), 10);
+      return aPrice - bPrice;
+    });
+  } else if (sortBy === "price-desc") {
+    filteredRentals = [...filteredRentals].sort((a, b) => {
+      const aPrice = parseInt(a.price.replace(/[^0-9]/g, ""), 10);
+      const bPrice = parseInt(b.price.replace(/[^0-9]/g, ""), 10);
+      return bPrice - aPrice;
+    });
+  } else if (sortBy === "title-asc") {
+    filteredRentals = [...filteredRentals].sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+    filteredJobs = [...filteredJobs].sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+  } else if (sortBy === "title-desc") {
+    filteredRentals = [...filteredRentals].sort((a, b) =>
+      b.title.localeCompare(a.title)
+    );
+    filteredJobs = [...filteredJobs].sort((a, b) =>
+      b.title.localeCompare(a.title)
+    );
+  }
 
   return (
     <>
@@ -118,14 +178,54 @@ export default function TenantMarketplacePage() {
             </ul>
           </div>
         </aside>
+
         <div className="flex-1">
-          <h2 className="text-[#3e4153] text-2xl font-semibold mb-6">
-            {selectedCategory === "Jobs"
-              ? "Jobs"
-              : selectedCategory === "All"
-              ? "All Listings"
-              : selectedCategory}
-          </h2>
+          {/* Tabs */}
+          <div className="flex items-center gap-4 mb-6">
+            <h2 className="text-2xl font-bold text-[#2563eb] flex items-center gap-2">
+              Marketplace
+            </h2>
+            <div className="flex gap-6 ml-6 border-b border-[#e3e8ee] flex-1">
+              {tabs.map((tab) => (
+                <button
+                  key={tab}
+                  className={`pb-1.5 text-base font-medium transition border-b-2 ${
+                    activeTab === tab
+                      ? "border-[#2563eb] text-[#2563eb]"
+                      : "border-transparent text-[#7a9ca5] hover:text-[#2563eb]"
+                  }`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Search and Sort */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#7a9ca5] w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search by Title or Address"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-3 py-2.5 rounded-full border border-[#e3e8ee] bg-white text-[#2563eb] focus:outline-none text-sm"
+              />
+            </div>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-5 py-2.5 rounded-full bg-[#e3e8ee] text-[#2563eb] font-medium text-sm border-none focus:ring-2 focus:ring-blue-200"
+            >
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Listings Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {/* Jobs */}
             {filteredJobs.map((job) => (
