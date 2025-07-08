@@ -115,7 +115,7 @@ const drawerMenuItems = [
   { type: "separator" as const },
   {
     type: "link" as const,
-    label: "Medical School",
+    label: "Medical Schools",
     href: "/apartment",
   },
   // {

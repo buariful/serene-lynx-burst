@@ -20,6 +20,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { showSuccess, showError } from "@/utils/toast";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 type UserRole = "landlord" | "tenant" | "hospital" | "recruiter" | "";
 
@@ -139,6 +140,36 @@ const RegisterPage = () => {
             >
               Register
             </Button>
+
+            <div className="flex items-center gap-3 ">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
+                onClick={() => {
+                  showSuccess("Google sign in successful! Redirecting...");
+                  setTimeout(() => {
+                    navigate("/hospital/dashboard");
+                  }, 1500);
+                }}
+              >
+                <FaGoogle className="text-blue-500" /> Sign in with Google
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
+                onClick={() => {
+                  showSuccess("Facebook sign in successful! Redirecting...");
+                  setTimeout(() => {
+                    navigate("/hospital/dashboard");
+                  }, 1500);
+                }}
+              >
+                <FaFacebook className="text-blue-500" /> Sign in with Facebook
+              </Button>
+            </div>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col items-center space-y-2">

@@ -48,13 +48,13 @@ const desktopNavLinks: MegaMenuItem[] = [
   {
     type: "megaMenu",
     id: "medical-schools-mega-menu",
-    label: "Medical School",
+    label: "Medical Schools",
     component: MedicalSchoolMegaMenu,
   },
   {
     type: "megaMenu",
     id: "hospitals-mega-menu",
-    label: "Hospital",
+    label: "Hospitals",
     component: HospitalMegaMenu,
   },
   // Convert other links to a compatible type or handle them differently if they don't use mega menus
@@ -80,12 +80,12 @@ type DrawerButtonAction = (
 const drawerMenuItems = [
   {
     type: "link" as const,
-    label: "Medical School",
+    label: "Medical Schools",
     href: "/apartment",
   },
   {
     type: "link" as const,
-    label: "Hospital",
+    label: "Hospitals",
     href: "/apartment",
   },
   {

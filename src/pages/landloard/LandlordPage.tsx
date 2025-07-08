@@ -4,7 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { FaCheck, FaStar, FaRocket, FaCrown } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import { toast } from "@/hooks/use-toast";
 
 const featuredListings = [
   {
@@ -35,6 +36,7 @@ const featuredListings = [
 ];
 
 const LandlordPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="">
       <Header />
@@ -98,7 +100,9 @@ const LandlordPage = () => {
             effortlessly.
           </p>
 
-          <Button variant="default">List your property</Button>
+          <Button variant="default" onClick={() => navigate("/login")}>
+            List your property
+          </Button>
         </div>
       </div>
 
@@ -133,7 +137,15 @@ const LandlordPage = () => {
                 <FaCheck className="text-blue-500" /> Standard Support
               </li>
             </ul>
-            <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
+            <button
+              className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors"
+              onClick={() =>
+                toast({
+                  title: "Success",
+                  description: "Limited plan selected!",
+                })
+              }
+            >
               Select Plan
             </button>
           </div>
@@ -162,7 +174,15 @@ const LandlordPage = () => {
                 <FaCheck className="text-blue-500" /> Increased Inquiries
               </li>
             </ul>
-            <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
+            <button
+              className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors"
+              onClick={() =>
+                toast({
+                  title: "Success",
+                  description: "Promoted plan selected!",
+                })
+              }
+            >
               Select Plan
             </button>
           </div>
@@ -191,7 +211,15 @@ const LandlordPage = () => {
                 <FaCheck className="text-blue-500" /> Highest Priority in Search
               </li>
             </ul>
-            <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors">
+            <button
+              className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors"
+              onClick={() =>
+                toast({
+                  title: "Success",
+                  description: "Featured plan selected!",
+                })
+              }
+            >
               Select Plan
             </button>
           </div>
