@@ -34,6 +34,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import HospitalMegaMenu from "./HospitalMegaMenu";
 import MedicalSchoolMegaMenu from "./MedicalSchoolMegaMenu"; // Import the new menu
+import { useLanguage } from "@/hooks/useLanguage";
 
 type NavLinkItem = { type: "link"; href: string; label: string };
 type MegaMenuItem = {
@@ -43,153 +44,154 @@ type MegaMenuItem = {
   component: React.ElementType;
 };
 
-const desktopNavLinks: MegaMenuItem[] = [
-  // Simplified to always use MegaMenuItem type for consistency
-  {
-    type: "megaMenu",
-    id: "medical-schools-mega-menu",
-    label: "Medical Schools",
-    component: MedicalSchoolMegaMenu,
-  },
-  {
-    type: "megaMenu",
-    id: "hospitals-mega-menu",
-    label: "Hospitals",
-    component: HospitalMegaMenu,
-  },
-  // Convert other links to a compatible type or handle them differently if they don't use mega menus
-  // For now, let's assume Landlords and Contact Us might become mega menus or simple links.
-  // To keep them as simple links for now, we'd need to adjust the mapping logic or type.
-  // Let's make them simple links for this update.
-];
-
-// Simple links for items that are not mega menus
-const simpleDesktopNavLinks: NavLinkItem[] = [
-  { type: "link", href: "/landlords", label: "Landlords" },
-  { type: "link", href: "/contact-us", label: "Contact Us" },
-];
-
-// Fix 1: Define a type for the button action
-// Define a type for the button action
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DrawerButtonAction = (
-  navigate: ReturnType<typeof useNavigate>,
-  closeMenu: () => void
-) => void;
-
-const drawerMenuItems = [
-  {
-    type: "button" as const,
-    label: "Post a Rental",
-    action: (
-      navigate: ReturnType<typeof useNavigate>,
-      closeMenu: () => void
-    ) => {
-      // navigate("/landlord/post-rental");
-      navigate("/login");
-      closeMenu();
-    },
-  },
-  {
-    type: "button" as const,
-    label: "Login",
-    action: (
-      navigate: ReturnType<typeof useNavigate>,
-      closeMenu: () => void
-    ) => {
-      navigate("/login");
-      closeMenu();
-    },
-  },
-  {
-    type: "button" as const,
-    label: "Create Account",
-    action: (
-      navigate: ReturnType<typeof useNavigate>,
-      closeMenu: () => void
-    ) => {
-      navigate("/register");
-      closeMenu();
-    },
-  },
-  { type: "separator" as const },
-  {
-    type: "link" as const,
-    label: "Medical Schools",
-    href: "/apartment",
-  },
-  // {
-  //   type: "link" as const,
-  //   label: "Hospital",
-  //   href: "/hospitals",
-  // },
-  {
-    type: "link" as const,
-    label: "Landlords",
-    href: "/landloard/landlord-page",
-  },
-  {
-    type: "link" as const,
-    label: "Contact Us",
-    href: "/contact-us",
-  },
-  { type: "separator" as const },
-  {
-    type: "link" as const,
-    label: "Tenant Insurance",
-    href: "/tenant-insurance",
-  },
-  {
-    type: "link" as const,
-    label: "Tenant Notice",
-    href: "/tenant-notice",
-  },
-  {
-    type: "link" as const,
-    label: "Landlord Verify Identity",
-    href: "/landlord-verify",
-  },
-  { type: "link" as const, label: "About", href: "/about" },
-  { type: "link" as const, label: "FAQ", href: "/faq" },
-  { type: "link" as const, label: "Blog", href: "/blog" },
-  // {
-  //   type: "link" as const,
-  //   label: "Job Board",
-  //   href: "/job-board",
-  // },
-  // {
-  //   type: "link" as const,
-  //   label: "Medical Rentals",
-  //   href: "/medical-rentals",
-  // },
-  // {
-  //   type: "link" as const,
-  //   label: "Search Near Me",
-  //   href: "/search-near-me",
-  // },
-  {
-    type: "link" as const,
-    label: "Search by Map",
-    href: "/apartment",
-  },
-  { type: "separator" as const },
-  {
-    type: "link" as const,
-    label: "Terms & Conditions",
-    href: "/terms",
-  },
-  {
-    type: "link" as const,
-    label: "Privacy Policy",
-    href: "/privacy",
-  },
-];
-
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { t, currentLanguage, changeLanguage } = useLanguage();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const desktopNavLinks: MegaMenuItem[] = [
+    // Simplified to always use MegaMenuItem type for consistency
+    {
+      type: "megaMenu",
+      id: "medical-schools-mega-menu",
+      label: t('header.medicalSchools'),
+      component: MedicalSchoolMegaMenu,
+    },
+    {
+      type: "megaMenu",
+      id: "hospitals-mega-menu",
+      label: t('header.hospitals'),
+      component: HospitalMegaMenu,
+    },
+    // Convert other links to a compatible type or handle them differently if they don't use mega menus
+    // For now, let's assume Landlords and Contact Us might become mega menus or simple links.
+    // To keep them as simple links for now, we'd need to adjust the mapping logic or type.
+    // Let's make them simple links for this update.
+  ];
+
+  // Simple links for items that are not mega menus
+  const simpleDesktopNavLinks: NavLinkItem[] = [
+    { type: "link", href: "/landlords", label: t('header.landlords') },
+    { type: "link", href: "/contact-us", label: t('header.contactUs') },
+  ];
+
+  // Fix 1: Define a type for the button action
+  // Define a type for the button action
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type DrawerButtonAction = (
+    navigate: ReturnType<typeof useNavigate>,
+    closeMenu: () => void
+  ) => void;
+
+  const drawerMenuItems = [
+    {
+      type: "button" as const,
+      label: t('header.postARental'),
+      action: (
+        navigate: ReturnType<typeof useNavigate>,
+        closeMenu: () => void
+      ) => {
+        // navigate("/landlord/post-rental");
+        navigate("/login");
+        closeMenu();
+      },
+    },
+    {
+      type: "button" as const,
+      label: t('header.login'),
+      action: (
+        navigate: ReturnType<typeof useNavigate>,
+        closeMenu: () => void
+      ) => {
+        navigate("/login");
+        closeMenu();
+      },
+    },
+    {
+      type: "button" as const,
+      label: t('header.createAccount'),
+      action: (
+        navigate: ReturnType<typeof useNavigate>,
+        closeMenu: () => void
+      ) => {
+        navigate("/register");
+        closeMenu();
+      },
+    },
+    { type: "separator" as const },
+    {
+      type: "link" as const,
+      label: t('header.medicalSchools'),
+      href: "/apartment",
+    },
+    // {
+    //   type: "link" as const,
+    //   label: "Hospital",
+    //   href: "/hospitals",
+    // },
+    {
+      type: "link" as const,
+      label: t('header.landlords'),
+      href: "/landloard/landlord-page",
+    },
+    {
+      type: "link" as const,
+      label: t('header.contactUs'),
+      href: "/contact-us",
+    },
+    { type: "separator" as const },
+    {
+      type: "link" as const,
+      label: t('header.tenantInsurance'),
+      href: "/tenant-insurance",
+    },
+    {
+      type: "link" as const,
+      label: t('header.tenantNotice'),
+      href: "/tenant-notice",
+    },
+    {
+      type: "link" as const,
+      label: t('header.landlordVerifyIdentity'),
+      href: "/landlord-verify",
+    },
+    { type: "link" as const, label: t('header.about'), href: "/about" },
+    { type: "link" as const, label: t('header.faq'), href: "/faq" },
+    { type: "link" as const, label: t('header.blog'), href: "/blog" },
+    // {
+    //   type: "link" as const,
+    //   label: "Job Board",
+    //   href: "/job-board",
+    // },
+    // {
+    //   type: "link" as const,
+    //   label: "Medical Rentals",
+    //   href: "/medical-rentals",
+    // },
+    // {
+    //   type: "link" as const,
+    //   label: "Search Near Me",
+    //   href: "/search-near-me",
+    // },
+    {
+      type: "link" as const,
+      label: t('header.searchByMap'),
+      href: "/apartment",
+    },
+    { type: "separator" as const },
+    {
+      type: "link" as const,
+      label: t('header.termsConditions'),
+      href: "/terms",
+    },
+    {
+      type: "link" as const,
+      label: t('header.privacyPolicy'),
+      href: "/privacy",
+    },
+  ];
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
@@ -240,22 +242,22 @@ const Header = () => {
                     size="sm"
                     className="text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <Globe className="h-4 w-4 mr-1" /> EN{" "}
+                    <Globe className="h-4 w-4 mr-1" /> {currentLanguage.toUpperCase()}{" "}
                     <ChevronDown className="h-4 w-4 ml-1 opacity-75" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="dark:bg-gray-800 dark:border-gray-700">
                   <DropdownMenuItem
-                    onSelect={() => console.log("Lang: EN")}
+                    onSelect={() => changeLanguage('en')}
                     className="dark:hover:bg-gray-700"
                   >
-                    English
+                    {t('languages.en')}
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onSelect={() => console.log("Lang: FR")}
+                    onSelect={() => changeLanguage('fr')}
                     className="dark:hover:bg-gray-700"
                   >
-                    Français
+                    {t('languages.fr')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -265,7 +267,7 @@ const Header = () => {
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm h-9"
                 onClick={() => navigate("/login")}
               >
-                Post a Rental
+                {t('header.postARental')}
               </Button>
             </div>
 
@@ -310,7 +312,7 @@ const Header = () => {
                                 : "ghost"
                             }
                             className={`w-full justify-start text-left h-auto py-2.5 px-3 text-sm rounded-md ${
-                              item.label === "Post a Rental"
+                              item.label === t('header.postARental')
                                 ? "bg-blue-600 hover:bg-blue-700 text-white"
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                             }`}
@@ -343,7 +345,7 @@ const Header = () => {
                           variant="outline"
                           className="w-full justify-start text-sm dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
                         >
-                          <Globe className="h-4 w-4 mr-2" /> English{" "}
+                          <Globe className="h-4 w-4 mr-2" /> {t(`languages.${currentLanguage}`)}{" "}
                           <ChevronDown className="h-4 w-4 ml-auto opacity-75" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -354,21 +356,21 @@ const Header = () => {
                       >
                         <DropdownMenuItem
                           onSelect={() => {
-                            console.log("Lang: EN");
+                            changeLanguage('en');
                             closeMobileMenu();
                           }}
                           className="dark:hover:bg-gray-700"
                         >
-                          English
+                          {t('languages.en')}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onSelect={() => {
-                            console.log("Lang: FR");
+                            changeLanguage('fr');
                             closeMobileMenu();
                           }}
                           className="dark:hover:bg-gray-700"
                         >
-                          Français
+                          {t('languages.fr')}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

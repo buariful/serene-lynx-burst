@@ -1,0 +1,67 @@
+{
+  "header": {
+    "medicalSchools": "Medical Schools",
+    "hospitals": "Hospitals",
+    "landlords": "Landlords",
+    "contactUs": "Contact Us",
+    "postARental": "Post a Rental",
+    "login": "Login",
+    "createAccount": "Create Account",
+    "tenantInsurance": "Tenant Insurance",
+    "tenantNotice": "Tenant Notice",
+    "landlordVerifyIdentity": "Landlord Verify Identity",
+    "about": "About",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "searchByMap": "Search by Map",
+    "termsConditions": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français"
+  },
+  "common": {
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "forms": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "state": "State",
+    "zipCode": "Zip Code",
+    "country": "Country"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMismatch": "Passwords do not match",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must be no more than {{max}} characters"
+  }
+} 

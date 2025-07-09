@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
@@ -69,122 +70,124 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/search-results" element={<SearchResultsPage />} />
-          <Route
-            path="/toronto/:address"
-            element={
-              <Layout>
-                <PropertyDetailsPublicPage />
-              </Layout>
-            }
-          />
-
-          {/* Doctor Dashboard Routes with Layout */}
-          <Route path="/doctor" element={<DoctorLayout />}>
-            <Route path="dashboard" element={<DoctorDashboardPage />} />
-            <Route path="properties" element={<PropertyManagementPage />} />
-            {/* Example for a more specific route if needed: */}
-            {/* <Route path="properties/new" element={<PostPropertyFormPage />} />  */}
-            <Route path="devices" element={<MedicalDevicePage />} />
-            {/* Example for more specific device routes: */}
-            {/* <Route path="devices/new" element={<PostDeviceFormPage />} /> */}
-            {/* <Route path="devices/browse" element={<BrowseDevicesPage />} /> */}
-            <Route path="profile" element={<DoctorProfilePage />} />
-            <Route path="settings" element={<DoctorSettingsPage />} />
-          </Route>
-
-          <Route path="/landlord">
-            <Route path="dashboard" element={<LandlordDashboardPage />} />
-            <Route path="property/:id" element={<PropertyDetailsPage />} />
-            <Route path="notifications" element={<NotificationsPage />} />
-            <Route path="drafts" element={<DraftsPage />} />
-            <Route path="alerts" element={<AlertsPage />} />
-            <Route path="favourites" element={<FavouritesPage />} />
-            <Route path="post-rental" element={<LandlordPostRentalPage />} />
-            <Route path="account" element={<LandlordAccountSettingsPage />} />
+    <LanguageProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/search-results" element={<SearchResultsPage />} />
             <Route
-              path="property-details"
-              element={<PropertyDetailsFormPage />}
+              path="/toronto/:address"
+              element={
+                <Layout>
+                  <PropertyDetailsPublicPage />
+                </Layout>
+              }
             />
+
+            {/* Doctor Dashboard Routes with Layout */}
+            <Route path="/doctor" element={<DoctorLayout />}>
+              <Route path="dashboard" element={<DoctorDashboardPage />} />
+              <Route path="properties" element={<PropertyManagementPage />} />
+              {/* Example for a more specific route if needed: */}
+              {/* <Route path="properties/new" element={<PostPropertyFormPage />} />  */}
+              <Route path="devices" element={<MedicalDevicePage />} />
+              {/* Example for more specific device routes: */}
+              {/* <Route path="devices/new" element={<PostDeviceFormPage />} /> */}
+              {/* <Route path="devices/browse" element={<BrowseDevicesPage />} /> */}
+              <Route path="profile" element={<DoctorProfilePage />} />
+              <Route path="settings" element={<DoctorSettingsPage />} />
+            </Route>
+
+            <Route path="/landlord">
+              <Route path="dashboard" element={<LandlordDashboardPage />} />
+              <Route path="property/:id" element={<PropertyDetailsPage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
+              <Route path="drafts" element={<DraftsPage />} />
+              <Route path="alerts" element={<AlertsPage />} />
+              <Route path="favourites" element={<FavouritesPage />} />
+              <Route path="post-rental" element={<LandlordPostRentalPage />} />
+              <Route path="account" element={<LandlordAccountSettingsPage />} />
+              <Route
+                path="property-details"
+                element={<PropertyDetailsFormPage />}
+              />
+              <Route
+                path="listing-details"
+                element={<PropertyListingDetailsPage />}
+              />
+              <Route path="listing-success" element={<ListingSuccessPage />} />
+            </Route>
+
+            <Route path="/tenant">
+              <Route path="dashboard" element={<TenantDashboardPage />} />
+              <Route path="account" element={<TenantAccountPage />} />
+              <Route path="marketplace" element={<TenantMarketplacePage />} />
+              <Route path="job-details/:id" element={<AddViewPage />} />
+            </Route>
+
             <Route
-              path="listing-details"
-              element={<PropertyListingDetailsPage />}
+              path="/marketplace-list"
+              element={<HospitalMarketplacePage />}
             />
-            <Route path="listing-success" element={<ListingSuccessPage />} />
-          </Route>
 
-          <Route path="/tenant">
-            <Route path="dashboard" element={<TenantDashboardPage />} />
-            <Route path="account" element={<TenantAccountPage />} />
-            <Route path="marketplace" element={<TenantMarketplacePage />} />
-            <Route path="job-details/:id" element={<AddViewPage />} />
-          </Route>
+            <Route path="/landloard/landlord-page" element={<LandlordPage />} />
+            <Route path="/landlords" element={<LandlordPage />} />
+            <Route path="/contact-us" element={<ContactUsPage />} />
+            <Route
+              path="/hospital/dashboard"
+              element={<HospitalMarketplacePage />}
+            />
+            <Route path="/marketplace" element={<HospitalMarketplacePage />} />
+            <Route path="/product-details/:id" element={<AddViewPage />} />
+            <Route path="/hospital/product/:id" element={<AddViewPage />} />
+            <Route path="/post/view" element={<AddViewPage />} />
 
-          <Route
-            path="/marketplace-list"
-            element={<HospitalMarketplacePage />}
-          />
+            <Route path="/hospital" element={<HospitalLayout />}>
+              <Route path="my-ads" element={<MyAdsPage />} />
+              <Route path="my-messages" element={<MyMessagesPage />} />
+              <Route path="my-favourites" element={<MyFavouritesPage />} />
+              <Route path="my-profile" element={<MyProfilePage />} />
+              <Route path="post-ad" element={<PostAdPage />} />
+              <Route path="post-ad-details" element={<PostAdDetailsPage />} />
+              <Route path="device-details/:id" element={<DeviceDetailsPage />} />
+            </Route>
 
-          <Route path="/landloard/landlord-page" element={<LandlordPage />} />
-          <Route path="/landlords" element={<LandlordPage />} />
-          <Route path="/contact-us" element={<ContactUsPage />} />
-          <Route
-            path="/hospital/dashboard"
-            element={<HospitalMarketplacePage />}
-          />
-          <Route path="/marketplace" element={<HospitalMarketplacePage />} />
-          <Route path="/product-details/:id" element={<AddViewPage />} />
-          <Route path="/hospital/product/:id" element={<AddViewPage />} />
-          <Route path="/post/view" element={<AddViewPage />} />
+            <Route
+              path="/recruiter/dashboard"
+              element={<RecruiterDashboardPage />}
+            />
+            <Route path="/recruiter/post-job" element={<RecruiterPostJob />} />
 
-          <Route path="/hospital" element={<HospitalLayout />}>
-            <Route path="my-ads" element={<MyAdsPage />} />
-            <Route path="my-messages" element={<MyMessagesPage />} />
-            <Route path="my-favourites" element={<MyFavouritesPage />} />
-            <Route path="my-profile" element={<MyProfilePage />} />
-            <Route path="post-ad" element={<PostAdPage />} />
-            <Route path="post-ad-details" element={<PostAdDetailsPage />} />
-            <Route path="device-details/:id" element={<DeviceDetailsPage />} />
-          </Route>
+            {/* <Route path="/hospitals" element={<HospitalListPage />} /> */}
 
-          <Route
-            path="/recruiter/dashboard"
-            element={<RecruiterDashboardPage />}
-          />
-          <Route path="/recruiter/post-job" element={<RecruiterPostJob />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
 
-          {/* <Route path="/hospitals" element={<HospitalListPage />} /> */}
+            <Route path="/landlord-verify" element={<LandlordVerifyPage />} />
+            <Route path="/tenant-insurance" element={<TenantInsurancePage />} />
+            <Route path="/tenant-notice" element={<TenantNoticePage />} />
 
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/job-board" element={<JobBoardPage />} />
+            <Route path="/medical-rentals" element={<MedicalRentalsPage />} />
+            <Route path="/search-near-me" element={<SearchNearMePage />} />
+            <Route path="/apartment" element={<ApartmentPage />} />
+            <Route path="/hospital-list" element={<ApartmentPage />} />
 
-          <Route path="/landlord-verify" element={<LandlordVerifyPage />} />
-          <Route path="/tenant-insurance" element={<TenantInsurancePage />} />
-          <Route path="/tenant-notice" element={<TenantNoticePage />} />
-
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/job-board" element={<JobBoardPage />} />
-          <Route path="/medical-rentals" element={<MedicalRentalsPage />} />
-          <Route path="/search-near-me" element={<SearchNearMePage />} />
-          <Route path="/apartment" element={<ApartmentPage />} />
-          <Route path="/hospital-list" element={<ApartmentPage />} />
-
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 
