@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const canadaHospitals = [
   {
-    name: "Toronto General Hospital (University Health Network)",
+    name: "Toronto General hospitals (University Health Network)",
     location: "Toronto, ON",
   },
   { name: "Mount Sinai Hospital", location: "Toronto, ON" },
@@ -11,7 +11,7 @@ const canadaHospitals = [
   { name: "The Ottawa Hospital", location: "Ottawa, ON" },
   { name: "Vancouver General Hospital", location: "Vancouver, BC" },
   {
-    name: "Royal Victoria Hospital (McGill University Health Centre)",
+    name: "Royal Victoria hospitals (McGill University Health Centre)",
     location: "Montreal, QC",
   },
   { name: "Jewish General Hospital", location: "Montreal, QC" },

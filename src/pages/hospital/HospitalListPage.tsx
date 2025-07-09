@@ -12,12 +12,12 @@ const hospitals = [
   "North York General Hospital",
   "Scarborough Health Network - General Campus",
   "Humber River Hospital",
-  "The Ottawa Hospital - Civic Campus",
+  "The Ottawa hospitals - Civic Campus",
   "Hamilton General Hospital",
   "London Health Sciences Centre",
   "Kingston General Hospital",
   "Thunder Bay Regional Health Sciences Centre",
-  "Windsor Regional Hospital - Metropolitan Campus",
+  "Windsor Regional hospitals - Metropolitan Campus",
   "St. Joseph's Healthcare Hamilton",
   "Southlake Regional Health Centre",
   "Royal Victoria Regional Health Centre Barrie",
@@ -40,7 +40,7 @@ const HospitalListPage = () => {
         </h1>
         <p className="text-sm md:text-base max-w-2xl mx-auto">
           Browse a comprehensive list of hospitals in Ontario. Use the search
-          below to quickly find a hospital by name.
+          below to quickly find a hospitalsby name.
         </p>
       </section>
       <section className="max-w-3xl mx-auto py-8 px-4">

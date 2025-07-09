@@ -8,14 +8,14 @@ import {
 } from "./ui/accordion";
 
 const popularMedicalShcools = [
-  "Western University Schulich School of Medicine",
+  "Western University Schulich Schools of Medicine",
   "McMaster University",
   "University of Ottawa",
   "University of Calgary",
   "McGill University",
   "University of Alberta",
   "University of Manitoba",
-  "Dalhousie Medical School-Halifax and New Brunswick Campus",
+  "Dalhousie Medical Schools-Halifax and New Brunswick Campus",
 ];
 
 const provinceMedicalSchools = [
@@ -66,9 +66,9 @@ const provinceMedicalSchools = [
       "Western University",
       "Queen's University",
       "University of Ottawa",
-      "Northern Ontario School of Medicine (NOSM) – Laurentian University",
-      "Northern Ontario School of Medicine (NOSM) – Lakehead University",
-      "Toronto Metropolitan University (proposed medical school in Brampton)",
+      "Northern Ontario Schools of Medicine (NOSM) – Laurentian University",
+      "Northern Ontario Schools of Medicine (NOSM) – Lakehead University",
+      "Toronto Metropolitan University (proposed medical schools in Brampton)",
     ],
   },
   {
@@ -101,7 +101,7 @@ const provinceMedicalSchools = [
 const CanadianLocationsMegamenu = () => {
   return (
     <div className="p-6 text-white text-xs">
-      <h1 className="text-xl font-bold mb-4">Search by Medical School</h1>
+      <h1 className="text-xl font-bold mb-4">Search by Medical Schools</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
         {/* Popular Locations Column */}
@@ -134,13 +134,13 @@ const CanadianLocationsMegamenu = () => {
                 <AccordionTrigger>{province.name}</AccordionTrigger>
                 <AccordionContent>
                   <ul className="pl-4 max-h-[80px] overflow-auto">
-                    {province.children.map((school) => (
-                      <li key={school}>
+                    {province.children.map((schools) => (
+                      <li key={schools}>
                         <Link
                           to="/apartment"
                           className="hover:text-white hover:underline text-xs"
                         >
-                          {school}
+                          {schools}
                         </Link>
                       </li>
                     ))}

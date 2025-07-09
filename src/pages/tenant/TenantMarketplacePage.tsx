@@ -65,7 +65,7 @@ const JOBS = [
     salary: "$3,200/mo",
     type: "Full-time",
     description:
-      "Provide patient care and support in a busy hospital environment.",
+      "Provide patient care and support in a busy hospitalsenvironment.",
     category: "Jobs",
   },
   {

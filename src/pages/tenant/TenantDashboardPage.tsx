@@ -67,7 +67,7 @@ const Dashboard = () => {
           </div>
           <div className="border p-4 rounded-xl hover:shadow transition">
             <h4 className="font-semibold">Job: Nursing Assistant</h4>
-            <p className="text-gray-600">Mercy Hospital • Full Time</p>
+            <p className="text-gray-600">Mercy hospitals • Full Time</p>
           </div>
           <div className="border p-4 rounded-xl hover:shadow transition">
             <h4 className="font-semibold">Rental at Lakeview Residences</h4>

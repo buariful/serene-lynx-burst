@@ -21,7 +21,7 @@ const faqData: FAQItem[] = [
     answer: "RentReport™ is a service offered by Rentals.ca that allows tenants to report their rent payments to credit bureaus, helping them build their credit history.",
   },
   {
-    question: "How can I find rentals near a specific hospital or school?",
+    question: "How can I find rentals near a specific hospitalsor schools?",
     answer: "Use our advanced search filters or browse our dedicated sections for rentals near medical institutions and schools. You can also search by address or landmark.",
   }
 ];

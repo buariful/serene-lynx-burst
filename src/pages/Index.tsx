@@ -36,7 +36,7 @@ const medicalSchoolCities = [
   },
   { name: "University of Ottawa Faculty of Medicine", href: "/apartment" },
   {
-    name: "Western University Schulich School of Medicine & Dentistry",
+    name: "Western University Schulich Schools of Medicine & Dentistry",
     href: "/apartment",
   },
   { name: "Queen's University Faculty of Health Sciences", href: "/apartment" },
@@ -46,7 +46,7 @@ const medicalSchoolCities = [
     href: "/apartment",
   },
   {
-    name: "Northern Ontario School of Medicine University (NOSM)",
+    name: "Northern Ontario Schools of Medicine University (NOSM)",
     href: "/apartment",
   },
 ];

@@ -18,7 +18,7 @@ const importantInfo = [
   {
     title: "Who should use this form?",
     description:
-      "Tenants who wish to end their tenancy agreement must complete and submit this form to their landlord.",
+      "Tenants who wish to end their tenancy agreement must complete and submit this form to their landlords.",
   },
   {
     title: "Notice period",
