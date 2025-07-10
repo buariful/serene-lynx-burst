@@ -65,35 +65,37 @@ export default function TenantNoticePage() {
   };
 
   return (
-    <div>
+    <div className="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <Header />
       <form onSubmit={handleSubmit}>
         <div className="max-w-2xl mx-auto py-10 px-4">
-          <h1 className="text-2xl font-bold mb-6 text-center">
+          <h1 className="text-2xl font-bold mb-6 text-center text-[hsl(var(--foreground))]">
             {t('tenantNoticePage.title')}
           </h1>
           {/* First Card */}
-          <Card className="mb-6 p-6">
+          <Card className="mb-6 p-6 bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] border-[hsl(var(--border))]">
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">{t('tenantNoticePage.to')}</label>
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">{t('tenantNoticePage.to')}</label>
               <Input
                 name="to"
                 value={form.to}
                 onChange={handleChange}
                 placeholder={t('tenantNoticePage.landlordNamePlaceholder')}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">{t('tenantNoticePage.from')}</label>
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">{t('tenantNoticePage.from')}</label>
               <Input
                 name="from"
                 value={form.from}
                 onChange={handleChange}
                 placeholder={t('tenantNoticePage.tenantNamePlaceholder')}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.rentalUnitAddress')}
               </label>
               <Input
@@ -101,10 +103,11 @@ export default function TenantNoticePage() {
                 value={form.address}
                 onChange={handleChange}
                 placeholder={t('tenantNoticePage.addressPlaceholder')}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.terminationDate')}
               </label>
               <Input
@@ -112,28 +115,29 @@ export default function TenantNoticePage() {
                 type="date"
                 value={form.terminationDate}
                 onChange={handleChange}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
           </Card>
           {/* Accordion Card */}
-          <Card className="mb-6 p-0 overflow-hidden">
+          <Card className="mb-6 p-0 overflow-hidden bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] border-[hsl(var(--border))]">
             <Accordion type="single" collapsible>
               <AccordionItem value="info">
-                <AccordionTrigger className="px-6 py-4 text-lg font-semibold">
+                <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-[hsl(var(--foreground))]">
                   {t('tenantNoticePage.importantInformationTitle')}
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-50 px-6 pb-6 pt-2">
+                <AccordionContent className="bg-gray-50 dark:bg-[hsl(var(--muted))] px-6 pb-6 pt-2">
                   <div className="grid grid-cols-3 gap-4">
                     <div className="col-span-1 flex flex-col gap-4">
                       {importantInfo.map((item, idx) => (
-                        <div key={idx} className="text-sm font-semibold mb-2">
+                        <div key={idx} className="text-sm font-semibold mb-2 text-[hsl(var(--foreground))]">
                           {t(item.titleKey)}
                         </div>
                       ))}
                     </div>
                     <div className="col-span-2 flex flex-col gap-4">
                       {importantInfo.map((item, idx) => (
-                        <div key={idx} className="text-sm text-gray-700 mb-2">
+                        <div key={idx} className="text-sm text-gray-700 dark:text-[hsl(var(--muted-foreground))] mb-2">
                           {t(item.descriptionKey)}
                         </div>
                       ))}
@@ -144,13 +148,13 @@ export default function TenantNoticePage() {
             </Accordion>
           </Card>
           {/* Signature Card */}
-          <Card className="mb-6 p-6">
+          <Card className="mb-6 p-6 bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] border-[hsl(var(--border))]">
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.signedBy')}
               </label>
               <div className="flex gap-4">
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 text-[hsl(var(--foreground))]">
                   <input
                     type="radio"
                     name="signedBy"
@@ -160,7 +164,7 @@ export default function TenantNoticePage() {
                   />{" "}
                   {t('tenantNoticePage.tenant')}
                 </label>
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 text-[hsl(var(--foreground))]">
                   <input
                     type="radio"
                     name="signedBy"
@@ -173,27 +177,29 @@ export default function TenantNoticePage() {
               </div>
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.firstName')}
               </label>
               <Input
                 name="firstName"
                 value={form.firstName}
                 onChange={handleChange}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.lastName')}
               </label>
               <Input
                 name="lastName"
                 value={form.lastName}
                 onChange={handleChange}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.phoneNumber')}
               </label>
               <PhoneInput
@@ -208,7 +214,7 @@ export default function TenantNoticePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[hsl(var(--foreground))]">
                 {t('tenantNoticePage.signature')}
               </label>
               <Input
@@ -216,6 +222,7 @@ export default function TenantNoticePage() {
                 value={form.signature}
                 onChange={handleChange}
                 placeholder={t('tenantNoticePage.signaturePlaceholder')}
+                className="bg-[hsl(var(--input))] text-[hsl(var(--foreground))] border-[hsl(var(--border))]"
               />
             </div>
           </Card>

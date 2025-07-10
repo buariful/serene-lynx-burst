@@ -170,7 +170,7 @@ const HospitalHeader = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
@@ -190,7 +190,7 @@ const HospitalHeader = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                  className="w-screen max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-0 mt-2 shadow-2xl rounded-md border-gray-700 bg-slate-900"
+                  className="w-screen max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-0 mt-2 shadow-2xl rounded-md border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                   sideOffset={8}
                   align="center"
                 >
@@ -216,29 +216,29 @@ const HospitalHeader = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center border hover:ring-2 hover:ring-blue-400 transition focus:outline-none"
+                  className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:ring-2 hover:ring-blue-400 transition focus:outline-none"
                   aria-label="Open profile menu"
                 >
                   <span className="text-xl">👤</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
+              <DropdownMenuContent align="end" className="w-48 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <Link to="/hospital/my-ads">My Ads</Link>
                 </DropdownMenuItem>
                 {/* <DropdownMenuItem asChild>
                   <Link to="/hospital/my-messages">My Messages</Link>
                 </DropdownMenuItem> */}
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <Link to="/hospital/my-favourites">My Favourites</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <Link to="/hospital/my-profile">My Profile</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <Link to="/hospital/post-ad">Post Ad</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <Link to="/login">Logout</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -250,22 +250,22 @@ const HospitalHeader = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     <Globe className="h-4 w-4 mr-1" /> {getCurrentLanguageLabel()}{" "}
                     <ChevronDown className="h-4 w-4 ml-1 opacity-75" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="dark:bg-gray-800 dark:border-gray-700">
+                <DropdownMenuContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
                   <DropdownMenuItem
                     onSelect={() => handleLanguageChange('en')}
-                    className="dark:hover:bg-gray-700"
+                    className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     English
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onSelect={() => handleLanguageChange('fr')}
-                    className="dark:hover:bg-gray-700"
+                    className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Français
                   </DropdownMenuItem>
@@ -278,17 +278,17 @@ const HospitalHeader = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-9 w-9 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                  className="h-9 w-9 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[300px] sm:w-[320px] p-0 flex flex-col dark:bg-gray-900 dark:border-gray-800 gap-0"
+                className="w-[300px] sm:w-[320px] p-0 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 gap-0"
               >
-                <SheetHeader className="p-4 border-b dark:border-gray-700">
-                  <SheetTitle>
+                <SheetHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
+                  <SheetTitle className="text-gray-900 dark:text-gray-100">
                     <Logo />
                   </SheetTitle>
                 </SheetHeader>
@@ -309,7 +309,7 @@ const HospitalHeader = () => {
                           <Link
                             key={item.href}
                             to={item.href}
-                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2.5 px-3 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center"
+                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2.5 px-3 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
                             onClick={closeMobileMenu}
                           >
                             {item.label}
@@ -325,7 +325,7 @@ const HospitalHeader = () => {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="outline"
-                          className="w-full justify-start text-sm dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                          className="w-full justify-start text-sm border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           <Globe className="h-4 w-4 mr-2" /> {getCurrentLanguageFullName()}{" "}
                           <ChevronDown className="h-4 w-4 ml-auto opacity-75" />
@@ -334,14 +334,14 @@ const HospitalHeader = () => {
                       <DropdownMenuContent
                         side="top"
                         align="start"
-                        className="w-[calc(100%-2rem)] ml-4 mr-4 mb-1 dark:bg-gray-800 dark:border-gray-700"
+                        className="w-[calc(100%-2rem)] ml-4 mr-4 mb-1 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
                       >
                         <DropdownMenuItem
                           onSelect={() => {
                             handleLanguageChange('en');
                             closeMobileMenu();
                           }}
-                          className="dark:hover:bg-gray-700"
+                          className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           English
                         </DropdownMenuItem>
@@ -350,7 +350,7 @@ const HospitalHeader = () => {
                             handleLanguageChange('fr');
                             closeMobileMenu();
                           }}
-                          className="dark:hover:bg-gray-700"
+                          className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           Français
                         </DropdownMenuItem>

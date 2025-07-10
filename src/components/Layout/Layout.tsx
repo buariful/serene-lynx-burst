@@ -1,13 +1,9 @@
-import React, { PropsWithChildren } from "react";
-import DashboardHeader from "../DashboardHeader";
-import Footer from "../Footer";
+import { PropsWithChildren } from "react";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <>
-      <DashboardHeader />
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {children}
-      <Footer />
-    </>
+    </div>
   );
 }

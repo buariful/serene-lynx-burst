@@ -53,7 +53,7 @@ const DeviceDetailsPage = () => {
   // In a real app, fetch device details by id
   const device = sampleDevice; // Replace with fetched data
   return (
-    <div className="max-w-2xl mx-auto mt-12">
+    <div className="max-w-2xl mx-auto mt-12 bg-gray-50 dark:bg-gray-900 min-h-screen p-6">
       {/* Image Carousel */}
       <div className="mb-8 relative">
         <Carousel className="w-full mx-auto">
@@ -73,7 +73,7 @@ const DeviceDetailsPage = () => {
         </Carousel>
         {/* Fullscreen button */}
         <button
-          className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
+          className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200 dark:bg-gray-800/80 dark:hover:bg-gray-800 dark:border-gray-600"
           onClick={() => setFullscreenOpen(true)}
           title={t('propertyDetails.viewFullscreen')}
         >
@@ -83,7 +83,7 @@ const DeviceDetailsPage = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 text-blue-600"
+            className="w-6 h-6 text-blue-600 dark:text-blue-400"
           >
             <path
               strokeLinecap="round"
@@ -96,11 +96,11 @@ const DeviceDetailsPage = () => {
         <Dialog open={fullscreenOpen} onOpenChange={setFullscreenOpen}>
           <DialogContent className="p-0 max-w-none w-screen h-screen flex items-center justify-center bg-black/90">
             <button
-              className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
+              className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200 dark:bg-gray-800/80 dark:hover:bg-gray-800 dark:border-gray-600"
               onClick={() => setFullscreenOpen(false)}
               title={t('propertyDetails.closeFullscreen')}
             >
-              <X className="w-7 h-7 text-blue-600" />
+              <X className="w-7 h-7 text-blue-600 dark:text-blue-400" />
             </button>
             <div className="w-full h-full flex items-center justify-center">
               <Carousel className="w-full max-w-4xl mx-auto">
@@ -122,13 +122,13 @@ const DeviceDetailsPage = () => {
           </DialogContent>
         </Dialog>
       </div>
-      <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
+      <Card className="shadow-md border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <CardHeader>
           <div className="flex items-center space-x-3">
             <FaMicroscope className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-            <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
+            <CardTitle className="text-xl font-semibold text-gray-800 dark:text-white">
               {device.name}{" "}
-              <span className="ml-2 text-sm font-normal text-gray-400">
+              <span className="ml-2 text-sm font-normal text-gray-400 dark:text-gray-500">
                 (ID: {id})
               </span>
             </CardTitle>
@@ -138,21 +138,21 @@ const DeviceDetailsPage = () => {
           {/* Overview */}
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs px-2 py-1 rounded bg-green-100 text-green-700 font-semibold">
+              <span className="text-xs px-2 py-1 rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 font-semibold">
                 {device.status}
               </span>
-              <span className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700 font-semibold flex items-center">
+              <span className="text-xs px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold flex items-center">
                 <FaDollarSign className="mr-1" /> {device.price}
               </span>
-              <span className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700 font-semibold">
+              <span className="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold">
                 {t('hospital.deviceDetails.type')}: {device.type}
               </span>
             </div>
           </div>
           {/* Specifications */}
           <div>
-            <h2 className="text-lg font-semibold mb-2">{t('hospital.deviceDetails.specifications')}</h2>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 dark:text-slate-200">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.specifications')}</h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-gray-700 dark:text-gray-200">
               {device.specifications.map((spec) => (
                 <li key={spec.label}>
                   <span className="font-medium">{spec.label}:</span>{" "}
@@ -163,26 +163,26 @@ const DeviceDetailsPage = () => {
           </div>
           {/* Description */}
           <div>
-            <h2 className="text-lg font-semibold mb-2">{t('hospital.deviceDetails.description')}</h2>
-            <p className="text-slate-600 dark:text-slate-300">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.description')}</h2>
+            <p className="text-gray-600 dark:text-gray-300">
               {device.description}
             </p>
           </div>
           {/* Usage Instructions */}
           <div>
-            <h2 className="text-lg font-semibold mb-2">{t('hospital.deviceDetails.usageInstructions')}</h2>
-            <p className="text-slate-600 dark:text-slate-300 whitespace-pre-line">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.usageInstructions')}</h2>
+            <p className="text-gray-600 dark:text-gray-300 whitespace-pre-line">
               {device.usageInstructions}
             </p>
           </div>
           {/* Documents */}
           <div>
-            <h2 className="text-lg font-semibold mb-2">{t('hospital.deviceDetails.documents')}</h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.documents')}</h2>
             <ul className="space-y-1">
               {device.documents.map((doc) => (
                 <li
                   key={doc.name}
-                  className="flex items-center gap-2 text-blue-700 hover:underline cursor-pointer"
+                  className="flex items-center gap-2 text-blue-700 dark:text-blue-400 hover:underline cursor-pointer"
                 >
                   <FaFilePdf className="text-red-500" />
                   <a href={doc.url} target="_blank" rel="noopener noreferrer">

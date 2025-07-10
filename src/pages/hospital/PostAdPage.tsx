@@ -155,17 +155,19 @@ export default function PostAdPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-10 px-4">
+    <div className="max-w-2xl mx-auto py-10 px-4 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="flex gap-2 mb-8">
         <Button
           variant={activeTab === "device" ? "default" : "outline"}
           onClick={() => setActiveTab("device")}
+          className={activeTab === "device" ? "bg-blue-600 hover:bg-blue-700 text-white" : "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
         >
           {t('hospital.postAd.postDeviceAd')}
         </Button>
         <Button
           variant={activeTab === "job" ? "default" : "outline"}
           onClick={() => setActiveTab("job")}
+          className={activeTab === "job" ? "bg-blue-600 hover:bg-blue-700 text-white" : "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
         >
           {t('hospital.postAd.postJob')}
         </Button>
@@ -173,13 +175,13 @@ export default function PostAdPage() {
       {activeTab === "device" ? (
         <form
           onSubmit={handleSubmit}
-          className="space-y-6 bg-white p-6 rounded shadow-md border"
+          className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded shadow-md border border-gray-200 dark:border-gray-700"
         >
           {/* Title */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.title')} *</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.title')} *</label>
             <input
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -187,9 +189,9 @@ export default function PostAdPage() {
           </div>
           {/* Stock Quantity */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.stockQuantity')} *</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.stockQuantity')} *</label>
             <input
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={stock}
               onChange={(e) => setStock(e.target.value)}
               type="number"
@@ -199,9 +201,9 @@ export default function PostAdPage() {
           </div>
           {/* Status */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.status')} *</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.status')} *</label>
             <select
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
               required
@@ -215,10 +217,10 @@ export default function PostAdPage() {
           </div>
           {/* For Rent or For Sell */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.adType')} *</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.adType')} *</label>
             <div className="flex gap-4">
               {AD_TYPE_OPTIONS.map((type) => (
-                <label key={type} className="flex items-center gap-2">
+                <label key={type} className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <input
                     type="radio"
                     name="adType"
@@ -234,11 +236,11 @@ export default function PostAdPage() {
           </div>
           {/* Price */}
           <div>
-            <label className="block font-semibold mb-1">
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
               {t('hospital.postAd.price')} ({adType === "For Rent" ? t('hospital.postAd.perMonth') : t('hospital.postAd.toSell')}) *
             </label>
             <input
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               placeholder={adType === "For Rent" ? "$ per month" : "$ to sell"}
@@ -249,11 +251,11 @@ export default function PostAdPage() {
           </div>
           {/* Specifications */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.specifications')}</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.specifications')}</label>
             {specifications.map((spec, idx) => (
               <div key={idx} className="flex gap-2 mb-2">
                 <input
-                  className="border rounded px-2 py-1 flex-1"
+                  className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   placeholder={`${t('hospital.postAd.label')} (e.g. Display)`}
                   value={spec.label}
                   onChange={(e) =>
@@ -261,7 +263,7 @@ export default function PostAdPage() {
                   }
                 />
                 <input
-                  className="border rounded px-2 py-1 flex-1"
+                  className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   placeholder={`${t('hospital.postAd.value')} (e.g. 15.6" LCD)`}
                   value={spec.value}
                   onChange={(e) =>
@@ -271,7 +273,7 @@ export default function PostAdPage() {
                 <button
                   type="button"
                   onClick={() => removeSpec(idx)}
-                  className="text-red-500"
+                  className="text-red-500 dark:text-red-400"
                 >
                   <FaTrash />
                 </button>
@@ -281,7 +283,7 @@ export default function PostAdPage() {
               type="button"
               variant="outline"
               onClick={addSpec}
-              className="mt-1"
+              className="mt-1 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <FaPlus className="mr-1" />
               {t('hospital.postAd.addSpecification')}
@@ -289,9 +291,9 @@ export default function PostAdPage() {
           </div>
           {/* Description */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.description')} *</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.description')} *</label>
             <textarea
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
@@ -300,11 +302,11 @@ export default function PostAdPage() {
           </div>
           {/* Usage Instructions */}
           <div>
-            <label className="block font-semibold mb-1">
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
               {t('hospital.postAd.usageInstructions')} *
             </label>
             <textarea
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={usageInstructions}
               onChange={(e) => setUsageInstructions(e.target.value)}
               required
@@ -313,7 +315,7 @@ export default function PostAdPage() {
           </div>
           {/* Documents */}
           <div>
-            <label className="block font-semibold mb-1">
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
               {t('hospital.postAd.documents')}
             </label>
             <label className="inline-block">
@@ -334,14 +336,14 @@ export default function PostAdPage() {
               {documents.map((doc, idx) => (
                 <li
                   key={doc.name}
-                  className="flex items-center gap-2 text-blue-700"
+                  className="flex items-center gap-2 text-blue-700 dark:text-blue-400"
                 >
                   <FaFilePdf className="text-red-500" />
-                  <span>{doc.name}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{doc.name}</span>
                   <button
                     type="button"
                     onClick={() => handleRemoveDoc(idx)}
-                    className="text-red-500"
+                    className="text-red-500 dark:text-red-400"
                   >
                     <X />
                   </button>
@@ -351,7 +353,7 @@ export default function PostAdPage() {
           </div>
           {/* Images */}
           <div>
-            <label className="block font-semibold mb-1">{t('hospital.postAd.images')} *</label>
+            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.images')} *</label>
             <label className="inline-block">
               <span className="sr-only">Choose images</span>
               <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
@@ -370,7 +372,7 @@ export default function PostAdPage() {
               {images.map((img, idx) => (
                 <div
                   key={idx}
-                  className="relative w-28 h-28 border rounded overflow-hidden"
+                  className="relative w-28 h-28 border border-gray-200 dark:border-gray-600 rounded overflow-hidden"
                 >
                   <img
                     src={img.url}
@@ -379,11 +381,11 @@ export default function PostAdPage() {
                   />
                   <button
                     type="button"
-                    className="absolute top-1 right-1 bg-white/80 rounded-full p-1 shadow border border-gray-200"
+                    className="absolute top-1 right-1 bg-white/80 dark:bg-gray-800/80 rounded-full p-1 shadow border border-gray-200 dark:border-gray-600"
                     onClick={() => handleRemoveImage(idx)}
                     title="Remove"
                   >
-                    <X className="w-4 h-4 text-red-500" />
+                    <X className="w-4 h-4 text-red-500 dark:text-red-400" />
                   </button>
                 </div>
               ))}
@@ -400,11 +402,11 @@ export default function PostAdPage() {
           </div>
         </form>
       ) : (
-        <div className="max-w-xl mx-auto p-6 border rounded-lg shadow-sm bg-white">
-          <h2 className="text-2xl font-bold mb-6">{t('hospital.postAd.postJob')}</h2>
+        <div className="max-w-xl mx-auto p-6 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-800">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">{t('hospital.postAd.postJob')}</h2>
           <form onSubmit={handleJobSubmit} className="space-y-5">
             <div>
-              <label htmlFor="title" className="block font-medium mb-1">
+              <label htmlFor="title" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
                 {t('hospital.postAd.jobTitle')}
               </label>
               <input
@@ -413,12 +415,12 @@ export default function PostAdPage() {
                 value={job.title}
                 onChange={handleJobChange}
                 required
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="e.g. Frontend Developer"
               />
             </div>
             <div>
-              <label htmlFor="company" className="block font-medium mb-1">
+              <label htmlFor="company" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
                 {t('hospital.postAd.companyName')}
               </label>
               <input
@@ -427,14 +429,14 @@ export default function PostAdPage() {
                 value={job.company}
                 onChange={handleJobChange}
                 required
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="e.g. Acme Corp"
               />
             </div>
             <div>
-              <label className="block font-medium mb-1">{t('hospital.postAd.jobType')}</label>
+              <label className="block font-medium mb-1 text-gray-700 dark:text-gray-300">{t('hospital.postAd.jobType')}</label>
               <select
-                className="w-full border border-gray-300 rounded-md p-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={job.type}
                 onChange={(e) => handleJobSelect(e.target.value)}
                 required
@@ -446,7 +448,7 @@ export default function PostAdPage() {
               </select>
             </div>
             <div>
-              <label htmlFor="image" className="block font-medium mb-1">
+              <label htmlFor="image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
                 {t('hospital.postAd.uploadImages')}
               </label>
               <input
@@ -477,7 +479,7 @@ export default function PostAdPage() {
                     return (
                       <div
                         key={index}
-                        className="relative w-full aspect-square overflow-hidden rounded-md border"
+                        className="relative w-full aspect-square overflow-hidden rounded-md border border-gray-200 dark:border-gray-600"
                       >
                         <img
                           src={previewUrl}
@@ -503,7 +505,7 @@ export default function PostAdPage() {
               )}
             </div>
             <div>
-              <label htmlFor="description" className="block font-medium mb-1">
+              <label htmlFor="description" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
                 {t('hospital.postAd.jobDescription')}
               </label>
               <textarea
@@ -512,7 +514,7 @@ export default function PostAdPage() {
                 value={job.description}
                 onChange={handleJobChange}
                 required
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Describe the role, requirements, and perks..."
               />
             </div>

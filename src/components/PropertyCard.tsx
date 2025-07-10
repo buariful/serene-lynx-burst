@@ -12,7 +12,7 @@ interface PropertyCardProps {
 const PropertyCard: React.FC<PropertyCardProps> = ({ property, id }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden flex flex-col border border-gray-200 dark:border-gray-700">
       <img
         src={property.imageUrl}
         alt={property.address}
@@ -20,12 +20,12 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, id }) => {
       />
       <div className="p-4 flex flex-col flex-grow">
         <h3
-          className="text-sm font-semibold text-gray-800 mb-1 truncate"
+          className="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"
           title={property.address}
         >
           {property.address}
         </h3>
-        <div className="flex items-center text-xs text-gray-600 mb-2 space-x-3">
+        <div className="flex items-center text-xs text-gray-600 dark:text-gray-400 mb-2 space-x-3">
           <span className="flex items-center">
             <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
           </span>
@@ -33,13 +33,13 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, id }) => {
             <Bath className="w-3 h-3 mr-1" /> {property.baths} Bath
           </span>
         </div>
-        <p className="text-base font-bold text-blue-600 mb-3">
+        <p className="text-base font-bold text-blue-600 dark:text-blue-400 mb-3">
           ${property.price.toLocaleString()} {property.currency}/month
         </p>
         <Button
           variant="outline"
           size="sm"
-          className="w-full mt-auto border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+          className="w-full mt-auto border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 dark:hover:text-blue-300"
           onClick={() => {
             navigate(`/toronto/${property.address}`);
             window.scrollTo({ top: 0, behavior: "auto" });

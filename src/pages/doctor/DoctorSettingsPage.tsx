@@ -36,26 +36,26 @@ const DoctorSettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen p-6">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
         {t('doctor.settings.title')}
       </h1>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('doctor.settings.notificationSettings')}</CardTitle>
-          <CardDescription>
+      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <CardHeader className="bg-white dark:bg-gray-800">
+          <CardTitle className="text-gray-800 dark:text-white">{t('doctor.settings.notificationSettings')}</CardTitle>
+          <CardDescription className="text-gray-600 dark:text-gray-400">
             {t('doctor.settings.notificationDesc')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 bg-white dark:bg-gray-800">
           <div className="flex items-center justify-between">
             <Label
               htmlFor="emailNotifications"
-              className="flex flex-col space-y-1"
+              className="flex flex-col space-y-1 text-gray-700 dark:text-gray-300"
             >
               <span>{t('doctor.settings.emailNotifications')}</span>
-              <span className="font-normal leading-snug text-muted-foreground">
+              <span className="font-normal leading-snug text-gray-500 dark:text-gray-400">
                 {t('doctor.settings.emailNotificationsDesc')}
               </span>
             </Label>
@@ -68,10 +68,10 @@ const DoctorSettingsPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <Label
               htmlFor="smsNotifications"
-              className="flex flex-col space-y-1"
+              className="flex flex-col space-y-1 text-gray-700 dark:text-gray-300"
             >
               <span>{t('doctor.settings.smsNotifications')}</span>
-              <span className="font-normal leading-snug text-muted-foreground">
+              <span className="font-normal leading-snug text-gray-500 dark:text-gray-400">
                 {t('doctor.settings.smsNotificationsDesc')}
               </span>
             </Label>
@@ -84,19 +84,19 @@ const DoctorSettingsPage: React.FC = () => {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('doctor.settings.accountSecurity')}</CardTitle>
-          <CardDescription>
+      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <CardHeader className="bg-white dark:bg-gray-800">
+          <CardTitle className="text-gray-800 dark:text-white">{t('doctor.settings.accountSecurity')}</CardTitle>
+          <CardDescription className="text-gray-600 dark:text-gray-400">
             {t('doctor.settings.accountSecurityDesc')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 bg-white dark:bg-gray-800">
           <div>
-            <Button variant="outline" onClick={handlePasswordChange}>
+            <Button variant="outline" onClick={handlePasswordChange} className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
               {t('doctor.settings.changePassword')}
             </Button>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {t('doctor.settings.passwordNote')}
             </p>
           </div>

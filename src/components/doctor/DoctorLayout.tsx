@@ -24,10 +24,10 @@ const DoctorLayout: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}
-      <aside className="w-64 bg-white dark:bg-gray-800 shadow-md flex flex-col">
-        <div className="p-4 border-b dark:border-gray-700">
+      <aside className="w-64 bg-white dark:bg-gray-800 shadow-md flex flex-col border-r border-gray-200 dark:border-gray-700">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <Logo />
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('doctor.layout.doctorPortal')}</p>
         </div>
@@ -36,7 +36,7 @@ const DoctorLayout: React.FC = () => {
             <Link key={item.path} to={item.path}>
               <Button
                 variant={location.pathname.startsWith(item.path) ? 'secondary' : 'ghost'}
-                className="w-full justify-start"
+                className="w-full justify-start text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <item.icon className="mr-2 h-5 w-5" />
                 {item.label}
@@ -44,8 +44,8 @@ const DoctorLayout: React.FC = () => {
             </Link>
           ))}
         </nav>
-        <div className="p-4 border-t dark:border-gray-700">
-          <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          <Button variant="ghost" className="w-full justify-start text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" onClick={handleLogout}>
             <LogOut className="mr-2 h-5 w-5" />
             {t('doctor.layout.logout')}
           </Button>
@@ -53,7 +53,7 @@ const DoctorLayout: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
         <Outlet /> {/* Nested routes will render here */}
       </main>
     </div>

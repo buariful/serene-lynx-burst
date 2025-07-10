@@ -29,22 +29,22 @@ const DoctorProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen p-6">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white">{t('doctor.profile.title')}</h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('doctor.profile.profileInformation')}</CardTitle>
-          <CardDescription>{t('doctor.profile.profileDesc')}</CardDescription>
+      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <CardHeader className="bg-white dark:bg-gray-800">
+          <CardTitle className="text-gray-800 dark:text-white">{t('doctor.profile.profileInformation')}</CardTitle>
+          <CardDescription className="text-gray-600 dark:text-gray-400">{t('doctor.profile.profileDesc')}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="bg-white dark:bg-gray-800">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex items-center space-x-4">
               <Avatar className="h-24 w-24">
                 <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-                <AvatarFallback>{profile.name.substring(0,2).toUpperCase()}</AvatarFallback>
+                <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white">{profile.name.substring(0,2).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div>
-                <Label htmlFor="avatarUrl">{t('doctor.profile.avatarUrl')}</Label>
+                <Label htmlFor="avatarUrl" className="text-gray-700 dark:text-gray-300">{t('doctor.profile.avatarUrl')}</Label>
                 <Input 
                   id="avatarUrl" 
                   name="avatarUrl"
@@ -52,27 +52,47 @@ const DoctorProfilePage: React.FC = () => {
                   value={profile.avatarUrl} 
                   onChange={handleInputChange} 
                   placeholder="https://example.com/avatar.png"
+                  className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
                 />
-                 <p className="text-xs text-gray-500 mt-1">{t('doctor.profile.uploadImageNote')}</p>
+                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('doctor.profile.uploadImageNote')}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="name">{t('doctor.profile.fullName')}</Label>
-                <Input id="name" name="name" value={profile.name} onChange={handleInputChange} />
+                <Label htmlFor="name" className="text-gray-700 dark:text-gray-300">{t('doctor.profile.fullName')}</Label>
+                <Input 
+                  id="name" 
+                  name="name" 
+                  value={profile.name} 
+                  onChange={handleInputChange}
+                  className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">{t('doctor.profile.emailAddress')}</Label>
-                <Input id="email" name="email" type="email" value={profile.email} onChange={handleInputChange} />
+                <Label htmlFor="email" className="text-gray-700 dark:text-gray-300">{t('doctor.profile.emailAddress')}</Label>
+                <Input 
+                  id="email" 
+                  name="email" 
+                  type="email" 
+                  value={profile.email} 
+                  onChange={handleInputChange}
+                  className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
+                />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="specialty">{t('doctor.profile.specialty')}</Label>
-              <Input id="specialty" name="specialty" value={profile.specialty} onChange={handleInputChange} />
+              <Label htmlFor="specialty" className="text-gray-700 dark:text-gray-300">{t('doctor.profile.specialty')}</Label>
+              <Input 
+                id="specialty" 
+                name="specialty" 
+                value={profile.specialty} 
+                onChange={handleInputChange}
+                className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
+              />
             </div>
             {/* Add more fields as needed: phone, address, bio, credentials upload etc. */}
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700">{t('doctor.profile.saveChanges')}</Button>
+            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">{t('doctor.profile.saveChanges')}</Button>
           </form>
         </CardContent>
       </Card>

@@ -53,7 +53,7 @@ const medicalSchoolCities = [
 
 const Index = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900">
       <Header />
       <main className="flex-grow">
         <HeroSection />

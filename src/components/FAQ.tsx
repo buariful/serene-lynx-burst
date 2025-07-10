@@ -29,18 +29,18 @@ const FAQ = () => {
     },
   ];
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-12 md:py-16 bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <div className="container mx-auto px-4 max-w-3xl">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-[hsl(var(--foreground))] mb-8 text-center">
           {t('faq.title')}
         </h2>
         <Accordion type="single" collapsible className="w-full">
           {faqData.map((item, index) => (
-            <AccordionItem value={`item-${index}`} key={index}>
-              <AccordionTrigger className="text-left text-base md:text-lg hover:no-underline">
+            <AccordionItem value={`item-${index}`} key={index} className="border-[hsl(var(--border))]">
+              <AccordionTrigger className="text-left text-base md:text-lg hover:no-underline text-[hsl(var(--foreground))]">
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 text-sm md:text-base">
+              <AccordionContent className="text-gray-600 dark:text-[hsl(var(--muted-foreground))] text-sm md:text-base">
                 {item.answer}
               </AccordionContent>
             </AccordionItem>

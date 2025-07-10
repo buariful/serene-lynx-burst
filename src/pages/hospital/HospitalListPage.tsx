@@ -32,7 +32,7 @@ const HospitalListPage = () => {
   );
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
       <section className="bg-blue-700 text-white py-12 px-4 text-center">
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
@@ -49,18 +49,18 @@ const HospitalListPage = () => {
           placeholder="Search hospitals..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full mb-6 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm"
+          className="w-full mb-6 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filteredHospitals.length === 0 ? (
-            <div className="col-span-2 text-center text-gray-500">
+            <div className="col-span-2 text-center text-gray-500 dark:text-gray-400">
               No hospitals found.
             </div>
           ) : (
             filteredHospitals.map((hospital, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded shadow p-4 flex flex-col justify-between h-full"
+                className="bg-white dark:bg-gray-800 rounded shadow p-4 flex flex-col justify-between h-full border border-gray-200 dark:border-gray-700"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <svg
@@ -69,7 +69,7 @@ const HospitalListPage = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-8 h-8 text-blue-600 flex-shrink-0"
+                    className="w-8 h-8 text-blue-600 dark:text-blue-400 flex-shrink-0"
                   >
                     <rect
                       x="3"
@@ -77,7 +77,7 @@ const HospitalListPage = () => {
                       width="18"
                       height="14"
                       rx="2"
-                      className="fill-blue-100 stroke-blue-600"
+                      className="fill-blue-100 dark:fill-blue-900 stroke-blue-600 dark:stroke-blue-400"
                     />
                     <path
                       d="M9 9h6M12 9v6"
@@ -86,11 +86,11 @@ const HospitalListPage = () => {
                       strokeLinecap="round"
                     />
                   </svg>
-                  <h2 className="font-semibold text-lg text-blue-700">
+                  <h2 className="font-semibold text-lg text-blue-700 dark:text-blue-400">
                     {hospital}
                   </h2>
                 </div>
-                <p className="text-gray-600 text-xs">Ontario, Canada</p>
+                <p className="text-gray-600 dark:text-gray-400 text-xs">Ontario, Canada</p>
                 {/* Placeholder for more info or actions */}
               </div>
             ))

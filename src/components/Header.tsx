@@ -30,11 +30,14 @@ import {
   Search,
   FileText,
   Lock,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import HospitalMegaMenu from "./HospitalMegaMenu";
 import MedicalSchoolMegaMenu from "./MedicalSchoolMegaMenu"; // Import the new menu
 import { useLanguage } from "@/hooks/useLanguage";
+import { useTheme } from "@/hooks/useTheme";
 
 type NavLinkItem = { type: "link"; href: string; label: string };
 type MegaMenuItem = {
@@ -48,6 +51,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { t, currentLanguage, changeLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -195,7 +199,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
+    <header className="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] dark:bg-[hsl(var(--background))] dark:text-[hsl(var(--foreground))] shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
@@ -270,6 +274,19 @@ const Header = () => {
               >
                 {t('header.postARental')}
               </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Toggle theme"
+                onClick={toggleTheme}
+                className="h-9 w-9"
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )}
+              </Button>
             </div>
 
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -339,7 +356,7 @@ const Header = () => {
                     })}
                   </nav>
 
-                  <div className="mt-auto border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div className="mt-auto border-t border-gray-200 dark:border-gray-700 pt-4 flex flex-col gap-2">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -375,6 +392,19 @@ const Header = () => {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Toggle theme"
+                      onClick={toggleTheme}
+                      className="h-9 w-9 self-start"
+                    >
+                      {theme === "dark" ? (
+                        <Sun className="h-5 w-5" />
+                      ) : (
+                        <Moon className="h-5 w-5" />
+                      )}
+                    </Button>
                   </div>
                 </div>
               </SheetContent>

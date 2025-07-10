@@ -135,7 +135,7 @@ const ApartmentPage: React.FC = () => {
   }, [location.state]);
 
   return (
-    <div className="">
+    <div className="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <Header />
       <NavSearchFilter />
       <main
@@ -176,7 +176,7 @@ const ApartmentPage: React.FC = () => {
                 </div>
               ))}
               {properties.length === 0 && (
-                <p>{t('apartmentPage.noPropertiesFound')}</p>
+                <p className="text-[hsl(var(--foreground))]">{t('apartmentPage.noPropertiesFound')}</p>
               )}
             </>
           )}

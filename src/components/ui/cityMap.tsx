@@ -214,6 +214,7 @@ const CityMap = () => {
       center={[49.2827, -123.1207]}
       zoom={12}
       style={{ height: "100%", width: "100%" }}
+      className="dark:bg-[hsl(var(--background))]"
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -231,6 +232,7 @@ export const CityMapNoMarker = () => {
       center={[49.2827, -123.1207]}
       zoom={12}
       style={{ height: "100%", width: "100%" }}
+      className="dark:bg-[hsl(var(--background))]"
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

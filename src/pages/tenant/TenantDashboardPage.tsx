@@ -19,39 +19,39 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   return (
-    <div className="p-6 min-h-screen bg-gray-50 space-y-8">
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-[hsl(var(--background))] space-y-8">
       {/* Welcome Section */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-3xl font-bold">{t('tenant.dashboard.welcomeBack')}</h2>
-        <p className="text-gray-600 mt-2">
+      <div className="bg-white dark:bg-[hsl(var(--card))] rounded-xl shadow p-6 border-[hsl(var(--border))]">
+        <h2 className="text-3xl font-bold text-[hsl(var(--foreground))]">{t('tenant.dashboard.welcomeBack')}</h2>
+        <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))] mt-2">
           {t('tenant.dashboard.welcomeDesc')}
         </p>
       </div>
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-blue-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">{t('tenant.dashboard.appliedJobs')}</h3>
-          <p className="text-3xl font-bold mt-2">4</p>
+        <div className="bg-blue-100 dark:bg-blue-900 p-6 rounded-xl shadow">
+          <h3 className="text-lg font-medium text-[hsl(var(--foreground))]">{t('tenant.dashboard.appliedJobs')}</h3>
+          <p className="text-3xl font-bold mt-2 text-[hsl(var(--foreground))]">4</p>
         </div>
-        <div className="bg-green-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">{t('tenant.dashboard.activeRentals')}</h3>
-          <p className="text-3xl font-bold mt-2">1</p>
+        <div className="bg-green-100 dark:bg-green-900 p-6 rounded-xl shadow">
+          <h3 className="text-lg font-medium text-[hsl(var(--foreground))]">{t('tenant.dashboard.activeRentals')}</h3>
+          <p className="text-3xl font-bold mt-2 text-[hsl(var(--foreground))]">1</p>
         </div>
-        <div className="bg-yellow-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">{t('tenant.dashboard.upcomingLeaseEnd')}</h3>
-          <p className="text-3xl font-bold mt-2">30 days</p>
+        <div className="bg-yellow-100 dark:bg-yellow-900 p-6 rounded-xl shadow">
+          <h3 className="text-lg font-medium text-[hsl(var(--foreground))]">{t('tenant.dashboard.upcomingLeaseEnd')}</h3>
+          <p className="text-3xl font-bold mt-2 text-[hsl(var(--foreground))]">30 days</p>
         </div>
-        <div className="bg-purple-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">{t('tenant.dashboard.unreadMessages')}</h3>
-          <p className="text-3xl font-bold mt-2">2</p>
+        <div className="bg-purple-100 dark:bg-purple-900 p-6 rounded-xl shadow">
+          <h3 className="text-lg font-medium text-[hsl(var(--foreground))]">{t('tenant.dashboard.unreadMessages')}</h3>
+          <p className="text-3xl font-bold mt-2 text-[hsl(var(--foreground))]">2</p>
         </div>
       </div>
 
       {/* Notifications */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-xl font-semibold mb-4">{t('tenant.dashboard.recentNotifications')}</h3>
-        <ul className="space-y-2 text-gray-700">
+      <div className="bg-white dark:bg-[hsl(var(--card))] rounded-xl shadow p-6 border-[hsl(var(--border))]">
+        <h3 className="text-xl font-semibold mb-4 text-[hsl(var(--foreground))]">{t('tenant.dashboard.recentNotifications')}</h3>
+        <ul className="space-y-2 text-gray-700 dark:text-[hsl(var(--muted-foreground))]">
           <li>{t('tenant.dashboard.leaseApproved')}</li>
           <li>{t('tenant.dashboard.messageReceived')}</li>
           <li>{t('tenant.dashboard.leaseReminder')}</li>
@@ -59,20 +59,20 @@ const Dashboard = () => {
       </div>
 
       {/* Suggested Opportunities */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-xl font-semibold mb-4">{t('tenant.dashboard.suggestedOpportunities')}</h3>
+      <div className="bg-white dark:bg-[hsl(var(--card))] rounded-xl shadow p-6 border-[hsl(var(--border))]">
+        <h3 className="text-xl font-semibold mb-4 text-[hsl(var(--foreground))]">{t('tenant.dashboard.suggestedOpportunities')}</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="border p-4 rounded-xl hover:shadow transition">
-            <h4 className="font-semibold">{t('tenant.dashboard.rentalAtOak')}</h4>
-            <p className="text-gray-600">2 Bed • $1200/mo • Downtown</p>
+          <div className="border border-[hsl(var(--border))] p-4 rounded-xl hover:shadow transition">
+            <h4 className="font-semibold text-[hsl(var(--foreground))]">{t('tenant.dashboard.rentalAtOak')}</h4>
+            <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))]">2 Bed • $1200/mo • Downtown</p>
           </div>
-          <div className="border p-4 rounded-xl hover:shadow transition">
-            <h4 className="font-semibold">{t('tenant.dashboard.jobNursingAssistant')}</h4>
-            <p className="text-gray-600">Mercy hospitals • Full Time</p>
+          <div className="border border-[hsl(var(--border))] p-4 rounded-xl hover:shadow transition">
+            <h4 className="font-semibold text-[hsl(var(--foreground))]">{t('tenant.dashboard.jobNursingAssistant')}</h4>
+            <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))]">Mercy hospitals • Full Time</p>
           </div>
-          <div className="border p-4 rounded-xl hover:shadow transition">
-            <h4 className="font-semibold">{t('tenant.dashboard.rentalAtLakeview')}</h4>
-            <p className="text-gray-600">1 Bed • $950/mo • Lakeside</p>
+          <div className="border border-[hsl(var(--border))] p-4 rounded-xl hover:shadow transition">
+            <h4 className="font-semibold text-[hsl(var(--foreground))]">{t('tenant.dashboard.rentalAtLakeview')}</h4>
+            <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))]">1 Bed • $950/mo • Lakeside</p>
           </div>
         </div>
       </div>
@@ -143,26 +143,26 @@ const AppliedJobsPage = () => {
   ];
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 space-y-6">
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h2 className="text-3xl font-bold mb-2">{t('tenant.appliedJobs.title')}</h2>
-        <p className="text-gray-600">
-          {t('tenant.appliedJobs.description')}
-        </p>
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-[hsl(var(--background))] space-y-6">
+      <div className="bg-white dark:bg-[hsl(var(--card))] p-6 rounded-xl shadow">
+        <h2 className="text-3xl font-bold mb-2 text-[hsl(var(--foreground))]">{t('tenant.appliedJobs.title')}</h2>
+                 <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))]">
+           {t('tenant.appliedJobs.description')}
+         </p>
       </div>
 
       <div className="space-y-4">
         {jobs.map((job) => (
           <div
             key={job.id}
-            className="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row md:items-center justify-between gap-4"
+            className="bg-white dark:bg-[hsl(var(--card))] p-6 rounded-xl shadow flex flex-col md:flex-row md:items-center justify-between gap-4"
           >
             <div>
-              <h3 className="text-xl font-semibold">
+              <h3 className="text-xl font-semibold text-[hsl(var(--foreground))]">
                 {job.title} at {job.hospital}
               </h3>
-              <p className="text-sm text-gray-600">{t('tenant.appliedJobs.appliedOn')} {job.date}</p>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-600 dark:text-[hsl(var(--muted-foreground))]">{t('tenant.appliedJobs.appliedOn')} {job.date}</p>
+              <p className="text-sm text-gray-600 dark:text-[hsl(var(--muted-foreground))] mt-1">
                 {job.type} • {job.location} • {job.salary}
               </p>
             </div>
@@ -238,17 +238,17 @@ const TenantRentalServicePage = () => {
   ];
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 space-y-8">
-      <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-3xl font-bold mb-2">{t('tenant.rentalService.title')}</h2>
-        <p className="text-gray-600">
-          {t('tenant.rentalService.description')}
-        </p>
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-[hsl(var(--background))] space-y-8">
+      <div className="bg-white dark:bg-[hsl(var(--card))] rounded-xl shadow p-6">
+        <h2 className="text-3xl font-bold mb-2 text-[hsl(var(--foreground))]">{t('tenant.rentalService.title')}</h2>
+                 <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))]">
+           {t('tenant.rentalService.description')}
+         </p>
       </div>
 
       {/* Active Rental Info */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.activeRental')}</h3>
+      <div className="bg-white dark:bg-[hsl(var(--card))] p-6 rounded-xl shadow">
+        <h3 className="text-xl font-semibold mb-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.activeRental')}</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <p>
             <strong>{t('tenant.rentalService.property')}:</strong> {rental.property}
@@ -281,25 +281,25 @@ const TenantRentalServicePage = () => {
       </div>
 
       {/* Rent Payment History */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.rentPaymentHistory')}</h3>
+      <div className="bg-white dark:bg-[hsl(var(--card))] p-6 rounded-xl shadow">
+        <h3 className="text-xl font-semibold mb-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.rentPaymentHistory')}</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full text-left">
             <thead>
               <tr>
-                <th className="py-2 px-4">{t('tenant.rentalService.month')}</th>
-                <th className="py-2 px-4">{t('tenant.rentalService.amount')}</th>
-                <th className="py-2 px-4">{t('tenant.rentalService.status')}</th>
-                <th className="py-2 px-4">{t('tenant.rentalService.paidOn')}</th>
+                <th className="py-2 px-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.month')}</th>
+                <th className="py-2 px-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.amount')}</th>
+                <th className="py-2 px-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.status')}</th>
+                <th className="py-2 px-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.paidOn')}</th>
               </tr>
             </thead>
             <tbody>
               {rentHistory.map((item, idx) => (
                 <tr key={idx} className="border-t">
-                  <td className="py-2 px-4">{item.month}</td>
-                  <td className="py-2 px-4">{item.amount}</td>
-                  <td className="py-2 px-4 text-green-600">{item.status}</td>
-                  <td className="py-2 px-4">{item.date}</td>
+                  <td className="py-2 px-4 text-[hsl(var(--foreground))]">{item.month}</td>
+                  <td className="py-2 px-4 text-[hsl(var(--foreground))]">{item.amount}</td>
+                                     <td className="py-2 px-4 text-green-600 dark:text-green-400">{item.status}</td>
+                  <td className="py-2 px-4 text-[hsl(var(--foreground))]">{item.date}</td>
                 </tr>
               ))}
             </tbody>
@@ -308,14 +308,14 @@ const TenantRentalServicePage = () => {
       </div>
 
       {/* Maintenance */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.maintenanceRequests')}</h3>
+      <div className="bg-white dark:bg-[hsl(var(--card))] p-6 rounded-xl shadow">
+        <h3 className="text-xl font-semibold mb-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.maintenanceRequests')}</h3>
         <ul className="space-y-3">
           {maintenance.map((m) => (
             <li key={m.id} className="flex justify-between">
               <div>
-                <p className="font-medium">{m.issue}</p>
-                <p className="text-sm text-gray-500">{t('tenant.rentalService.requestedOn')} {m.date}</p>
+                <p className="font-medium text-[hsl(var(--foreground))]">{m.issue}</p>
+                <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenant.rentalService.requestedOn')} {m.date}</p>
               </div>
               <div>
                 <span
@@ -334,12 +334,12 @@ const TenantRentalServicePage = () => {
       </div>
 
       {/* Documents */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.leaseDocuments')}</h3>
+      <div className="bg-white dark:bg-[hsl(var(--card))] p-6 rounded-xl shadow">
+        <h3 className="text-xl font-semibold mb-4 text-[hsl(var(--foreground))]">{t('tenant.rentalService.leaseDocuments')}</h3>
         <ul className="space-y-3">
           {documents.map((doc, idx) => (
             <li key={idx} className="flex justify-between items-center">
-              <span>{doc.name}</span>
+                             <span className="text-[hsl(var(--foreground))]">{doc.name}</span>
               <div className="flex items-center gap-3">
                 <span
                   className={`text-sm ${
@@ -407,7 +407,7 @@ const TenantDashboardPage = () => {
   return (
     <>
       <DashboardHeader />
-      <div className="min-h-screen bg-gray-50 flex">
+      <div className="min-h-screen bg-gray-50 dark:bg-[hsl(var(--background))] flex">
         {/* Sidebar */}
         <aside className="w-56 p-6 bg-white border-r flex flex-col">
           <nav className="flex flex-col gap-2">
@@ -427,17 +427,17 @@ const TenantDashboardPage = () => {
           </nav>
         </aside>
         {/* Main Content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-8 dark:bg-[hsl(var(--background))] dark:text-[hsl(var(--foreground))]">
           {activeTab === "dashboard" && <Dashboard />}
           {activeTab === "jobs" && <AppliedJobsPage />}
           {activeTab === "rentals" && <TenantRentalServicePage />}
           {activeTab === "billing" && (
             <>
-              <h2 className="text-3xl font-bold mb-2">Billing & Payments</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-3xl font-bold mb-2 text-[hsl(var(--foreground))]">Billing & Payments</h2>
+              <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))] mb-6">
                 Review your payment history and download invoices.
               </p>
-              <div className="bg-white border rounded-lg shadow-sm">
+              <div className="bg-white dark:bg-[hsl(var(--card))] border rounded-lg shadow-sm">
                 <ul className="divide-y divide-gray-200">
                   {paymentHistory.map((payment) => (
                     <li
@@ -445,13 +445,13 @@ const TenantDashboardPage = () => {
                       className="p-4 flex justify-between items-center"
                     >
                       <div>
-                        <p className="font-semibold">{payment.item}</p>
-                        <p className="text-sm text-gray-500">
-                          Paid on {payment.date}
-                        </p>
+                        <p className="font-semibold text-[hsl(var(--foreground))]">{payment.item}</p>
+                                                 <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">
+                            Paid on {payment.date}
+                          </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">{payment.amount}</p>
+                        <p className="font-semibold text-[hsl(var(--foreground))]">{payment.amount}</p>
                         <button
                           className="text-sm text-blue-600 hover:underline"
                           onClick={handleDownload}
@@ -467,8 +467,8 @@ const TenantDashboardPage = () => {
           )}
           {activeTab === "profile" && (
             <>
-              <h2 className="text-3xl font-bold mb-6">My Profile</h2>
-              <div className="bg-white border rounded-lg shadow-sm p-8 max-w-2xl">
+              <h2 className="text-3xl font-bold mb-6 text-[hsl(var(--foreground))]">My Profile</h2>
+              <div className="bg-white dark:bg-[hsl(var(--card))] border rounded-lg shadow-sm p-8 max-w-2xl">
                 <div className="flex items-start space-x-6">
                   <img
                     src={userProfile.avatarUrl}
@@ -476,40 +476,40 @@ const TenantDashboardPage = () => {
                     className="w-24 h-24 rounded-full border-4 border-gray-200"
                   />
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-800">
+                    <h3 className="text-2xl font-bold text-[hsl(var(--foreground))]">
                       {userProfile.name}
                     </h3>
-                    <p className="text-sm text-gray-500">{userProfile.email}</p>
-                    <p className="text-sm text-gray-500">{userProfile.phone}</p>
+                    <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{userProfile.email}</p>
+                    <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{userProfile.phone}</p>
                   </div>
                   <Button variant="outline">Edit Profile</Button>
                 </div>
                 <div className="mt-8 border-t pt-6">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-4">
+                  <h4 className="text-lg font-semibold text-gray-700 dark:text-[hsl(var(--foreground))] mb-4">
                     Address
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-gray-500">Street</p>
-                      <p className="font-medium text-gray-800">
+                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">Street</p>
+                      <p className="font-medium text-[hsl(var(--foreground))]">
                         {userProfile.address.street}
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-500">City</p>
-                      <p className="font-medium text-gray-800">
+                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">City</p>
+                      <p className="font-medium text-[hsl(var(--foreground))]">
                         {userProfile.address.city}
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-500">Province</p>
-                      <p className="font-medium text-gray-800">
+                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">Province</p>
+                      <p className="font-medium text-[hsl(var(--foreground))]">
                         {userProfile.address.province}
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-500">Postal Code</p>
-                      <p className="font-medium text-gray-800">
+                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">Postal Code</p>
+                      <p className="font-medium text-[hsl(var(--foreground))]">
                         {userProfile.address.postalCode}
                       </p>
                     </div>

@@ -7,7 +7,7 @@ const sidebarItems = [
 ];
 export default function RecruiterSideBar() {
   return (
-    <aside className="w-56 p-6 bg-white border-r flex flex-col">
+    <aside className="w-56 p-6 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
       <nav className="flex flex-col gap-2">
         {/* {sidebarItems.map((item) => (
               <button
@@ -15,7 +15,7 @@ export default function RecruiterSideBar() {
                 className={`text-left px-4 py-2 rounded font-medium text-sm transition ${
                   activeTab === item.key
                     ? "bg-blue-600 text-white shadow"
-                    : "text-[#7a9ca5] hover:bg-blue-50 hover:text-blue-600"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
                 onClick={() => setActiveTab(item.key)}
               >
