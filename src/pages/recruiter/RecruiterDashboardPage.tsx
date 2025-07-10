@@ -17,6 +17,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
+import { useTranslation } from 'react-i18next';
 
 const jobs: {
   id: number;
@@ -100,6 +101,7 @@ const RecruiterDashboardPage = () => {
   >(null);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Stats
   const totalJobs = jobs.length;
@@ -144,7 +146,7 @@ const RecruiterDashboardPage = () => {
           onClick={() => setViewingJobId(null)}
           className="mb-4 flex items-center text-blue-600 hover:underline focus:outline-none"
         >
-          <span className="mr-2">←</span> Back
+          <span className="mr-2">←</span> {t('recruiter.jobDetails.back')}
         </button>
         {/* Job Header */}
         <img
@@ -163,14 +165,14 @@ const RecruiterDashboardPage = () => {
             {job.company || job.title}
           </h1>
           <div className="flex justify-between items-center mt-2">
-            <span className="text-gray-500">Posted {job.date}</span>
+            <span className="text-gray-500">{t('recruiter.jobDetails.posted')} {job.date}</span>
           </div>
           <div className="flex gap-4 mt-2 text-sm text-gray-600">
             <span>
-              Status: <span className="font-semibold">{job.status}</span>
+              {t('recruiter.jobDetails.status')}: <span className="font-semibold">{job.status}</span>
             </span>
             <span>
-              Applications:{" "}
+              {t('recruiter.jobDetails.applications')}:{" "}
               <span className="font-semibold">{job.applications.length}</span>
             </span>
           </div>
@@ -179,11 +181,11 @@ const RecruiterDashboardPage = () => {
         <div className="flex gap-4">
           <button className="flex items-center gap-1 px-3 py-1 border border-[#3e4153] text-[#3e4153] hover:text-blue-500 hover:border-blue-500 font-semibold rounded-md text-sm">
             <Heart className="w-4" />
-            <span>Save</span>
+            <span>{t('recruiter.jobDetails.save')}</span>
           </button>
           <button className="flex items-center gap-1 px-3 py-1 border border-[#3e4153] text-[#3e4153] hover:text-blue-500 hover:border-blue-500 font-semibold rounded-md text-sm">
             <Share className="w-4" />
-            <span>Share</span>
+            <span>{t('recruiter.jobDetails.share')}</span>
           </button>
         </div>
         <hr className="my-4" />
@@ -193,7 +195,7 @@ const RecruiterDashboardPage = () => {
             <GoBriefcase className="text-3xl" />
           </span>
           <div>
-            <h3 className="text-lg font-semibold mb-2">Job Type</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('recruiter.jobDetails.jobType')}</h3>
             <p>
               {job.type
                 ? job.type.charAt(0).toUpperCase() +
@@ -205,7 +207,7 @@ const RecruiterDashboardPage = () => {
         <hr className="my-4" />
         {/* Description */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-4">Description</h2>
+          <h2 className="text-xl font-semibold mb-4">{t('recruiter.jobDetails.description')}</h2>
           <p className="whitespace-pre-line">
             {job.description || "No description provided."}
           </p>
@@ -213,7 +215,7 @@ const RecruiterDashboardPage = () => {
         <hr className="my-4" />
         {/* Listed By Section */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">Listed By</h2>
+          <h2 className="text-xl font-semibold mb-4">{t('recruiter.jobDetails.listedBy')}</h2>
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <p className="text-xl w-12 h-12 grid place-content-center rounded-full bg-green-200">
@@ -225,7 +227,7 @@ const RecruiterDashboardPage = () => {
                   <span className="text-yellow-400 text-2xl">★★★★★</span>
                   <span className="text-xs text-gray-500">5.0 (44)</span>
                 </div>
-                <p className="text-sm text-gray-600">Professional Employer</p>
+                <p className="text-sm text-gray-600">{t('recruiter.jobDetails.professionalEmployer')}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -234,7 +236,7 @@ const RecruiterDashboardPage = () => {
                 onClick={() => setShowPhone(!showPhone)}
                 className="font-[500] text-blue-600 hover:underline"
               >
-                {showPhone ? "+1-514-969-6919" : "Reveal phone number"}
+                {showPhone ? "+1-514-969-6919" : t('recruiter.jobDetails.revealPhoneNumber')}
               </button>
             </div>
             <div>
@@ -242,7 +244,7 @@ const RecruiterDashboardPage = () => {
             </div>
             <div className="pt-4 border-t flex items-center gap-3 ">
               <p className="text-gray-500 flex items-center gap-2 text-xs border rounded px-2 py-1 font-medium">
-                <FaRegEye /> <span>329 views</span>
+                <FaRegEye /> <span>{t('recruiter.jobDetails.views', { count: 329 })}</span>
               </p>
             </div>
           </div>
@@ -268,14 +270,14 @@ const RecruiterDashboardPage = () => {
     return (
       <>
         <div className="bg-white border rounded p-4 md:p-8 max-w-xl mx-auto relative">
-          <h2 className="text-xl font-bold mb-4">Application Details</h2>
+          <h2 className="text-xl font-bold mb-4">{t('recruiter.applicationDetails.title')}</h2>
           <div className="mb-2">
-            Applicant: <span className="font-semibold">{app.name}</span>
+            {t('recruiter.applicationDetails.applicant')}: <span className="font-semibold">{app.name}</span>
           </div>
           <div className="mb-2">
-            Applied for: <span className="font-semibold">{app.jobTitle}</span>
+            {t('recruiter.applicationDetails.appliedFor')}: <span className="font-semibold">{app.jobTitle}</span>
           </div>
-          <div className="mb-2">Date: {app.date}</div>
+          <div className="mb-2">{t('recruiter.applicationDetails.date')}: {app.date}</div>
           <div className="mb-2">
             Email: <span className="font-semibold">{dummyEmail}</span>
           </div>
@@ -287,23 +289,23 @@ const RecruiterDashboardPage = () => {
           </div>
           <div className="flex flex-wrap gap-2 mt-6">
             <Button variant="default" onClick={() => setShowPdf(true)}>
-              View Resume
+              {t('recruiter.applicationDetails.viewResume')}
             </Button>
 
             <Dialog open={showEmailModal} onOpenChange={setShowEmailModal}>
               <DialogTrigger asChild>
-                <Button variant="secondary">Send Email</Button>
+                <Button variant="secondary">{t('recruiter.applicationDetails.sendEmail')}</Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Send Email to {app.name}</DialogTitle>
+                  <DialogTitle>{t('recruiter.applicationDetails.sendEmailTo')} {app.name}</DialogTitle>
                 </DialogHeader>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     toast({
-                      title: "Email sent!",
-                      description: `Your email to ${dummyEmail} has been sent.`,
+                      title: t('recruiter.applicationDetails.emailSent'),
+                      description: t('recruiter.applicationDetails.emailSentDescription', { email: dummyEmail }),
                       variant: "default",
                     });
                     setShowEmailModal(false);
@@ -313,7 +315,7 @@ const RecruiterDashboardPage = () => {
                   className="space-y-4"
                 >
                   <div>
-                    <label className="block text-sm font-medium mb-1">To</label>
+                    <label className="block text-sm font-medium mb-1">{t('recruiter.applicationDetails.to')}</label>
                     <input
                       type="email"
                       value={dummyEmail}
@@ -323,7 +325,7 @@ const RecruiterDashboardPage = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Subject
+                      {t('recruiter.applicationDetails.subject')}
                     </label>
                     <input
                       type="text"
@@ -336,7 +338,7 @@ const RecruiterDashboardPage = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Message
+                      {t('recruiter.applicationDetails.message')}
                     </label>
                     <textarea
                       value={emailMessage}
@@ -349,7 +351,7 @@ const RecruiterDashboardPage = () => {
                   </div>
                   <DialogFooter>
                     <Button type="submit" variant="default">
-                      Send Email
+                      {t('recruiter.applicationDetails.sendEmail')}
                     </Button>
                   </DialogFooter>
                 </form>
@@ -360,7 +362,7 @@ const RecruiterDashboardPage = () => {
               variant="ghost"
               onClick={() => setViewingApplicationId(null)}
             >
-              Back
+              {t('recruiter.jobDetails.back')}
             </Button>
           </div>
         </div>
@@ -438,10 +440,10 @@ const RecruiterDashboardPage = () => {
               <>
                 <div className="flex justify-between items-center">
                   <h1 className="text-2xl font-bold mb-6">
-                    Recruiter Dashboard
+                    {t('recruiter.dashboard.title')}
                   </h1>
                   <Button variant="default" onClick={() => setJobPosting(true)}>
-                    Post Job
+                    {t('recruiter.dashboard.postJob')}
                   </Button>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -449,31 +451,31 @@ const RecruiterDashboardPage = () => {
                     <div className="text-2xl font-bold text-blue-700">
                       {totalJobs}
                     </div>
-                    <div className="text-xs text-gray-600">Jobs Posted</div>
+                    <div className="text-xs text-gray-600">{t('recruiter.dashboard.jobsPosted')}</div>
                   </div>
                   <div className="bg-blue-50 border rounded p-4 text-center">
                     <div className="text-2xl font-bold text-blue-700">
                       {totalApplications}
                     </div>
                     <div className="text-xs text-gray-600">
-                      Total Applications
+                      {t('recruiter.dashboard.totalApplications')}
                     </div>
                   </div>
                   <div className="bg-blue-50 border rounded p-4 text-center">
                     <div className="text-2xl font-bold text-blue-700">
                       {openJobs}
                     </div>
-                    <div className="text-xs text-gray-600">Open Jobs</div>
+                    <div className="text-xs text-gray-600">{t('recruiter.dashboard.openJobs')}</div>
                   </div>
                   <div className="bg-blue-50 border rounded p-4 text-center">
                     <div className="text-2xl font-bold text-blue-700">
                       {closedJobs}
                     </div>
-                    <div className="text-xs text-gray-600">Closed Jobs</div>
+                    <div className="text-xs text-gray-600">{t('recruiter.dashboard.closedJobs')}</div>
                   </div>
                 </div>
                 <div className="mb-8">
-                  <h2 className="text-xl font-semibold mb-4">Your Jobs</h2>
+                  <h2 className="text-xl font-semibold mb-4">{t('recruiter.dashboard.yourJobs')}</h2>
                   <div className="space-y-4">
                     {jobs.map((job) => (
                       <div
@@ -483,7 +485,7 @@ const RecruiterDashboardPage = () => {
                         <div>
                           <div className="font-bold text-lg">{job.title}</div>
                           <div className="text-xs text-gray-500 mb-1">
-                            Posted: {job.date}
+                            {t('recruiter.dashboard.posted')}: {job.date}
                           </div>
                           <div className="inline-block px-2 py-1 text-xs rounded bg-blue-100 text-blue-700 font-semibold mb-2">
                             {job.status}
@@ -494,19 +496,19 @@ const RecruiterDashboardPage = () => {
                             variant="outline"
                             onClick={() => setViewingJobId(job.id)}
                           >
-                            View
+                            {t('recruiter.dashboard.view')}
                           </Button>
                           <Button
                             variant="secondary"
                             onClick={() => setEditingJobId(job.id)}
                           >
-                            Edit
+                            {t('recruiter.dashboard.edit')}
                           </Button>
                           <Button
                             variant="default"
                             onClick={() => setActiveTab("applicants")}
                           >
-                            View Applications
+                            {t('recruiter.dashboard.viewApplications')}
                           </Button>
                         </div>
                       </div>
@@ -523,9 +525,9 @@ const RecruiterDashboardPage = () => {
             !viewingApplicationId && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h1 className="text-2xl font-bold">Your Jobs</h1>
+                  <h1 className="text-2xl font-bold">{t('recruiter.jobs.title')}</h1>
                   <Button variant="default" onClick={() => setJobPosting(true)}>
-                    Post Job
+                    {t('recruiter.jobs.postJob')}
                   </Button>
                 </div>
                 <div className="space-y-4">
@@ -537,7 +539,7 @@ const RecruiterDashboardPage = () => {
                       <div>
                         <div className="font-bold text-lg">{job.title}</div>
                         <div className="text-xs text-gray-500 mb-1">
-                          Posted: {job.date}
+                          {t('recruiter.dashboard.posted')}: {job.date}
                         </div>
                         <div className="inline-block px-2 py-1 text-xs rounded bg-blue-100 text-blue-700 font-semibold mb-2">
                           {job.status}
@@ -548,14 +550,14 @@ const RecruiterDashboardPage = () => {
                           variant="outline"
                           onClick={() => setViewingJobId(job.id)}
                         >
-                          View
+                          {t('recruiter.dashboard.view')}
                         </Button>
                         {job.status === "Open" && (
                           <Button
                             variant="secondary"
                             onClick={() => setEditingJobId(job.id)}
                           >
-                            Edit
+                            {t('recruiter.dashboard.edit')}
                           </Button>
                         )}
                       </div>
@@ -571,7 +573,7 @@ const RecruiterDashboardPage = () => {
             !viewingJobId &&
             !viewingApplicationId && (
               <div>
-                <h1 className="text-2xl font-bold mb-6">All Applications</h1>
+                <h1 className="text-2xl font-bold mb-6">{t('recruiter.applicants.title')}</h1>
                 <div className="space-y-4">
                   {allApplications.map((app) => (
                     <div
@@ -581,17 +583,17 @@ const RecruiterDashboardPage = () => {
                       <div>
                         <div className="font-medium">{app.name}</div>
                         <div className="text-xs text-gray-400">
-                          Applied: {app.date}
+                          {t('recruiter.applicants.applied')}: {app.date}
                         </div>
                         <div className="text-xs text-gray-500">
-                          For: {app.jobTitle}
+                          {t('recruiter.applicants.for')}: {app.jobTitle}
                         </div>
                       </div>
                       <Button
                         variant="outline"
                         onClick={() => setViewingApplicationId(app.id)}
                       >
-                        View Details
+                        {t('recruiter.applicants.viewDetails')}
                       </Button>
                     </div>
                   ))}
@@ -605,7 +607,7 @@ const RecruiterDashboardPage = () => {
             !viewingJobId &&
             !viewingApplicationId && (
               <div>
-                <h1 className="text-2xl font-bold mb-6">Profile</h1>
+                <h1 className="text-2xl font-bold mb-6">{t('recruiter.profile.title')}</h1>
                 <div className="bg-white border rounded p-6 max-w-xl mx-auto">
                   <form
                     className="space-y-4"
@@ -620,7 +622,7 @@ const RecruiterDashboardPage = () => {
                           htmlFor="firstName"
                           className="block font-medium mb-1"
                         >
-                          First Name
+                          {t('recruiter.profile.firstName')}
                         </label>
                         <input
                           type="text"
@@ -636,7 +638,7 @@ const RecruiterDashboardPage = () => {
                           htmlFor="lastName"
                           className="block font-medium mb-1"
                         >
-                          Last Name
+                          {t('recruiter.profile.lastName')}
                         </label>
                         <input
                           type="text"
@@ -654,7 +656,7 @@ const RecruiterDashboardPage = () => {
                           htmlFor="email"
                           className="block font-medium mb-1"
                         >
-                          Email
+                          {t('recruiter.profile.email')}
                         </label>
                         <input
                           type="email"
@@ -670,7 +672,7 @@ const RecruiterDashboardPage = () => {
                           htmlFor="phone"
                           className="block font-medium mb-1"
                         >
-                          Phone
+                          {t('recruiter.profile.phone')}
                         </label>
                         <input
                           type="text"
@@ -686,7 +688,7 @@ const RecruiterDashboardPage = () => {
                       type="submit"
                       className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-full mt-4"
                     >
-                      Save Profile
+                      {t('recruiter.profile.saveProfile')}
                     </button>
                   </form>
                 </div>

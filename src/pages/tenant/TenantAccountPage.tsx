@@ -10,12 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User2 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const TenantAccountPage: React.FC = () => {
   // Placeholder data
   const [name] = useState("Jane Tenant");
   const [email] = useState("tenant@example.com");
   const [phone] = useState("(555) 123-4567");
+  const { t } = useTranslation();
 
   return (
     <TenantDashboardWrapper>
@@ -26,10 +28,10 @@ const TenantAccountPage: React.FC = () => {
               <User2 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               <div>
                 <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                  Account Information
+                  {t('tenant.account.title')}
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400">
-                  View your account details below.
+                  {t('tenant.account.description')}
                 </CardDescription>
               </div>
             </div>
@@ -40,7 +42,7 @@ const TenantAccountPage: React.FC = () => {
                 htmlFor="name"
                 className="text-slate-700 dark:text-slate-300"
               >
-                Name
+                {t('tenant.account.name')}
               </Label>
               <Input
                 id="name"
@@ -54,7 +56,7 @@ const TenantAccountPage: React.FC = () => {
                 htmlFor="email"
                 className="text-slate-700 dark:text-slate-300"
               >
-                Email
+                {t('tenant.account.email')}
               </Label>
               <Input
                 id="email"
@@ -68,7 +70,7 @@ const TenantAccountPage: React.FC = () => {
                 htmlFor="phone"
                 className="text-slate-700 dark:text-slate-300"
               >
-                Phone
+                {t('tenant.account.phone')}
               </Label>
               <Input
                 id="phone"

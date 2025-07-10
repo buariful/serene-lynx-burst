@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const initialAds = [
   {
@@ -17,6 +18,7 @@ const initialAds = [
 const MyAdsPage = () => {
   const [ads, setAds] = useState(initialAds);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleDelete = (id: number) => {
     setAds((prev) => prev.filter((ad) => ad.id !== id));
@@ -24,15 +26,15 @@ const MyAdsPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-xl font-bold mb-4">My Ads</h1>
+      <h1 className="text-xl font-bold mb-4">{t('hospital.myAds.title')}</h1>
       {/* Table Header */}
       <div className="flex items-center px-2 py-2 bg-gray-100 border-b rounded-t text-xs font-semibold text-gray-700">
-        <div className="w-24 flex-shrink-0">Image</div>
-        <div className="flex-1 min-w-0">Title</div>
-        <div className="w-28 text-left">Date Posted</div>
-        <div className="w-28 text-left">Date Added</div>
-        <div className="w-20 text-left">Status</div>
-        <div className="w-16 text-left">Action</div>
+        <div className="w-24 flex-shrink-0">{t('hospital.myAds.image')}</div>
+        <div className="flex-1 min-w-0">{t('hospital.myAds.title')}</div>
+        <div className="w-28 text-left">{t('hospital.myAds.datePosted')}</div>
+        <div className="w-28 text-left">{t('hospital.myAds.dateAdded')}</div>
+        <div className="w-20 text-left">{t('hospital.myAds.status')}</div>
+        <div className="w-16 text-left">{t('hospital.myAds.action')}</div>
       </div>
       <ul className="space-y-2">
         {ads.map((ad) => (
@@ -74,14 +76,14 @@ const MyAdsPage = () => {
                 }}
                 className="text-xs text-red-600 hover:underline px-2 py-1 rounded border border-red-100 hover:bg-red-50"
               >
-                Delete
+                {t('hospital.myAds.delete')}
               </button>
             </div>
           </li>
         ))}
         {ads.length === 0 && (
           <li className="text-center text-gray-400 text-sm py-8">
-            No ads found.
+            {t('hospital.myAds.noAdsFound')}
           </li>
         )}
       </ul>

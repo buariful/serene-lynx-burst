@@ -5,6 +5,7 @@ import NavSearchFilter from "@/components/ui/navSearchFilter";
 import { Property } from "@/types/property";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import InteractiveMap from "@/components/InteractiveMap";
 import SearchResultPropertyCard from "@/components/SearchResultPropertyCard";
@@ -124,6 +125,7 @@ const ApartmentPage: React.FC = () => {
     null
   );
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (location.state && location.state.searchTerm) {
@@ -174,7 +176,7 @@ const ApartmentPage: React.FC = () => {
                 </div>
               ))}
               {properties.length === 0 && (
-                <p>No properties found matching your search criteria.</p>
+                <p>{t('apartmentPage.noPropertiesFound')}</p>
               )}
             </>
           )}

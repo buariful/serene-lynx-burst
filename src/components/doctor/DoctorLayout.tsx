@@ -3,9 +3,11 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Home, Briefcase, Stethoscope, LogOut, Settings, User } from 'lucide-react'; // Added User for Profile
 import Logo from '@/components/Logo'; // Assuming Logo component exists
+import { useTranslation } from 'react-i18next';
 
 const DoctorLayout: React.FC = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   const navItems = [
     { path: '/doctor/dashboard', label: 'Dashboard', icon: Home },
@@ -27,7 +29,7 @@ const DoctorLayout: React.FC = () => {
       <aside className="w-64 bg-white dark:bg-gray-800 shadow-md flex flex-col">
         <div className="p-4 border-b dark:border-gray-700">
           <Logo />
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Doctor Portal</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('doctor.layout.doctorPortal')}</p>
         </div>
         <nav className="flex-grow p-4 space-y-2">
           {navItems.map((item) => (
@@ -45,7 +47,7 @@ const DoctorLayout: React.FC = () => {
         <div className="p-4 border-t dark:border-gray-700">
           <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
             <LogOut className="mr-2 h-5 w-5" />
-            Logout
+            {t('doctor.layout.logout')}
           </Button>
         </div>
       </aside>

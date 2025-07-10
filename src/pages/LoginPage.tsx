@@ -21,6 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { showSuccess, showError } from "@/utils/toast";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 type UserRole = "landlord" | "tenant" | "hospital" | "recruiter" | "";
 
@@ -29,6 +30,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<UserRole>("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,15 +61,15 @@ const LoginPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Login</CardTitle>
-          <CardDescription>
-            Welcome back! Please enter your credentials and select your role.
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold">
+            {t("loginPage.title")}
+          </CardTitle>
+          <CardDescription>{t("loginPage.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("loginPage.email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -78,7 +80,7 @@ const LoginPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("loginPage.password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -89,20 +91,28 @@ const LoginPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="role">Login as</Label>
+              <Label htmlFor="role">{t("loginPage.loginAs")}</Label>
               <Select
                 value={role}
                 onValueChange={(value) => setRole(value as UserRole)}
                 required
               >
                 <SelectTrigger id="role">
-                  <SelectValue placeholder="Select your role" />
+                  <SelectValue placeholder={t("loginPage.selectRole")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="landlord">Landlord</SelectItem>
-                  <SelectItem value="tenant">Tenant</SelectItem>
-                  <SelectItem value="hospital">Hospital</SelectItem>
-                  <SelectItem value="recruiter">Recruiter</SelectItem>
+                  <SelectItem value="landlord">
+                    {t("loginPage.landlord")}
+                  </SelectItem>
+                  <SelectItem value="tenant">
+                    {t("loginPage.tenant")}
+                  </SelectItem>
+                  <SelectItem value="hospital">
+                    {t("loginPage.hospital")}
+                  </SelectItem>
+                  <SelectItem value="recruiter">
+                    {t("loginPage.recruiter")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -110,13 +120,13 @@ const LoginPage = () => {
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              Login
+              {t("loginPage.login")}
             </Button>
-            <div className="flex items-center gap-3 ">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
               <Button
                 type="button"
                 variant="outline"
-                className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
+                className="flex-1 min-w-0 mt-2 flex items-center justify-center gap-2 border border-gray-300 break-words whitespace-normal"
                 onClick={() => {
                   showSuccess("Google login successful! Redirecting...");
                   setTimeout(() => {
@@ -124,13 +134,14 @@ const LoginPage = () => {
                   }, 1500);
                 }}
               >
-                <FaGoogle className="text-blue-500" /> Login with Google
+                <FaGoogle className="text-blue-500" />{" "}
+                {t("loginPage.loginWithGoogle")}
               </Button>
 
               <Button
                 type="button"
                 variant="outline"
-                className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
+                className="flex-1 min-w-0 mt-2 flex items-center justify-center gap-2 border border-gray-300 break-words whitespace-normal"
                 onClick={() => {
                   showSuccess("Facebook login successful! Redirecting...");
                   setTimeout(() => {
@@ -138,7 +149,8 @@ const LoginPage = () => {
                   }, 1500);
                 }}
               >
-                <FaFacebook className="text-blue-500" /> Login with Facebook
+                <FaFacebook className="text-blue-500" />{" "}
+                {t("loginPage.loginWithFacebook")}
               </Button>
             </div>
           </form>
@@ -148,18 +160,18 @@ const LoginPage = () => {
             to="/forgot-password"
             className="text-sm text-blue-600 hover:underline"
           >
-            Forgot Password?
+            {t("loginPage.forgotPassword")}
           </Link>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Don't have an account?{" "}
+            {t("loginPage.noAccount")}{" "}
             <Link
               to="/register"
               className="font-medium text-blue-600 hover:underline"
             >
-              Sign Up
+              {t("loginPage.signUp")}
             </Link>
           </p>
-          <MadeWithDyad />
+          {/* <MadeWithDyad /> */}
         </CardFooter>
       </Card>
     </div>

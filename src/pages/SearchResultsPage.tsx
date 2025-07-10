@@ -14,6 +14,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import CityMap from "@/components/ui/cityMap";
+import { useTranslation } from 'react-i18next';
 
 // Sample data
 const sampleProperties: Property[] = [
@@ -116,6 +117,7 @@ const SearchResultsPage = () => {
   const [properties, setProperties] = useState<Property[]>(sampleProperties);
   // Removed highlightedCardId state
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (location.state && location.state.searchTerm) {
@@ -149,7 +151,7 @@ const SearchResultsPage = () => {
         </div>
         <div className="w-full md:w-2/5 p-4 h-full overflow-y-auto">
           <h1 className="text-2xl font-bold mb-4">
-            Search Results {searchTerm ? `for "${searchTerm}"` : ""}
+            {searchTerm ? `${t('searchResults.searchResultsFor')} "${searchTerm}"` : t('searchResults.searchResults')}
           </h1>
           {/* Slider for property cards */}
           <div className="mb-8">
@@ -205,7 +207,7 @@ const SearchResultsPage = () => {
           </div>
           */}
           {properties.length === 0 && (
-            <p>No properties found matching your search criteria.</p>
+            <p>{t('searchResults.noPropertiesFound')}</p>
           )}
         </div>
       </main>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 const user = {
   name: "John Doe",
@@ -8,9 +9,10 @@ const user = {
 };
 
 const MyProfilePage = () => {
+  const { t } = useTranslation();
   return (
     <div className="max-w-md mx-auto py-10 px-4">
-      <h1 className="text-xl font-bold mb-6 text-center">My Profile</h1>
+      <h1 className="text-xl font-bold mb-6 text-center">{t('hospital.myProfile.title')}</h1>
       <div className="flex flex-col items-center bg-white border rounded shadow-sm p-6">
         <img
           src={user.image}
@@ -21,7 +23,7 @@ const MyProfilePage = () => {
         <div className="text-gray-600 text-sm mb-1">{user.email}</div>
         <div className="text-gray-600 text-sm mb-4">{user.phone}</div>
         <button className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-6 rounded">
-          Edit Profile
+          {t('hospital.myProfile.editProfile')}
         </button>
       </div>
     </div>

@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
+import { useTranslation } from "react-i18next";
 
 const utilityOptions = [
   { id: "not-included", label: "Not Included", icon: PlugZap },
@@ -70,6 +71,7 @@ const yearBuiltOptions = () => {
 };
 
 const PropertyDetailsFormPage: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedUtilities, setSelectedUtilities] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [yearBuilt, setYearBuilt] = useState<string>("");
@@ -113,11 +115,10 @@ const PropertyDetailsFormPage: React.FC = () => {
         <div className="max-w-3xl mx-auto space-y-8">
           <header className="mb-8">
             <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-              Property Details
+              {t('landlord.propertyDetailsForm.title')}
             </h1>
             <p className="text-slate-600 dark:text-slate-400 mt-1">
-              Provide important information about your rental. Tip: detailed
-              listings tend to get more leads.
+              {t('landlord.propertyDetailsForm.subtitle')}
             </p>
           </header>
 
@@ -125,7 +126,7 @@ const PropertyDetailsFormPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Utilities Included
+                {t('landlord.propertyDetailsForm.utilitiesIncluded')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -159,7 +160,7 @@ const PropertyDetailsFormPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Categories
+                {t('landlord.propertyDetailsForm.categories')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -193,14 +194,14 @@ const PropertyDetailsFormPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Year Built
+                {t('landlord.propertyDetailsForm.yearBuilt')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <Select value={yearBuilt} onValueChange={setYearBuilt}>
                 <SelectTrigger className="w-full md:w-1/2 rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200">
                   <CalendarDays className="mr-2 h-4 w-4 text-slate-500 dark:text-slate-400" />
-                  <SelectValue placeholder="Select Year" />
+                  <SelectValue placeholder={t('landlord.propertyDetailsForm.selectYear')} />
                 </SelectTrigger>
                 <SelectContent className="dark:bg-slate-800 dark:border-slate-700">
                   {yearBuiltOptions().map((year) => (
@@ -221,28 +222,28 @@ const PropertyDetailsFormPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Additional Details
+                {t('landlord.propertyDetailsForm.additionalDetails')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {[
                 {
                   id: "petFriendly",
-                  label: "Pet Friendly?",
+                  label: t('landlord.propertyDetailsForm.petFriendly'),
                   icon: Dog,
                   value: petFriendly,
                   setter: setPetFriendly,
                 },
                 {
                   id: "furnished",
-                  label: "Furnished?",
+                  label: t('landlord.propertyDetailsForm.furnished'),
                   icon: Sofa,
                   value: furnished,
                   setter: setFurnished,
                 },
                 {
                   id: "shortTerm",
-                  label: "Short Term?",
+                  label: t('landlord.propertyDetailsForm.shortTerm'),
                   icon: Clock,
                   value: shortTerm,
                   setter: setShortTerm,
@@ -272,7 +273,7 @@ const PropertyDetailsFormPage: React.FC = () => {
                                     : "border-slate-300 hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-slate-300"
                                 }`}
                     >
-                      Yes
+                      {t('landlord.propertyDetailsForm.yes')}
                     </Label>
                     <RadioGroupItem
                       value="no"
@@ -288,7 +289,7 @@ const PropertyDetailsFormPage: React.FC = () => {
                                     : "border-slate-300 hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-slate-300"
                                 }`}
                     >
-                      No
+                      {t('landlord.propertyDetailsForm.no')}
                     </Label>
                   </RadioGroup>
                 </div>
@@ -300,7 +301,7 @@ const PropertyDetailsFormPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Lease Term
+                {t('landlord.propertyDetailsForm.leaseTerm')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -310,9 +311,9 @@ const PropertyDetailsFormPage: React.FC = () => {
                 className="flex flex-col sm:flex-row gap-3"
               >
                 {[
-                  { id: "1year", label: "1 Year" },
-                  { id: "monthly", label: "Monthly" },
-                  { id: "negotiable", label: "Negotiable" },
+                  { id: "1year", label: t('landlord.propertyDetailsForm.oneYear') },
+                  { id: "monthly", label: t('landlord.propertyDetailsForm.monthly') },
+                  { id: "negotiable", label: t('landlord.propertyDetailsForm.negotiable') },
                 ].map((term) => (
                   <div key={term.id} className="flex-1">
                     <RadioGroupItem
@@ -341,7 +342,7 @@ const PropertyDetailsFormPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Parking Type
+                {t('landlord.propertyDetailsForm.parkingType')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -351,11 +352,11 @@ const PropertyDetailsFormPage: React.FC = () => {
                 className="flex flex-col sm:flex-row gap-3"
               >
                 {[
-                  { id: "No Parking", label: "No Parking" },
-                  { id: "Garage", label: "Garage" },
-                  { id: "Driveway", label: "Driveway" },
-                  { id: "Underg", label: "Underg" },
-                  { id: "Street", label: "Street" },
+                  { id: "No Parking", label: t('landlord.propertyDetailsForm.noParking') },
+                  { id: "Garage", label: t('landlord.propertyDetailsForm.garage') },
+                  { id: "Driveway", label: t('landlord.propertyDetailsForm.driveway') },
+                  { id: "Underg", label: t('landlord.propertyDetailsForm.underg') },
+                  { id: "Street", label: t('landlord.propertyDetailsForm.street') },
                 ].map((term) => (
                   <div key={term.id} className="flex-1">
                     <RadioGroupItem
@@ -387,7 +388,7 @@ const PropertyDetailsFormPage: React.FC = () => {
               onClick={() => navigate("/landlord/post-rental")}
               className="dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back
+              <ArrowLeft className="mr-2 h-4 w-4" /> {t('common.back')}
             </Button>
 
             <Button
@@ -395,7 +396,7 @@ const PropertyDetailsFormPage: React.FC = () => {
               className="bg-green-600 hover:bg-green-700 text-white rounded-md px-6 py-3 text-base"
               onClick={handleSubmit}
             >
-              Save & Continue <ArrowRight className="ml-2 h-5 w-5" />
+              {t('landlord.propertyDetailsForm.saveContinue')} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>

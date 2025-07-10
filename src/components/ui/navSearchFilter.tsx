@@ -21,6 +21,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { toast } from "sonner";
+import { useTranslation } from 'react-i18next';
 
 const NavSearchFilter: React.FC = () => {
   const [isPriceRangeOpen, setPriceRangeOpen] = useState(false);
@@ -29,17 +30,18 @@ const NavSearchFilter: React.FC = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 3900]);
   const [selectedAptType, setSelectedAptType] = useState<number>();
   const [selectedBedType, setSelectedBedType] = useState<number | string>();
+  const { t } = useTranslation();
 
   const apartmentTypes = [
-    { id: 1, name: "All Apartments", icon: LuBuilding },
-    { id: 2, name: "All Condos", icon: BiBuildings },
-    { id: 3, name: "All Houses", icon: TbBuildingBank },
-    { id: 4, name: "Rooms", icon: TbBed },
+    { id: 1, name: t('navSearchFilter.allApartments'), icon: LuBuilding },
+    { id: 2, name: t('navSearchFilter.allCondos'), icon: BiBuildings },
+    { id: 3, name: t('navSearchFilter.allHouses'), icon: TbBuildingBank },
+    { id: 4, name: t('navSearchFilter.rooms'), icon: TbBed },
   ];
 
   const renderBedFilter = () => (
     <div className="w-full space-y-4 p-4">
-      <p className="mb-1 text-blue-500 font-semibold">Bedrooms</p>
+      <p className="mb-1 text-blue-500 font-semibold">{t('navSearchFilter.bedrooms')}</p>
       <div className="flex items-center flex-wrap gap-3">
         {[0, 1, 2, 3, "4+"]?.map((item) => (
           <div key={item}>
@@ -59,7 +61,7 @@ const NavSearchFilter: React.FC = () => {
 
   const renderAptTypeFilter = () => (
     <div className="w-full space-y-4 p-4">
-      <p className="mb-1 text-blue-500 font-semibold">Property Type</p>
+      <p className="mb-1 text-blue-500 font-semibold">{t('navSearchFilter.propertyType')}</p>
       <div className="flex items-center flex-wrap gap-3">
         {apartmentTypes?.map((item) => (
           <div key={item?.id}>
@@ -80,7 +82,7 @@ const NavSearchFilter: React.FC = () => {
 
   const renderPriceFilter = () => (
     <div className="w-full space-y-4 p-4">
-      <p>Rent Price</p>
+      <p>{t('navSearchFilter.rentPrice')}</p>
       <div className="flex justify-between items-center text-sm font-medium">
         <span>${priceRange[0]}</span>
         <span>${priceRange[1]}</span>
@@ -112,7 +114,7 @@ const NavSearchFilter: React.FC = () => {
             </span>
             <input
               type="text"
-              placeholder="Search City, Address or Ad#"
+              placeholder={t('navSearchFilter.searchPlaceholder')}
               className="flex-1 text-sm outline-none bg-gray-200 text-gray-700 placeholder-gray-400 py-2 h-full rounded-full pl-1"
             />
           </div>
@@ -121,7 +123,7 @@ const NavSearchFilter: React.FC = () => {
           <Popover open={isPriceRangeOpen} onOpenChange={setPriceRangeOpen}>
             <PopoverTrigger asChild>
               <Button variant="ghost">
-                Rent <ChevronDown className="h-4 w-4 ml-1" />
+                {t('navSearchFilter.rent')} <ChevronDown className="h-4 w-4 ml-1" />
               </Button>
             </PopoverTrigger>
             <PopoverContent sideOffset={8} align="center" className="w-80">
@@ -132,7 +134,7 @@ const NavSearchFilter: React.FC = () => {
           <Popover open={isAptTypeOpen} onOpenChange={setAptTypeOpen}>
             <PopoverTrigger asChild>
               <Button variant="ghost">
-                Type <ChevronDown className="h-4 w-4 ml-1" />
+                {t('navSearchFilter.type')} <ChevronDown className="h-4 w-4 ml-1" />
               </Button>
             </PopoverTrigger>
             <PopoverContent sideOffset={8} align="center" className="w-80">
@@ -143,7 +145,7 @@ const NavSearchFilter: React.FC = () => {
           <Popover open={isBedTypeOpen} onOpenChange={setBedTypeOpen}>
             <PopoverTrigger asChild>
               <Button variant="ghost">
-                Beds <ChevronDown className="h-4 w-4 ml-1" />
+                {t('navSearchFilter.beds')} <ChevronDown className="h-4 w-4 ml-1" />
               </Button>
             </PopoverTrigger>
             <PopoverContent sideOffset={8} align="center" className="w-72">
@@ -154,11 +156,11 @@ const NavSearchFilter: React.FC = () => {
           {/* All Filters Drawer */}
           <Drawer direction="right">
             <DrawerTrigger asChild>
-              <Button variant="outline">All Filters</Button>
+              <Button variant="outline">{t('navSearchFilter.allFilters')}</Button>
             </DrawerTrigger>
             <DrawerContent className="h-full w-96">
               <DrawerHeader>
-                <DrawerTitle>All Filters</DrawerTitle>
+                <DrawerTitle>{t('navSearchFilter.allFilters')}</DrawerTitle>
               </DrawerHeader>
               <div className="p-4 space-y-8">
                 {renderPriceFilter()}
@@ -167,7 +169,7 @@ const NavSearchFilter: React.FC = () => {
               </div>
               <DrawerFooter>
                 <DrawerClose asChild>
-                  <Button>View Results</Button>
+                  <Button>{t('navSearchFilter.viewResults')}</Button>
                 </DrawerClose>
               </DrawerFooter>
             </DrawerContent>
@@ -178,23 +180,23 @@ const NavSearchFilter: React.FC = () => {
             variant="default"
             onClick={() => toast.success("Alert saved successfully!")}
           >
-            Save Alert
+            {t('navSearchFilter.saveAlert')}
           </Button>
         </div>
 
         <Drawer direction="right">
           <DrawerTrigger asChild>
             <Button variant="outline" className="bg-gray-200">
-              Alerts
+              {t('navSearchFilter.alerts')}
             </Button>
           </DrawerTrigger>
           <DrawerContent className="h-full w-96">
             <DrawerHeader>
-              <DrawerTitle>My Alerts</DrawerTitle>
+              <DrawerTitle>{t('navSearchFilter.myAlerts')}</DrawerTitle>
             </DrawerHeader>
             <div className="p-4">
               <p className="text-gray-500 text-center text-lg">
-                No alerts found.
+                {t('navSearchFilter.noAlertsFound')}
               </p>
             </div>
           </DrawerContent>

@@ -6,32 +6,33 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FAQItem } from '@/types/property'; // Re-using property.ts for FAQItem type
-
-const faqData: FAQItem[] = [
-  {
-    question: "How do I list my rental property on Rentals.ca?",
-    answer: "Sign up or log in as a landlord. You can then easily create and publish your rental listing in minutes through our user-friendly dashboard.",
-  },
-  {
-    question: "Are there any fees for tenants to use Rentals.ca?",
-    answer: "No! Searching for properties, viewing listings, and applying for rentals are completely free for tenants.",
-  },
-  {
-    question: "What is RentReport™?",
-    answer: "RentReport™ is a service offered by Rentals.ca that allows tenants to report their rent payments to credit bureaus, helping them build their credit history.",
-  },
-  {
-    question: "How can I find rentals near a specific hospitalsor schools?",
-    answer: "Use our advanced search filters or browse our dedicated sections for rentals near medical institutions and schools. You can also search by address or landmark.",
-  }
-];
+import { useTranslation } from 'react-i18next';
 
 const FAQ = () => {
+  const { t } = useTranslation();
+  const faqData = [
+    {
+      question: t('faq.q1'),
+      answer: t('faq.a1'),
+    },
+    {
+      question: t('faq.q2'),
+      answer: t('faq.a2'),
+    },
+    {
+      question: t('faq.q3'),
+      answer: t('faq.a3'),
+    },
+    {
+      question: t('faq.q4'),
+      answer: t('faq.a4'),
+    },
+  ];
   return (
     <section className="py-12 md:py-16">
       <div className="container mx-auto px-4 max-w-3xl">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
-          Need Help? Frequently Asked Questions
+          {t('faq.title')}
         </h2>
         <Accordion type="single" collapsible className="w-full">
           {faqData.map((item, index) => (

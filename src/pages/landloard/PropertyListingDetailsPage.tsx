@@ -62,6 +62,7 @@ import {
   Wifi, // Amenity icons
 } from "lucide-react";
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
+import { useTranslation } from "react-i18next";
 
 // Sample Amenities Data
 const initialAmenityCategories: AmenityCategory[] = [
@@ -103,6 +104,7 @@ const initialAmenityCategories: AmenityCategory[] = [
 
 const PropertyListingDetailsPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [floorPlans, setFloorPlans] = useState<FloorPlan[]>([]);
   const [currentFloorPlan, setCurrentFloorPlan] = useState<Partial<FloorPlan>>(
     {}
@@ -138,7 +140,7 @@ const PropertyListingDetailsPage: React.FC = () => {
       setCurrentFloorPlan({});
       setIsFloorPlanDialogOpen(false);
     } else {
-      alert("Please fill all floor plan fields.");
+      alert(t('landlord.propertyListingDetails.fillAllFields'));
     }
   };
 
@@ -146,7 +148,7 @@ const PropertyListingDetailsPage: React.FC = () => {
     if (event.target.files) {
       const newFiles = Array.from(event.target.files);
       if (photos.length + newFiles.length < 2) {
-        alert("Please upload at least 2 high-resolution images.");
+        alert(t('landlord.propertyListingDetails.uploadMinImages'));
         // return; // Or allow uploading less for now and enforce on submit
       }
       setPhotos((prevPhotos) => [...prevPhotos, ...newFiles]);
@@ -192,13 +194,13 @@ const PropertyListingDetailsPage: React.FC = () => {
       setCurrentOpenHouseDate({});
       setIsOpenHouseDialogOpen(false);
     } else {
-      alert("Please fill all open house fields.");
+      alert(t('landlord.propertyListingDetails.fillAllOpenHouseFields'));
     }
   };
 
   const handlePublish = () => {
     if (photos.length < 2) {
-      alert("Please upload at least 2 photos before publishing.");
+      alert(t('landlord.propertyListingDetails.uploadMinPhotos'));
       return;
     }
     console.log("Publishing Listing:", {
@@ -217,7 +219,7 @@ const PropertyListingDetailsPage: React.FC = () => {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-              Create Property Listing
+              {t('landlord.propertyListingDetails.title')}
             </h1>
           </div>
 
@@ -225,7 +227,7 @@ const PropertyListingDetailsPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Floor Plans
+                {t('landlord.propertyListingDetails.floorPlans')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -233,22 +235,22 @@ const PropertyListingDetailsPage: React.FC = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="dark:text-slate-300">
-                      Bedrooms
+                      {t('landlord.propertyListingDetails.bedrooms')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Bathrooms
+                      {t('landlord.propertyListingDetails.bathrooms')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Rent ($)
+                      {t('landlord.propertyListingDetails.rent')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Unit Size
+                      {t('landlord.propertyListingDetails.unitSize')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Available
+                      {t('landlord.propertyListingDetails.available')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Actions
+                      {t('landlord.propertyListingDetails.actions')}
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -298,19 +300,19 @@ const PropertyListingDetailsPage: React.FC = () => {
                     variant="outline"
                     className="mt-4 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
                   >
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Floor Plan
+                    <PlusCircle className="mr-2 h-4 w-4" /> {t('landlord.propertyListingDetails.addFloorPlan')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] dark:bg-slate-800 dark:border-slate-700">
                   <DialogHeader>
                     <DialogTitle className="dark:text-slate-100">
-                      Add New Floor Plan
+                      {t('landlord.propertyListingDetails.addFloorPlan')}
                     </DialogTitle>
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
                     {/* Bedrooms, Bathrooms, Rent, Unit Size, Availability Date inputs */}
                     <Input
-                      placeholder="Bedrooms (e.g., 2)"
+                      placeholder={`${t('landlord.propertyListingDetails.bedrooms')} (e.g., 2)`}
                       value={currentFloorPlan.bedrooms || ""}
                       onChange={(e) =>
                         setCurrentFloorPlan({
@@ -321,7 +323,7 @@ const PropertyListingDetailsPage: React.FC = () => {
                       className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
                     />
                     <Input
-                      placeholder="Bathrooms (e.g., 1.5)"
+                      placeholder={`${t('landlord.propertyListingDetails.bathrooms')} (e.g., 1.5)`}
                       value={currentFloorPlan.bathrooms || ""}
                       onChange={(e) =>
                         setCurrentFloorPlan({
@@ -344,7 +346,7 @@ const PropertyListingDetailsPage: React.FC = () => {
                       className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
                     />
                     <Input
-                      placeholder="Unit Size (e.g., 800 sq ft)"
+                      placeholder={`${t('landlord.propertyListingDetails.unitSize')} (e.g., 800 sq ft)`}
                       value={currentFloorPlan.unitSize || ""}
                       onChange={(e) =>
                         setCurrentFloorPlan({
@@ -367,7 +369,7 @@ const PropertyListingDetailsPage: React.FC = () => {
                           {currentFloorPlan.availabilityDate ? (
                             format(currentFloorPlan.availabilityDate, "PPP")
                           ) : (
-                            <span>Pick a date</span>
+                            <span>{t('landlord.propertyListingDetails.pickDate')}</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -393,14 +395,14 @@ const PropertyListingDetailsPage: React.FC = () => {
                   <DialogFooter>
                     <DialogClose asChild>
                       <Button variant="ghost" className="dark:text-slate-300">
-                        Cancel
+                        {t('common.cancel')}
                       </Button>
                     </DialogClose>
                     <Button
                       onClick={handleAddFloorPlan}
                       className="bg-blue-600 hover:bg-blue-700"
                     >
-                      Add
+                      {t('common.add')}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -412,10 +414,10 @@ const PropertyListingDetailsPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Photos
+                {t('landlord.propertyListingDetails.photos')}
               </CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-400">
-                Upload at least 2 high-resolution images (JPG/PNG).
+                {t('landlord.propertyListingDetails.photosDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -431,11 +433,11 @@ const PropertyListingDetailsPage: React.FC = () => {
                 <label htmlFor="photoUpload" className="cursor-pointer">
                   <UploadCloud className="mx-auto h-12 w-12 text-slate-400 dark:text-slate-500 mb-2" />
                   <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Drag & drop files here, or click to browse.
+                    {t('landlord.propertyListingDetails.dragDropText')}
                   </p>
                   <Button variant="link" asChild className="mt-2">
                     <span className="text-blue-600 dark:text-blue-400">
-                      Add Photos
+                      {t('landlord.propertyListingDetails.addPhotos')}
                     </span>
                   </Button>
                 </label>
@@ -468,16 +470,15 @@ const PropertyListingDetailsPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Property Description
+                {t('landlord.propertyListingDetails.propertyDescription')}
               </CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-400">
-                Provide a compelling description of your property. (Rich text
-                formatting is an advanced feature)
+                {t('landlord.propertyListingDetails.propertyDescriptionText')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="Describe your property..."
+                placeholder={t('landlord.propertyListingDetails.describePlaceholder')}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
@@ -490,7 +491,7 @@ const PropertyListingDetailsPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Features & Amenities
+                {t('landlord.propertyListingDetails.featuresAmenities')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -543,22 +544,22 @@ const PropertyListingDetailsPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Open House Dates
+                {t('landlord.propertyListingDetails.openHouseDates')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="dark:text-slate-300">Date</TableHead>
+                    <TableHead className="dark:text-slate-300">{t('landlord.propertyListingDetails.date')}</TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Start Time
+                      {t('landlord.propertyListingDetails.startTime')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      End Time
+                      {t('landlord.propertyListingDetails.endTime')}
                     </TableHead>
                     <TableHead className="dark:text-slate-300">
-                      Actions
+                      {t('landlord.propertyListingDetails.actions')}
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -600,13 +601,13 @@ const PropertyListingDetailsPage: React.FC = () => {
                     variant="outline"
                     className="mt-4 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
                   >
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Date
+                    <PlusCircle className="mr-2 h-4 w-4" /> {t('landlord.propertyListingDetails.addDate')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] dark:bg-slate-800 dark:border-slate-700">
                   <DialogHeader>
                     <DialogTitle className="dark:text-slate-100">
-                      Add Open House Date
+                      {t('landlord.propertyListingDetails.addDate')}
                     </DialogTitle>
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
@@ -623,7 +624,7 @@ const PropertyListingDetailsPage: React.FC = () => {
                           {currentOpenHouseDate.date ? (
                             format(currentOpenHouseDate.date, "PPP")
                           ) : (
-                            <span>Pick a date</span>
+                            <span>{t('landlord.propertyListingDetails.pickDate')}</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -647,7 +648,7 @@ const PropertyListingDetailsPage: React.FC = () => {
                     </Popover>
                     <Input
                       type="time"
-                      placeholder="Start Time"
+                      placeholder={t('landlord.propertyListingDetails.startTime')}
                       value={currentOpenHouseDate.startTime || ""}
                       onChange={(e) =>
                         setCurrentOpenHouseDate({
@@ -659,7 +660,7 @@ const PropertyListingDetailsPage: React.FC = () => {
                     />
                     <Input
                       type="time"
-                      placeholder="End Time"
+                      placeholder={t('landlord.propertyListingDetails.endTime')}
                       value={currentOpenHouseDate.endTime || ""}
                       onChange={(e) =>
                         setCurrentOpenHouseDate({
@@ -673,14 +674,14 @@ const PropertyListingDetailsPage: React.FC = () => {
                   <DialogFooter>
                     <DialogClose asChild>
                       <Button variant="ghost" className="dark:text-slate-300">
-                        Cancel
+                        {t('common.cancel')}
                       </Button>
                     </DialogClose>
                     <Button
                       onClick={handleAddOpenHouseDate}
                       className="bg-blue-600 hover:bg-blue-700"
                     >
-                      Add Date
+                      {t('landlord.propertyListingDetails.addDate')}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -692,7 +693,7 @@ const PropertyListingDetailsPage: React.FC = () => {
           <Card className="shadow-md border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                Lead Contact Information
+                {t('landlord.propertyListingDetails.leadContact')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -712,14 +713,14 @@ const PropertyListingDetailsPage: React.FC = () => {
               onClick={() => navigate("/landlord/property-details")}
               className="dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back
+              <ArrowLeft className="mr-2 h-4 w-4" /> {t('common.back')}
             </Button>
             <Button
               size="lg"
               className="bg-green-600 hover:bg-green-700 text-white"
               onClick={handlePublish}
             >
-              Publish Listing
+              {t('landlord.propertyListingDetails.publishListing')}
             </Button>
           </div>
         </div>

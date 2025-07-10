@@ -76,7 +76,7 @@ const Index = () => {
       <div className="bg-slate-900">
         {" "}
         {/* Ensure MadeWithDyad is visible on dark footer */}
-        <MadeWithDyad />
+        {/* <MadeWithDyad /> */}
       </div>
     </div>
   );

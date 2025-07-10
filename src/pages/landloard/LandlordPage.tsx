@@ -13,6 +13,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { toast } from "@/hooks/use-toast";
+import { useTranslation } from 'react-i18next';
 
 const featuredListings = [
   {
@@ -37,6 +38,7 @@ const featuredListings = [
 
 const LandlordPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <div className="">
       <Header />
@@ -52,11 +54,10 @@ const LandlordPage = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="relative container mx-auto px-4 text-center z-10">
             <h1 className="text-4xl md:text-6xl font-bold text-white">
-              It's Time To List Your Property
+              {t('landlordPage.heroTitle')}
             </h1>
             <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-              Thousands of apartments, houses, and condos for rent across
-              Canada.
+              {t('landlordPage.heroSubtitle')}
             </p>
             <div className="mt-10">
               <Link
@@ -64,7 +65,7 @@ const LandlordPage = () => {
                 to="/login"
                 className="bg-white text-blue-700 font-semibold px-6 py-3 rounded shadow hover:bg-blue-100 transition"
               >
-                Post a Rental
+                {t('landlordPage.postRental')}
               </Link>
             </div>
           </div>
@@ -75,9 +76,8 @@ const LandlordPage = () => {
       <div className="mx-10 bg-blue-100 px-16 rounded-lg py-12 mb-20">
         <div className="flex justify-between items-center gap-5 flex-col md:flex-row mb-16">
           <h3 className="text-4xl font-bold">
-            Thousands of renters visit{" "}
-            <span className="text-blue-500">ScrubHub</span> every day to find
-            their new home.
+            {t('landlordPage.visitorsTitle')}{" "}
+            <span className="text-blue-500">ScrubHub</span> {t('landlordPage.visitorsSubtitle')}
           </h3>
 
           <div>
@@ -91,17 +91,14 @@ const LandlordPage = () => {
 
         <div className="max-w-[700px] mx-auto flex flex-col items-center space-y-10">
           <h2 className="text-blue-500 font-bold text-5xl">
-            We help them find Yours
+            {t('landlordPage.helpTitle')}
           </h2>
           <p className="text-center text-base font-medium">
-            With over 20 years of expertise, Rentals.ca is dedicated to serving
-            landlords, property managers, and renters nationwide. Join Canada's
-            favourite platform for renters to discover your property
-            effortlessly.
+            {t('landlordPage.helpDescription')}
           </p>
 
           <Button variant="default" onClick={() => navigate("/login")}>
-            List your property
+            {t('landlordPage.listProperty')}
           </Button>
         </div>
       </div>
@@ -110,31 +107,31 @@ const LandlordPage = () => {
       <section className="mb-20 px-10">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
-            Plans and Pricing
+            {t('landlordPage.plansTitle')}
           </h2>
           <p className="text-gray-500 mb-6">
-            Upgrade Your Listing to Move Faster
+            {t('landlordPage.plansSubtitle')}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-10 max-w-5xl mx-auto">
           {/* Limited Plan */}
           <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-sm bg-white">
-            <span className="text-lg font-semibold mb-1">Limited</span>
+            <span className="text-lg font-semibold mb-1">{t('landlordPage.limited')}</span>
             <span className="text-3xl font-bold text-blue-600 mb-1">$0</span>
-            <span className="text-xs text-gray-400 mb-3">30 days</span>
+            <span className="text-xs text-gray-400 mb-3">30 {t('landlordPage.days')}</span>
             <div className="mb-3 text-blue-500">
               {/* <FaStar className="h-8 w-8 mx-auto" /> */}
               <img src="/public/building.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
               <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Basic Listing
+                <FaCheck className="text-blue-500" /> {t('landlordPage.basicListing')}
               </li>
               <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Visible in Search
+                <FaCheck className="text-blue-500" /> {t('landlordPage.visibleInSearch')}
               </li>
               <li className=" rounded px-3 py-1 text-sm flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Standard Support
+                <FaCheck className="text-blue-500" /> {t('landlordPage.standardSupport')}
               </li>
             </ul>
             <button
@@ -146,32 +143,32 @@ const LandlordPage = () => {
                 })
               }
             >
-              Select Plan
+              {t('landlordPage.selectPlan')}
             </button>
           </div>
           {/* Promoted Plan */}
           <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-md bg-white">
-            <span className="text-lg font-semibold mb-1">Promoted</span>
+            <span className="text-lg font-semibold mb-1">{t('landlordPage.promoted')}</span>
             <span className="text-3xl font-bold text-blue-600 mb-1">$95</span>
-            <span className="text-xs text-gray-400 mb-3">7 days</span>
+            <span className="text-xs text-gray-400 mb-3">7 {t('landlordPage.days')}</span>
             <div className="mb-3 text-yellow-500">
               <img src="/public/building 2.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
               <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Highlighted Listing
+                <FaCheck className="text-blue-500" /> {t('landlordPage.highlightedListing')}
               </li>
               <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Top of Search Results
+                <FaCheck className="text-blue-500" /> {t('landlordPage.topOfSearch')}
               </li>
               <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Priority Support
+                <FaCheck className="text-blue-500" /> {t('landlordPage.prioritySupport')}
               </li>
               <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Promoted Badge on Listing
+                <FaCheck className="text-blue-500" /> {t('landlordPage.promotedBadge')}
               </li>
               <li className=" rounded px-3 py-1 text-sm flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Increased Inquiries
+                <FaCheck className="text-blue-500" /> {t('landlordPage.increasedInquiries')}
               </li>
             </ul>
             <button
@@ -183,32 +180,32 @@ const LandlordPage = () => {
                 })
               }
             >
-              Select Plan
+              {t('landlordPage.selectPlan')}
             </button>
           </div>
           {/* Featured Plan */}
           <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-lg bg-white">
-            <span className="text-lg font-semibold mb-1">Featured</span>
+            <span className="text-lg font-semibold mb-1">{t('landlordPage.featured')}</span>
             <span className="text-3xl font-bold text-blue-600 mb-1">$199</span>
-            <span className="text-xs text-gray-400 mb-3">3 days</span>
+            <span className="text-xs text-gray-400 mb-3">3 {t('landlordPage.days')}</span>
             <div className="mb-3 text-pink-500">
               <img src="/public/building 3.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
               <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Premium Placement
+                <FaCheck className="text-blue-500" /> {t('landlordPage.premiumPlacement')}
               </li>
               <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Maximum Visibility
+                <FaCheck className="text-blue-500" /> {t('landlordPage.maximumVisibility')}
               </li>
               <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> 24/7 Dedicated Support
+                <FaCheck className="text-blue-500" /> {t('landlordPage.dedicatedSupport')}
               </li>
               <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Featured Badge on Listing
+                <FaCheck className="text-blue-500" /> {t('landlordPage.featuredBadge')}
               </li>
               <li className=" rounded px-3  text-sm flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> Highest Priority in Search
+                <FaCheck className="text-blue-500" /> {t('landlordPage.highestPriority')}
               </li>
             </ul>
             <button
@@ -220,7 +217,7 @@ const LandlordPage = () => {
                 })
               }
             >
-              Select Plan
+              {t('landlordPage.selectPlan')}
             </button>
           </div>
         </div>
@@ -230,10 +227,10 @@ const LandlordPage = () => {
       <section className="mb-24 px-10 text-center">
         <div className="text-center mb-16">
           <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
-            Our Customers
+            {t('landlordPage.customersTitle')}
           </h2>
           <p className="text-gray-500">
-            What other landlords like you have to say
+            {t('landlordPage.customersSubtitle')}
           </p>
         </div>
         <div className="max-w-2xl mx-auto relative">
@@ -259,10 +256,7 @@ const LandlordPage = () => {
                     </div>
                   </div>
                   <p className="text-lg mx-auto max-w-2xl">
-                    Great rental site. Got lots of leads. I like that you can
-                    pause an advert. It saves a lot of time with a rental that
-                    gets re-listed every year. Information about the
-                    neighbourhood is a smart feature for prospective tenants.
+                    {t('landlordPage.testimonial1')}
                   </p>
                 </div>
               </CarouselItem>
@@ -286,9 +280,7 @@ const LandlordPage = () => {
                     </div>
                   </div>
                   <p className="text-lg mx-auto max-w-2xl">
-                    The platform is easy to use and helped me find reliable
-                    tenants quickly. The support team was responsive and helpful
-                    throughout the process.
+                    {t('landlordPage.testimonial2')}
                   </p>
                 </div>
               </CarouselItem>
@@ -312,9 +304,7 @@ const LandlordPage = () => {
                     </div>
                   </div>
                   <p className="text-lg mx-auto max-w-2xl">
-                    I appreciate the detailed analytics and the ability to
-                    manage multiple listings in one place. Highly recommended
-                    for busy landlords!
+                    {t('landlordPage.testimonial3')}
                   </p>
                 </div>
               </CarouselItem>

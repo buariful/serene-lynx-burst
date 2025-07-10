@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // Assuming Avatar component exists
+import { useTranslation } from 'react-i18next';
 
 const DoctorProfilePage: React.FC = () => {
   // Placeholder state for profile data
@@ -13,6 +14,7 @@ const DoctorProfilePage: React.FC = () => {
     specialty: 'Cardiology', // Placeholder
     avatarUrl: 'https://via.placeholder.com/150/007bff/FFFFFF?Text=EC', // Placeholder
   });
+  const { t } = useTranslation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,11 +30,11 @@ const DoctorProfilePage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white">My Profile</h1>
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-white">{t('doctor.profile.title')}</h1>
       <Card>
         <CardHeader>
-          <CardTitle>Profile Information</CardTitle>
-          <CardDescription>Update your personal and professional details.</CardDescription>
+          <CardTitle>{t('doctor.profile.profileInformation')}</CardTitle>
+          <CardDescription>{t('doctor.profile.profileDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -42,7 +44,7 @@ const DoctorProfilePage: React.FC = () => {
                 <AvatarFallback>{profile.name.substring(0,2).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div>
-                <Label htmlFor="avatarUrl">Avatar URL</Label>
+                <Label htmlFor="avatarUrl">{t('doctor.profile.avatarUrl')}</Label>
                 <Input 
                   id="avatarUrl" 
                   name="avatarUrl"
@@ -51,26 +53,26 @@ const DoctorProfilePage: React.FC = () => {
                   onChange={handleInputChange} 
                   placeholder="https://example.com/avatar.png"
                 />
-                 <p className="text-xs text-gray-500 mt-1">Or upload an image (feature to be implemented).</p>
+                 <p className="text-xs text-gray-500 mt-1">{t('doctor.profile.uploadImageNote')}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t('doctor.profile.fullName')}</Label>
                 <Input id="name" name="name" value={profile.name} onChange={handleInputChange} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">{t('doctor.profile.emailAddress')}</Label>
                 <Input id="email" name="email" type="email" value={profile.email} onChange={handleInputChange} />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="specialty">Specialty</Label>
+              <Label htmlFor="specialty">{t('doctor.profile.specialty')}</Label>
               <Input id="specialty" name="specialty" value={profile.specialty} onChange={handleInputChange} />
             </div>
             {/* Add more fields as needed: phone, address, bio, credentials upload etc. */}
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700">Save Changes</Button>
+            <Button type="submit" className="bg-blue-600 hover:bg-blue-700">{t('doctor.profile.saveChanges')}</Button>
           </form>
         </CardContent>
       </Card>

@@ -1,47 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LogoWhite } from "./Logo"; // Assuming Logo is updated to "Rentals.ca"
-
-const footerLinks = {
-  company: [
-    { label: "About Us", href: "/about" },
-    { label: "Blog", href: "/blog" },
-    // { label: "Careers", href: "/careers" },
-    { label: "Contact Us", href: "/contact-us" },
-  ],
-  tenants: [
-    // { label: "RentReport™", href: "/rent-report" },
-    { label: "FAQs for Tenants", href: "/faq" },
-    // { label: "Avoid Scams", href: "/avoid-scams" },
-    { label: "Search Rentals", href: "/tenant/marketplace" },
-  ],
-  landlords: [
-    { label: "Post a Rental", href: "/login" },
-    { label: "Pricing", href: "/landlords" },
-    { label: "Landlord Resources", href: "/landlords" },
-    { label: "FAQs for Landlords", href: "/faq" },
-  ],
-  cities: [
-    // Column 1
-    { label: "Toronto Rentals", href: "/toronto/rental" },
-    { label: "Vancouver Rentals", href: "/toronto/rental" },
-    { label: "Montreal Rentals", href: "/toronto/rental" },
-    { label: "Calgary Rentals", href: "/toronto/rental" },
-    // Column 2
-    // { label: "Edmonton Rentals", href: "/rentals/edmonton" },
-    // { label: "Ottawa Rentals", href: "/rentals/ottawa" },
-    // { label: "Winnipeg Rentals", href: "/rentals/winnipeg" },
-    // { label: "Quebec City Rentals", href: "/rentals/quebec-city" },
-    // // Column 3
-    // { label: "Hamilton Rentals", href: "/rentals/hamilton" },
-    // { label: "London Rentals", href: "/rentals/london" },
-    // { label: "Victoria Rentals", href: "/rentals/victoria" },
-    // { label: "Halifax Rentals", href: "/rentals/halifax" },
-  ],
-};
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
+  const footerLinks = {
+    company: [
+      { label: t('header.about'), href: "/about" },
+      { label: t('header.blog'), href: "/blog" },
+      { label: t('header.contactUs'), href: "/contact-us" },
+    ],
+    tenants: [
+      { label: t('footer.forTenants'), href: "/faq" },
+      { label: t('footer.forTenants'), href: "/tenant/marketplace" },
+    ],
+    landlords: [
+      { label: t('footer.forLandlords'), href: "/login" },
+      { label: t('footer.forLandlords'), href: "/landlords" },
+      { label: t('footer.forLandlords'), href: "/landlords" },
+      { label: t('footer.forLandlords'), href: "/faq" },
+    ],
+    cities: [
+      { label: "Toronto Rentals", href: "/toronto/rental" },
+      { label: "Vancouver Rentals", href: "/toronto/rental" },
+      { label: "Montreal Rentals", href: "/toronto/rental" },
+      { label: "Calgary Rentals", href: "/toronto/rental" },
+    ],
+  };
 
   return (
     <footer className="bg-slate-800 text-slate-300 pt-16 pb-8">
@@ -51,12 +38,12 @@ const Footer = () => {
           <div className="md:col-span-2 lg:col-span-1 mb-6 md:mb-0">
             <LogoWhite />{" "}
             {/* Make sure Logo component text color is adaptable or white here */}
-            <p className="mt-3 text-sm">Canada's home for rental properties.</p>
+            <p className="mt-3 text-sm">{t('footer.homeForRentals')}</p>
           </div>
 
           {/* Link Sections */}
           <div>
-            <h5 className="font-semibold text-white mb-3">Company</h5>
+            <h5 className="font-semibold text-white mb-3">{t('footer.company')}</h5>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
@@ -68,7 +55,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">For Tenants</h5>
+            <h5 className="font-semibold text-white mb-3">{t('footer.forTenants')}</h5>
             <ul className="space-y-2">
               {footerLinks.tenants.map((link) => (
                 <li key={link.label}>
@@ -80,7 +67,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">For Landlords</h5>
+            <h5 className="font-semibold text-white mb-3">{t('footer.forLandlords')}</h5>
             <ul className="space-y-2">
               {footerLinks.landlords.map((link) => (
                 <li key={link.label}>
@@ -96,7 +83,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             {" "}
             {/* On large screens, it takes 1 of 5 cols. Adjust as needed. */}
-            <h5 className="font-semibold text-white mb-3">Popular Cities</h5>
+            <h5 className="font-semibold text-white mb-3">{t('footer.popularCities')}</h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-4">
               {" "}
               {/* For cities, maybe 1 col on lg */}
@@ -119,7 +106,7 @@ const Footer = () => {
         <div className="border-t border-slate-700 pt-8 text-center md:text-left">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm mb-4 md:mb-0">
-              &copy; {currentYear} Rentals.ca. All rights reserved. A{" "}
+              &copy; {currentYear} Rentals.ca. {t('footer.allRightsReserved')} A{" "}
               <a
                 href="https://scrubhub.ca"
                 target="_blank"
@@ -128,21 +115,19 @@ const Footer = () => {
               >
                 Scrubhub.ca
               </a>{" "}
-              network site.
+              {t('footer.networkSite')}
             </p>
             <div className="flex space-x-4">
               <Link to="/terms" className="text-sm hover:text-white">
-                Terms & Conditions
+                {t('footer.terms')}
               </Link>
               <Link to="/privacy" className="text-sm hover:text-white">
-                Privacy Policy
+                {t('footer.privacy')}
               </Link>
             </div>
           </div>
           <p className="text-xs mt-4 text-slate-400 text-center">
-            Disclaimer: Rentals.ca is not responsible for the accuracy of
-            information provided by landlords or users. Always verify
-            information independently and take precautions to avoid scams.
+            {t('footer.disclaimer')}
           </p>
         </div>
       </div>

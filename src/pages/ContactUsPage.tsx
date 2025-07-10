@@ -9,9 +9,11 @@ import { Button } from "@/components/ui/button";
 import { showSuccess } from "@/utils/toast";
 import FAQ from "@/components/FAQ";
 import { Mail, Phone, MapPin, Users } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const ContactUsPage = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const { t } = useTranslation();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,12 +34,10 @@ const ContactUsPage = () => {
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center py-10 bg-gradient-to-b from-blue-50 to-gray-50">
         <h1 className="text-3xl font-bold text-blue-700 mt-4 mb-2">
-          Contact Us
+          {t('contactUsPage.title')}
         </h1>
         <p className="text-gray-600 max-w-xl text-center mb-4">
-          Have a question, need support, or want to partner with us? Our team is
-          here to help you. Reach out and we'll get back to you as soon as
-          possible.
+          {t('contactUsPage.subtitle')}
         </p>
       </div>
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-2 pb-12">
@@ -46,7 +46,7 @@ const ContactUsPage = () => {
           <Card className="md:col-span-1 flex flex-col gap-4 justify-between">
             <CardHeader>
               <CardTitle className="text-blue-700 text-lg">
-                Contact Information
+                {t('contactUsPage.contactInfo')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -74,7 +74,7 @@ const ContactUsPage = () => {
         <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle className="text-blue-700 text-lg">
-              Send Us a Message
+              {t('contactUsPage.sendMessage')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -84,7 +84,7 @@ const ContactUsPage = () => {
                   className="block text-gray-700 mb-0.5 text-xs"
                   htmlFor="name"
                 >
-                  Name
+                  {t('contactUsPage.name')}
                 </label>
                 <input
                   type="text"
@@ -101,7 +101,7 @@ const ContactUsPage = () => {
                   className="block text-gray-700 mb-0.5 text-xs"
                   htmlFor="email"
                 >
-                  Email
+                  {t('contactUsPage.email')}
                 </label>
                 <input
                   type="email"
@@ -118,7 +118,7 @@ const ContactUsPage = () => {
                   className="block text-gray-700 mb-0.5 text-xs"
                   htmlFor="message"
                 >
-                  Message
+                  {t('contactUsPage.message')}
                 </label>
                 <textarea
                   id="message"
@@ -134,7 +134,7 @@ const ContactUsPage = () => {
                 type="submit"
                 className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 rounded text-sm"
               >
-                Send Message
+                {t('contactUsPage.sendMessageBtn')}
               </Button>
             </form>
           </CardContent>
@@ -145,7 +145,7 @@ const ContactUsPage = () => {
         <Card>
           <CardHeader>
             <CardTitle className="text-blue-700 text-lg flex items-center gap-2">
-              <Users className="w-5 h-5" /> Our Support Team
+              <Users className="w-5 h-5" /> {t('contactUsPage.supportTeam')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -156,7 +156,7 @@ const ContactUsPage = () => {
                   <AvatarFallback>AB</AvatarFallback>
                 </Avatar>
                 <span className="mt-2 font-medium text-sm">Alex Brown</span>
-                <span className="text-xs text-gray-500">Customer Success</span>
+                <span className="text-xs text-gray-500">{t('contactUsPage.customerSuccess')}</span>
               </div>
               <div className="flex flex-col items-center">
                 <Avatar>
@@ -164,7 +164,7 @@ const ContactUsPage = () => {
                   <AvatarFallback>JS</AvatarFallback>
                 </Avatar>
                 <span className="mt-2 font-medium text-sm">Jamie Smith</span>
-                <span className="text-xs text-gray-500">Tech Support</span>
+                <span className="text-xs text-gray-500">{t('contactUsPage.techSupport')}</span>
               </div>
               <div className="flex flex-col items-center">
                 <Avatar>
@@ -172,7 +172,7 @@ const ContactUsPage = () => {
                   <AvatarFallback>LK</AvatarFallback>
                 </Avatar>
                 <span className="mt-2 font-medium text-sm">Lee Kim</span>
-                <span className="text-xs text-gray-500">Partnerships</span>
+                <span className="text-xs text-gray-500">{t('contactUsPage.partnerships')}</span>
               </div>
             </div>
           </CardContent>

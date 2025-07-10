@@ -162,7 +162,7 @@ const App = () => (
               path="/recruiter/dashboard"
               element={<RecruiterDashboardPage />}
             />
-            <Route path="/recruiter/post-job" element={<RecruiterPostJob />} />
+            <Route path="/recruiter/post-job" element={<RecruiterPostJob setJobPosting={() => {}} />} />
 
             {/* <Route path="/hospitals" element={<HospitalListPage />} /> */}
 

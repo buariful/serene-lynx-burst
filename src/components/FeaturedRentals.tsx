@@ -1,6 +1,7 @@
 import React from "react";
 import PropertyCard from "./PropertyCard";
 import { Property } from "@/types/property";
+import { useTranslation } from 'react-i18next';
 
 const placeholderProperties: Property[] = [
   {
@@ -50,11 +51,12 @@ const FeaturedRentals = ({
 }: {
   city?: string;
 }) => {
+  const { t } = useTranslation();
   return (
     <section className="py-12 md:py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
-          Rentals Near <span className="text-blue-600">{city}</span>
+          {t('featuredRentals.title')} <span className="text-blue-600">{city}</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {placeholderProperties.map((property) => (

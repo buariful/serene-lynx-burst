@@ -2,48 +2,42 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, MapPin, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const cardData = [
-  {
-    icon: <Search className="h-10 w-10 text-blue-600 mb-4" />,
-    title: "Search by Location",
-    description:
-      "Explore listings by city, neighborhood, or even near specific medical institutions.",
-    link: "/apartment",
-    linkText: "Start Searching",
-    // imgSrc removed
-  },
-  {
-    icon: <MapPin className="h-10 w-10 text-green-600 mb-4" />,
-    title: "Browse by Map",
-    description:
-      "Visually find properties in your desired area using our interactive map search.",
-    link: "/apartment",
-    linkText: "View Map",
-    // imgSrc removed
-  },
-  {
-    icon: <UserPlus className="h-10 w-10 text-purple-600 mb-4" />,
-    title: "List Your Property",
-    description:
-      "Reach qualified tenants in the medical community by listing your rental with us.",
-    link: "/landlord/post-rental",
-    linkText: "Become a Landlord",
-    // imgSrc removed
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const ActionCards = () => {
+  const { t } = useTranslation();
+  const cardData = [
+    {
+      icon: <Search className="h-10 w-10 text-blue-600 mb-4" />,
+      title: t('actionCards.searchByLocation'),
+      description: t('actionCards.searchByLocationDesc'),
+      link: "/apartment",
+      linkText: t('actionCards.searchByLocationBtn'),
+    },
+    {
+      icon: <MapPin className="h-10 w-10 text-green-600 mb-4" />,
+      title: t('actionCards.browseByMap'),
+      description: t('actionCards.browseByMapDesc'),
+      link: "/apartment",
+      linkText: t('actionCards.browseByMapBtn'),
+    },
+    {
+      icon: <UserPlus className="h-10 w-10 text-purple-600 mb-4" />,
+      title: t('actionCards.listProperty'),
+      description: t('actionCards.listPropertyDesc'),
+      link: "/landlord/post-rental",
+      linkText: t('actionCards.listPropertyBtn'),
+    },
+  ];
   return (
     <section className="py-12 md:py-16 bg-gray-50 dark:bg-slate-800">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10 md:mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
-            Find Your Ideal Rental
+            {t('actionCards.mainTitle')}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
-            Whether you're searching for a place or listing one, we've got you
-            covered.
+            {t('actionCards.mainDesc')}
           </p>
         </div>
 

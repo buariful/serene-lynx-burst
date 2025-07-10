@@ -6,12 +6,14 @@ import { FaRegEye } from "react-icons/fa";
 import DashboardHeader from "@/components/DashboardHeader";
 import Footer from "@/components/Footer";
 import { showSuccess } from "@/utils/toast";
+import { useTranslation } from 'react-i18next';
 
 export default function JobListingPage() {
   const [showPhone, setShowPhone] = useState(false);
   const [message, setMessage] = useState("");
   const [resume, setResume] = useState<File | null>(null);
   const resumeRef = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function JobListingPage() {
     if (resumeRef.current.value) {
       resumeRef.current.value = "";
     }
-    showSuccess("Your application has been submitted successfully!");
+    showSuccess(t('addViewPage.applicationSubmitted'));
   };
 
   return (
@@ -43,7 +45,7 @@ export default function JobListingPage() {
               </h1>
 
               <div className="flex justify-between items-center mt-2">
-                <span className="text-gray-500">Posted 9 min ago</span>
+                <span className="text-gray-500">{t('addViewPage.postedAgo', { time: '9 min' })}</span>
               </div>
             </div>
 
@@ -52,11 +54,11 @@ export default function JobListingPage() {
             <div className="flex gap-4">
               <button className="flex items-center gap-1 px-3 py-1 border border-[#3e4153] text-[#3e4153] hover:text-blue-500 hover:border-blue-500 font-semibold rounded-md text-sm">
                 <Heart className="w-4" />
-                <span>Save</span>
+                <span>{t('addViewPage.save')}</span>
               </button>
               <button className="flex items-center gap-1 px-3 py-1 border border-[#3e4153] text-[#3e4153] hover:text-blue-500 hover:border-blue-500 font-semibold rounded-md text-sm">
                 <Share className="w-4" />
-                <span>Share</span>
+                <span>{t('addViewPage.share')}</span>
               </button>
             </div>
 
@@ -68,7 +70,7 @@ export default function JobListingPage() {
                 <GoBriefcase className="text-3xl" />
               </span>
               <div>
-                <h3 className="text-lg font-semibold mb-2">Job Type</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('addViewPage.jobType')}</h3>
                 <p>Full-Time</p>
               </div>
             </div>
@@ -77,7 +79,7 @@ export default function JobListingPage() {
 
             {/* Description */}
             <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-4">Description</h2>
+              <h2 className="text-xl font-semibold mb-4">{t('addViewPage.description')}</h2>
               <p className="whitespace-pre-line">
                 Bonjour, Je suis à la recherche de chauffeurs classe 3 pour la
                 rive sud de montreal de jour. Dois avoir l'expérience et parler
@@ -89,7 +91,7 @@ export default function JobListingPage() {
 
             {/* Listed By Section */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Listed By</h2>
+              <h2 className="text-xl font-semibold mb-4">{t('addViewPage.listedBy')}</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <p className="text-xl w-12 h-12 grid place-content-center rounded-full bg-green-200">
@@ -104,7 +106,7 @@ export default function JobListingPage() {
                     </div>
 
                     <p className="text-sm text-gray-600">
-                      Professional Employer
+                      {t('addViewPage.professionalEmployer')}
                     </p>
                   </div>
                 </div>
@@ -116,14 +118,9 @@ export default function JobListingPage() {
                     onClick={() => setShowPhone(!showPhone)}
                     className="font-[500]  text-blue-600 hover:underline"
                   >
-                    {showPhone ? "+1-514-969-6919" : "Reveal phone number"}
+                    {showPhone ? "+1-514-969-6919" : t('addViewPage.revealPhoneNumber')}
                   </button>
                 </div>
-
-                {/* <label className="flex items-center">
-                <input type="checkbox" className="mr-2" />
-                View all listings (2)
-              </label> */}
 
                 <div>
                   <p>Av Trans-Island, Montréal, H3W 386</p>
@@ -131,11 +128,8 @@ export default function JobListingPage() {
 
                 <div className="pt-4 border-t flex items-center gap-3 ">
                   <p className="text-gray-500 flex items-center gap-2 text-xs border rounded px-2 py-1 font-medium">
-                    <FaRegEye /> <span>329 views</span>
+                    <FaRegEye /> <span>{t('addViewPage.views', { count: 329 })}</span>
                   </p>
-                  {/* <button className="text-blue-600 hover:underline">
-                  Report Listing
-                </button> */}
                 </div>
               </div>
             </div>
@@ -151,7 +145,7 @@ export default function JobListingPage() {
               </div>
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold">Professional Employer</h3>
+                <h3 className="text-lg font-semibold">{t('addViewPage.professionalEmployer')}</h3>
                 <p>Av Trans-Island, Montreal, H3W 3B6</p>
                 <div className="mt-2">
                   {showPhone ? (
@@ -171,19 +165,19 @@ export default function JobListingPage() {
               <form onSubmit={handleSubmit} className="border-t pt-3">
                 <div className="mb-2">
                   <label className="block text-xs font-medium mb-1">
-                    Message
+                    {t('addViewPage.message')}
                   </label>
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="w-full p-1 border rounded h-24 text-xs"
-                    placeholder="Write your message here..."
+                    placeholder={t('addViewPage.writeMessage')}
                   />
                 </div>
 
                 <div className="mb-2">
                   <label className="block text-xs font-medium mb-1">
-                    Attach resume (5 MB max)
+                    {t('addViewPage.attachResume')}
                   </label>
                   <input
                     type="file"
@@ -199,17 +193,14 @@ export default function JobListingPage() {
                 </div>
 
                 <p className="text-[10px] text-gray-500 mb-2">
-                  To date and identify potential fraud, spam or suspicious
-                  behaviour, we reserve the right to monitor conversations. By
-                  sending the message you agree to our Terms of Use and Privacy
-                  Policy.
+                  {t('addViewPage.termsNote')}
                 </p>
 
                 <button
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1.5 px-4 rounded w-full text-xs"
                 >
-                  Submit
+                  {t('addViewPage.submit')}
                 </button>
               </form>
             </div>

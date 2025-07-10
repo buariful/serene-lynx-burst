@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import { showSuccess } from "@/utils/toast";
 import { X } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const propertyMetaData = [
   { label: "2 Bed", icon: BiBed },
@@ -37,6 +38,7 @@ export default function PropertyDetailsPublicPage() {
   // Modal state
   const [open, setOpen] = React.useState(false);
   const [fullscreenOpen, setFullscreenOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   // Dummy property summary
   const propertySummary =
@@ -60,7 +62,7 @@ export default function PropertyDetailsPublicPage() {
   const handleConfirm = () => {
     setOpen(false);
     showSuccess(
-      "Booking confirmed! The property manager will contact you soon."
+      t('propertyDetails.bookingConfirmed')
     );
   };
 
@@ -99,13 +101,13 @@ export default function PropertyDetailsPublicPage() {
           {/* Tabs for Images and Map */}
           <Card>
             <CardHeader>
-              <CardTitle>Gallery & Location</CardTitle>
+              <CardTitle>{t('propertyDetails.galleryLocation')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="images" className="w-full">
                 <TabsList className="mb-4">
-                  <TabsTrigger value="images">Images</TabsTrigger>
-                  <TabsTrigger value="map">Map</TabsTrigger>
+                  <TabsTrigger value="images">{t('propertyDetails.images')}</TabsTrigger>
+                  <TabsTrigger value="map">{t('propertyDetails.map')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="images">
                   <div className="relative">
@@ -129,7 +131,7 @@ export default function PropertyDetailsPublicPage() {
                     <button
                       className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
                       onClick={() => setFullscreenOpen(true)}
-                      title="View Fullscreen"
+                      title={t('propertyDetails.viewFullscreen')}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +157,7 @@ export default function PropertyDetailsPublicPage() {
                         <button
                           className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200"
                           onClick={() => setFullscreenOpen(false)}
-                          title="Close Fullscreen"
+                          title={t('propertyDetails.closeFullscreen')}
                         >
                           <X className="w-7 h-7 text-blue-600" />
                         </button>
@@ -192,7 +194,7 @@ export default function PropertyDetailsPublicPage() {
           {/* Floor Plans */}
           <Card>
             <CardHeader>
-              <CardTitle>Floor Plans</CardTitle>
+              <CardTitle>{t('propertyDetails.floorPlans')}</CardTitle>
             </CardHeader>
             <CardContent>
               2 Bedrooms, 2 bath, 700 sq ft. Spacious open-concept living and
@@ -203,7 +205,7 @@ export default function PropertyDetailsPublicPage() {
           {/* Parking Information */}
           <Card>
             <CardHeader>
-              <CardTitle>Parking Information</CardTitle>
+              <CardTitle>{t('propertyDetails.parkingInformation')}</CardTitle>
             </CardHeader>
             <CardContent>
               Parking types: Garage Parking. 1 reserved spot included. Visitor
@@ -214,7 +216,7 @@ export default function PropertyDetailsPublicPage() {
           {/* Features and Amenities */}
           <Card>
             <CardHeader>
-              <CardTitle>Features & Amenities</CardTitle>
+              <CardTitle>{t('propertyDetails.featuresAmenities')}</CardTitle>
             </CardHeader>
             <CardContent>
               Building features: 24/7 security, bike room, garage, visitor
@@ -226,7 +228,7 @@ export default function PropertyDetailsPublicPage() {
           {/* Utilities Included */}
           <Card>
             <CardHeader>
-              <CardTitle>Utilities Included</CardTitle>
+              <CardTitle>{t('propertyDetails.utilitiesIncluded')}</CardTitle>
             </CardHeader>
             <CardContent>
               Water, Heating, Garbage collection, Building insurance.
@@ -236,7 +238,7 @@ export default function PropertyDetailsPublicPage() {
           {/* Summary */}
           <Card>
             <CardHeader>
-              <CardTitle>Summary</CardTitle>
+              <CardTitle>{t('propertyDetails.summary')}</CardTitle>
             </CardHeader>
             <CardContent>{propertySummary}</CardContent>
           </Card>
@@ -244,7 +246,7 @@ export default function PropertyDetailsPublicPage() {
           {/* More content example */}
           <Card>
             <CardHeader>
-              <CardTitle>Neighborhood</CardTitle>
+              <CardTitle>{t('propertyDetails.neighborhood')}</CardTitle>
             </CardHeader>
             <CardContent>
               Located in a vibrant neighborhood with easy access to public
@@ -253,7 +255,7 @@ export default function PropertyDetailsPublicPage() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Pet Policy</CardTitle>
+              <CardTitle>{t('propertyDetails.petPolicy')}</CardTitle>
             </CardHeader>
             <CardContent>
               Pets allowed with restrictions. Please contact for details.
@@ -264,40 +266,40 @@ export default function PropertyDetailsPublicPage() {
         {/* Right column: fixed, contact info, book button */}
         <div className="w-[340px] flex-shrink-0 sticky top-8 h-fit bg-white rounded-lg shadow-lg border p-6 flex flex-col gap-6">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Contact Information</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('propertyDetails.contactInformation')}</h3>
             <div className="mb-2">
-              <span className="font-medium">Phone:</span> {phone}
+              <span className="font-medium">{t('propertyDetails.phone')}:</span> {phone}
             </div>
             <div className="mb-2">
-              <span className="font-medium">Email:</span> {email}
+              <span className="font-medium">{t('propertyDetails.email')}:</span> {email}
             </div>
             <div className="mb-2">
-              <span className="font-medium">Address:</span> {address}
+              <span className="font-medium">{t('propertyDetails.address')}:</span> {address}
             </div>
             <div className="mb-2 text-gray-500 text-sm">
-              Available 9am - 6pm, Mon-Fri
+              {t('propertyDetails.availableHours')}
             </div>
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className="w-full" size="lg">
-                Book This Property
+                {t('propertyDetails.bookThisProperty')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Confirm Your Booking</DialogTitle>
+                <DialogTitle>{t('propertyDetails.confirmBooking')}</DialogTitle>
               </DialogHeader>
               <div className="py-4">
-                <div className="mb-2 font-medium">Summary:</div>
+                <div className="mb-2 font-medium">{t('propertyDetails.summaryLabel')}</div>
                 <div className="text-gray-700 mb-4 text-sm">
                   {propertySummary}
                 </div>
                 <div className="flex justify-end gap-3 mt-6">
                   <Button variant="outline" onClick={() => setOpen(false)}>
-                    Cancel
+                    {t('propertyDetails.cancel')}
                   </Button>
-                  <Button onClick={handleConfirm}>Confirm</Button>
+                  <Button onClick={handleConfirm}>{t('propertyDetails.confirm')}</Button>
                 </div>
               </div>
             </DialogContent>

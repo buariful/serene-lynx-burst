@@ -34,6 +34,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import HospitalMegaMenu from "./HospitalMegaMenu";
 import MedicalSchoolMegaMenu from "./MedicalSchoolMegaMenu"; // Import the new menu
+import { useTranslation } from 'react-i18next';
 
 type NavLinkItem = { type: "link"; href: string; label: string };
 type MegaMenuItem = {
@@ -153,7 +154,20 @@ const drawerMenuItems = [
 const HospitalHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const handleLanguageChange = (language: string) => {
+    i18n.changeLanguage(language);
+  };
+
+  const getCurrentLanguageLabel = () => {
+    return i18n.language === 'fr' ? 'FR' : 'EN';
+  };
+
+  const getCurrentLanguageFullName = () => {
+    return i18n.language === 'fr' ? 'Français' : 'English';
+  };
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
@@ -238,19 +252,19 @@ const HospitalHeader = () => {
                     size="sm"
                     className="text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <Globe className="h-4 w-4 mr-1" /> EN{" "}
+                    <Globe className="h-4 w-4 mr-1" /> {getCurrentLanguageLabel()}{" "}
                     <ChevronDown className="h-4 w-4 ml-1 opacity-75" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="dark:bg-gray-800 dark:border-gray-700">
                   <DropdownMenuItem
-                    onSelect={() => console.log("Lang: EN")}
+                    onSelect={() => handleLanguageChange('en')}
                     className="dark:hover:bg-gray-700"
                   >
                     English
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onSelect={() => console.log("Lang: FR")}
+                    onSelect={() => handleLanguageChange('fr')}
                     className="dark:hover:bg-gray-700"
                   >
                     Français
@@ -313,7 +327,7 @@ const HospitalHeader = () => {
                           variant="outline"
                           className="w-full justify-start text-sm dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
                         >
-                          <Globe className="h-4 w-4 mr-2" /> English{" "}
+                          <Globe className="h-4 w-4 mr-2" /> {getCurrentLanguageFullName()}{" "}
                           <ChevronDown className="h-4 w-4 ml-auto opacity-75" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -324,7 +338,7 @@ const HospitalHeader = () => {
                       >
                         <DropdownMenuItem
                           onSelect={() => {
-                            console.log("Lang: EN");
+                            handleLanguageChange('en');
                             closeMobileMenu();
                           }}
                           className="dark:hover:bg-gray-700"
@@ -333,7 +347,7 @@ const HospitalHeader = () => {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onSelect={() => {
-                            console.log("Lang: FR");
+                            handleLanguageChange('fr');
                             closeMobileMenu();
                           }}
                           className="dark:hover:bg-gray-700"

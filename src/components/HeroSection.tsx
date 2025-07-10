@@ -3,10 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,10 +29,10 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="relative container mx-auto px-4 text-center z-10">
         <h1 className="text-4xl md:text-6xl font-bold text-white">
-          It's Time to Move
+          {t('hero.title')}
         </h1>
         <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-          Thousands of apartments, houses, and condos for rent across Canada.
+          {t('hero.subtitle')}
         </p>
         <div className="mt-8 max-w-xl mx-auto">
           <form
@@ -39,7 +41,7 @@ const HeroSection = () => {
           >
             <Input
               type="search"
-              placeholder="Search City, Neighbourhood, Address, or Ad #"
+              placeholder={t('hero.searchPlaceholder')}
               className="h-12 text-base flex-grow"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -50,8 +52,8 @@ const HeroSection = () => {
               className="bg-blue-600 hover:bg-blue-700 h-12"
             >
               <Search className="h-5 w-5 mr-2 sm:hidden" />
-              <span className="sm:hidden">Search</span>
-              <span className="hidden sm:inline">Search</span>
+              <span className="sm:hidden">{t('common.search')}</span>
+              <span className="hidden sm:inline">{t('common.search')}</span>
             </Button>
           </form>
         </div>

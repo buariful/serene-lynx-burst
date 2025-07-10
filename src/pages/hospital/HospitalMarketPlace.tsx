@@ -25,6 +25,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { FilterNav } from "@/components/ui/filterNav";
+import { useTranslation } from 'react-i18next';
 
 type Product = {
   id: string;
@@ -292,6 +293,7 @@ export default function HospitalMarketplacePage() {
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchParams] = useSearchParams();
   const q = searchParams.get("q");
+  const { t } = useTranslation();
 
   // Show sidebar if a category is selected (not 'All') or search is active
   useEffect(() => {
@@ -356,7 +358,7 @@ export default function HospitalMarketplacePage() {
         {/* Sidebar for categories */}
         <aside className="w-48 mr-6 flex-shrink-0">
           <div className="bg-white border rounded shadow-sm p-2 sticky top-4">
-            <h3 className=" font-semibold mb-2 text-[#3e4153]">Categories</h3>
+            <h3 className=" font-semibold mb-2 text-[#3e4153]">{t('hospital.marketplace.categories')}</h3>
             <ul className="space-y-1">
               <li>
                 <button
@@ -367,7 +369,7 @@ export default function HospitalMarketplacePage() {
                   }`}
                   onClick={() => setSelectedCategory("All")}
                 >
-                  All Categories
+                  {t('hospital.marketplace.allCategories')}
                 </button>
               </li>
               {CATEGORIES.map((category) => (
@@ -391,7 +393,7 @@ export default function HospitalMarketplacePage() {
         <div className={showSidebar ? "flex-1" : "w-full"}>
           {/* Compact Nav/Filter Bar */}
           <h2 className="text-[#3e4153] text-2xl  font-semibold">
-            {q ? q : "Jobs"} in Canada
+            {q ? q : t('hospital.marketplace.title')}
           </h2>
 
           <FilterNav
@@ -411,14 +413,14 @@ export default function HospitalMarketplacePage() {
             <>
               <div className="mb-4 flex justify-between items-center">
                 <span className="text-xs text-gray-500">
-                  Showing search results for:{" "}
+                  {t('hospital.marketplace.searchResultsFor')}{" "}
                   <span className="font-semibold">{searchQuery}</span>
                 </span>
                 <button
                   onClick={handleBackToMain}
                   className="text-xs text-blue-600 border border-blue-100 rounded px-3 py-1 hover:bg-blue-50 ml-2"
                 >
-                  Back to Main Page
+                  {t('hospital.marketplace.backToMainPage')}
                 </button>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3  gap-5 mb-10">
@@ -432,7 +434,7 @@ export default function HospitalMarketplacePage() {
                   ))
                 ) : (
                   <div className="col-span-full text-center text-gray-400 py-8">
-                    No results found.
+                    {t('hospital.marketplace.noResultsFound')}
                   </div>
                 )}
               </div>
@@ -451,7 +453,7 @@ export default function HospitalMarketplacePage() {
                   ))
                 ) : (
                   <div className="col-span-full text-center text-gray-400 py-8">
-                    No devices found in this category.
+                    {t('hospital.marketplace.noDevicesFound')}
                   </div>
                 )}
               </div>

@@ -23,6 +23,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
+import { useTranslation } from "react-i18next";
 
 interface EmailPreference {
   id: string;
@@ -65,6 +66,7 @@ const initialEmailPreferences: EmailPreference[] = [
 ];
 
 const LandlordAccountSettingsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [name, setName] = useState("Current Landlord Name"); // Placeholder
   const [email, setEmail] = useState("manaknightdigitaldev@gmail.com"); // Given email
   const [phone, setPhone] = useState("(647) 849-6002"); // Placeholder
@@ -82,7 +84,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
 
   const handleProfileSave = () => {
     console.log("Profile saved:", { name, email, phone });
-    alert("Profile information saved!");
+    alert(t('landlord.accountSettings.profileSaved'));
   };
 
   const handleChangePassword = () => {
@@ -93,15 +95,15 @@ const LandlordAccountSettingsPage: React.FC = () => {
     e.preventDefault();
     setPasswordError("");
     if (!currentPassword || !newPassword || !confirmPassword) {
-      setPasswordError("All fields are required.");
+      setPasswordError(t('landlord.accountSettings.allFieldsRequired'));
       return;
     }
     if (newPassword !== confirmPassword) {
-      setPasswordError("New passwords do not match.");
+      setPasswordError(t('landlord.accountSettings.passwordsDontMatch'));
       return;
     }
     // Simulate password change
-    alert("Password changed successfully!");
+    alert(t('landlord.accountSettings.passwordChanged'));
     setIsPasswordDialogOpen(false);
     setCurrentPassword("");
     setNewPassword("");
@@ -118,7 +120,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
 
   const handleEmailPreferencesSave = () => {
     console.log("Email preferences saved:", emailPreferences);
-    alert("Email preferences saved!");
+    alert(t('landlord.accountSettings.preferencesSaved'));
   };
 
   return (
@@ -126,7 +128,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
       <div className="space-y-8 mt-8 mb-14 max-w-4xl mx-auto p-4 md:p-0">
         <header className="mb-6">
           <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-            Account Settings
+            {t('landlord.accountSettings.title')}
           </h1>
           <p className="text-lg text-blue-600 dark:text-blue-400 font-medium mt-1">
             {email}
@@ -140,10 +142,10 @@ const LandlordAccountSettingsPage: React.FC = () => {
               <User className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               <div>
                 <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                  Profile
+                  {t('landlord.accountSettings.profile')}
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400">
-                  Manage your personal information.
+                  {t('landlord.accountSettings.profileDesc')}
                 </CardDescription>
               </div>
             </div>
@@ -155,7 +157,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
                   htmlFor="name"
                   className="text-slate-700 dark:text-slate-300"
                 >
-                  Name
+                  {t('landlord.accountSettings.name')}
                 </Label>
                 <Input
                   id="name"
@@ -169,7 +171,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
                   htmlFor="email-profile"
                   className="text-slate-700 dark:text-slate-300"
                 >
-                  Email
+                  {t('landlord.accountSettings.email')}
                 </Label>
                 <Input
                   id="email-profile"
@@ -185,7 +187,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
                 htmlFor="phone"
                 className="text-slate-700 dark:text-slate-300"
               >
-                Phone
+                {t('landlord.accountSettings.phone')}
               </Label>
               <Input
                 id="phone"
@@ -201,7 +203,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
               onClick={handleProfileSave}
               className="ml-auto bg-blue-600 hover:bg-blue-700 text-white"
             >
-              <Save className="mr-2 h-4 w-4" /> Save Profile
+              <Save className="mr-2 h-4 w-4" /> {t('landlord.accountSettings.saveProfile')}
             </Button>
           </CardFooter>
         </Card>
@@ -213,10 +215,10 @@ const LandlordAccountSettingsPage: React.FC = () => {
               <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
               <div>
                 <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                  Security
+                  {t('landlord.accountSettings.security')}
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400">
-                  Manage your account security.
+                  {t('landlord.accountSettings.securityDesc')}
                 </CardDescription>
               </div>
             </div>
@@ -232,13 +234,13 @@ const LandlordAccountSettingsPage: React.FC = () => {
                   onClick={handleChangePassword}
                   className="dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
                 >
-                  <Edit3 className="mr-2 h-4 w-4" /> Change Password
+                  <Edit3 className="mr-2 h-4 w-4" /> {t('landlord.accountSettings.changePassword')}
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[400px] dark:bg-slate-800 dark:border-slate-700">
                 <DialogHeader>
                   <DialogTitle className="dark:text-slate-100">
-                    Change Password
+                    {t('landlord.accountSettings.changePassword')}
                   </DialogTitle>
                 </DialogHeader>
                 <form
@@ -250,7 +252,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
                       htmlFor="current-password"
                       className="dark:text-slate-200"
                     >
-                      Current Password
+                      {t('landlord.accountSettings.currentPassword')}
                     </Label>
                     <Input
                       id="current-password"
@@ -266,7 +268,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
                       htmlFor="new-password"
                       className="dark:text-slate-200"
                     >
-                      New Password
+                      {t('landlord.accountSettings.newPassword')}
                     </Label>
                     <Input
                       id="new-password"
@@ -282,7 +284,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
                       htmlFor="confirm-password"
                       className="dark:text-slate-200"
                     >
-                      Confirm New Password
+                      {t('landlord.accountSettings.confirmNewPassword')}
                     </Label>
                     <Input
                       id="confirm-password"
@@ -303,14 +305,14 @@ const LandlordAccountSettingsPage: React.FC = () => {
                         variant="ghost"
                         className="dark:text-slate-300"
                       >
-                        Cancel
+                        {t('common.cancel')}
                       </Button>
                     </DialogClose>
                     <Button
                       type="submit"
                       className="bg-blue-600 hover:bg-blue-700 text-white"
                     >
-                      Change Password
+                      {t('landlord.accountSettings.changePassword')}
                     </Button>
                   </DialogFooter>
                 </form>
@@ -326,10 +328,10 @@ const LandlordAccountSettingsPage: React.FC = () => {
               <Mail className="h-6 w-6 text-orange-600 dark:text-orange-400" />
               <div>
                 <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                  Email Preferences
+                  {t('landlord.accountSettings.emailPreferences')}
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400">
-                  Choose when to receive emails from us.
+                  {t('landlord.accountSettings.emailPreferencesDesc')}
                 </CardDescription>
               </div>
             </div>
@@ -367,7 +369,7 @@ const LandlordAccountSettingsPage: React.FC = () => {
               onClick={handleEmailPreferencesSave}
               className="ml-auto bg-blue-600 hover:bg-blue-700 text-white"
             >
-              <Save className="mr-2 h-4 w-4" /> Save Preferences
+              <Save className="mr-2 h-4 w-4" /> {t('landlord.accountSettings.savePreferences')}
             </Button>
           </CardFooter>
         </Card>

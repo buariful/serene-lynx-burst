@@ -74,6 +74,7 @@ const Header = () => {
   // Simple links for items that are not mega menus
   const simpleDesktopNavLinks: NavLinkItem[] = [
     { type: "link", href: "/landlords", label: t('header.landlords') },
+    { type: "link", href: "/tenant/dashboard", label: t('header.tenants') },
     { type: "link", href: "/contact-us", label: t('header.contactUs') },
   ];
 

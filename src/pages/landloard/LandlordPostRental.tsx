@@ -9,40 +9,46 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import {
-  Building2,
   Building,
   Home,
-  BedSingle,
+  Building2,
+  Warehouse,
   ArrowRight,
-  MapPin,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom"; // For potential back navigation or logo link
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
 import InteractiveMap from "@/components/InteractiveMap";
+import { useTranslation } from "react-i18next";
 
 const propertyTypes = [
-  { id: "condo", label: "Condo", icon: Building2 },
   { id: "apartment", label: "Apartment", icon: Building },
   { id: "house", label: "House", icon: Home },
-  { id: "room", label: "Room", icon: BedSingle },
+  { id: "condo", label: "Condo", icon: Building2 },
+  { id: "commercial", label: "Commercial", icon: Warehouse },
 ];
 const apartmentTypes = [
-  { id: "apartment", label: "Apartment" },
   { id: "studio", label: "Studio" },
-  { id: "duplex", label: "Duplex" },
+  { id: "1bed", label: "1 Bedroom" },
+  { id: "2bed", label: "2 Bedroom" },
+  { id: "3bed", label: "3 Bedroom" },
+  { id: "4bed", label: "4+ Bedroom" },
+  { id: "penthouse", label: "Penthouse" },
   { id: "loft", label: "Loft" },
-  { id: "bachelor", label: "Bachelor" },
   { id: "basement", label: "Basement" },
 ];
 const houseTypes = [
-  { id: "house", label: "House" },
+  { id: "detached", label: "Detached" },
+  { id: "semi-detached", label: "Semi-Detached" },
   { id: "townhouse", label: "Townhouse" },
-  { id: "multiunit", label: "Multi-Unit" },
-  { id: "Cabin", label: "Cabin" },
-  { id: "Cottage", label: "Cottage" },
+  { id: "duplex", label: "Duplex" },
+  { id: "triplex", label: "Triplex" },
+  { id: "bungalow", label: "Bungalow" },
+  { id: "cottage", label: "Cottage" },
+  { id: "mansion", label: "Mansion" },
 ];
 
 const LandlordPostRentalPage: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedPropertyType, setSelectedPropertyType] = useState<
     string | null
   >(null);
@@ -79,10 +85,10 @@ const LandlordPostRentalPage: React.FC = () => {
           <Card className="shadow-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-2xl font-semibold text-slate-800 dark:text-slate-100">
-                Property Type
+                {t('landlord.postRental.propertyType')}
               </CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-400">
-                Select the category that best matches your property.
+                {t('landlord.postRental.propertyTypeDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -129,10 +135,10 @@ const LandlordPostRentalPage: React.FC = () => {
             <Card className="shadow-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800">
               <CardHeader>
                 <CardTitle className="text-2xl font-semibold text-slate-800 dark:text-slate-100">
-                  Apartment Type
+                  {t('landlord.postRental.apartmentType')}
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400">
-                  Select the type of apartment that best matches your property.
+                  {t('landlord.postRental.apartmentTypeDesc')}
                 </CardDescription>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {apartmentTypes.map((type) => (
@@ -161,10 +167,10 @@ const LandlordPostRentalPage: React.FC = () => {
             <Card className="shadow-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800">
               <CardHeader>
                 <CardTitle className="text-2xl font-semibold text-slate-800 dark:text-slate-100">
-                  House Type
+                  {t('landlord.postRental.houseType')}
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400">
-                  Select the type of house that best matches your property.
+                  {t('landlord.postRental.houseTypeDesc')}
                 </CardDescription>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {houseTypes.map((type) => (
@@ -191,11 +197,10 @@ const LandlordPostRentalPage: React.FC = () => {
           <Card className="shadow-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800">
             <CardHeader>
               <CardTitle className="text-2xl font-semibold text-slate-800 dark:text-slate-100">
-                Property Location
+                {t('landlord.postRental.propertyLocation')}
               </CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-400">
-                Enter your property address below then confirm its correct
-                location on the map.
+                {t('landlord.postRental.propertyLocationDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -205,12 +210,12 @@ const LandlordPostRentalPage: React.FC = () => {
                     htmlFor="address"
                     className="text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    Address <span className="text-red-500">*</span>
+                    {t('landlord.postRental.addressRequired')}
                   </label>
                   <Input
                     id="address"
                     type="text"
-                    placeholder="e.g., 123 Main St, Anytown"
+                    placeholder={t('landlord.postRental.addressPlaceholder')}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     required
@@ -222,12 +227,12 @@ const LandlordPostRentalPage: React.FC = () => {
                     htmlFor="unit"
                     className="text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    Unit / Apt #
+                    {t('landlord.postRental.unit')}
                   </label>
                   <Input
                     id="unit"
                     type="text"
-                    placeholder="e.g., Apt 4B"
+                    placeholder={t('landlord.postRental.unitPlaceholder')}
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)}
                     className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
@@ -250,7 +255,7 @@ const LandlordPostRentalPage: React.FC = () => {
               disabled={!selectedPropertyType || !address} // Example disabled state
               type="button"
             >
-              Next Property Details <ArrowRight className="ml-2 h-5 w-5" />
+              {t('landlord.postRental.nextPropertyDetails')} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>

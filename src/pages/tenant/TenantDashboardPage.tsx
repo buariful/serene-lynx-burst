@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from 'react-i18next';
 
 const sidebarItems = [
   { key: "dashboard", label: "Dashboard" },
@@ -16,61 +17,61 @@ const sidebarItems = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <div className="p-6 min-h-screen bg-gray-50 space-y-8">
       {/* Welcome Section */}
       <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-3xl font-bold">Welcome back, John 👋</h2>
+        <h2 className="text-3xl font-bold">{t('tenant.dashboard.welcomeBack')}</h2>
         <p className="text-gray-600 mt-2">
-          Here's a snapshot of your current activity and suggestions tailored
-          for you.
+          {t('tenant.dashboard.welcomeDesc')}
         </p>
       </div>
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-blue-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">Applied Jobs</h3>
+          <h3 className="text-lg font-medium">{t('tenant.dashboard.appliedJobs')}</h3>
           <p className="text-3xl font-bold mt-2">4</p>
         </div>
         <div className="bg-green-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">Active Rentals</h3>
+          <h3 className="text-lg font-medium">{t('tenant.dashboard.activeRentals')}</h3>
           <p className="text-3xl font-bold mt-2">1</p>
         </div>
         <div className="bg-yellow-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">Upcoming Lease End</h3>
+          <h3 className="text-lg font-medium">{t('tenant.dashboard.upcomingLeaseEnd')}</h3>
           <p className="text-3xl font-bold mt-2">30 days</p>
         </div>
         <div className="bg-purple-100 p-6 rounded-xl shadow">
-          <h3 className="text-lg font-medium">Unread Messages</h3>
+          <h3 className="text-lg font-medium">{t('tenant.dashboard.unreadMessages')}</h3>
           <p className="text-3xl font-bold mt-2">2</p>
         </div>
       </div>
 
       {/* Notifications */}
       <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-xl font-semibold mb-4">Recent Notifications</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('tenant.dashboard.recentNotifications')}</h3>
         <ul className="space-y-2 text-gray-700">
-          <li>✅ Your lease for Greenwood Villa has been approved.</li>
-          <li>📬 You received a message from Mercy Hospital.</li>
-          <li>📅 Reminder: Your lease ends in 30 days. Renew now.</li>
+          <li>{t('tenant.dashboard.leaseApproved')}</li>
+          <li>{t('tenant.dashboard.messageReceived')}</li>
+          <li>{t('tenant.dashboard.leaseReminder')}</li>
         </ul>
       </div>
 
       {/* Suggested Opportunities */}
       <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-xl font-semibold mb-4">Suggested Opportunities</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('tenant.dashboard.suggestedOpportunities')}</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="border p-4 rounded-xl hover:shadow transition">
-            <h4 className="font-semibold">Rental at Oak Apartments</h4>
+            <h4 className="font-semibold">{t('tenant.dashboard.rentalAtOak')}</h4>
             <p className="text-gray-600">2 Bed • $1200/mo • Downtown</p>
           </div>
           <div className="border p-4 rounded-xl hover:shadow transition">
-            <h4 className="font-semibold">Job: Nursing Assistant</h4>
+            <h4 className="font-semibold">{t('tenant.dashboard.jobNursingAssistant')}</h4>
             <p className="text-gray-600">Mercy hospitals • Full Time</p>
           </div>
           <div className="border p-4 rounded-xl hover:shadow transition">
-            <h4 className="font-semibold">Rental at Lakeview Residences</h4>
+            <h4 className="font-semibold">{t('tenant.dashboard.rentalAtLakeview')}</h4>
             <p className="text-gray-600">1 Bed • $950/mo • Lakeside</p>
           </div>
         </div>
@@ -82,13 +83,13 @@ const Dashboard = () => {
           onClick={() => navigate("/tenant/marketplace")}
           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold shadow"
         >
-          🔍 Find More Jobs
+          {t('tenant.dashboard.findMoreJobs')}
         </button>
         <button
           onClick={() => navigate("/tenant/marketplace")}
           className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold shadow"
         >
-          🏠 Explore Rentals
+          {t('tenant.dashboard.exploreRentals')}
         </button>
       </div>
     </div>
@@ -97,6 +98,7 @@ const Dashboard = () => {
 
 const AppliedJobsPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const jobs = [
     {
       id: 1,
@@ -143,10 +145,9 @@ const AppliedJobsPage = () => {
   return (
     <div className="p-6 min-h-screen bg-gray-50 space-y-6">
       <div className="bg-white p-6 rounded-xl shadow">
-        <h2 className="text-3xl font-bold mb-2">Applied Jobs</h2>
+        <h2 className="text-3xl font-bold mb-2">{t('tenant.appliedJobs.title')}</h2>
         <p className="text-gray-600">
-          Here's a list of the jobs you've applied to with their current status
-          and details.
+          {t('tenant.appliedJobs.description')}
         </p>
       </div>
 
@@ -160,7 +161,7 @@ const AppliedJobsPage = () => {
               <h3 className="text-xl font-semibold">
                 {job.title} at {job.hospital}
               </h3>
-              <p className="text-sm text-gray-600">Applied on {job.date}</p>
+              <p className="text-sm text-gray-600">{t('tenant.appliedJobs.appliedOn')} {job.date}</p>
               <p className="text-sm text-gray-600 mt-1">
                 {job.type} • {job.location} • {job.salary}
               </p>
@@ -175,13 +176,15 @@ const AppliedJobsPage = () => {
                     : "bg-yellow-100 text-yellow-800"
                 }`}
               >
-                {job.status}
+                {job.status === "Under Review" ? t('tenant.appliedJobs.underReview') : 
+                 job.status === "Accepted" ? t('tenant.appliedJobs.accepted') : 
+                 t('tenant.appliedJobs.rejected')}
               </span>
               <button
                 onClick={() => navigate("/hospital/product/2")}
                 className="mt-3 text-blue-600 hover:underline text-sm"
               >
-                View Details
+                {t('tenant.appliedJobs.viewDetails')}
               </button>
             </div>
           </div>
@@ -192,6 +195,7 @@ const AppliedJobsPage = () => {
 };
 
 const TenantRentalServicePage = () => {
+  const { t } = useTranslation();
   const rental = {
     property: "Greenwood Villa",
     address: "123 Maple St, Toronto",
@@ -236,34 +240,34 @@ const TenantRentalServicePage = () => {
   return (
     <div className="p-6 min-h-screen bg-gray-50 space-y-8">
       <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-3xl font-bold mb-2">Rental Service</h2>
+        <h2 className="text-3xl font-bold mb-2">{t('tenant.rentalService.title')}</h2>
         <p className="text-gray-600">
-          Overview of your current rental and related activity.
+          {t('tenant.rentalService.description')}
         </p>
       </div>
 
       {/* Active Rental Info */}
       <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">Active Rental</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.activeRental')}</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <p>
-            <strong>Property:</strong> {rental.property}
+            <strong>{t('tenant.rentalService.property')}:</strong> {rental.property}
           </p>
           <p>
-            <strong>Address:</strong> {rental.address}
+            <strong>{t('common.address')}:</strong> {rental.address}
           </p>
           <p>
-            <strong>Lease Period:</strong> {rental.leaseStart} to{" "}
+            <strong>{t('tenant.rentalService.leasePeriod')}:</strong> {rental.leaseStart} to{" "}
             {rental.leaseEnd}
           </p>
           <p>
-            <strong>Rent:</strong> {rental.rent}
+            <strong>{t('tenant.rentalService.rent')}:</strong> {rental.rent}
           </p>
           <p>
-            <strong>Landlord:</strong> {rental.landlord}
+            <strong>{t('tenant.rentalService.landlord')}:</strong> {rental.landlord}
           </p>
           <p>
-            <strong>Contact:</strong> {rental.contact}
+            <strong>{t('tenant.rentalService.contact')}:</strong> {rental.contact}
           </p>
         </div>
         <button
@@ -272,21 +276,21 @@ const TenantRentalServicePage = () => {
             toast.success("Maintenance request sent successfully!")
           }
         >
-          Request Maintenance
+          {t('tenant.rentalService.requestMaintenance')}
         </button>
       </div>
 
       {/* Rent Payment History */}
       <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">Rent Payment History</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.rentPaymentHistory')}</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full text-left">
             <thead>
               <tr>
-                <th className="py-2 px-4">Month</th>
-                <th className="py-2 px-4">Amount</th>
-                <th className="py-2 px-4">Status</th>
-                <th className="py-2 px-4">Paid On</th>
+                <th className="py-2 px-4">{t('tenant.rentalService.month')}</th>
+                <th className="py-2 px-4">{t('tenant.rentalService.amount')}</th>
+                <th className="py-2 px-4">{t('tenant.rentalService.status')}</th>
+                <th className="py-2 px-4">{t('tenant.rentalService.paidOn')}</th>
               </tr>
             </thead>
             <tbody>
@@ -305,13 +309,13 @@ const TenantRentalServicePage = () => {
 
       {/* Maintenance */}
       <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">Maintenance Requests</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.maintenanceRequests')}</h3>
         <ul className="space-y-3">
           {maintenance.map((m) => (
             <li key={m.id} className="flex justify-between">
               <div>
                 <p className="font-medium">{m.issue}</p>
-                <p className="text-sm text-gray-500">Requested on {m.date}</p>
+                <p className="text-sm text-gray-500">{t('tenant.rentalService.requestedOn')} {m.date}</p>
               </div>
               <div>
                 <span
@@ -321,7 +325,7 @@ const TenantRentalServicePage = () => {
                       : "bg-yellow-100 text-yellow-800"
                   }`}
                 >
-                  {m.status}
+                  {m.status === "Resolved" ? t('tenant.rentalService.resolved') : t('tenant.rentalService.inProgress')}
                 </span>
               </div>
             </li>
@@ -331,7 +335,7 @@ const TenantRentalServicePage = () => {
 
       {/* Documents */}
       <div className="bg-white p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-4">Lease Documents</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('tenant.rentalService.leaseDocuments')}</h3>
         <ul className="space-y-3">
           {documents.map((doc, idx) => (
             <li key={idx} className="flex justify-between items-center">
@@ -342,7 +346,7 @@ const TenantRentalServicePage = () => {
                     doc.status === "Signed" ? "text-green-600" : "text-red-600"
                   }`}
                 >
-                  {doc.status}
+                  {doc.status === "Signed" ? t('tenant.rentalService.signed') : t('tenant.rentalService.unsigned')}
                 </span>
                 {/* <button className="text-blue-600 hover:underline text-sm">
                   Download
@@ -377,6 +381,7 @@ const userProfile = {
 
 const TenantDashboardPage = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const { t } = useTranslation();
 
   const handleDownload = () => {
     // URL to a dummy PDF file

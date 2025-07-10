@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import DashboardHeader from "@/components/DashboardHeader";
 import Footer from "@/components/Footer";
 import { Search } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const RENTAL_CATEGORIES = [
   "All",
@@ -86,12 +87,13 @@ export default function TenantMarketplacePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("price-asc");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const sortOptions = [
-    { value: "price-asc", label: "Price: Low to High" },
-    { value: "price-desc", label: "Price: High to Low" },
-    { value: "title-asc", label: "Title: A-Z" },
-    { value: "title-desc", label: "Title: Z-A" },
+    { value: "price-asc", label: t('tenant.marketplace.sortOptions.priceAsc') },
+    { value: "price-desc", label: t('tenant.marketplace.sortOptions.priceDesc') },
+    { value: "title-asc", label: t('tenant.marketplace.sortOptions.titleAsc') },
+    { value: "title-desc", label: t('tenant.marketplace.sortOptions.titleDesc') },
   ];
 
   // Tabs: All, Rentals, Jobs
@@ -159,7 +161,7 @@ export default function TenantMarketplacePage() {
         {/* Sidebar for categories */}
         <aside className="w-48 mr-6 flex-shrink-0">
           <div className="bg-white border rounded shadow-sm p-2 sticky top-4">
-            <h3 className="font-semibold mb-2 text-[#3e4153]">Categories</h3>
+            <h3 className="font-semibold mb-2 text-[#3e4153]">{t('tenant.marketplace.categories')}</h3>
             <ul className="space-y-1">
               {RENTAL_CATEGORIES.map((category) => (
                 <li key={category}>
@@ -183,7 +185,7 @@ export default function TenantMarketplacePage() {
           {/* Tabs */}
           <div className="flex items-center gap-4 mb-6">
             <h2 className="text-2xl font-bold text-[#2563eb] flex items-center gap-2">
-              Marketplace
+              {t('tenant.marketplace.title')}
             </h2>
             <div className="flex gap-6 ml-6 border-b border-[#e3e8ee] flex-1">
               {tabs.map((tab) => (
@@ -207,7 +209,7 @@ export default function TenantMarketplacePage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#7a9ca5] w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search by Title or Address"
+                placeholder={t('tenant.marketplace.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-3 py-2.5 rounded-full border border-[#e3e8ee] bg-white text-[#2563eb] focus:outline-none text-sm"
@@ -238,7 +240,7 @@ export default function TenantMarketplacePage() {
           </div>
           {filteredJobs.length === 0 && filteredRentals.length === 0 && (
             <div className="text-center text-gray-400 py-8">
-              No listings found in this category.
+              {t('tenant.marketplace.noListingsFound')}
             </div>
           )}
         </div>
@@ -250,6 +252,7 @@ export default function TenantMarketplacePage() {
 
 function RentalCard({ rental }: { rental: (typeof RENTALS)[number] }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <div
       className="border rounded overflow-hidden hover:shadow-sm transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400"
@@ -273,7 +276,7 @@ function RentalCard({ rental }: { rental: (typeof RENTALS)[number] }) {
         <p className="text-gray-600 text-xs mb-1 truncate">{rental.address}</p>
         <div className="flex flex-col gap-0.5 mt-1">
           <span className="text-xs text-gray-500">
-            {rental.beds} beds • {rental.baths} bath
+            {rental.beds} {t('tenant.marketplace.beds')} • {rental.baths} {t('tenant.marketplace.bath')}
           </span>
           <span className="text-xs font-semibold text-green-600">
             {rental.price}

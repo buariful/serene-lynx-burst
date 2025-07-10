@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from 'react-i18next';
 
 interface DynamicCityGridProps {
   title: string;
@@ -15,13 +16,14 @@ const DynamicCityGrid: React.FC<DynamicCityGridProps> = ({
   cities,
   gridCols = "grid-cols-2 md:grid-cols-4",
 }) => {
+  const { t } = useTranslation();
   return (
     <section className="py-12 md:py-16">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
           {title}
         </h2>
-        <p className="text-gray-600 mb-8 max-w-xl mx-auto">{subtitle}</p>
+        <p className="text-gray-600 mb-8 max-w-xl mx-auto">{t('dynamicCityGrid.subtitle')}</p>
         <div className={`flex flex-wrap justify-center gap-4 md:gap-6`}>
           {cities.map((city) => (
             <Link key={city.name} to={city.href}>

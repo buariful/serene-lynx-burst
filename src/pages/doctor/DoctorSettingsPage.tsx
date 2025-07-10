@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch"; // Assuming Switch component exists
+import { useTranslation } from 'react-i18next';
 
 const DoctorSettingsPage: React.FC = () => {
   // Placeholder state for settings
@@ -17,6 +18,7 @@ const DoctorSettingsPage: React.FC = () => {
     smsNotifications: false,
     darkMode: false, // Assuming a global theme context would handle this
   });
+  const { t } = useTranslation();
 
   const handleSwitchChange = (settingName: keyof typeof settings) => {
     setSettings((prev) => ({ ...prev, [settingName]: !prev[settingName] }));
@@ -36,14 +38,14 @@ const DoctorSettingsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-        Settings
+        {t('doctor.settings.title')}
       </h1>
 
       <Card>
         <CardHeader>
-          <CardTitle>Notification Settings</CardTitle>
+          <CardTitle>{t('doctor.settings.notificationSettings')}</CardTitle>
           <CardDescription>
-            Manage how you receive updates and alerts.
+            {t('doctor.settings.notificationDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -52,10 +54,9 @@ const DoctorSettingsPage: React.FC = () => {
               htmlFor="emailNotifications"
               className="flex flex-col space-y-1"
             >
-              <span>Email Notifications</span>
+              <span>{t('doctor.settings.emailNotifications')}</span>
               <span className="font-normal leading-snug text-muted-foreground">
-                Receive updates about applications, messages, and system alerts
-                via email.
+                {t('doctor.settings.emailNotificationsDesc')}
               </span>
             </Label>
             <Switch
@@ -69,9 +70,9 @@ const DoctorSettingsPage: React.FC = () => {
               htmlFor="smsNotifications"
               className="flex flex-col space-y-1"
             >
-              <span>SMS Notifications</span>
+              <span>{t('doctor.settings.smsNotifications')}</span>
               <span className="font-normal leading-snug text-muted-foreground">
-                Get critical alerts via text message (charges may apply).
+                {t('doctor.settings.smsNotificationsDesc')}
               </span>
             </Label>
             <Switch
@@ -85,19 +86,18 @@ const DoctorSettingsPage: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Account Security</CardTitle>
+          <CardTitle>{t('doctor.settings.accountSecurity')}</CardTitle>
           <CardDescription>
-            Manage your account security settings.
+            {t('doctor.settings.accountSecurityDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
             <Button variant="outline" onClick={handlePasswordChange}>
-              Change Password
+              {t('doctor.settings.changePassword')}
             </Button>
             <p className="text-xs text-gray-500 mt-1">
-              It's a good idea to use a strong password that you're not using
-              elsewhere.
+              {t('doctor.settings.passwordNote')}
             </p>
           </div>
           {/* TODO: Add Two-Factor Authentication setup here */}

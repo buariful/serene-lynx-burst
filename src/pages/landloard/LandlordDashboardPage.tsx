@@ -12,6 +12,7 @@ import {
   Plus,
 } from "lucide-react";
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
+import { useTranslation } from "react-i18next";
 
 const sidebarItems = [
   { label: "Listings", icon: Building2, path: "/landlord/dashboard" },
@@ -21,8 +22,6 @@ const sidebarItems = [
   { label: "Favourites", icon: Heart, path: "/landlord/favourites" },
   { label: "Account", icon: User2, path: "/landlord/account" },
 ];
-
-const tabs = ["All", "Active", "Pending", "Disabled"];
 
 const dummyListings = [
   {
@@ -57,20 +56,28 @@ const dummyListings = [
   },
 ];
 
-const sortOptions = [
-  { value: "price-asc", label: "Price: Low to High" },
-  { value: "price-desc", label: "Price: High to Low" },
-  { value: "address-asc", label: "Address: A-Z" },
-  { value: "address-desc", label: "Address: Z-A" },
-];
-
 export default function LandlordDashboardPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("price-asc");
 
+  const tabs = [
+    t('landlord.dashboard.tabs.all'),
+    t('landlord.dashboard.tabs.active'),
+    t('landlord.dashboard.tabs.pending'),
+    t('landlord.dashboard.tabs.disabled')
+  ];
+
+  const sortOptions = [
+    { value: "price-asc", label: t('landlord.dashboard.sortOptions.priceAsc') },
+    { value: "price-desc", label: t('landlord.dashboard.sortOptions.priceDesc') },
+    { value: "address-asc", label: t('landlord.dashboard.sortOptions.addressAsc') },
+    { value: "address-desc", label: t('landlord.dashboard.sortOptions.addressDesc') },
+  ];
+
   let filteredListings = dummyListings;
-  if (activeTab !== "All") {
+  if (activeTab !== t('landlord.dashboard.tabs.all')) {
     filteredListings = filteredListings.filter((l) => l.status === activeTab);
   }
   if (searchTerm.trim() !== "") {
@@ -99,29 +106,13 @@ export default function LandlordDashboardPage() {
   return (
     <LandlordDashboardWrapper>
       <div className="flex min-h-screen">
-        {/* Sidebar */}
-        {/* <aside className="w-56 p-6">
-          <nav className="flex flex-col gap-1">
-            {sidebarItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.path}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-medium text-base transition text-[#7a9ca5] hover:bg-white/80 hover:text-[#2563eb]`}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </aside> */}
-
         {/* Main Content */}
         <main className="flex-1 p-8">
           {/* Title and Tabs */}
           <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold text-[#2563eb] flex items-center gap-2">
               <Building2 className="w-6 h-6" />
-              Listings
+              {t('landlord.dashboard.title')}
             </h1>
             <div className="flex gap-6 ml-6 border-b border-[#e3e8ee] flex-1">
               {tabs.map((tab) => (
@@ -146,7 +137,7 @@ export default function LandlordDashboardPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#7a9ca5] w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search by Address"
+                placeholder={t('landlord.dashboard.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-3 py-2.5 rounded-full border border-[#e3e8ee] bg-white text-[#2563eb] focus:outline-none text-sm"
@@ -190,7 +181,7 @@ export default function LandlordDashboardPage() {
                   to={`/landlord/property/${listing.id}`}
                   className="mt-auto text-[#2563eb] hover:underline text-sm font-medium"
                 >
-                  View Details
+                  {t('landlord.dashboard.viewDetails')}
                 </Link>
               </div>
             ))}
@@ -209,7 +200,7 @@ export default function LandlordDashboardPage() {
               className="mt-3 flex items-center gap-1.5 px-6 py-2.5 bg-[#2563eb] text-white rounded-full font-semibold text-base shadow hover:bg-[#1d4fd7] transition"
             >
               <Plus className="w-4 h-4" />
-              Post a Rental
+              {t('landlord.dashboard.postRental')}
             </Link>
           </div>
         </main>

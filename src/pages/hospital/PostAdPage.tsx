@@ -4,12 +4,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { X } from "lucide-react";
 import { FaFilePdf, FaPlus, FaTrash } from "react-icons/fa";
 import RecruiterPostJob from "../recruiter/RecruiterPostJob";
+import { useTranslation } from 'react-i18next';
 
 const STATUS_OPTIONS = ["Available", "Out of stock"];
 const AD_TYPE_OPTIONS = ["For Rent", "For Sell"];
 
 export default function PostAdPage() {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"device" | "job">("device");
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState(STATUS_OPTIONS[0]);
@@ -159,13 +161,13 @@ export default function PostAdPage() {
           variant={activeTab === "device" ? "default" : "outline"}
           onClick={() => setActiveTab("device")}
         >
-          Post Device Ad
+          {t('hospital.postAd.postDeviceAd')}
         </Button>
         <Button
           variant={activeTab === "job" ? "default" : "outline"}
           onClick={() => setActiveTab("job")}
         >
-          Post a Job
+          {t('hospital.postAd.postJob')}
         </Button>
       </div>
       {activeTab === "device" ? (
@@ -175,7 +177,7 @@ export default function PostAdPage() {
         >
           {/* Title */}
           <div>
-            <label className="block font-semibold mb-1">Title *</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.title')} *</label>
             <input
               className="w-full border rounded px-3 py-2"
               value={title}
@@ -185,7 +187,7 @@ export default function PostAdPage() {
           </div>
           {/* Stock Quantity */}
           <div>
-            <label className="block font-semibold mb-1">Stock Quantity *</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.stockQuantity')} *</label>
             <input
               className="w-full border rounded px-3 py-2"
               value={stock}
@@ -197,7 +199,7 @@ export default function PostAdPage() {
           </div>
           {/* Status */}
           <div>
-            <label className="block font-semibold mb-1">Status *</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.status')} *</label>
             <select
               className="w-full border rounded px-3 py-2"
               value={status}
@@ -213,7 +215,7 @@ export default function PostAdPage() {
           </div>
           {/* For Rent or For Sell */}
           <div>
-            <label className="block font-semibold mb-1">Ad Type *</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.adType')} *</label>
             <div className="flex gap-4">
               {AD_TYPE_OPTIONS.map((type) => (
                 <label key={type} className="flex items-center gap-2">
@@ -225,7 +227,7 @@ export default function PostAdPage() {
                     onChange={() => setAdType(type)}
                     required
                   />
-                  {type}
+                  {type === "For Rent" ? t('hospital.postAd.forRent') : t('hospital.postAd.forSell')}
                 </label>
               ))}
             </div>
@@ -233,7 +235,7 @@ export default function PostAdPage() {
           {/* Price */}
           <div>
             <label className="block font-semibold mb-1">
-              Price ({adType === "For Rent" ? "per month" : "to sell"}) *
+              {t('hospital.postAd.price')} ({adType === "For Rent" ? t('hospital.postAd.perMonth') : t('hospital.postAd.toSell')}) *
             </label>
             <input
               className="w-full border rounded px-3 py-2"
@@ -247,12 +249,12 @@ export default function PostAdPage() {
           </div>
           {/* Specifications */}
           <div>
-            <label className="block font-semibold mb-1">Specifications</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.specifications')}</label>
             {specifications.map((spec, idx) => (
               <div key={idx} className="flex gap-2 mb-2">
                 <input
                   className="border rounded px-2 py-1 flex-1"
-                  placeholder="Label (e.g. Display)"
+                  placeholder={`${t('hospital.postAd.label')} (e.g. Display)`}
                   value={spec.label}
                   onChange={(e) =>
                     handleSpecChange(idx, "label", e.target.value)
@@ -260,7 +262,7 @@ export default function PostAdPage() {
                 />
                 <input
                   className="border rounded px-2 py-1 flex-1"
-                  placeholder={'Value (e.g. 15.6" LCD)'}
+                  placeholder={`${t('hospital.postAd.value')} (e.g. 15.6" LCD)`}
                   value={spec.value}
                   onChange={(e) =>
                     handleSpecChange(idx, "value", e.target.value)
@@ -282,12 +284,12 @@ export default function PostAdPage() {
               className="mt-1"
             >
               <FaPlus className="mr-1" />
-              Add Specification
+              {t('hospital.postAd.addSpecification')}
             </Button>
           </div>
           {/* Description */}
           <div>
-            <label className="block font-semibold mb-1">Description *</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.description')} *</label>
             <textarea
               className="w-full border rounded px-3 py-2"
               value={description}
@@ -299,7 +301,7 @@ export default function PostAdPage() {
           {/* Usage Instructions */}
           <div>
             <label className="block font-semibold mb-1">
-              Usage Instructions *
+              {t('hospital.postAd.usageInstructions')} *
             </label>
             <textarea
               className="w-full border rounded px-3 py-2"
@@ -312,12 +314,12 @@ export default function PostAdPage() {
           {/* Documents */}
           <div>
             <label className="block font-semibold mb-1">
-              Documents (PDF, optional)
+              {t('hospital.postAd.documents')}
             </label>
             <label className="inline-block">
               <span className="sr-only">Choose PDF files</span>
               <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
-                Select PDF(s)
+                {t('hospital.postAd.selectPDFs')}
               </span>
               <input
                 type="file"
@@ -349,11 +351,11 @@ export default function PostAdPage() {
           </div>
           {/* Images */}
           <div>
-            <label className="block font-semibold mb-1">Images *</label>
+            <label className="block font-semibold mb-1">{t('hospital.postAd.images')} *</label>
             <label className="inline-block">
               <span className="sr-only">Choose images</span>
               <span className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer inline-block mb-2">
-                Select Images
+                {t('hospital.postAd.selectImages')}
               </span>
               <input
                 type="file"
@@ -393,17 +395,17 @@ export default function PostAdPage() {
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 text-lg font-semibold rounded"
               type="submit"
             >
-              Publish
+              {t('hospital.postAd.publish')}
             </Button>
           </div>
         </form>
       ) : (
         <div className="max-w-xl mx-auto p-6 border rounded-lg shadow-sm bg-white">
-          <h2 className="text-2xl font-bold mb-6">Post a New Job</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('hospital.postAd.postJob')}</h2>
           <form onSubmit={handleJobSubmit} className="space-y-5">
             <div>
               <label htmlFor="title" className="block font-medium mb-1">
-                Job Title
+                {t('hospital.postAd.jobTitle')}
               </label>
               <input
                 type="text"
@@ -417,7 +419,7 @@ export default function PostAdPage() {
             </div>
             <div>
               <label htmlFor="company" className="block font-medium mb-1">
-                Company Name
+                {t('hospital.postAd.companyName')}
               </label>
               <input
                 type="text"
@@ -430,22 +432,22 @@ export default function PostAdPage() {
               />
             </div>
             <div>
-              <label className="block font-medium mb-1">Job Type</label>
+              <label className="block font-medium mb-1">{t('hospital.postAd.jobType')}</label>
               <select
                 className="w-full border border-gray-300 rounded-md p-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={job.type}
                 onChange={(e) => handleJobSelect(e.target.value)}
                 required
               >
-                <option value="">Select job type</option>
-                <option value="contract">Contract</option>
-                <option value="part-time">Part-time</option>
-                <option value="full-time">Full-time</option>
+                <option value="">{t('hospital.postAd.selectJobType')}</option>
+                <option value="contract">{t('hospital.postAd.contract')}</option>
+                <option value="part-time">{t('hospital.postAd.partTime')}</option>
+                <option value="full-time">{t('hospital.postAd.fullTime')}</option>
               </select>
             </div>
             <div>
               <label htmlFor="image" className="block font-medium mb-1">
-                Upload Images
+                {t('hospital.postAd.uploadImages')}
               </label>
               <input
                 ref={jobFileInputRef}
@@ -461,7 +463,7 @@ export default function PostAdPage() {
                 onClick={handleJobFileButtonClick}
                 className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Choose Images
+                {t('hospital.postAd.chooseImages')}
               </Button>
               {Array.isArray(job.image) && job.image.length > 0 && (
                 <div className="mt-3 grid grid-cols-3 gap-3">
@@ -502,7 +504,7 @@ export default function PostAdPage() {
             </div>
             <div>
               <label htmlFor="description" className="block font-medium mb-1">
-                Job Description
+                {t('hospital.postAd.jobDescription')}
               </label>
               <textarea
                 name="description"
@@ -518,7 +520,7 @@ export default function PostAdPage() {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
             >
-              Post Job
+              {t('hospital.postAd.postJob')}
             </Button>
           </form>
         </div>

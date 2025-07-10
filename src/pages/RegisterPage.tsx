@@ -21,6 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { showSuccess, showError } from "@/utils/toast";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 type UserRole = "landlord" | "tenant" | "hospital" | "recruiter" | "";
 
@@ -31,6 +32,7 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState<UserRole>("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,16 +66,14 @@ const RegisterPage = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">
-            Create an Account
+            {t("registerPage.title")}
           </CardTitle>
-          <CardDescription>
-            Join MEDS Housing today! Choose your role to get started.
-          </CardDescription>
+          <CardDescription>{t("registerPage.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleRegister} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+              <Label htmlFor="fullName">{t("registerPage.fullName")}</Label>
               <Input
                 id="fullName"
                 type="text"
@@ -84,7 +84,7 @@ const RegisterPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("registerPage.email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -95,7 +95,7 @@ const RegisterPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("registerPage.password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -106,7 +106,9 @@ const RegisterPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">
+                {t("registerPage.confirmPassword")}
+              </Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -117,20 +119,28 @@ const RegisterPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="role">I am a...</Label>
+              <Label htmlFor="role">{t("registerPage.iamA")}</Label>
               <Select
                 value={role}
                 onValueChange={(value) => setRole(value as UserRole)}
                 required
               >
                 <SelectTrigger id="role">
-                  <SelectValue placeholder="Select your role" />
+                  <SelectValue placeholder={t("registerPage.selectRole")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="landlord">Landlord</SelectItem>
-                  <SelectItem value="tenant">Tenant</SelectItem>
-                  <SelectItem value="hospital">Hospital</SelectItem>
-                  <SelectItem value="recruiter">Recruiter</SelectItem>
+                  <SelectItem value="landlord">
+                    {t("registerPage.landlord")}
+                  </SelectItem>
+                  <SelectItem value="tenant">
+                    {t("registerPage.tenant")}
+                  </SelectItem>
+                  <SelectItem value="hospital">
+                    {t("registerPage.hospital")}
+                  </SelectItem>
+                  <SelectItem value="recruiter">
+                    {t("registerPage.recruiter")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -138,51 +148,53 @@ const RegisterPage = () => {
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              Register
+              {t("registerPage.register")}
             </Button>
 
-            <div className="flex items-center gap-3 ">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
               <Button
                 type="button"
                 variant="outline"
-                className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
+                className="flex-1 min-w-0 mt-2 flex items-center justify-center gap-2 border border-gray-300 break-words whitespace-normal"
                 onClick={() => {
-                  showSuccess("Google sign in successful! Redirecting...");
+                  showSuccess("Google login successful! Redirecting...");
                   setTimeout(() => {
                     navigate("/hospital/dashboard");
                   }, 1500);
                 }}
               >
-                <FaGoogle className="text-blue-500" /> Sign in with Google
+                <FaGoogle className="text-blue-500" />{" "}
+                {t("loginPage.loginWithGoogle")}
               </Button>
 
               <Button
                 type="button"
                 variant="outline"
-                className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-300"
+                className="flex-1 min-w-0 mt-2 flex items-center justify-center gap-2 border border-gray-300 break-words whitespace-normal"
                 onClick={() => {
-                  showSuccess("Facebook sign in successful! Redirecting...");
+                  showSuccess("Facebook login successful! Redirecting...");
                   setTimeout(() => {
                     navigate("/hospital/dashboard");
                   }, 1500);
                 }}
               >
-                <FaFacebook className="text-blue-500" /> Sign in with Facebook
+                <FaFacebook className="text-blue-500" />{" "}
+                {t("loginPage.loginWithFacebook")}
               </Button>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col items-center space-y-2">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Already have an account?{" "}
+            {t("registerPage.haveAccount")}{" "}
             <Link
               to="/login"
               className="font-medium text-blue-600 hover:underline"
             >
-              Login
+              {t("registerPage.login")}
             </Link>
           </p>
-          <MadeWithDyad />
+          {/* <MadeWithDyad /> */}
         </CardFooter>
       </Card>
     </div>

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import { FaAngleDown, FaTimes } from "react-icons/fa";
 import { showSuccess } from "../../utils/toast";
+import { useTranslation } from 'react-i18next';
 
 interface RecruiterPostJobProps {
   setJobPosting: (val: boolean) => void;
@@ -35,6 +36,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
   });
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { t } = useTranslation();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -68,9 +70,9 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
     e.preventDefault();
     console.log("Submitting job:", job);
     if (mode === "edit") {
-      showSuccess("Job post updated successfully!");
+      showSuccess(t('recruiter.postJob.jobUpdatedSuccessfully'));
     } else {
-      showSuccess("Job posted successfully!");
+      showSuccess(t('recruiter.postJob.jobPostedSuccessfully'));
     }
     setTimeout(() => {
       setJobPosting(false);
@@ -85,16 +87,16 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
         onClick={() => setJobPosting(false)}
         className="mb-4 flex items-center text-blue-600 hover:underline focus:outline-none"
       >
-        <span className="mr-2">←</span> Back
+        <span className="mr-2">←</span> {t('common.back')}
       </button>
       <h2 className="text-2xl font-bold mb-6">
-        {mode === "edit" ? "Edit Job" : "Post a New Job"}
+        {mode === "edit" ? t('recruiter.postJob.editJob') : t('recruiter.postJob.title')}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Title */}
         <div>
           <label htmlFor="title" className="block font-medium mb-1">
-            Job Title
+            {t('recruiter.postJob.jobTitle')}
           </label>
           <input
             type="text"
@@ -110,7 +112,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
         {/* Company */}
         <div>
           <label htmlFor="company" className="block font-medium mb-1">
-            Company Name
+            {t('recruiter.postJob.companyName')}
           </label>
           <input
             type="text"
@@ -125,10 +127,10 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
 
         {/* Job Type */}
         <div>
-          <label className="block font-medium mb-1">Job Type</label>
+          <label className="block font-medium mb-1">{t('recruiter.postJob.jobType')}</label>
           <Select.Root value={job.type} onValueChange={handleSelect}>
             <Select.Trigger className="w-full inline-flex items-center justify-between rounded-md border border-gray-300 p-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <Select.Value placeholder="Select job type" />
+              <Select.Value placeholder={t('recruiter.postJob.selectJobType')} />
               <Select.Icon>
                 <FaAngleDown />
               </Select.Icon>
@@ -154,7 +156,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
         {/* Image Upload */}
         <div>
           <label htmlFor="image" className="block font-medium mb-1">
-            Upload Images
+            {t('recruiter.postJob.uploadImages')}
           </label>
           <input
             ref={fileInputRef}
@@ -170,7 +172,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
             onClick={handleFileButtonClick}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Choose Images
+            {t('recruiter.postJob.chooseImages')}
           </button>
 
           {/* Preview */}
@@ -214,7 +216,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
         {/* Description */}
         <div>
           <label htmlFor="description" className="block font-medium mb-1">
-            Job Description
+            {t('recruiter.postJob.jobDescription')}
           </label>
           <textarea
             name="description"
@@ -231,7 +233,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
         >
-          {mode === "edit" ? "Save Changes" : "Post Job"}
+          {mode === "edit" ? t('recruiter.postJob.saveChanges') : t('recruiter.postJob.postJob')}
         </button>
       </form>
     </div>
