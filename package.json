@@ -8,7 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup-trustii": "node setup-trustii.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",

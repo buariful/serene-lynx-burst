@@ -74,42 +74,7 @@ const torontoBoundary: {
   },
 };
 
-// Helper function to calculate the cross product of three points
-const cross_product = (o, a, b) => {
-  return (a.lng - o.lng) * (b.lat - o.lat) - (a.lat - o.lat) * (b.lng - o.lng);
-};
 
-// Monotone Chain algorithm to find the convex hull of a set of points
-const getConvexHull = (points) => {
-  points.sort((a, b) => a.lng - b.lng || a.lat - b.lat);
-
-  const lower = [];
-  for (const p of points) {
-    while (
-      lower.length >= 2 &&
-      cross_product(lower[lower.length - 2], lower[lower.length - 1], p) <= 0
-    ) {
-      lower.pop();
-    }
-    lower.push(p);
-  }
-
-  const upper = [];
-  for (let i = points.length - 1; i >= 0; i--) {
-    const p = points[i];
-    while (
-      upper.length >= 2 &&
-      cross_product(upper[upper.length - 2], upper[upper.length - 1], p) <= 0
-    ) {
-      upper.pop();
-    }
-    upper.push(p);
-  }
-
-  upper.pop();
-  lower.pop();
-  return lower.concat(upper);
-};
 
 // Custom square money markers
 const createMoneySquareMarker = (amount: number) => {
@@ -128,7 +93,6 @@ const createMoneySquareMarker = (amount: number) => {
 const MapLogic = () => {
   const map = useMap();
   const markerClusterRef = useRef<L.MarkerClusterGroup | null>(null);
-  const boundaryRef = useRef<L.Polygon | null>(null);
 
   useEffect(() => {
     markerClusterRef.current = L.markerClusterGroup({
@@ -183,24 +147,14 @@ const MapLogic = () => {
 
     map.addLayer(markerClusterRef.current);
 
-    // Calculate and draw the convex hull boundary
-    const hullPoints = getConvexHull(allMarkerPoints);
-    boundaryRef.current = L.polygon(hullPoints, {
-      color: "#000",
-      weight: 1,
-      opacity: 0.8,
-      fillOpacity: 0.1,
-    }).addTo(map);
-
-    // Fit map to the new boundary
-    map.fitBounds(boundaryRef.current.getBounds());
+    // Fit map to show all markers without boundary
+    if (markerClusterRef.current) {
+      map.fitBounds(markerClusterRef.current.getBounds());
+    }
 
     return () => {
       if (markerClusterRef.current) {
         map.removeLayer(markerClusterRef.current);
-      }
-      if (boundaryRef.current) {
-        map.removeLayer(boundaryRef.current);
       }
     };
   }, [map]);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import {
   Popover,
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/drawer";
 import { toast } from "sonner";
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 const NavSearchFilter: React.FC = () => {
   const [isPriceRangeOpen, setPriceRangeOpen] = useState(false);
@@ -30,7 +31,16 @@ const NavSearchFilter: React.FC = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 3900]);
   const [selectedAptType, setSelectedAptType] = useState<number>();
   const [selectedBedType, setSelectedBedType] = useState<number | string>();
+  const [searchTerm, setSearchTerm] = useState("");
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // Pre-populate search term from URL state
+  useEffect(() => {
+    if (location.state && location.state.searchTerm) {
+      setSearchTerm(location.state.searchTerm);
+    }
+  }, [location.state]);
 
   const apartmentTypes = [
     { id: 1, name: t('navSearchFilter.allApartments'), icon: LuBuilding },
@@ -114,6 +124,8 @@ const NavSearchFilter: React.FC = () => {
             </span>
             <input
               type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={t('navSearchFilter.searchPlaceholder')}
               className="flex-1 text-sm outline-none bg-gray-200 text-gray-700 placeholder-gray-400 py-2 h-full rounded-full pl-1"
             />
