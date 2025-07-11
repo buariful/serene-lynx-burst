@@ -5,16 +5,6 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from 'react-i18next';
 
-const sidebarItems = [
-  { key: "dashboard", label: "Dashboard" },
-  { key: "jobs", label: "Applied Jobs" },
-  // { key: "orders", label: "Buying Orders" },
-  { key: "rentals", label: "Rental Services" },
-  { key: "profile", label: "Profile" },
-  { key: "marketplace", label: "Marketplace", route: "/tenant/marketplace" },
-  { key: "logout", label: "Logout", route: "/login" },
-];
-
 const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -383,6 +373,16 @@ const TenantDashboardPage = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const { t } = useTranslation();
 
+  const sidebarItems = [
+    { key: "dashboard", label: t('navigation.dashboard') },
+    { key: "jobs", label: t('navigation.jobs') },
+    // { key: "orders", label: "Buying Orders" },
+    { key: "rentals", label: t('navigation.rentalServices') },
+    { key: "profile", label: t('navigation.profile') },
+    { key: "marketplace", label: t('navigation.marketplace'), route: "/tenant/marketplace" },
+    { key: "logout", label: t('navigation.logout'), route: "/login" },
+  ];
+
   const handleDownload = () => {
     // URL to a dummy PDF file
     const pdfUrl =
@@ -409,7 +409,7 @@ const TenantDashboardPage = () => {
       <DashboardHeader />
       <div className="min-h-screen bg-gray-50 dark:bg-[hsl(var(--background))] flex">
         {/* Sidebar */}
-        <aside className="w-56 p-6 bg-white border-r flex flex-col">
+        <aside className="w-56 p-6 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
           <nav className="flex flex-col gap-2">
             {sidebarItems.map((item) => (
               <button
@@ -433,9 +433,9 @@ const TenantDashboardPage = () => {
           {activeTab === "rentals" && <TenantRentalServicePage />}
           {activeTab === "billing" && (
             <>
-              <h2 className="text-3xl font-bold mb-2 text-[hsl(var(--foreground))]">Billing & Payments</h2>
+              <h2 className="text-3xl font-bold mb-2 text-[hsl(var(--foreground))]">{t('tenant.billing.title')}</h2>
               <p className="text-gray-600 dark:text-[hsl(var(--muted-foreground))] mb-6">
-                Review your payment history and download invoices.
+                {t('tenant.billing.description')}
               </p>
               <div className="bg-white dark:bg-[hsl(var(--card))] border rounded-lg shadow-sm">
                 <ul className="divide-y divide-gray-200">
@@ -447,7 +447,7 @@ const TenantDashboardPage = () => {
                       <div>
                         <p className="font-semibold text-[hsl(var(--foreground))]">{payment.item}</p>
                                                  <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">
-                            Paid on {payment.date}
+                            {t('tenant.billing.paidOn')} {payment.date}
                           </p>
                       </div>
                       <div className="text-right">
@@ -456,7 +456,7 @@ const TenantDashboardPage = () => {
                           className="text-sm text-blue-600 hover:underline"
                           onClick={handleDownload}
                         >
-                          Download Invoice
+                          {t('tenant.billing.downloadInvoice')}
                         </button>
                       </div>
                     </li>
@@ -467,7 +467,7 @@ const TenantDashboardPage = () => {
           )}
           {activeTab === "profile" && (
             <>
-              <h2 className="text-3xl font-bold mb-6 text-[hsl(var(--foreground))]">My Profile</h2>
+              <h2 className="text-3xl font-bold mb-6 text-[hsl(var(--foreground))]">{t('tenant.account.title')}</h2>
               <div className="bg-white dark:bg-[hsl(var(--card))] border rounded-lg shadow-sm p-8 max-w-2xl">
                 <div className="flex items-start space-x-6">
                   <img
@@ -482,39 +482,39 @@ const TenantDashboardPage = () => {
                     <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{userProfile.email}</p>
                     <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{userProfile.phone}</p>
                   </div>
-                  <Button variant="outline">Edit Profile</Button>
+                  <Button variant="outline">{t('common.edit')} {t('navigation.profile')}</Button>
                 </div>
-                <div className="mt-8 border-t pt-6">
-                  <h4 className="text-lg font-semibold text-gray-700 dark:text-[hsl(var(--foreground))] mb-4">
-                    Address
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">Street</p>
-                      <p className="font-medium text-[hsl(var(--foreground))]">
-                        {userProfile.address.street}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">City</p>
-                      <p className="font-medium text-[hsl(var(--foreground))]">
-                        {userProfile.address.city}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">Province</p>
-                      <p className="font-medium text-[hsl(var(--foreground))]">
-                        {userProfile.address.province}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">Postal Code</p>
-                      <p className="font-medium text-[hsl(var(--foreground))]">
-                        {userProfile.address.postalCode}
-                      </p>
+                                  <div className="mt-8 border-t pt-6">
+                    <h4 className="text-lg font-semibold text-gray-700 dark:text-[hsl(var(--foreground))] mb-4">
+                      {t('tenant.account.address')}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenant.account.street')}</p>
+                        <p className="font-medium text-[hsl(var(--foreground))]">
+                          {userProfile.address.street}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenant.account.city')}</p>
+                        <p className="font-medium text-[hsl(var(--foreground))]">
+                          {userProfile.address.city}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenant.account.province')}</p>
+                        <p className="font-medium text-[hsl(var(--foreground))]">
+                          {userProfile.address.province}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenant.account.postalCode')}</p>
+                        <p className="font-medium text-[hsl(var(--foreground))]">
+                          {userProfile.address.postalCode}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
               </div>
             </>
           )}

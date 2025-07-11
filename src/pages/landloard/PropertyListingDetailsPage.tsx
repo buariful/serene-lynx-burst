@@ -64,43 +64,7 @@ import {
 import LandlordDashboardWrapper from "@/components/LandlordDashboardWrapper";
 import { useTranslation } from "react-i18next";
 
-// Sample Amenities Data
-const initialAmenityCategories: AmenityCategory[] = [
-  {
-    id: "building",
-    name: "Building Features",
-    amenities: [
-      { id: "elevator", label: "Elevator", checked: false },
-      { id: "gym", label: "Fitness Center", checked: false },
-      { id: "pool", label: "Swimming Pool", checked: false },
-      { id: "laundry", label: "On-site Laundry", checked: false },
-      { id: "parking", label: "Parking Available", checked: false },
-      { id: "concierge", label: "Concierge", checked: false },
-    ],
-  },
-  {
-    id: "unit",
-    name: "Unit Features",
-    amenities: [
-      { id: "ac", label: "Air Conditioning", checked: false },
-      { id: "balcony", label: "Balcony/Patio", checked: false },
-      { id: "dishwasher", label: "Dishwasher", checked: false },
-      { id: "hardwood", label: "Hardwood Floors", checked: false },
-      { id: "fireplace", label: "Fireplace", checked: false },
-      { id: "kitchen", label: "Modern Kitchen", checked: false },
-    ],
-  },
-  {
-    id: "nearby",
-    name: "Nearby Amenities",
-    amenities: [
-      { id: "transit", label: "Public Transit", checked: false },
-      { id: "shops", label: "Shopping", checked: false },
-      { id: "parks", label: "Parks", checked: false },
-      { id: "schools", label: "Schools", checked: false },
-    ],
-  },
-];
+// Sample Amenities Data - will be initialized inside component
 
 const PropertyListingDetailsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -115,6 +79,45 @@ const PropertyListingDetailsPage: React.FC = () => {
   const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
 
   const [description, setDescription] = useState("");
+  
+  // Initialize amenity categories with translations
+  const initialAmenityCategories: AmenityCategory[] = [
+    {
+      id: "building",
+      name: t('propertyListingDetails.buildingFeatures'),
+      amenities: [
+        { id: "elevator", label: t('propertyListingDetails.elevator'), checked: false },
+        { id: "gym", label: t('propertyListingDetails.fitnessCenter'), checked: false },
+        { id: "pool", label: t('propertyListingDetails.swimmingPool'), checked: false },
+        { id: "laundry", label: t('propertyListingDetails.onSiteLaundry'), checked: false },
+        { id: "parking", label: t('propertyListingDetails.parkingAvailable'), checked: false },
+        { id: "concierge", label: t('propertyListingDetails.concierge'), checked: false },
+      ],
+    },
+    {
+      id: "unit",
+      name: t('propertyListingDetails.unitFeatures'),
+      amenities: [
+        { id: "ac", label: t('propertyListingDetails.airConditioning'), checked: false },
+        { id: "balcony", label: t('propertyListingDetails.balconyPatio'), checked: false },
+        { id: "dishwasher", label: t('propertyListingDetails.dishwasher'), checked: false },
+        { id: "hardwood", label: t('propertyListingDetails.hardwoodFloors'), checked: false },
+        { id: "fireplace", label: t('propertyListingDetails.fireplace'), checked: false },
+        { id: "kitchen", label: t('propertyListingDetails.modernKitchen'), checked: false },
+      ],
+    },
+    {
+      id: "nearby",
+      name: t('propertyListingDetails.nearbyAmenities'),
+      amenities: [
+        { id: "transit", label: t('propertyListingDetails.publicTransit'), checked: false },
+        { id: "shops", label: t('propertyListingDetails.shopping'), checked: false },
+        { id: "parks", label: t('propertyListingDetails.parks'), checked: false },
+        { id: "schools", label: t('propertyListingDetails.schools'), checked: false },
+      ],
+    },
+  ];
+  
   const [amenityCategories, setAmenityCategories] = useState<AmenityCategory[]>(
     initialAmenityCategories
   );

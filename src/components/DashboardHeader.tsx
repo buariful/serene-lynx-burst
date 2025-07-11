@@ -44,113 +44,6 @@ type MegaMenuItem = {
   component: React.ElementType;
 };
 
-const desktopNavLinks: MegaMenuItem[] = [
-  // Simplified to always use MegaMenuItem type for consistency
-  {
-    type: "megaMenu",
-    id: "medical-schools-mega-menu",
-    label: "Medical Schools",
-    component: MedicalSchoolMegaMenu,
-  },
-  {
-    type: "megaMenu",
-    id: "hospitals-mega-menu",
-    label: "Hospitals",
-    component: HospitalMegaMenu,
-  },
-  // Convert other links to a compatible type or handle them differently if they don't use mega menus
-  // For now, let's assume Landlords and Contact Us might become mega menus or simple links.
-  // To keep them as simple links for now, we'd need to adjust the mapping logic or type.
-  // Let's make them simple links for this update.
-];
-
-// Simple links for items that are not mega menus
-const simpleDesktopNavLinks: NavLinkItem[] = [
-  { type: "link", href: "/landlords", label: "Landlords" },
-  { type: "link", href: "/contact-us", label: "Contact Us" },
-];
-
-// Fix 1: Define a type for the button action
-// Define a type for the button action
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DrawerButtonAction = (
-  navigate: ReturnType<typeof useNavigate>,
-  closeMenu: () => void
-) => void;
-
-const drawerMenuItems = [
-  {
-    type: "link" as const,
-    label: "Medical Schools",
-    href: "/medical-schools",
-  },
-  {
-    type: "link" as const,
-    label: "Hospitals",
-    href: "/hospitals",
-  },
-  {
-    type: "link" as const,
-    label: "Landlords",
-    href: "/landlords",
-  },
-  {
-    type: "link" as const,
-    label: "Contact Us",
-    href: "/contact-us",
-  },
-  { type: "separator" as const },
-  {
-    type: "link" as const,
-    label: "Tenant Insurance",
-    href: "/tenant-insurance",
-  },
-  {
-    type: "link" as const,
-    label: "Tenant Notice",
-    href: "/tenant-notice",
-  },
-  {
-    type: "link" as const,
-    label: "Landlord Verify Identity",
-    href: "/landlord-verify",
-  },
-  { type: "link" as const, label: "About", href: "/about" },
-  { type: "link" as const, label: "FAQ", href: "/faq" },
-  { type: "link" as const, label: "Blog", href: "/blog" },
-  {
-    type: "link" as const,
-    label: "Job Board",
-    href: "/job-board",
-  },
-  {
-    type: "link" as const,
-    label: "Medical Rentals",
-    href: "/medical-rentals",
-  },
-  {
-    type: "link" as const,
-    label: "Search Near Me",
-    href: "/search-near-me",
-  },
-  {
-    type: "link" as const,
-    label: "Search by Map",
-    href: "/apartment",
-  },
-  { type: "separator" as const },
-  {
-    type: "link" as const,
-    label: "Terms & Conditions",
-    href: "/terms",
-  },
-  {
-    type: "link" as const,
-    label: "Privacy Policy",
-    href: "/privacy",
-  },
-];
-
 const DashboardHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -168,6 +61,113 @@ const DashboardHeader = () => {
   const getCurrentLanguageFullName = () => {
     return i18n.language === 'fr' ? 'Français' : 'English';
   };
+
+  // Fix 1: Define a type for the button action
+  // Define a type for the button action
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type DrawerButtonAction = (
+    navigate: ReturnType<typeof useNavigate>,
+    closeMenu: () => void
+  ) => void;
+
+  const desktopNavLinks: MegaMenuItem[] = [
+    // Simplified to always use MegaMenuItem type for consistency
+    {
+      type: "megaMenu",
+      id: "medical-schools-mega-menu",
+      label: t('header.medicalSchools'),
+      component: MedicalSchoolMegaMenu,
+    },
+    {
+      type: "megaMenu",
+      id: "hospitals-mega-menu",
+      label: t('header.hospitals'),
+      component: HospitalMegaMenu,
+    },
+    // Convert other links to a compatible type or handle them differently if they don't use mega menus
+    // For now, let's assume Landlords and Contact Us might become mega menus or simple links.
+    // To keep them as simple links for now, we'd need to adjust the mapping logic or type.
+    // Let's make them simple links for this update.
+  ];
+
+  // Simple links for items that are not mega menus
+  const simpleDesktopNavLinks: NavLinkItem[] = [
+    { type: "link", href: "/landlords", label: t('header.landlords') },
+    { type: "link", href: "/contact-us", label: t('header.contactUs') },
+  ];
+
+  const drawerMenuItems = [
+    {
+      type: "link" as const,
+      label: t('header.medicalSchools'),
+      href: "/medical-schools",
+    },
+    {
+      type: "link" as const,
+      label: t('header.hospitals'),
+      href: "/hospitals",
+    },
+    {
+      type: "link" as const,
+      label: t('header.landlords'),
+      href: "/landlords",
+    },
+    {
+      type: "link" as const,
+      label: t('header.contactUs'),
+      href: "/contact-us",
+    },
+    { type: "separator" as const },
+    {
+      type: "link" as const,
+      label: t('header.tenantInsurance'),
+      href: "/tenant-insurance",
+    },
+    {
+      type: "link" as const,
+      label: t('header.tenantNotice'),
+      href: "/tenant-notice",
+    },
+    {
+      type: "link" as const,
+      label: t('header.landlordVerifyIdentity'),
+      href: "/landlord-verify",
+    },
+    { type: "link" as const, label: t('header.about'), href: "/about" },
+    { type: "link" as const, label: t('header.faq'), href: "/faq" },
+    { type: "link" as const, label: t('header.blog'), href: "/blog" },
+    {
+      type: "link" as const,
+      label: t('header.jobBoard'),
+      href: "/job-board",
+    },
+    {
+      type: "link" as const,
+      label: t('header.medicalRentals'),
+      href: "/medical-rentals",
+    },
+    {
+      type: "link" as const,
+      label: t('header.searchNearMe'),
+      href: "/search-near-me",
+    },
+    {
+      type: "link" as const,
+      label: t('header.searchByMap'),
+      href: "/apartment",
+    },
+    { type: "separator" as const },
+    {
+      type: "link" as const,
+      label: t('header.termsConditions'),
+      href: "/terms",
+    },
+    {
+      type: "link" as const,
+      label: t('header.privacyPolicy'),
+      href: "/privacy",
+    },
+  ];
 
   return (
     <header className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
@@ -224,16 +224,16 @@ const DashboardHeader = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
                 <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard">{t('navigation.dashboard')}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/profile">{t('navigation.profile')}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <Link to="/settings">Settings</Link>
+                  <Link to="/settings">{t('navigation.settings')}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <Link to="/login">Logout</Link>
+                  <Link to="/login">{t('navigation.logout')}</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -255,13 +255,13 @@ const DashboardHeader = () => {
                     onSelect={() => handleLanguageChange('en')}
                     className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    English
+                    {t('languages.en')}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onSelect={() => handleLanguageChange('fr')}
                     className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    Français
+                    {t('languages.fr')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -337,7 +337,7 @@ const DashboardHeader = () => {
                           }}
                           className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
-                          English
+                          {t('languages.en')}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onSelect={() => {
@@ -346,7 +346,7 @@ const DashboardHeader = () => {
                           }}
                           className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
-                          Français
+                          {t('languages.fr')}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

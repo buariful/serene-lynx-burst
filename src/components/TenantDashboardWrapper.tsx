@@ -3,17 +3,19 @@ import { Link, useLocation } from "react-router-dom";
 import { Home, User2 } from "lucide-react";
 import Header from "@/components/Header";
 import { IoIosLogOut } from "react-icons/io";
-
-const sidebarItems = [
-  { label: "Dashboard", icon: Home, path: "/tenant/dashboard" },
-  { label: "Account", icon: User2, path: "/tenant/account" },
-  { label: "Logout", icon: IoIosLogOut, path: "/login" },
-];
+import { useTranslation } from 'react-i18next';
 
 const TenantDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const location = useLocation();
+  const { t } = useTranslation();
+
+  const sidebarItems = [
+    { label: t('navigation.dashboard'), icon: Home, path: "/tenant/dashboard" },
+    { label: t('navigation.account'), icon: User2, path: "/tenant/account" },
+    { label: t('navigation.logout'), icon: IoIosLogOut, path: "/login" },
+  ];
   return (
     <>
       <Header />

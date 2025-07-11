@@ -11,21 +11,23 @@ import {
 } from "lucide-react";
 import DashboardHeader from "./DashboardHeader";
 import { IoIosLogOut } from "react-icons/io";
-
-const sidebarItems = [
-  { label: "Listings", icon: Building2, path: "/landlord/dashboard" },
-  { label: "Notifications", icon: Bell, path: "/landlord/notifications" },
-  { label: "Drafts", icon: Pencil, path: "/landlord/drafts" },
-  { label: "Alerts", icon: AlertCircle, path: "/landlord/alerts" },
-  { label: "Favourites", icon: Heart, path: "/landlord/favourites" },
-  { label: "Account", icon: User2, path: "/landlord/account" },
-  { label: "Logout", icon: IoIosLogOut, path: "/login" },
-];
+import { useTranslation } from 'react-i18next';
 
 const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const location = useLocation();
+  const { t } = useTranslation();
+
+  const sidebarItems = [
+    { label: t('navigation.listings'), icon: Building2, path: "/landlord/dashboard" },
+    { label: t('navigation.notifications'), icon: Bell, path: "/landlord/notifications" },
+    { label: t('navigation.drafts'), icon: Pencil, path: "/landlord/drafts" },
+    { label: t('navigation.alerts'), icon: AlertCircle, path: "/landlord/alerts" },
+    { label: t('navigation.favourites'), icon: Heart, path: "/landlord/favourites" },
+    { label: t('navigation.account'), icon: User2, path: "/landlord/account" },
+    { label: t('navigation.logout'), icon: IoIosLogOut, path: "/login" },
+  ];
   return (
     <>
       <DashboardHeader />

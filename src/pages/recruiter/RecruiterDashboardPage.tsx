@@ -83,14 +83,6 @@ const allApplications = jobs.flatMap((job) =>
   }))
 );
 
-const sidebarItems = [
-  { key: "dashboard", label: "Dashboard" },
-  { key: "jobs", label: "Jobs" },
-  { key: "applicants", label: "Applicants" },
-  { key: "profile", label: "Profile" },
-  { key: "logout", label: "Logout", route: "/login" },
-];
-
 const RecruiterDashboardPage = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isPostingJob, setJobPosting] = useState(false);
@@ -102,6 +94,14 @@ const RecruiterDashboardPage = () => {
 
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const sidebarItems = [
+    { key: "dashboard", label: t('navigation.dashboard') },
+    { key: "jobs", label: t('navigation.jobs') },
+    { key: "applicants", label: t('navigation.applicants') },
+    { key: "profile", label: t('navigation.profile') },
+    { key: "logout", label: t('navigation.logout'), route: "/login" },
+  ];
 
   // Stats
   const totalJobs = jobs.length;

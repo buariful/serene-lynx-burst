@@ -13,6 +13,7 @@ import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { useTrustii } from '@/hooks/useTrustii';
 import { TrustiiCreateInquiryRequest } from '@/types/trustii';
 import { showSuccess, showError } from '@/utils/toast';
+import { useTranslation } from 'react-i18next';
 
 // Form validation schema
 const inquirySchema = z.object({
@@ -54,8 +55,10 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
   onSuccess,
   onError,
 }) => {
+  const { t } = useTranslation();
   const { createInquiry, loading, error, inquiry } = useTrustii();
   const [showEmploymentDetails, setShowEmploymentDetails] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -108,7 +111,7 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
 
       await createInquiry(inquiryData);
       
-      showSuccess('Inquiry created successfully!');
+      showSuccess(t('trustii.form.inquiryCreatedSuccess'));
       onSuccess?.(inquiry?.id || '');
       
       // Reset form after successful submission
@@ -126,24 +129,24 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CheckCircle className="h-5 w-5 text-green-600" />
-            Inquiry Created Successfully
+            {t('trustii.form.inquiryCreatedSuccessfully')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <p className="text-sm text-gray-600">
-              Your inquiry has been submitted and is being processed.
+              {t('trustii.form.inquirySubmittedProcessing')}
             </p>
             <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm font-medium">Inquiry ID: {inquiry.id}</p>
-              <p className="text-sm text-gray-600">Status: {inquiry.status}</p>
+              <p className="text-sm font-medium">{t('trustii.form.inquiryId')}: {inquiry.id}</p>
+              <p className="text-sm text-gray-600">{t('trustii.form.status')}: {inquiry.status}</p>
             </div>
             <Button
               onClick={() => window.location.reload()}
               variant="outline"
               className="w-full"
             >
-              Create Another Inquiry
+              {t('trustii.form.createAnotherInquiry')}
             </Button>
           </div>
         </CardContent>
@@ -154,24 +157,24 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle>Human Resources Verification Request</CardTitle>
+        <CardTitle>{t('trustii.form.humanResourcesVerificationRequest')}</CardTitle>
         <p className="text-sm text-gray-600">
-          Please provide the required information to initiate a background verification.
+          {t('trustii.form.provideRequiredInformation')}
         </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Personal Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Personal Information</h3>
+            <h3 className="text-lg font-medium">{t('trustii.form.personalInformation')}</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="first_name">First Name *</Label>
+                <Label htmlFor="first_name">{t('trustii.form.firstName')} *</Label>
                 <Input
                   id="first_name"
                   {...register('first_name')}
-                  placeholder="Enter first name"
+                  placeholder={t('trustii.form.enterFirstName')}
                 />
                 {errors.first_name && (
                   <p className="text-sm text-red-600 mt-1">{errors.first_name.message}</p>
@@ -179,11 +182,11 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
               </div>
 
               <div>
-                <Label htmlFor="last_name">Last Name *</Label>
+                <Label htmlFor="last_name">{t('trustii.form.lastName')} *</Label>
                 <Input
                   id="last_name"
                   {...register('last_name')}
-                  placeholder="Enter last name"
+                  placeholder={t('trustii.form.enterLastName')}
                 />
                 {errors.last_name && (
                   <p className="text-sm text-red-600 mt-1">{errors.last_name.message}</p>
@@ -193,12 +196,12 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">{t('trustii.form.emailAddress')}</Label>
                 <Input
                   id="email"
                   type="email"
                   {...register('email')}
-                  placeholder="Enter email address"
+                  placeholder={t('trustii.form.enterEmail')}
                 />
                 {errors.email && (
                   <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
@@ -206,11 +209,11 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
               </div>
 
               <div>
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">{t('trustii.form.phoneNumber')}</Label>
                 <Input
                   id="phone"
                   {...register('phone')}
-                  placeholder="Enter phone number"
+                  placeholder={t('trustii.form.enterPhone')}
                 />
                 {errors.phone && (
                   <p className="text-sm text-red-600 mt-1">{errors.phone.message}</p>
@@ -219,7 +222,7 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
             </div>
 
             <div>
-              <Label htmlFor="date_of_birth">Date of Birth</Label>
+              <Label htmlFor="date_of_birth">{t('trustii.form.dateOfBirth')}</Label>
               <Input
                 id="date_of_birth"
                 type="date"
@@ -230,52 +233,52 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
 
           {/* Address Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Address Information (Optional)</h3>
+            <h3 className="text-lg font-medium">{t('trustii.form.addressInformation')}</h3>
             
             <div>
-              <Label htmlFor="street">Street Address</Label>
+              <Label htmlFor="street">{t('trustii.form.streetAddress')}</Label>
               <Input
                 id="street"
                 {...register('address.street')}
-                placeholder="Enter street address"
+                placeholder={t('trustii.form.enterStreet')}
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Label htmlFor="city">City</Label>
+                <Label htmlFor="city">{t('trustii.form.city')}</Label>
                 <Input
                   id="city"
                   {...register('address.city')}
-                  placeholder="Enter city"
+                  placeholder={t('trustii.form.enterCity')}
                 />
               </div>
 
               <div>
-                <Label htmlFor="state">State/Province</Label>
+                <Label htmlFor="state">{t('trustii.form.stateProvince')}</Label>
                 <Input
                   id="state"
                   {...register('address.state')}
-                  placeholder="Enter state"
+                  placeholder={t('trustii.form.enterState')}
                 />
               </div>
 
               <div>
-                <Label htmlFor="postal_code">Postal Code</Label>
+                <Label htmlFor="postal_code">{t('trustii.form.postalCode')}</Label>
                 <Input
                   id="postal_code"
                   {...register('address.postal_code')}
-                  placeholder="Enter postal code"
+                  placeholder={t('trustii.form.enterPostalCode')}
                 />
               </div>
             </div>
 
             <div>
-              <Label htmlFor="country">Country</Label>
+              <Label htmlFor="country">{t('trustii.form.country')}</Label>
               <Input
                 id="country"
                 {...register('address.country')}
-                placeholder="Enter country"
+                placeholder={t('trustii.form.enterCountry')}
               />
             </div>
           </div>
@@ -283,14 +286,14 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
           {/* Employment Details */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium">Employment Details</h3>
+              <h3 className="text-lg font-medium">{t('trustii.form.employmentDetails')}</h3>
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setShowEmploymentDetails(!showEmploymentDetails)}
               >
-                {showEmploymentDetails ? 'Hide' : 'Add'} Employment Details
+                {showEmploymentDetails ? t('trustii.form.hideEmploymentDetails') : t('trustii.form.addEmploymentDetails')}
               </Button>
             </div>
 
@@ -298,11 +301,11 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
               <div className="space-y-4 p-4 border rounded-lg">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="company_name">Company Name *</Label>
+                    <Label htmlFor="company_name">{t('trustii.form.companyName')} *</Label>
                     <Input
                       id="company_name"
                       {...register('employment_details.company_name')}
-                      placeholder="Enter company name"
+                      placeholder={t('trustii.form.enterCompany')}
                     />
                     {errors.employment_details?.company_name && (
                       <p className="text-sm text-red-600 mt-1">
@@ -312,11 +315,11 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
                   </div>
 
                   <div>
-                    <Label htmlFor="position">Position *</Label>
+                    <Label htmlFor="position">{t('trustii.form.position')} *</Label>
                     <Input
                       id="position"
                       {...register('employment_details.position')}
-                      placeholder="Enter position"
+                      placeholder={t('trustii.form.enterPosition')}
                     />
                     {errors.employment_details?.position && (
                       <p className="text-sm text-red-600 mt-1">
@@ -328,7 +331,7 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="start_date">Start Date *</Label>
+                    <Label htmlFor="start_date">{t('trustii.form.startDate')} *</Label>
                     <Input
                       id="start_date"
                       type="date"
@@ -342,7 +345,7 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
                   </div>
 
                   <div>
-                    <Label htmlFor="end_date">End Date</Label>
+                    <Label htmlFor="end_date">{t('trustii.form.endDate')}</Label>
                     <Input
                       id="end_date"
                       type="date"
@@ -353,21 +356,21 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="salary">Salary (Annual)</Label>
+                    <Label htmlFor="salary">{t('trustii.form.salary')}</Label>
                     <Input
                       id="salary"
                       type="number"
                       {...register('employment_details.salary', { valueAsNumber: true })}
-                      placeholder="Enter annual salary"
+                      placeholder={t('trustii.form.enterSalary')}
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="reason_for_leaving">Reason for Leaving</Label>
+                    <Label htmlFor="reason_for_leaving">{t('trustii.form.reasonForLeaving')}</Label>
                     <Input
                       id="reason_for_leaving"
                       {...register('employment_details.reason_for_leaving')}
-                      placeholder="Enter reason for leaving"
+                      placeholder={t('trustii.form.enterReason')}
                     />
                   </div>
                 </div>
@@ -378,11 +381,11 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
           {/* Purpose and Consent */}
           <div className="space-y-4">
             <div>
-              <Label htmlFor="purpose">Purpose of Verification *</Label>
+              <Label htmlFor="purpose">{t('trustii.form.purposeOfVerification')} *</Label>
               <Textarea
                 id="purpose"
                 {...register('purpose')}
-                placeholder="Please describe the purpose of this verification"
+                placeholder={t('trustii.form.purposeDescription')}
                 rows={3}
               />
               {errors.purpose && (
@@ -394,22 +397,18 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
               <Checkbox
                 id="consent"
                 {...register('consent')}
-                checked={consent}
+                className="mt-1"
               />
-              <div className="space-y-1">
-                <Label htmlFor="consent" className="text-sm">
-                  I consent to the background verification process *
-                </Label>
-                <p className="text-xs text-gray-600">
-                  By checking this box, you authorize the verification of the information provided
-                  and understand that this process may include employment, education, and criminal
-                  background checks as applicable.
+              <Label htmlFor="consent" className="text-sm">
+                {t('trustii.form.consent')}
+                <p className="text-xs text-gray-500 mt-1">
+                  {t('trustii.form.consentDescription')}
                 </p>
-                {errors.consent && (
-                  <p className="text-sm text-red-600">{errors.consent.message}</p>
-                )}
-              </div>
+              </Label>
             </div>
+            {errors.consent && (
+              <p className="text-sm text-red-600 mt-1">{errors.consent.message}</p>
+            )}
           </div>
 
           {/* Error Display */}
@@ -423,17 +422,10 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
           {/* Submit Button */}
           <Button
             type="submit"
-            disabled={loading}
+            disabled={isSubmitting}
             className="w-full"
           >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating Inquiry...
-              </>
-            ) : (
-              'Submit Verification Request'
-            )}
+            {isSubmitting ? t('common.loading') : t('trustii.form.submit')}
           </Button>
         </form>
       </CardContent>
