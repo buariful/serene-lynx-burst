@@ -264,19 +264,19 @@ export default function PropertyDetailsPublicPage() {
         </div>
 
         {/* Right column: fixed, contact info, book button */}
-        <div className="w-[340px] flex-shrink-0 sticky top-8 h-fit bg-white rounded-lg shadow-lg border p-6 flex flex-col gap-6">
+        <div className="w-[340px] flex-shrink-0 sticky top-8 h-fit bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-6">
           <div>
-            <h3 className="text-lg font-semibold mb-2">{t('propertyDetails.contactInformation')}</h3>
-            <div className="mb-2">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{t('propertyDetails.contactInformation')}</h3>
+            <div className="mb-2 text-gray-700 dark:text-gray-300">
               <span className="font-medium">{t('propertyDetails.phone')}:</span> {phone}
             </div>
-            <div className="mb-2">
+            <div className="mb-2 text-gray-700 dark:text-gray-300">
               <span className="font-medium">{t('propertyDetails.email')}:</span> {email}
             </div>
-            <div className="mb-2">
+            <div className="mb-2 text-gray-700 dark:text-gray-300">
               <span className="font-medium">{t('propertyDetails.address')}:</span> {address}
             </div>
-            <div className="mb-2 text-gray-500 text-sm">
+            <div className="mb-2 text-gray-500 dark:text-gray-400 text-sm">
               {t('propertyDetails.availableHours')}
             </div>
           </div>

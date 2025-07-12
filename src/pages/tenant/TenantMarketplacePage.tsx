@@ -157,23 +157,33 @@ export default function TenantMarketplacePage() {
   return (
     <>
       <DashboardHeader />
-      <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh]">
+      <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh] bg-gray-50 dark:bg-gray-900">
         {/* Sidebar for categories */}
         <aside className="w-48 mr-6 flex-shrink-0">
-          <div className="bg-white border rounded shadow-sm p-2 sticky top-4">
-            <h3 className="font-semibold mb-2 text-[#3e4153]">{t('tenant.marketplace.categories')}</h3>
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-4 sticky top-4">
+            <h3 className="font-semibold mb-3 text-gray-800 dark:text-gray-200">
+              {t('tenant.marketplace.categories')}
+            </h3>
             <ul className="space-y-1">
               {RENTAL_CATEGORIES.map((category) => (
                 <li key={category}>
                   <button
-                    className={`w-full text-left px-2 py-1 rounded transition-colors ${
+                    className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${
                       selectedCategory === category
-                        ? "bg-blue-600 text-white"
-                        : "hover:bg-gray-100 text-gray-700"
+                        ? "bg-blue-600 text-white dark:bg-blue-500"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
                     }`}
                     onClick={() => setSelectedCategory(category)}
                   >
-                    {category}
+                    {category === "All" && t('tenant.marketplace.categoryNames.all')}
+                    {category === "Apartments" && t('tenant.marketplace.categoryNames.apartments')}
+                    {category === "Rooms" && t('tenant.marketplace.categoryNames.rooms')}
+                    {category === "Houses" && t('tenant.marketplace.categoryNames.houses')}
+                    {category === "Condos" && t('tenant.marketplace.categoryNames.condos')}
+                    {category === "Basements" && t('tenant.marketplace.categoryNames.basements')}
+                    {category === "Shared Accommodation" && t('tenant.marketplace.categoryNames.sharedAccommodation')}
+                    {category === "Other Rentals" && t('tenant.marketplace.categoryNames.otherRentals')}
+                    {category === "Jobs" && t('tenant.marketplace.categoryNames.jobs')}
                   </button>
                 </li>
               ))}
@@ -184,21 +194,23 @@ export default function TenantMarketplacePage() {
         <div className="flex-1">
           {/* Tabs */}
           <div className="flex items-center gap-4 mb-6">
-            <h2 className="text-2xl font-bold text-[#2563eb] flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center gap-2">
               {t('tenant.marketplace.title')}
             </h2>
-            <div className="flex gap-6 ml-6 border-b border-[#e3e8ee] flex-1">
+            <div className="flex gap-6 ml-6 border-b border-gray-200 dark:border-gray-700 flex-1">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   className={`pb-1.5 text-base font-medium transition border-b-2 ${
                     activeTab === tab
-                      ? "border-[#2563eb] text-[#2563eb]"
-                      : "border-transparent text-[#7a9ca5] hover:text-[#2563eb]"
+                      ? "border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400"
+                      : "border-transparent text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                   onClick={() => setActiveTab(tab)}
                 >
-                  {tab}
+                  {tab === "All" && t('tenant.marketplace.tabs.all')}
+                  {tab === "Rentals" && t('tenant.marketplace.tabs.rentals')}
+                  {tab === "Jobs" && t('tenant.marketplace.tabs.jobs')}
                 </button>
               ))}
             </div>
@@ -206,19 +218,19 @@ export default function TenantMarketplacePage() {
           {/* Search and Sort */}
           <div className="flex items-center gap-3 mb-8">
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#7a9ca5] w-4 h-4" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4" />
               <input
                 type="text"
                 placeholder={t('tenant.marketplace.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-3 py-2.5 rounded-full border border-[#e3e8ee] bg-white text-[#2563eb] focus:outline-none text-sm"
+                className="w-full pl-10 pr-3 py-2.5 rounded-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm"
               />
             </div>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-5 py-2.5 rounded-full bg-[#e3e8ee] text-[#2563eb] font-medium text-sm border-none focus:ring-2 focus:ring-blue-200"
+              className="px-5 py-2.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium text-sm border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -239,7 +251,7 @@ export default function TenantMarketplacePage() {
             ))}
           </div>
           {filteredJobs.length === 0 && filteredRentals.length === 0 && (
-            <div className="text-center text-gray-400 py-8">
+            <div className="text-center text-gray-500 dark:text-gray-400 py-8">
               {t('tenant.marketplace.noListingsFound')}
             </div>
           )}
@@ -255,7 +267,7 @@ function RentalCard({ rental }: { rental: (typeof RENTALS)[number] }) {
   const { t } = useTranslation();
   return (
     <div
-      className="border rounded overflow-hidden hover:shadow-sm transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 bg-white dark:bg-gray-800"
       onClick={() => navigate(`/toronto/${encodeURIComponent(rental.address)}`)}
       role="button"
       tabIndex={0}
@@ -264,21 +276,21 @@ function RentalCard({ rental }: { rental: (typeof RENTALS)[number] }) {
           navigate(`/toronto/${encodeURIComponent(rental.address)}`);
       }}
     >
-      <div className="h-32 bg-gray-200">
+      <div className="h-32 bg-gray-200 dark:bg-gray-700">
         <img
           src={rental.image}
           alt={rental.title}
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="p-1">
-        <h3 className="font-bold text-sm mb-1 truncate">{rental.title}</h3>
-        <p className="text-gray-600 text-xs mb-1 truncate">{rental.address}</p>
-        <div className="flex flex-col gap-0.5 mt-1">
-          <span className="text-xs text-gray-500">
+      <div className="p-4">
+        <h3 className="font-bold text-sm mb-1 truncate text-gray-900 dark:text-gray-100">{rental.title}</h3>
+        <p className="text-gray-600 dark:text-gray-400 text-xs mb-2 truncate">{rental.address}</p>
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-gray-500 dark:text-gray-400">
             {rental.beds} {t('tenant.marketplace.beds')} • {rental.baths} {t('tenant.marketplace.bath')}
           </span>
-          <span className="text-xs font-semibold text-green-600">
+          <span className="text-xs font-semibold text-green-600 dark:text-green-400">
             {rental.price}
           </span>
         </div>
@@ -291,7 +303,7 @@ function JobCard({ job }: { job: (typeof JOBS)[number] }) {
   const navigate = useNavigate();
   return (
     <div
-      className="border rounded overflow-hidden hover:shadow-sm transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 bg-white dark:bg-gray-800"
       onClick={() => navigate(`/tenant/job-details/${job.id}`)}
       role="button"
       tabIndex={0}
@@ -299,7 +311,7 @@ function JobCard({ job }: { job: (typeof JOBS)[number] }) {
         if (e.key === "Enter") navigate(`/tenant/job-details/${job.id}`);
       }}
     >
-      <div className="h-32 bg-gray-200">
+      <div className="h-32 bg-gray-200 dark:bg-gray-700">
         <img
           src={
             "https://img.freepik.com/free-vector/job-interview-concept-illustration_114360-24598.jpg?semt=ais_hybrid&w=740"
@@ -308,19 +320,15 @@ function JobCard({ job }: { job: (typeof JOBS)[number] }) {
           className="w-full h-full object-cover"
         />
       </div>
-      {/* https://img.freepik.com/free-vector/job-interview-concept-illustration_114360-24598.jpg?semt=ais_hybrid&w=740 */}
-      {/* <div className="h-32 bg-blue-100 flex items-center justify-center">
-        <span className="text-blue-700 font-bold text-lg">{job.title}</span>
-      </div> */}
-      <div className="p-1">
-        <h3 className="font-bold text-sm mb-1 truncate">{job.title}</h3>
-        <p className=" text-xs mb-1 truncate">
+      <div className="p-4">
+        <h3 className="font-bold text-sm mb-1 truncate text-gray-900 dark:text-gray-100">{job.title}</h3>
+        <p className="text-gray-600 dark:text-gray-400 text-xs mb-2 truncate">
           {job.company}, {job.location}
         </p>
 
-        <div className="flex flex-col gap-0.5 mt-1">
-          <span className="text-xs text-gray-500">{job.type}</span>
-          <span className="text-xs font-semibold text-blue-700">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-gray-500 dark:text-gray-400">{job.type}</span>
+          <span className="text-xs font-semibold text-blue-700 dark:text-blue-400">
             {job.salary}
           </span>
         </div>

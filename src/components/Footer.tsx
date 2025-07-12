@@ -11,6 +11,7 @@ const Footer = () => {
       { label: t('header.about'), href: "/about" },
       { label: t('header.blog'), href: "/blog" },
       { label: t('header.contactUs'), href: "/contact-us" },
+      { label: t('footer.trustiiDemo'), href: "/trustii-demo" },
     ],
     tenants: [
       { label: t('footer.forTenants'), href: "/faq" },

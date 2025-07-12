@@ -81,7 +81,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
       alert("Booking confirmed! The property manager will contact you soon.");
     };
     return (
-      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6 relative">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 relative">
         <button
           className="absolute top-4 left-4 z-10 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 font-bold"
           onClick={() => onAddressClick && onAddressClick(null)}
@@ -181,49 +181,49 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
                 </div>
                 <TabsContent value="all">
                   <div className="space-y-2 mt-4">
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">0 Bedroom</div>
-                      <div>$1236 1 Bath 435 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">0 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1236 1 Bath 435 sq ft</div>
                     </div>
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">1 Bedroom</div>
-                      <div>$1456 1 Bath 436 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">1 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1456 1 Bath 436 sq ft</div>
                     </div>
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">2 Bedroom</div>
-                      <div>$1456 1 Bath 436 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">2 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1456 1 Bath 436 sq ft</div>
                     </div>
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">2 Bedroom</div>
-                      <div>$1456 1 Bath 436 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">2 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1456 1 Bath 436 sq ft</div>
                     </div>
                   </div>
                 </TabsContent>
                 <TabsContent value="0bed">
                   <div className="space-y-2 mt-4">
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">0 Bedroom</div>
-                      <div>$1236 1 Bath 435 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">0 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1236 1 Bath 435 sq ft</div>
                     </div>
                   </div>
                 </TabsContent>
                 <TabsContent value="1bed">
                   <div className="space-y-2 mt-4">
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">1 Bedroom</div>
-                      <div>$1456 1 Bath 436 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">1 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1456 1 Bath 436 sq ft</div>
                     </div>
                   </div>
                 </TabsContent>
                 <TabsContent value="2bed">
                   <div className="space-y-2 mt-4">
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">2 Bedroom</div>
-                      <div>$1456 1 Bath 436 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">2 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1456 1 Bath 436 sq ft</div>
                     </div>
-                    <div className="bg-gray-50 rounded p-4">
-                      <div className="font-semibold">2 Bedroom</div>
-                      <div>$1456 1 Bath 436 sq ft</div>
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                      <div className="font-semibold text-gray-900 dark:text-white">2 Bedroom</div>
+                      <div className="text-gray-700 dark:text-gray-300">$1456 1 Bath 436 sq ft</div>
                     </div>
                   </div>
                 </TabsContent>
@@ -236,7 +236,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           <h3 className="text-lg font-semibold text-blue-600 mb-2">
             Parking Information
           </h3>
-          <div className="bg-gray-50 rounded p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded p-4 text-gray-700 dark:text-gray-300">
             Parking types: Garage Parking. 1 reserved spot included. Visitor
             parking available.
           </div>
@@ -246,7 +246,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           <h3 className="text-lg font-semibold text-blue-600 mb-2">
             Features & Amenities
           </h3>
-          <div className="bg-gray-50 rounded p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded p-4 text-gray-700 dark:text-gray-300">
             {property.amenities?.join(", ") || "No amenities listed."}
           </div>
         </div>
@@ -255,21 +255,21 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           <h3 className="text-lg font-semibold text-blue-600 mb-2">
             Utilities Included
           </h3>
-          <div className="bg-gray-50 rounded p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded p-4 text-gray-700 dark:text-gray-300">
             Water, Heating, Garbage collection, Building insurance.
           </div>
         </div>
         {/* Summary */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-blue-600 mb-2">Summary</h3>
-          <div className="bg-gray-50 rounded p-4">{propertySummary}</div>
+          <div className="bg-gray-50 dark:bg-gray-700 rounded p-4 text-gray-700 dark:text-gray-300">{propertySummary}</div>
         </div>
         {/* Neighborhood */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-blue-600 mb-2">
             Neighborhood
           </h3>
-          <div className="bg-gray-50 rounded p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded p-4 text-gray-700 dark:text-gray-300">
             Located in a vibrant neighborhood with easy access to public
             transit, shopping, restaurants, and parks. Walk score: 92/100.
           </div>
@@ -279,24 +279,24 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           <h3 className="text-lg font-semibold text-blue-600 mb-2">
             Pet Policy
           </h3>
-          <div className="bg-gray-50 rounded p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded p-4 text-gray-700 dark:text-gray-300">
             Pets allowed with restrictions. Please contact for details.
           </div>
         </div>
         {/* Contact Info & Booking Button */}
-        <div className="bg-white rounded-lg shadow border p-6 flex flex-col gap-4 mt-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-4 mt-8">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Contact Information</h3>
-            <div className="mb-2">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Contact Information</h3>
+            <div className="mb-2 text-gray-700 dark:text-gray-300">
               <span className="font-medium">Phone:</span> {phoneInfo}
             </div>
-            <div className="mb-2">
+            <div className="mb-2 text-gray-700 dark:text-gray-300">
               <span className="font-medium">Email:</span> {emailInfo}
             </div>
-            <div className="mb-2">
+            <div className="mb-2 text-gray-700 dark:text-gray-300">
               <span className="font-medium">Address:</span> {addressInfo}
             </div>
-            <div className="mb-2 text-gray-500 text-sm">
+            <div className="mb-2 text-gray-500 dark:text-gray-400 text-sm">
               Available 9am - 6pm, Mon-Fri
             </div>
           </div>
@@ -309,9 +309,9 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           {/* Booking Modal */}
           {open && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-              <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full relative">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-md w-full relative">
                 <button
-                  className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"
+                  className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                   onClick={() => setOpen(false)}
                   title="Close"
                 >
@@ -329,14 +329,14 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
                     />
                   </svg>
                 </button>
-                <h2 className="text-xl font-bold mb-4">Confirm Your Booking</h2>
-                <div className="mb-2 font-medium">Summary:</div>
-                <div className="text-gray-700 mb-4 text-sm">
+                <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Confirm Your Booking</h2>
+                <div className="mb-2 font-medium text-gray-900 dark:text-white">Summary:</div>
+                <div className="text-gray-700 dark:text-gray-300 mb-4 text-sm">
                   {propertySummary}
                 </div>
                 <div className="flex justify-end gap-3 mt-6">
                   <button
-                    className="px-4 py-2 rounded border border-gray-300 bg-white hover:bg-gray-100"
+                    className="px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
                     onClick={() => setOpen(false)}
                   >
                     Cancel
@@ -358,7 +358,7 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
 
   return (
     <div
-      className={`bg-white  shadow-md overflow-hidden   transition-all duration-200 `}
+      className={`bg-white dark:bg-gray-800 shadow-md overflow-hidden transition-all duration-200 `}
     >
       <div className="w-full bg-red-500 flex-shrink-0">
         <img
@@ -370,45 +370,45 @@ const PropertyCard2: React.FC<SearchResultPropertyCardProps> = ({
           className="w-full h-full max-h-[50vh] object-cover"
         />
       </div>
-      <div className="py-3 px-4">
-        <div>
-          <button
-            className="text-xl hover:underline font-semibold text-gray-800 bg-transparent border-none p-0 m-0 cursor-pointer"
-            onClick={() => onAddressClick && onAddressClick(property)}
-            type="button"
-          >
-            {property.address}
-          </button>
-        </div>
-        <div className=" grid grid-cols-12">
-          <div className="col-span-8">
-            <div className="flex items-center  text-gray-600 mb-1 space-x-2">
-              <span className="flex items-center">
-                <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
-              </span>
-              <span className="flex items-center">
-                <Bath className="w-3 h-3 mr-1" /> {property.baths} Bath
-              </span>
-            </div>
-            {property.amenities && property.amenities.length > 0 && (
-              <div className=" text-gray-500 mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
-                {property.amenities.slice(0, 3).map((amenity) => {
-                  const IconComponent = amenityIcons[amenity];
-                  return (
-                    <span key={amenity} className="flex items-center">
-                      {IconComponent && (
-                        <IconComponent className="w-3 h-3 mr-0.5" />
-                      )}
-                      {amenity}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-            <p className=" font-bold text-blue-600 ">
-              ${property.price.toLocaleString()} {property.currency}/month
-            </p>
+              <div className="py-3 px-4">
+          <div>
+            <button
+              className="text-xl hover:underline font-semibold text-gray-800 dark:text-white bg-transparent border-none p-0 m-0 cursor-pointer"
+              onClick={() => onAddressClick && onAddressClick(property)}
+              type="button"
+            >
+              {property.address}
+            </button>
           </div>
+          <div className=" grid grid-cols-12">
+            <div className="col-span-8">
+              <div className="flex items-center text-gray-600 dark:text-gray-300 mb-1 space-x-2">
+                <span className="flex items-center">
+                  <BedDouble className="w-3 h-3 mr-1" /> {property.beds} Bed
+                </span>
+                <span className="flex items-center">
+                  <Bath className="w-3 h-3 mr-1" /> {property.baths} Bath
+                </span>
+              </div>
+              {property.amenities && property.amenities.length > 0 && (
+                <div className="text-gray-500 dark:text-gray-400 mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+                  {property.amenities.slice(0, 3).map((amenity) => {
+                    const IconComponent = amenityIcons[amenity];
+                    return (
+                      <span key={amenity} className="flex items-center">
+                        {IconComponent && (
+                          <IconComponent className="w-3 h-3 mr-0.5" />
+                        )}
+                        {amenity}
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
+              <p className="font-bold text-blue-600 dark:text-blue-400">
+                ${property.price.toLocaleString()} {property.currency}/month
+              </p>
+            </div>
 
           <div className="mt-auto ml-auto col-span-4">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

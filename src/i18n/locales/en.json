@@ -193,6 +193,7 @@
     "networkSite": "network site.",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
+    "trustiiDemo": "Trustii Demo",
     "disclaimer": "Disclaimer: Rentals.ca is not responsible for the accuracy of information provided by landlords or users. Always verify information independently and take precautions to avoid scams."
   },
   "madeWithDyad": "Made with Dyad",
@@ -952,7 +953,13 @@
     "propertyOwnership": "Property Ownership Documents",
     "utilityBill": "Utility Bill",
     "submit": "Submit for Verification",
-    "verificationSubmitted": "Your verification has been submitted successfully!"
+    "verificationSubmitted": "Your verification has been submitted successfully!",
+    "benefits": {
+      "title": "Benefits of Verification",
+      "confidence": "Increase tenant confidence in your listings",
+      "scams": "Reduce risk of rental scams",
+      "badge": "Get a verified badge on your profile"
+    }
   },
   "tenantInsurancePage": {
     "title": "Tenant Insurance",
@@ -1289,5 +1296,59 @@
     "failed": "Failed",
     "inProgress": "In Progress",
     "notStarted": "Not Started"
+  },
+  "tenant": {
+    "marketplace": {
+      "title": "Marketplace",
+      "categories": "Categories",
+      "searchPlaceholder": "Search rentals, jobs...",
+      "noListingsFound": "No listings found",
+      "beds": "beds",
+      "bath": "bath",
+      "sortOptions": {
+        "priceAsc": "Price: Low to High",
+        "priceDesc": "Price: High to Low",
+        "titleAsc": "Title: A to Z",
+        "titleDesc": "Title: Z to A"
+      },
+      "categoryNames": {
+        "all": "All",
+        "apartments": "Apartments",
+        "rooms": "Rooms",
+        "houses": "Houses",
+        "condos": "Condos",
+        "basements": "Basements",
+        "sharedAccommodation": "Shared Accommodation",
+        "otherRentals": "Other Rentals",
+        "jobs": "Jobs"
+      },
+      "tabs": {
+        "all": "All",
+        "rentals": "Rentals",
+        "jobs": "Jobs"
+      }
+    }
+  },
+  "hospital": {
+    "marketplace": {
+      "title": "Medical Device Marketplace",
+      "categories": "Categories",
+      "allCategories": "All Categories",
+      "searchResultsFor": "Search results for",
+      "backToMainPage": "Back to Main Page",
+      "noResultsFound": "No results found",
+      "noDevicesFound": "No devices found",
+      "categoryNames": {
+        "all": "All",
+        "diagnosticEquipment": "Diagnostic Equipment",
+        "surgicalInstruments": "Surgical Instruments",
+        "monitoringDevices": "Monitoring Devices",
+        "imagingEquipment": "Imaging Equipment",
+        "laboratoryEquipment": "Laboratory Equipment",
+        "rehabilitationEquipment": "Rehabilitation Equipment",
+        "emergencyEquipment": "Emergency Equipment",
+        "consumables": "Consumables"
+      }
+    }
   }
 } 

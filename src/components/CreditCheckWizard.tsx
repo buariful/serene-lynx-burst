@@ -201,15 +201,15 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
         return (
           <div className="space-y-6">
             <div className="text-center">
-              <CreditCard className="w-16 h-16 mx-auto text-blue-600 mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Credit Check Payment</h2>
-              <p className="text-gray-600 mb-6">
+              <CreditCard className="w-16 h-16 mx-auto text-blue-600 dark:text-blue-400 mb-4" />
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Credit Check Payment</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
                 Complete your payment to proceed with the credit check
               </p>
               
-              <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                <div className="text-3xl font-bold text-blue-600 mb-2">$90</div>
-                <p className="text-gray-600">One-time payment for credit check report</p>
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-6">
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">$90</div>
+                <p className="text-gray-600 dark:text-gray-400">One-time payment for credit check report</p>
               </div>
             </div>
 
@@ -228,9 +228,9 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
         return (
           <div className="space-y-6">
             <div className="text-center">
-              <User className="w-16 h-16 mx-auto text-green-600 mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Personal Information</h2>
-              <p className="text-gray-600 mb-6">
+              <User className="w-16 h-16 mx-auto text-green-600 dark:text-green-400 mb-4" />
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Personal Information</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
                 Please provide your personal information for the credit check
               </p>
             </div>
@@ -246,9 +246,9 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
         return (
           <div className="space-y-6">
             <div className="text-center">
-              <Loader2 className="w-16 h-16 mx-auto text-blue-600 mb-4 animate-spin" />
-              <h2 className="text-2xl font-bold mb-2">Processing Credit Check</h2>
-              <p className="text-gray-600 mb-6">
+              <Loader2 className="w-16 h-16 mx-auto text-blue-600 dark:text-blue-400 mb-4 animate-spin" />
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Processing Credit Check</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
                 We are processing your credit check. This may take a few minutes.
               </p>
             </div>
@@ -285,9 +285,9 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
         return (
           <div className="space-y-6">
             <div className="text-center">
-              <CheckCircle className="w-16 h-16 mx-auto text-green-600 mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Credit Report Ready</h2>
-              <p className="text-gray-600 mb-6">
+              <CheckCircle className="w-16 h-16 mx-auto text-green-600 dark:text-green-400 mb-4" />
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Credit Report Ready</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
                 Your credit check has been completed successfully
               </p>
             </div>
@@ -347,19 +347,19 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold">Credit Check</h1>
-            <p className="text-gray-600">Complete your credit check in a few simple steps</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Credit Check</h1>
+            <p className="text-gray-600 dark:text-gray-400">Complete your credit check in a few simple steps</p>
           </div>
           
           <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-green-600" />
-            <span className="text-sm text-green-600 font-medium">Secure & Private</span>
+            <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
+            <span className="text-sm text-green-600 dark:text-green-400 font-medium">Secure & Private</span>
           </div>
         </div>
 
         {/* Progress Bar */}
         <div className="space-y-2">
-          <div className="flex justify-between text-sm text-gray-600">
+          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
             <span>Step {currentStepIndex + 1} of {steps.length}</span>
             <span>{Math.round(progress)}% complete</span>
           </div>
@@ -377,11 +377,11 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
               <div
                 key={step.id}
                 className={`flex flex-col items-center gap-2 ${
-                  isActive ? 'text-blue-600' : isCompleted ? 'text-green-600' : 'text-gray-400'
+                  isActive ? 'text-blue-600 dark:text-blue-400' : isCompleted ? 'text-green-600 dark:text-green-400' : 'text-gray-400 dark:text-gray-500'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  isActive ? 'bg-blue-100' : isCompleted ? 'bg-green-100' : 'bg-gray-100'
+                  isActive ? 'bg-blue-100 dark:bg-blue-900/20' : isCompleted ? 'bg-green-100 dark:bg-green-900/20' : 'bg-gray-100 dark:bg-gray-700'
                 }`}>
                   {isCompleted ? (
                     <CheckCircle className="w-5 h-5" />
@@ -415,14 +415,14 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
       )}
 
       {/* Main Content */}
-      <Card>
+      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
         <CardContent className="pt-6">
           {renderStepContent()}
         </CardContent>
       </Card>
 
       {/* Footer */}
-      <div className="mt-8 text-center text-sm text-gray-500">
+      <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Lock className="w-4 h-4" />
           <span>Your information is encrypted and secure</span>

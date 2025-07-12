@@ -74,7 +74,7 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
   };
 
   return (
-    <div className="mb-4 p-2  rounded-md shadow-sm gap-3 bg-white flex items-center ">
+    <div className="mb-4 p-2 rounded-md shadow-sm gap-3 bg-white dark:bg-gray-800 flex items-center border border-gray-200 dark:border-gray-700">
       {/* <form onSubmit={handleSearch} className="flex-1 flex gap-2">
       <input
         type="text"
@@ -91,7 +91,7 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
           <DrawerTrigger asChild>
             <Button
               variant="outline"
-              className=" rounded-full flex items-center gap-3"
+              className="rounded-full flex items-center gap-3 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               <span>Price</span>
               <IoIosArrowForward />
@@ -100,7 +100,7 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
           <DrawerTrigger asChild>
             <Button
               variant="outline"
-              className=" rounded-full flex items-center gap-3"
+              className="rounded-full flex items-center gap-3 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               <span>Price Type</span>
               <IoIosArrowForward />
@@ -110,7 +110,7 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
           <DrawerTrigger asChild>
             <Button
               variant="outline"
-              className=" rounded-full flex items-center gap-3"
+              className="rounded-full flex items-center gap-3 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               <span>Job Type</span>
               <IoIosArrowForward />
@@ -119,21 +119,21 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
           <DrawerTrigger asChild>
             <Button
               variant="outline"
-              className="bg-blue-500 hover:bg-blue-600 hover:text-white text-white rounded-full flex items-center gap-1"
+              className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 hover:text-white text-white rounded-full flex items-center gap-1"
             >
               <LuSettings2 />
               <span>All Filters</span>
             </Button>
           </DrawerTrigger>
         </div>
-        <DrawerContent className="h-full w-96">
-          <DrawerHeader>
-            <DrawerTitle>Filters</DrawerTitle>
+        <DrawerContent className="h-full w-96 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+          <DrawerHeader className="border-b border-gray-200 dark:border-gray-700">
+            <DrawerTitle className="text-gray-900 dark:text-gray-100">Filters</DrawerTitle>
           </DrawerHeader>
           <div className="p-4">
             <Accordion type="single" collapsible defaultValue="categories">
-              <AccordionItem value="categories">
-                <AccordionTrigger>
+              <AccordionItem value="categories" className="border-gray-200 dark:border-gray-700">
+                <AccordionTrigger className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300">
                   <div className="justify-start">Categories</div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -144,8 +144,8 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
                           <button
                             className={`w-full text-left px-2 py-1 rounded transition-colors ${
                               selectedCategory === category
-                                ? "bg-blue-600 text-white"
-                                : "hover:bg-gray-100 text-gray-700"
+                                ? "bg-blue-600 dark:bg-blue-500 text-white"
+                                : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
                             }`}
                             onClick={() => setSelectedCategory(category)}
                           >
@@ -159,8 +159,8 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
               </AccordionItem>
 
               {/* price type */}
-              <AccordionItem value="price-type">
-                <AccordionTrigger>Price Type</AccordionTrigger>
+              <AccordionItem value="price-type" className="border-gray-200 dark:border-gray-700">
+                <AccordionTrigger className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300">Price Type</AccordionTrigger>
                 <AccordionContent>
                   <ul className="space-y-1">
                     {["Free", "Contact", "Swap/Trade"].map((jobType) => (
@@ -170,11 +170,11 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
                             type="radio"
                             name={"jobType"}
                             id={jobType}
-                            className="h-4 w-4"
+                            className="h-4 w-4 text-blue-600 dark:text-blue-400"
                           />
                           <label
                             htmlFor={jobType}
-                            className="hover:cursor-pointer text-gray-700"
+                            className="hover:cursor-pointer text-gray-700 dark:text-gray-300"
                           >
                             {jobType}
                           </label>
@@ -186,8 +186,8 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
               </AccordionItem>
 
               {/* offer type */}
-              <AccordionItem value="price-type">
-                <AccordionTrigger>Offer Type</AccordionTrigger>
+              <AccordionItem value="price-type" className="border-gray-200 dark:border-gray-700">
+                <AccordionTrigger className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300">Offer Type</AccordionTrigger>
                 <AccordionContent>
                   <ul className="space-y-1">
                     {["Offering", "Wanted"].map((offeringType) => (
@@ -197,11 +197,11 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
                             type="radio"
                             name={"offeringType"}
                             id={offeringType}
-                            className="h-4 w-4"
+                            className="h-4 w-4 text-blue-600 dark:text-blue-400"
                           />
                           <label
                             htmlFor={offeringType}
-                            className="hover:cursor-pointer text-gray-700"
+                            className="hover:cursor-pointer text-gray-700 dark:text-gray-300"
                           >
                             {offeringType}
                           </label>
@@ -213,17 +213,17 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
               </AccordionItem>
 
               {/* job type */}
-              <AccordionItem value="job-type">
-                <AccordionTrigger>Job Type</AccordionTrigger>
+              <AccordionItem value="job-type" className="border-gray-200 dark:border-gray-700">
+                <AccordionTrigger className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300">Job Type</AccordionTrigger>
                 <AccordionContent>
                   <ul className="flex items-center flex-wrap gap-2">
                     {jobTypes.map((jobType) => (
                       <li key={jobType} className="pl-2 py-1">
                         <Button
                           variant="outline"
-                          className={`${
+                          className={`border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 ${
                             selectedJobType?.includes(jobType)
-                              ? "text-blue-500 flex items-center gap-1 bg-blue-200 border-blue-500"
+                              ? "text-blue-500 dark:text-blue-400 flex items-center gap-1 bg-blue-200 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400"
                               : ""
                           }`}
                           onClick={() => {
@@ -242,17 +242,17 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
               </AccordionItem>
 
               {/* offered by */}
-              <AccordionItem value="job-type">
-                <AccordionTrigger>Job Offered By</AccordionTrigger>
+              <AccordionItem value="job-type" className="border-gray-200 dark:border-gray-700">
+                <AccordionTrigger className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300">Job Offered By</AccordionTrigger>
                 <AccordionContent>
                   <ul className="flex items-center flex-wrap gap-2">
                     {jobOfferedByItems.map((offeredBy) => (
                       <li key={offeredBy} className="pl-2 py-1">
                         <Button
                           variant="outline"
-                          className={`${
+                          className={`border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 ${
                             selectedJobOfferedBy?.includes(offeredBy)
-                              ? "text-blue-500 flex items-center gap-1 bg-blue-200 border-blue-500"
+                              ? "text-blue-500 dark:text-blue-400 flex items-center gap-1 bg-blue-200 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400"
                               : ""
                           }`}
                           onClick={() => {
@@ -271,16 +271,16 @@ function FilterNav({ selectedCategory, setSelectedCategory }) {
               </AccordionItem>
             </Accordion>
           </div>
-          <DrawerFooter>
+          <DrawerFooter className="border-t border-gray-200 dark:border-gray-700">
             <DrawerClose asChild>
               <div className="flex items-center gap-2 justify-between">
                 <button
                   onClick={handleClearFilter}
-                  className="text-blue-500 hover:underline font-medium"
+                  className="text-blue-500 dark:text-blue-400 hover:underline font-medium"
                 >
                   Clear Filters
                 </button>
-                <Button>Apply</Button>
+                <Button className="bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600">Apply</Button>
               </div>
             </DrawerClose>
           </DrawerFooter>

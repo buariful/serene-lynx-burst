@@ -235,7 +235,7 @@ function DeviceCard({
   const navigate = useNavigate();
   return (
     <div
-      className="border rounded overflow-hidden hover:shadow-sm transition-shadow  cursor-pointer hover:ring-2 hover:ring-blue-400"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 bg-white dark:bg-gray-800"
       onClick={() => navigate(`/hospital/device-details/${device.id}`)}
       role="button"
       tabIndex={0}
@@ -244,7 +244,7 @@ function DeviceCard({
           navigate(`/hospital/device-details/${device.id}`);
       }}
     >
-      <div className="h-32 bg-gray-200">
+      <div className="h-32 bg-gray-200 dark:bg-gray-700">
         <img
           // src={device.image}
           src={
@@ -255,26 +255,26 @@ function DeviceCard({
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="p-1">
-        <h3 className="font-bold text-sm mb-1 truncate">{device.title}</h3>
-        <p className="text-gray-600 text-xs mb-1 truncate">
+      <div className="p-4">
+        <h3 className="font-bold text-sm mb-1 truncate text-gray-900 dark:text-gray-100">{device.title}</h3>
+        <p className="text-gray-600 dark:text-gray-400 text-xs mb-2 truncate">
           {device.description}
         </p>
-        <div className="flex flex-col gap-0.5 mt-1">
-          <span className="text-xs text-gray-500">Type: {device.type}</span>
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-gray-500 dark:text-gray-400">Type: {device.type}</span>
           <span
             className={`text-xs font-semibold ${
               device.status === "available"
-                ? "text-green-600"
+                ? "text-green-600 dark:text-green-400"
                 : device.status === "rented"
-                ? "text-yellow-600"
-                : "text-gray-400"
+                ? "text-yellow-600 dark:text-yellow-400"
+                : "text-gray-400 dark:text-gray-500"
             }`}
           >
             Status:{" "}
             {device.status.charAt(0).toUpperCase() + device.status.slice(1)}
           </span>
-          <span className="text-xs text-blue-700 font-bold">
+          <span className="text-xs text-blue-700 dark:text-blue-400 font-bold">
             {device.price}
             {!device.isForSale ? "/month" : ""}
           </span>
@@ -354,18 +354,20 @@ export default function HospitalMarketplacePage() {
       {/* <DashboardHeader /> */}
       <HospitalHeader />
 
-      <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh]">
+      <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh] bg-gray-50 dark:bg-gray-900">
         {/* Sidebar for categories */}
         <aside className="w-48 mr-6 flex-shrink-0">
-          <div className="bg-white border rounded shadow-sm p-2 sticky top-4">
-            <h3 className=" font-semibold mb-2 text-[#3e4153]">{t('hospital.marketplace.categories')}</h3>
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-4 sticky top-4">
+            <h3 className="font-semibold mb-3 text-gray-800 dark:text-gray-200">
+              {t('hospital.marketplace.categories')}
+            </h3>
             <ul className="space-y-1">
               <li>
                 <button
-                  className={`w-full text-left px-2 py-1 rounded  transition-colors ${
+                  className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${
                     selectedCategory === "All"
-                      ? "bg-blue-600 text-white"
-                      : "hover:bg-gray-100 text-gray-700"
+                      ? "bg-blue-600 dark:bg-blue-500 text-white"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
                   }`}
                   onClick={() => setSelectedCategory("All")}
                 >
@@ -375,14 +377,24 @@ export default function HospitalMarketplacePage() {
               {CATEGORIES.map((category) => (
                 <li key={category}>
                   <button
-                    className={`w-full text-left px-2 py-1 rounded  transition-colors ${
+                    className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${
                       selectedCategory === category
-                        ? "bg-blue-600 text-white"
-                        : "hover:bg-gray-100 text-gray-700"
+                        ? "bg-blue-600 dark:bg-blue-500 text-white"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
                     }`}
                     onClick={() => setSelectedCategory(category)}
                   >
-                    {category}
+                    {category === "Diagnostic Devices" && t('hospital.marketplace.categoryNames.diagnosticEquipment')}
+                    {category === "Surgical Instruments" && t('hospital.marketplace.categoryNames.surgicalInstruments')}
+                    {category === "Monitoring Equipment" && t('hospital.marketplace.categoryNames.monitoringDevices')}
+                    {category === "Imaging Devices" && t('hospital.marketplace.categoryNames.imagingEquipment')}
+                    {category === "Laboratory Equipment" && t('hospital.marketplace.categoryNames.laboratoryEquipment')}
+                    {category === "Mobility Aids" && t('hospital.marketplace.categoryNames.rehabilitationEquipment')}
+                    {category === "Consumables & Disposables" && t('hospital.marketplace.categoryNames.consumables')}
+                    {category === "Therapeutic Devices" && t('hospital.marketplace.categoryNames.rehabilitationEquipment')}
+                    {category === "Medical Furniture" && t('hospital.marketplace.categoryNames.rehabilitationEquipment')}
+                    {category === "IT & Software" && t('hospital.marketplace.categoryNames.diagnosticEquipment')}
+                    {category === "Other" && t('hospital.marketplace.categoryNames.diagnosticEquipment')}
                   </button>
                 </li>
               ))}
@@ -392,7 +404,7 @@ export default function HospitalMarketplacePage() {
 
         <div className={showSidebar ? "flex-1" : "w-full"}>
           {/* Compact Nav/Filter Bar */}
-          <h2 className="text-[#3e4153] text-2xl  font-semibold">
+          <h2 className="text-gray-800 dark:text-gray-200 text-2xl font-semibold">
             {q ? q : t('hospital.marketplace.title')}
           </h2>
 
@@ -412,13 +424,13 @@ export default function HospitalMarketplacePage() {
           {isSearchActive ? (
             <>
               <div className="mb-4 flex justify-between items-center">
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-500 dark:text-gray-400">
                   {t('hospital.marketplace.searchResultsFor')}{" "}
                   <span className="font-semibold">{searchQuery}</span>
                 </span>
                 <button
                   onClick={handleBackToMain}
-                  className="text-xs text-blue-600 border border-blue-100 rounded px-3 py-1 hover:bg-blue-50 ml-2"
+                  className="text-xs text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800 rounded px-3 py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 ml-2 transition-colors"
                 >
                   {t('hospital.marketplace.backToMainPage')}
                 </button>
@@ -433,7 +445,7 @@ export default function HospitalMarketplacePage() {
                     />
                   ))
                 ) : (
-                  <div className="col-span-full text-center text-gray-400 py-8">
+                  <div className="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">
                     {t('hospital.marketplace.noResultsFound')}
                   </div>
                 )}
@@ -452,7 +464,7 @@ export default function HospitalMarketplacePage() {
                     />
                   ))
                 ) : (
-                  <div className="col-span-full text-center text-gray-400 py-8">
+                  <div className="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">
                     {t('hospital.marketplace.noDevicesFound')}
                   </div>
                 )}

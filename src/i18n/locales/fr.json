@@ -193,6 +193,7 @@
     "networkSite": "site du réseau.",
     "terms": "Conditions générales",
     "privacy": "Politique de confidentialité",
+    "trustiiDemo": "Démo Trustii",
     "disclaimer": "Avertissement : Rentals.ca n'est pas responsable de l'exactitude des informations fournies par les propriétaires ou les utilisateurs. Vérifiez toujours les informations de manière indépendante et prenez des précautions pour éviter les arnaques."
   },
   "madeWithDyad": "Réalisé avec Dyad",
@@ -952,7 +953,13 @@
     "propertyOwnership": "Documents de propriété",
     "utilityBill": "Facture d'électricité",
     "submit": "Soumettre pour vérification",
-    "verificationSubmitted": "Votre vérification a été soumise avec succès !"
+    "verificationSubmitted": "Votre vérification a été soumise avec succès !",
+    "benefits": {
+      "title": "Avantages de la vérification",
+      "confidence": "Augmenter la confiance des locataires dans vos annonces",
+      "scams": "Réduire le risque d'arnaques locatives",
+      "badge": "Obtenir un badge vérifié sur votre profil"
+    }
   },
   "tenantInsurancePage": {
     "title": "Assurance locataire",
@@ -1289,5 +1296,59 @@
     "failed": "Échoué",
     "inProgress": "En cours",
     "notStarted": "Non commencé"
+  },
+  "tenant": {
+    "marketplace": {
+      "title": "Place de marché",
+      "categories": "Catégories",
+      "searchPlaceholder": "Rechercher des locations, emplois...",
+      "noListingsFound": "Aucune annonce trouvée",
+      "beds": "chambres",
+      "bath": "salle de bain",
+      "sortOptions": {
+        "priceAsc": "Prix: Croissant",
+        "priceDesc": "Prix: Décroissant",
+        "titleAsc": "Titre: A à Z",
+        "titleDesc": "Titre: Z à A"
+      },
+      "categoryNames": {
+        "all": "Tout",
+        "apartments": "Appartements",
+        "rooms": "Chambres",
+        "houses": "Maisons",
+        "condos": "Condos",
+        "basements": "Sous-sols",
+        "sharedAccommodation": "Hébergement partagé",
+        "otherRentals": "Autres locations",
+        "jobs": "Emplois"
+      },
+      "tabs": {
+        "all": "Tout",
+        "rentals": "Locations",
+        "jobs": "Emplois"
+      }
+    }
+  },
+  "hospital": {
+    "marketplace": {
+      "title": "Place de marché d'équipements médicaux",
+      "categories": "Catégories",
+      "allCategories": "Toutes les catégories",
+      "searchResultsFor": "Résultats de recherche pour",
+      "backToMainPage": "Retour à la page principale",
+      "noResultsFound": "Aucun résultat trouvé",
+      "noDevicesFound": "Aucun appareil trouvé",
+      "categoryNames": {
+        "all": "Tout",
+        "diagnosticEquipment": "Équipement de diagnostic",
+        "surgicalInstruments": "Instruments chirurgicaux",
+        "monitoringDevices": "Appareils de surveillance",
+        "imagingEquipment": "Équipement d'imagerie",
+        "laboratoryEquipment": "Équipement de laboratoire",
+        "rehabilitationEquipment": "Équipement de réadaptation",
+        "emergencyEquipment": "Équipement d'urgence",
+        "consumables": "Consommables"
+      }
+    }
   }
 } 
