@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import OtpVerificationPage from "./pages/OtpVerificationPage";
+import SetNewPasswordPage from "./pages/SetNewPasswordPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -85,6 +88,9 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/verify-otp" element={<OtpVerificationPage />} />
+                <Route path="/reset-password" element={<SetNewPasswordPage />} />
                 <Route path="/search-results" element={<SearchResultsPage />} />
                 <Route
                   path="/toronto/:address"

@@ -158,7 +158,7 @@ const LoginPage = () => {
         <CardFooter className="flex flex-col items-center space-y-2">
           <Link
             to="/forgot-password"
-            className="text-sm text-blue-600 hover:underline"
+            className="text-sm text-blue-600 hover:underline dark:text-blue-400"
           >
             {t("loginPage.forgotPassword")}
           </Link>

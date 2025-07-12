@@ -213,7 +213,7 @@ const SearchResultsPage = () => {
       </main>
       <Footer />
       <div className="bg-slate-900">
-        <MadeWithDyad />
+        {/* <MadeWithDyad /> */}
       </div>
     </div>
   );
