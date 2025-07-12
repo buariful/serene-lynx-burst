@@ -420,7 +420,7 @@ const CreditCheckWizard: React.FC<CreditCheckWizardProps> = ({
           {renderStepContent()}
         </CardContent>
       </Card>
-
+ 
       {/* Footer */}
       <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <div className="flex items-center justify-center gap-2 mb-2">
