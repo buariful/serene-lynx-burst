@@ -11,6 +11,7 @@
     "tenantInsurance": "Assurance Locataire",
     "tenantNotice": "Avis Locataire",
     "landlordVerifyIdentity": "Vérifier l'Identité du Propriétaire",
+    "creditCheck": "Vérification de crédit",
     "about": "À Propos",
     "faq": "FAQ",
     "blog": "Blog",
@@ -39,6 +40,50 @@
     "back": "Retour",
     "next": "Suivant",
     "previous": "Précédent"
+  },
+  "creditCheck": {
+    "title": "Rapport de vérification de crédit",
+    "description": "Obtenez votre rapport de crédit complet instantanément avec notre service sécurisé de vérification de crédit.",
+    "oneTimePayment": "Paiement unique",
+    "features": {
+      "instant": "Génération instantanée du rapport",
+      "comprehensive": "Analyse complète du crédit",
+      "secure": "Sécurisé et confidentiel",
+      "printable": "Imprimable et partageable"
+    },
+    "getReport": "Obtenir mon rapport de crédit",
+    "payment": {
+      "title": "Informations de paiement",
+      "description": "Entrez vos informations de paiement pour procéder à la vérification de crédit.",
+      "cardNumber": "Numéro de carte",
+      "expiryDate": "Date d'expiration",
+      "cvv": "CVV",
+      "name": "Nom du titulaire",
+      "processing": "Traitement...",
+      "pay": "Payer"
+    },
+    "report": {
+      "title": "Rapport de crédit",
+      "generated": "Rapport généré le",
+      "print": "Imprimer",
+      "download": "Télécharger PDF",
+      "share": "Partager",
+      "creditScore": "Score de crédit",
+      "scoreRanges": {
+        "excellent": "Excellent",
+        "good": "Bon",
+        "fair": "Moyen",
+        "poor": "Faible"
+      },
+      "positiveFactors": "Facteurs positifs",
+      "negativeFactors": "Domaines d'amélioration",
+      "accounts": "Comptes de crédit",
+      "balance": "Solde",
+      "paymentHistory": "Historique des paiements",
+      "month": "Mois",
+      "inquiries": "Demandes de crédit",
+      "publicRecords": "Registres publics"
+    }
   },
   "navigation": {
     "home": "Accueil",

@@ -11,6 +11,7 @@
     "tenantInsurance": "Tenant Insurance",
     "tenantNotice": "Tenant Notice",
     "landlordVerifyIdentity": "Landlord Verify Identity",
+    "creditCheck": "Credit Check",
     "about": "About",
     "faq": "FAQ",
     "blog": "Blog",
@@ -39,6 +40,50 @@
     "back": "Back",
     "next": "Next",
     "previous": "Previous"
+  },
+  "creditCheck": {
+    "title": "Credit Check Report",
+    "description": "Get your comprehensive credit report instantly with our secure credit check service.",
+    "oneTimePayment": "One-time payment",
+    "features": {
+      "instant": "Instant report generation",
+      "comprehensive": "Comprehensive credit analysis",
+      "secure": "Secure and confidential",
+      "printable": "Printable and shareable"
+    },
+    "getReport": "Get My Credit Report",
+    "payment": {
+      "title": "Payment Information",
+      "description": "Enter your payment details to proceed with the credit check.",
+      "cardNumber": "Card Number",
+      "expiryDate": "Expiry Date",
+      "cvv": "CVV",
+      "name": "Cardholder Name",
+      "processing": "Processing...",
+      "pay": "Pay"
+    },
+    "report": {
+      "title": "Credit Report",
+      "generated": "Report generated on",
+      "print": "Print",
+      "download": "Download PDF",
+      "share": "Share",
+      "creditScore": "Credit Score",
+      "scoreRanges": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "fair": "Fair",
+        "poor": "Poor"
+      },
+      "positiveFactors": "Positive Factors",
+      "negativeFactors": "Areas for Improvement",
+      "accounts": "Credit Accounts",
+      "balance": "Balance",
+      "paymentHistory": "Payment History",
+      "month": "Month",
+      "inquiries": "Credit Inquiries",
+      "publicRecords": "Public Records"
+    }
   },
   "navigation": {
     "home": "Home",

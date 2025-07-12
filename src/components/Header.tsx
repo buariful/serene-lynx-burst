@@ -162,6 +162,11 @@ const Header = () => {
       label: t('header.landlordVerifyIdentity'),
       href: "/landlord-verify",
     },
+    {
+      type: "link" as const,
+      label: t('header.creditCheck'),
+      href: "/credit-check",
+    },
     { type: "link" as const, label: t('header.about'), href: "/about" },
     { type: "link" as const, label: t('header.faq'), href: "/faq" },
     { type: "link" as const, label: t('header.blog'), href: "/blog" },

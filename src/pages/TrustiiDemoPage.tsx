@@ -5,11 +5,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { AlertCircle, Settings, FileText, Search } from 'lucide-react';
+import { AlertCircle, Settings, FileText, Search, CreditCard, CheckCircle, Shield, TestTube } from 'lucide-react';
 import { TrustiiInquiryForm } from '@/components/TrustiiInquiryForm';
 import { TrustiiInquiryRetriever } from '@/components/TrustiiInquiryRetriever';
 import { useTrustiiConfig } from '@/hooks/useTrustii';
 import { showSuccess, showError } from '@/utils/toast';
+import CreditCheckWizard from '@/components/CreditCheckWizard';
+import { CreditReport } from '@/services/creditCheckService';
 
 /**
  * Demo page showcasing Trustii integration
@@ -18,6 +20,9 @@ const TrustiiDemoPage: React.FC = () => {
   const { isConfigured, hasApiKey, baseUrl } = useTrustiiConfig();
   const [activeTab, setActiveTab] = useState('create');
   const [lastInquiryId, setLastInquiryId] = useState<string | null>(null);
+  const [showCreditCheck, setShowCreditCheck] = useState(false);
+  const [completedReport, setCompletedReport] = useState<CreditReport | null>(null);
+  const [showCompletedReport, setShowCompletedReport] = useState(false);
 
   const handleInquirySuccess = (inquiryId: string) => {
     setLastInquiryId(inquiryId);
@@ -31,6 +36,29 @@ const TrustiiDemoPage: React.FC = () => {
 
   const handleInquiryFound = (inquiryId: string) => {
     showSuccess(`Inquiry retrieved successfully!`);
+  };
+
+  const handleCreditCheckComplete = (report: CreditReport) => {
+    setCompletedReport(report);
+    setShowCompletedReport(true);
+    showSuccess('Credit check completed successfully!');
+  };
+
+  const handleCreditCheckCancel = () => {
+    setShowCreditCheck(false);
+    setShowCompletedReport(false);
+    setCompletedReport(null);
+  };
+
+  const handleViewReport = () => {
+    setShowCompletedReport(true);
+    setShowCreditCheck(true);
+  };
+
+  const handleBackToMain = () => {
+    setShowCreditCheck(false);
+    setShowCompletedReport(false);
+    setCompletedReport(null);
   };
 
   if (!isConfigured) {
@@ -79,6 +107,18 @@ const TrustiiDemoPage: React.FC = () => {
     );
   }
 
+  // Show credit check wizard if active
+  if (showCreditCheck) {
+    return (
+      <CreditCheckWizard
+        onComplete={handleCreditCheckComplete}
+        onCancel={handleCreditCheckCancel}
+        completedReport={showCompletedReport ? completedReport : undefined}
+        onBackToMain={handleBackToMain}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -116,6 +156,107 @@ const TrustiiDemoPage: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Credit Check CTA */}
+        <Card className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-blue-900 mb-2">
+                  Need a Credit Check?
+                </h3>
+                <p className="text-blue-700 mb-4">
+                  Get your comprehensive credit report with detailed analysis and insights.
+                </p>
+                <div className="flex items-center gap-4 text-sm text-blue-600">
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="w-4 h-4" />
+                    Instant results
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Shield className="w-4 h-4" />
+                    Secure & private
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <FileText className="w-4 h-4" />
+                    Detailed report
+                  </span>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-blue-900 mb-2">$90</div>
+                <p className="text-blue-700 text-sm mb-4">One-time payment</p>
+                <div className="space-y-2">
+                  <Button 
+                    onClick={() => setShowCreditCheck(true)}
+                    className="bg-blue-600 hover:bg-blue-700 w-full"
+                  >
+                    <CreditCard className="w-4 h-4 mr-2" />
+                    Start Credit Check
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => window.open('/credit-check-test', '_blank')}
+                    className="w-full"
+                  >
+                    <TestTube className="w-4 h-4 mr-2" />
+                    Test Flow
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Completed Credit Check Success Message */}
+        {completedReport && !showCreditCheck && (
+          <Card className="mb-6 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-green-900 mb-2">
+                    Credit Check Completed Successfully!
+                  </h3>
+                  <p className="text-green-700 mb-4">
+                    Your credit report is ready. You can view it again or start a new credit check.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-green-600">
+                    <span className="flex items-center gap-1">
+                      <CheckCircle className="w-4 h-4" />
+                      Score: {completedReport.score}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <FileText className="w-4 h-4" />
+                      Report ID: {completedReport.id}
+                    </span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="space-y-2">
+                    <Button 
+                      onClick={handleViewReport}
+                      className="bg-green-600 hover:bg-green-700 w-full"
+                    >
+                      <FileText className="w-4 h-4 mr-2" />
+                      View Report
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        setCompletedReport(null);
+                        setShowCompletedReport(false);
+                      }}
+                      className="w-full"
+                    >
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Dismiss
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
