@@ -36,7 +36,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import HospitalMegaMenu from "./HospitalMegaMenu";
 import MedicalSchoolMegaMenu from "./MedicalSchoolMegaMenu"; // Import the new menu
-import { useLanguage } from "@/hooks/useLanguage";
+import { useLanguageContext } from "@/components/LanguageProvider";
 import { useTheme } from "@/hooks/useTheme";
 
 type NavLinkItem = { type: "link"; href: string; label: string };
@@ -50,8 +50,13 @@ type MegaMenuItem = {
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { t, currentLanguage, changeLanguage } = useLanguage();
+  const { t, currentLanguage, changeLanguage } = useLanguageContext();
   const { theme, toggleTheme } = useTheme();
+
+  // Debug translations
+  console.log('Header - Current language:', currentLanguage);
+  console.log('Header - Test translation:', t('header.medicalSchools'));
+  console.log('Header - Languages translation:', t('languages.en'));
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 

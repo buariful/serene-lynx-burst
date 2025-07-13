@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from 'react-i18next';
 
 // Types
 interface ImageItemType {
@@ -15,6 +16,8 @@ interface ImageUploaderProps {
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
+  const { t } = useTranslation();
+  
   const moveImage = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       setImages((prev) => {
@@ -68,20 +71,20 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
     return (
       <div
         ref={(node) => drag(drop(node))}
-        className={`relative w-32 h-32 border rounded ${
+        className={`relative w-32 h-32 border border-gray-300 dark:border-gray-600 rounded ${
           isDragging ? "opacity-50" : "opacity-100"
         }`}
       >
         <img
           src={image.preview}
-          alt={`Ad image ${index + 1}`}
+          alt={`${t('postAd.image')} ${index + 1}`}
           className="w-full h-full object-cover"
         />
         <button
           type="button"
           onClick={() => removeImage(index)}
           className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center"
-          aria-label="Remove image"
+          aria-label={t('postAd.removeImage')}
         >
           ×
         </button>
@@ -100,29 +103,27 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
 
   return (
     <div>
-      <h1 className="font-bold mb-4">
-        Add photos to attract interest to your ad
+      <h1 className="font-bold mb-4 text-gray-900 dark:text-white">
+        {t('postAd.addPhotosTitle')}
       </h1>
-      <p className="mb-4 text-sm">
-        Include pictures with different angles and details. You can upload a
-        maximum of 10 photos, that are at least 300px wide or tall (we recommend
-        at least 1000px).
+      <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        {t('postAd.addPhotosDescription')}
         <br />
-        Drag and drop to change the order of your pictures.
+        {t('postAd.dragDropHint')}
       </p>
 
-      <div className="border-t border-b py-4 mb-4">
-        <h2 className="font-semibold mb-2">Menu</h2>
-        <label className="bg-blue-500  text-primary-foreground hover:bg-blue-600 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-3 py-1 cursor-pointer ">
+      <div className="border-t border-b border-gray-200 dark:border-gray-700 py-4 mb-4">
+        <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.menu')}</h2>
+        <label className="bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-3 py-1 cursor-pointer">
           <input
             type="file"
             multiple
             accept="image/*"
             onChange={handleImageUpload}
             className="hidden"
-            aria-label="Select images to upload"
+            aria-label={t('postAd.selectImages')}
           />
-          Select Images
+          {t('postAd.selectImages')}
         </label>
       </div>
 
@@ -136,6 +137,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, setImages }) => {
 };
 
 export default function PostAdDetailsPage() {
+  const { t } = useTranslation();
   const [adType, setAdType] = useState<"offering" | "wanting">();
   const [paymentOptions, setPaymentOptions] = useState({
     cashless: false,
@@ -162,8 +164,8 @@ export default function PostAdDetailsPage() {
     e.preventDefault();
     if (isSubmitDisabled) return;
     toast({
-      title: "Ad posted successfully!",
-      description: "Your ad has been posted and is now live.",
+      title: t('postAd.adPostedSuccess'),
+      description: t('postAd.adPostedDescription'),
     });
     // Optionally clear the form here
     // setTitle(""); setDescription(""); setAdType(undefined); ...
@@ -172,135 +174,134 @@ export default function PostAdDetailsPage() {
   return (
     <DndProvider backend={HTML5Backend}>
       <form onSubmit={handleSubmit}>
-        <div className="max-w-3xl mx-auto p-4 font-sans text-gray-800">
+        <div className="max-w-3xl mx-auto p-4 font-sans text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 min-h-screen">
           {/* Ad Details Section */}
           <div className="mb-8">
             <div className="flex justify-center">
-              <h1 className="text-lg font-semibold mb-6 text-gray-600">
-                Ad Details
+              <h1 className="text-lg font-semibold mb-6 text-gray-600 dark:text-gray-300">
+                {t('postAd.adDetails')}
               </h1>
             </div>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className=" font-semibold mb-2">Select Category:</h2>
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.selectCategory')}:</h2>
               <div className="flex items-center">
-                <span className="font-medium text-gray-600">
-                  Services &gt; Childcare & Nanny
+                <span className="font-medium text-gray-600 dark:text-gray-400">
+                  {t('postAd.categoryPath')}
                 </span>
               </div>
             </div>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className=" font-semibold mb-2">Ad Type</h2>
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.adType')}</h2>
               <div className="space-y-2">
-                <label className="flex items-center">
+                <label className="flex items-center text-gray-700 dark:text-gray-300">
                   <input
                     type="radio"
                     name="adType"
                     checked={adType === "offering"}
                     onChange={() => setAdType("offering")}
                     className="mr-2 accent-green-600"
-                    aria-label="I'm offering"
+                    aria-label={t('postAd.imOffering')}
                   />
-                  I'm offering
+                  {t('postAd.imOffering')}
                 </label>
-                <label className="flex items-center">
+                <label className="flex items-center text-gray-700 dark:text-gray-300">
                   <input
                     type="radio"
                     name="adType"
                     checked={adType === "wanting"}
                     onChange={() => setAdType("wanting")}
                     className="mr-2 accent-green-600"
-                    aria-label="I want to find"
+                    aria-label={t('postAd.iWantToFind')}
                   />
-                  I want to find
+                  {t('postAd.iWantToFind')}
                 </label>
               </div>
             </div>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className="font-semibold mb-2">NEW Payment (optional)</h2>
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.paymentOptional')}</h2>
               <div className="space-y-2">
-                <label className="flex items-center">
+                <label className="flex items-center text-gray-700 dark:text-gray-300">
                   <input
                     type="checkbox"
                     checked={paymentOptions.cashless}
                     onChange={() => togglePaymentOption("cashless")}
                     className="mr-2 accent-green-600"
-                    aria-label="Offer cashless payment"
+                    aria-label={t('postAd.offerCashlessPayment')}
                   />
-                  Offer cashless payment
+                  {t('postAd.offerCashlessPayment')}
                 </label>
-                <label className="flex items-center">
+                <label className="flex items-center text-gray-700 dark:text-gray-300">
                   <input
                     type="checkbox"
                     checked={paymentOptions.cash}
                     onChange={() => togglePaymentOption("cash")}
                     className="mr-2 accent-green-600"
-                    aria-label="Cash accepted"
+                    aria-label={t('postAd.cashAccepted')}
                   />
-                  Cash accepted
+                  {t('postAd.cashAccepted')}
                 </label>
               </div>
             </div>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className="font-semibold mb-2">Ad title:</h2>
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.adTitle')}:</h2>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 maxLength={70}
-                aria-label="Ad title"
+                aria-label={t('postAd.adTitle')}
               />
-              <div className="text-xs text-gray-500 text-right">
-                {70 - title.length} characters left
+              <div className="text-xs text-gray-500 dark:text-gray-400 text-right">
+                {70 - title.length} {t('postAd.charactersLeft')}
               </div>
             </div>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className="font-semibold mb-2">Description:</h2>
-              <label className="flex items-center mb-2">
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.description')}:</h2>
+              <label className="flex items-center mb-2 text-gray-700 dark:text-gray-300">
                 <input
                   type="checkbox"
                   className="mr-2 accent-green-600"
                   checked={exposureChecked}
                   onChange={() => setExposureChecked((v) => !v)}
-                  aria-label="Increase your ad exposure"
+                  aria-label={t('postAd.increaseExposure')}
                 />
-                Increase your ad exposure. Enter up to 5 keywords someone could
-                search to find your ad.
+                {t('postAd.increaseExposureText')}
               </label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 border rounded h-32 focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded h-32 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 maxLength={1000}
-                aria-label="Ad description"
+                aria-label={t('postAd.description')}
               />
             </div>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className="font-semibold mb-2">Tags: (optional)</h2>
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.tags')}: ({t('postAd.optional')})</h2>
               <input
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
-                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
-                aria-label="Tags"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                aria-label={t('postAd.tags')}
               />
             </div>
 
             <div>
-              <h2 className="font-semibold mb-2">Address:</h2>
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.address')}:</h2>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                placeholder="Enter your postal code and/or street address above and select it from the suggested list."
-                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
-                aria-label="Address"
+                placeholder={t('postAd.addressPlaceholder')}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                aria-label={t('postAd.address')}
               />
             </div>
           </div>
@@ -312,47 +313,47 @@ export default function PostAdDetailsPage() {
 
           {/* Contact Information Section */}
           <div className="mb-8">
-            <h1 className="text-lg font-bold mb-4">Contact Information</h1>
+            <h1 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">{t('postAd.contactInformation')}</h1>
 
-            <div className="border-b pb-4 mb-4">
-              <h2 className="font-semibold mb-2">Phone number:</h2>
-              <p className="text-sm text-gray-600 mb-2">(optional)</p>
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.phoneNumber')}:</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">({t('postAd.optional')})</p>
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="e.g. 123 456 7890"
-                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
-                aria-label="Phone number"
+                placeholder={t('postAd.phonePlaceholder')}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                aria-label={t('postAd.phoneNumber')}
               />
-              <p className="text-sm text-gray-600 mt-1">
-                Your phone number will show up on your Ad.
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                {t('postAd.phoneWillShow')}
               </p>
             </div>
 
             <div>
-              <h2 className=" font-semibold mb-2">Email:</h2>
+              <h2 className="font-semibold mb-2 text-gray-900 dark:text-white">{t('postAd.email')}:</h2>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border rounded focus-within:outline-blue-500 ring-0 focus:border-blue-200 focus:ring-0 "
-                aria-label="Email"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                aria-label={t('postAd.email')}
               />
-              <p className="text-sm text-gray-600 mt-1">
-                Your email address will not be shared with others.
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                {t('postAd.emailNotShared')}
               </p>
             </div>
           </div>
 
           {/* Submit Button */}
           <button
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded"
+            className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-bold py-3 px-6 rounded transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             type="submit"
             disabled={isSubmitDisabled}
             aria-disabled={isSubmitDisabled}
           >
-            Post Ad
+            {t('postAd.postAd')}
           </button>
         </div>
       </form>

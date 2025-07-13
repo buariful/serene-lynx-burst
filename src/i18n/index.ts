@@ -21,7 +21,8 @@ i18n
   .init({
     resources,
     fallbackLng: 'en',
-    debug: process.env.NODE_ENV === 'development',
+    debug: true, // Enable debug to see what's happening
+    lng: 'en', // Set default language explicitly
     
     interpolation: {
       escapeValue: false, // React already escapes values
@@ -31,6 +32,16 @@ i18n
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
     },
+    
+    // Add better error handling
+    saveMissing: true,
+    missingKeyHandler: (lng, ns, key, fallbackValue) => {
+      console.warn(`Missing translation key: ${key} for language: ${lng}`);
+    },
+  }).then(() => {
+    console.log('i18n initialized successfully');
+    console.log('Available languages:', i18n.languages);
+    console.log('Current language:', i18n.language);
   });
 
 export default i18n; 

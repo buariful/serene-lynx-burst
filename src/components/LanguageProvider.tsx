@@ -25,14 +25,19 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (language: string) => {
+    console.log('Changing language to:', language);
     i18n.changeLanguage(language);
   };
 
   const value: LanguageContextType = {
-    currentLanguage: i18n.language,
+    currentLanguage: i18n.language || 'en',
     changeLanguage,
     t,
   };
+
+  console.log('LanguageProvider - Current language:', i18n.language);
+  console.log('LanguageProvider - Available languages:', i18n.languages);
+  console.log('LanguageProvider - Test translation:', t('header.medicalSchools'));
 
   return (
     <LanguageContext.Provider value={value}>

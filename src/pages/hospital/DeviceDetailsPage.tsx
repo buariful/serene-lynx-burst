@@ -28,15 +28,15 @@ const DeviceDetailsPage = () => {
   const sampleDevice = {
     id: "1",
     name: "Portable Ultrasound Machine",
-    type: t('hospital.deviceDetails.deviceTypes.imaging'),
-    status: t('hospital.deviceDetails.available'),
+    type: t('deviceDetails.deviceTypes.imaging'),
+    status: t('deviceDetails.available'),
     price: "$12,000 to buy",
     specifications: [
-      { label: t('hospital.deviceDetails.specLabels.display'), value: '15.6" LCD, 1920x1080' },
-      { label: t('hospital.deviceDetails.specLabels.weight'), value: "3.5 kg" },
-      { label: t('hospital.deviceDetails.specLabels.batteryLife'), value: "4 hours" },
-      { label: t('hospital.deviceDetails.specLabels.probes'), value: "Convex, Linear, Cardiac" },
-      { label: t('hospital.deviceDetails.specLabels.connectivity'), value: "WiFi, USB, DICOM" },
+      { label: t('deviceDetails.specLabels.display'), value: '15.6" LCD, 1920x1080' },
+      { label: t('deviceDetails.specLabels.weight'), value: "3.5 kg" },
+      { label: t('deviceDetails.specLabels.batteryLife'), value: "4 hours" },
+      { label: t('deviceDetails.specLabels.probes'), value: "Convex, Linear, Cardiac" },
+      { label: t('deviceDetails.specLabels.connectivity'), value: "WiFi, USB, DICOM" },
     ],
     description:
       "A compact, high-resolution ultrasound machine ideal for bedside diagnostics and emergency use. Provides clear imaging and supports multiple probe types.",
@@ -76,7 +76,7 @@ const DeviceDetailsPage = () => {
         <button
           className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200 dark:bg-gray-800/80 dark:hover:bg-gray-800 dark:border-gray-600"
           onClick={() => setFullscreenOpen(true)}
-          title={t('hospital.deviceDetails.viewFullscreen')}
+          title={t('deviceDetails.viewFullscreen')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ const DeviceDetailsPage = () => {
             <button
               className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200 dark:bg-gray-800/80 dark:hover:bg-gray-800 dark:border-gray-600"
               onClick={() => setFullscreenOpen(false)}
-              title={t('hospital.deviceDetails.closeFullscreen')}
+              title={t('deviceDetails.closeFullscreen')}
             >
               <X className="w-7 h-7 text-blue-600 dark:text-blue-400" />
             </button>
@@ -130,7 +130,7 @@ const DeviceDetailsPage = () => {
             <CardTitle className="text-xl font-semibold text-gray-800 dark:text-white">
               {device.name}{" "}
               <span className="ml-2 text-sm font-normal text-gray-400 dark:text-gray-500">
-                ({t('hospital.deviceDetails.deviceId')}: {id})
+                ({t('deviceDetails.deviceId')}: {id})
               </span>
             </CardTitle>
           </div>
@@ -140,19 +140,19 @@ const DeviceDetailsPage = () => {
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-xs px-2 py-1 rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 font-semibold">
-                {t('hospital.deviceDetails.available')}
+                {t('deviceDetails.available')}
               </span>
               <span className="text-xs px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold flex items-center">
                 <FaDollarSign className="mr-1" /> {device.price}
               </span>
               <span className="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold">
-                {t('hospital.deviceDetails.type')}: {device.type}
+                {t('deviceDetails.type')}: {device.type}
               </span>
             </div>
           </div>
           {/* Specifications */}
           <div>
-            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.specifications')}</h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('deviceDetails.specifications')}</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-gray-700 dark:text-gray-200">
               {device.specifications.map((spec) => (
                 <li key={spec.label}>
@@ -164,21 +164,21 @@ const DeviceDetailsPage = () => {
           </div>
           {/* Description */}
           <div>
-            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.description')}</h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('deviceDetails.description')}</h2>
             <p className="text-gray-600 dark:text-gray-300">
               {device.description}
             </p>
           </div>
           {/* Usage Instructions */}
           <div>
-            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.usageInstructions')}</h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('deviceDetails.usageInstructions')}</h2>
             <p className="text-gray-600 dark:text-gray-300 whitespace-pre-line">
               {device.usageInstructions}
             </p>
           </div>
           {/* Documents */}
           <div>
-            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('hospital.deviceDetails.documents')}</h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{t('deviceDetails.documents')}</h2>
             <ul className="space-y-1">
               {device.documents.map((doc) => (
                 <li
@@ -187,7 +187,7 @@ const DeviceDetailsPage = () => {
                 >
                   <FaFilePdf className="text-red-500" />
                   <a href={doc.url} target="_blank" rel="noopener noreferrer">
-                    {doc.name === "User Manual" ? t('hospital.deviceDetails.userManual') : t('hospital.deviceDetails.ceCertificate')}
+                    {doc.name === "User Manual" ? t('deviceDetails.userManual') : t('deviceDetails.ceCertificate')}
                   </a>
                 </li>
               ))}
@@ -200,15 +200,15 @@ const DeviceDetailsPage = () => {
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 text-lg font-semibold rounded"
                 onClick={async () => {
                   toast({
-                    title: t('hospital.deviceDetails.purchaseSuccessful'),
-                    description: t('hospital.deviceDetails.purchaseDescription'),
+                    title: t('deviceDetails.purchaseSuccessful'),
+                    description: t('deviceDetails.purchaseDescription'),
                     variant: "default",
                   });
                   await new Promise((res) => setTimeout(res, 2000));
                   navigate("/hospital/dashboard");
                 }}
               >
-                {t('hospital.deviceDetails.buy')}
+                {t('deviceDetails.buy')}
               </Button>
             </div>
           )}

@@ -12,7 +12,7 @@ const MyProfilePage = () => {
   const { t } = useTranslation();
   return (
     <div className="max-w-md mx-auto py-10 px-4 bg-gray-50 dark:bg-gray-900 min-h-screen">
-      <h1 className="text-xl font-bold mb-6 text-center text-gray-800 dark:text-white">{t('hospital.myProfile.title')}</h1>
+      <h1 className="text-xl font-bold mb-6 text-center text-gray-800 dark:text-white">{t('myProfile.title')}</h1>
       <div className="flex flex-col items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-sm p-6">
         <img
           src={user.image}
@@ -23,7 +23,7 @@ const MyProfilePage = () => {
         <div className="text-gray-600 dark:text-gray-400 text-sm mb-1">{user.email}</div>
         <div className="text-gray-600 dark:text-gray-400 text-sm mb-4">{user.phone}</div>
         <button className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-6 rounded">
-          {t('hospital.myProfile.editProfile')}
+          {t('myProfile.editProfile')}
         </button>
       </div>
     </div>
