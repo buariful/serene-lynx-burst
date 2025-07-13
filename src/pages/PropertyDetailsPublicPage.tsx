@@ -69,23 +69,23 @@ export default function PropertyDetailsPublicPage() {
   return (
     <div className="max-w-7xl mx-auto pb-10">
       {/* top header */}
-      <div className="px-10 py-3 border-b bordet-t flex items-center justify-between">
+      <div className="px-10 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
         <div>
           <div className="flex items-end gap-3 mb-2">
-            <h3 className="text-blue-500 text-2xl font-bold">$2400</h3>
-            <h4 className="text-xl font-medium text-gray-700">Condo</h4>
-            <p className="text-gray-700">1 Day ago</p>
+            <h3 className="text-blue-500 dark:text-blue-400 text-2xl font-bold">$2400</h3>
+            <h4 className="text-xl font-medium text-gray-700 dark:text-gray-300">Condo</h4>
+            <p className="text-gray-700 dark:text-gray-300">1 Day ago</p>
           </div>
           <div>
-            <p className="text-gray-700">31 Tippett Road - North York, ON</p>
+            <p className="text-gray-700 dark:text-gray-300">31 Tippett Road - North York, ON</p>
           </div>
         </div>
 
         <div className="flex items-center gap-5">
           {propertyMetaData?.map((item, index) => (
             <div key={index} className="flex items-center gap-2">
-              <item.icon className="text-lg text-blue-500" />
-              <p className="text-gray-800 font-medium">{item?.label}</p>
+              <item.icon className="text-lg text-blue-500 dark:text-blue-400" />
+              <p className="text-gray-800 dark:text-gray-200 font-medium">{item?.label}</p>
             </div>
           ))}
         </div>

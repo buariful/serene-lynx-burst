@@ -815,7 +815,23 @@
       "ceCertificate": "CE Certificate",
       "buy": "Buy",
       "purchaseSuccessful": "Purchase Successful!",
-      "purchaseDescription": "Thank you for your purchase. Our team will contact you soon."
+      "purchaseDescription": "Thank you for your purchase. Our team will contact you soon.",
+      "viewFullscreen": "View Fullscreen",
+      "closeFullscreen": "Close Fullscreen",
+      "type": "Type",
+      "available": "Available",
+      "price": "Price",
+      "deviceId": "ID",
+      "specLabels": {
+        "display": "Display",
+        "weight": "Weight",
+        "batteryLife": "Battery Life",
+        "probes": "Probes",
+        "connectivity": "Connectivity"
+      },
+      "deviceTypes": {
+        "imaging": "Imaging"
+      }
     }
   },
   "recruiter": {

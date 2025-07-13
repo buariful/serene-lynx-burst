@@ -16,33 +16,6 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-const sampleDevice = {
-  id: "1",
-  name: "Portable Ultrasound Machine",
-  type: "Imaging",
-  status: "Available",
-  price: "$12,000 to buy",
-  specifications: [
-    { label: "Display", value: '15.6" LCD, 1920x1080' },
-    { label: "Weight", value: "3.5 kg" },
-    { label: "Battery Life", value: "4 hours" },
-    { label: "Probes", value: "Convex, Linear, Cardiac" },
-    { label: "Connectivity", value: "WiFi, USB, DICOM" },
-  ],
-  description:
-    "A compact, high-resolution ultrasound machine ideal for bedside diagnostics and emergency use. Provides clear imaging and supports multiple probe types.",
-  usageInstructions:
-    "1. Connect the desired probe. 2. Power on the device. 3. Select the imaging mode. 4. Apply gel and scan. 5. Save or export images as needed.",
-  documents: [
-    { name: "User Manual", url: "#" },
-    { name: "CE Certificate", url: "#" },
-  ],
-  images: [
-    "https://www.sgs.com/-/media/sgscorp/images/temporary/tablet-showing-heart-test-result.cdn.en-BD.1.jpg",
-    "https://res.cloudinary.com/armis/images/f_auto,q_auto/v1706810885/images/operating-room-with-security-alert-icons-1/operating-room-with-security-alert-icons-1.jpg?_i=AA",
-  ],
-};
-
 const DeviceDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
@@ -50,7 +23,35 @@ const DeviceDetailsPage = () => {
   const location = useLocation();
   const [fullscreenOpen, setFullscreenOpen] = React.useState(false);
   const { t } = useTranslation();
+  
   // In a real app, fetch device details by id
+  const sampleDevice = {
+    id: "1",
+    name: "Portable Ultrasound Machine",
+    type: t('hospital.deviceDetails.deviceTypes.imaging'),
+    status: t('hospital.deviceDetails.available'),
+    price: "$12,000 to buy",
+    specifications: [
+      { label: t('hospital.deviceDetails.specLabels.display'), value: '15.6" LCD, 1920x1080' },
+      { label: t('hospital.deviceDetails.specLabels.weight'), value: "3.5 kg" },
+      { label: t('hospital.deviceDetails.specLabels.batteryLife'), value: "4 hours" },
+      { label: t('hospital.deviceDetails.specLabels.probes'), value: "Convex, Linear, Cardiac" },
+      { label: t('hospital.deviceDetails.specLabels.connectivity'), value: "WiFi, USB, DICOM" },
+    ],
+    description:
+      "A compact, high-resolution ultrasound machine ideal for bedside diagnostics and emergency use. Provides clear imaging and supports multiple probe types.",
+    usageInstructions:
+      "1. Connect the desired probe. 2. Power on the device. 3. Select the imaging mode. 4. Apply gel and scan. 5. Save or export images as needed.",
+    documents: [
+      { name: "User Manual", url: "#" },
+      { name: "CE Certificate", url: "#" },
+    ],
+    images: [
+      "https://www.sgs.com/-/media/sgscorp/images/temporary/tablet-showing-heart-test-result.cdn.en-BD.1.jpg",
+      "https://res.cloudinary.com/armis/images/f_auto,q_auto/v1706810885/images/operating-room-with-security-alert-icons-1/operating-room-with-security-alert-icons-1.jpg?_i=AA",
+    ],
+  };
+  
   const device = sampleDevice; // Replace with fetched data
   return (
     <div className="max-w-2xl mx-auto mt-12 bg-gray-50 dark:bg-gray-900 min-h-screen p-6">
@@ -75,7 +76,7 @@ const DeviceDetailsPage = () => {
         <button
           className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200 dark:bg-gray-800/80 dark:hover:bg-gray-800 dark:border-gray-600"
           onClick={() => setFullscreenOpen(true)}
-          title={t('propertyDetails.viewFullscreen')}
+          title={t('hospital.deviceDetails.viewFullscreen')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +99,7 @@ const DeviceDetailsPage = () => {
             <button
               className="absolute top-6 right-8 z-20 bg-white/80 hover:bg-white rounded-full p-2 shadow border border-gray-200 dark:bg-gray-800/80 dark:hover:bg-gray-800 dark:border-gray-600"
               onClick={() => setFullscreenOpen(false)}
-              title={t('propertyDetails.closeFullscreen')}
+              title={t('hospital.deviceDetails.closeFullscreen')}
             >
               <X className="w-7 h-7 text-blue-600 dark:text-blue-400" />
             </button>
@@ -129,7 +130,7 @@ const DeviceDetailsPage = () => {
             <CardTitle className="text-xl font-semibold text-gray-800 dark:text-white">
               {device.name}{" "}
               <span className="ml-2 text-sm font-normal text-gray-400 dark:text-gray-500">
-                (ID: {id})
+                ({t('hospital.deviceDetails.deviceId')}: {id})
               </span>
             </CardTitle>
           </div>
@@ -139,7 +140,7 @@ const DeviceDetailsPage = () => {
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-xs px-2 py-1 rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 font-semibold">
-                {device.status}
+                {t('hospital.deviceDetails.available')}
               </span>
               <span className="text-xs px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold flex items-center">
                 <FaDollarSign className="mr-1" /> {device.price}

@@ -5,7 +5,11 @@ const Logo = () => {
   return (
     <Link to="/" className="flex items-center">
       {/* Ensure logo.png is in the public folder */}
-      <img src="/logo.png" alt="Rentals.ca Logo" className="h-8 w-auto" />{" "}
+      <img 
+        src="/logo.png" 
+        alt="Rentals.ca Logo" 
+        className="h-8 w-auto dark:bg-white dark:p-1 dark:rounded" 
+      />
       {/* Adjust height as needed, h-8 is 32px */}
     </Link>
   );

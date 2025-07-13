@@ -73,11 +73,11 @@ const LandlordPage = () => {
       </div>
 
       {/*  */}
-      <div className="mx-10 bg-blue-100 px-16 rounded-lg py-12 mb-20">
+      <div className="mx-10 bg-blue-100 dark:bg-blue-900/20 px-16 rounded-lg py-12 mb-20">
         <div className="flex justify-between items-center gap-5 flex-col md:flex-row mb-16">
-          <h3 className="text-4xl font-bold">
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
             {t('landlordPage.visitorsTitle')}{" "}
-            <span className="text-blue-500">ScrubHub</span> {t('landlordPage.visitorsSubtitle')}
+            <span className="text-blue-500 dark:text-blue-400">ScrubHub</span> {t('landlordPage.visitorsSubtitle')}
           </h3>
 
           <div>
@@ -90,10 +90,10 @@ const LandlordPage = () => {
         </div>
 
         <div className="max-w-[700px] mx-auto flex flex-col items-center space-y-10">
-          <h2 className="text-blue-500 font-bold text-5xl">
+          <h2 className="text-blue-500 dark:text-blue-400 font-bold text-5xl">
             {t('landlordPage.helpTitle')}
           </h2>
-          <p className="text-center text-base font-medium">
+          <p className="text-center text-base font-medium text-gray-900 dark:text-gray-100">
             {t('landlordPage.helpDescription')}
           </p>
 
@@ -106,32 +106,32 @@ const LandlordPage = () => {
       {/* Plans and Pricing Section */}
       <section className="mb-20 px-10">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
+          <h2 className="text-2xl font-bold text-[#3e4153] dark:text-gray-100 mb-1">
             {t('landlordPage.plansTitle')}
           </h2>
-          <p className="text-gray-500 mb-6">
+          <p className="text-gray-500 dark:text-gray-400 mb-6">
             {t('landlordPage.plansSubtitle')}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-10 max-w-5xl mx-auto">
           {/* Limited Plan */}
-          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-sm bg-white">
-            <span className="text-lg font-semibold mb-1">{t('landlordPage.limited')}</span>
-            <span className="text-3xl font-bold text-blue-600 mb-1">$0</span>
-            <span className="text-xs text-gray-400 mb-3">30 {t('landlordPage.days')}</span>
+          <div className="border border-blue-500 dark:border-blue-400 rounded-lg p-6 flex flex-col items-center shadow-sm bg-white dark:bg-gray-800">
+            <span className="text-lg font-semibold mb-1 text-gray-900 dark:text-gray-100">{t('landlordPage.limited')}</span>
+            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">$0</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 mb-3">30 {t('landlordPage.days')}</span>
             <div className="mb-3 text-blue-500">
               {/* <FaStar className="h-8 w-8 mx-auto" /> */}
               <img src="/public/building.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
-              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.basicListing')}
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.basicListing')}
               </li>
-              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.visibleInSearch')}
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.visibleInSearch')}
               </li>
-              <li className=" rounded px-3 py-1 text-sm flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.standardSupport')}
+              <li className=" rounded px-3 py-1 text-sm flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.standardSupport')}
               </li>
             </ul>
             <button
@@ -147,28 +147,28 @@ const LandlordPage = () => {
             </button>
           </div>
           {/* Promoted Plan */}
-          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-md bg-white">
-            <span className="text-lg font-semibold mb-1">{t('landlordPage.promoted')}</span>
-            <span className="text-3xl font-bold text-blue-600 mb-1">$95</span>
-            <span className="text-xs text-gray-400 mb-3">7 {t('landlordPage.days')}</span>
+          <div className="border border-blue-500 dark:border-blue-400 rounded-lg p-6 flex flex-col items-center shadow-md bg-white dark:bg-gray-800">
+            <span className="text-lg font-semibold mb-1 text-gray-900 dark:text-gray-100">{t('landlordPage.promoted')}</span>
+            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">$95</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 mb-3">7 {t('landlordPage.days')}</span>
             <div className="mb-3 text-yellow-500">
               <img src="/public/building 2.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
-              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.highlightedListing')}
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.highlightedListing')}
               </li>
-              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.topOfSearch')}
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.topOfSearch')}
               </li>
-              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.prioritySupport')}
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.prioritySupport')}
               </li>
-              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.promotedBadge')}
+              <li className=" rounded px-3 py-1 text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.promotedBadge')}
               </li>
-              <li className=" rounded px-3 py-1 text-sm flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.increasedInquiries')}
+              <li className=" rounded px-3 py-1 text-sm flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.increasedInquiries')}
               </li>
             </ul>
             <button
@@ -184,28 +184,28 @@ const LandlordPage = () => {
             </button>
           </div>
           {/* Featured Plan */}
-          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center shadow-lg bg-white">
-            <span className="text-lg font-semibold mb-1">{t('landlordPage.featured')}</span>
-            <span className="text-3xl font-bold text-blue-600 mb-1">$199</span>
-            <span className="text-xs text-gray-400 mb-3">3 {t('landlordPage.days')}</span>
+          <div className="border border-blue-500 dark:border-blue-400 rounded-lg p-6 flex flex-col items-center shadow-lg bg-white dark:bg-gray-800">
+            <span className="text-lg font-semibold mb-1 text-gray-900 dark:text-gray-100">{t('landlordPage.featured')}</span>
+            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">$199</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 mb-3">3 {t('landlordPage.days')}</span>
             <div className="mb-3 text-pink-500">
               <img src="/public/building 3.png" alt="" className="w-16 mb-5" />
             </div>
             <ul className="w-full mb-4">
-              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.premiumPlacement')}
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.premiumPlacement')}
               </li>
-              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.maximumVisibility')}
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.maximumVisibility')}
               </li>
-              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.dedicatedSupport')}
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.dedicatedSupport')}
               </li>
-              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.featuredBadge')}
+              <li className=" rounded px-3  text-sm mb-2 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.featuredBadge')}
               </li>
-              <li className=" rounded px-3  text-sm flex items-center gap-2">
-                <FaCheck className="text-blue-500" /> {t('landlordPage.highestPriority')}
+              <li className=" rounded px-3  text-sm flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaCheck className="text-blue-500 dark:text-blue-400" /> {t('landlordPage.highestPriority')}
               </li>
             </ul>
             <button
@@ -226,10 +226,10 @@ const LandlordPage = () => {
       {/* Clients */}
       <section className="mb-24 px-10 text-center">
         <div className="text-center mb-16">
-          <h2 className="text-2xl font-bold text-[#3e4153] mb-1">
+          <h2 className="text-2xl font-bold text-[#3e4153] dark:text-gray-100 mb-1">
             {t('landlordPage.customersTitle')}
           </h2>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             {t('landlordPage.customersSubtitle')}
           </p>
         </div>
@@ -243,10 +243,10 @@ const LandlordPage = () => {
                       R
                     </p>
                     <div className="">
-                      <h2 className="text-3xl font-semibold mb-2">
+                      <h2 className="text-3xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
                         Robert Judge
                       </h2>
-                      <div className="flex text-blue-500 items-center gap-1">
+                      <div className="flex text-blue-500 dark:text-blue-400 items-center gap-1">
                         <FaStar />
                         <FaStar />
                         <FaStar />
@@ -255,7 +255,7 @@ const LandlordPage = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="text-lg mx-auto max-w-2xl">
+                  <p className="text-lg mx-auto max-w-2xl text-gray-700 dark:text-gray-300">
                     {t('landlordPage.testimonial1')}
                   </p>
                 </div>
@@ -267,10 +267,10 @@ const LandlordPage = () => {
                       S
                     </p>
                     <div className="">
-                      <h2 className="text-3xl font-semibold mb-2">
+                      <h2 className="text-3xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
                         Samantha Lee
                       </h2>
-                      <div className="flex text-blue-500 items-center gap-1">
+                      <div className="flex text-blue-500 dark:text-blue-400 items-center gap-1">
                         <FaStar />
                         <FaStar />
                         <FaStar />
@@ -279,7 +279,7 @@ const LandlordPage = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="text-lg mx-auto max-w-2xl">
+                  <p className="text-lg mx-auto max-w-2xl text-gray-700 dark:text-gray-300">
                     {t('landlordPage.testimonial2')}
                   </p>
                 </div>
@@ -291,10 +291,10 @@ const LandlordPage = () => {
                       M
                     </p>
                     <div className="">
-                      <h2 className="text-3xl font-semibold mb-2">
+                      <h2 className="text-3xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
                         Michael Chen
                       </h2>
-                      <div className="flex text-blue-500 items-center gap-1">
+                      <div className="flex text-blue-500 dark:text-blue-400 items-center gap-1">
                         <FaStar />
                         <FaStar />
                         <FaStar />
@@ -303,7 +303,7 @@ const LandlordPage = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="text-lg mx-auto max-w-2xl">
+                  <p className="text-lg mx-auto max-w-2xl text-gray-700 dark:text-gray-300">
                     {t('landlordPage.testimonial3')}
                   </p>
                 </div>

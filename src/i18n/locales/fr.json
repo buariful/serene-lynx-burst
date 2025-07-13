@@ -815,7 +815,23 @@
       "ceCertificate": "Certificat CE",
       "buy": "Acheter",
       "purchaseSuccessful": "Achat réussi !",
-      "purchaseDescription": "Merci pour votre achat. Notre équipe vous contactera bientôt."
+      "purchaseDescription": "Merci pour votre achat. Notre équipe vous contactera bientôt.",
+      "viewFullscreen": "Voir en plein écran",
+      "closeFullscreen": "Fermer le plein écran",
+      "type": "Type",
+      "available": "Disponible",
+      "price": "Prix",
+      "deviceId": "ID",
+      "specLabels": {
+        "display": "Écran",
+        "weight": "Poids",
+        "batteryLife": "Autonomie de batterie",
+        "probes": "Sondes",
+        "connectivity": "Connectivité"
+      },
+      "deviceTypes": {
+        "imaging": "Imagerie"
+      }
     }
   },
   "recruiter": {
