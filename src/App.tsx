@@ -66,6 +66,7 @@ import TenantMarketplacePage from "./pages/tenant/TenantMarketplacePage";
 import TenantNoticePage from "./pages/tenant/TenantNoticePage";
 import TrustiiDemoPage from "./pages/TrustiiDemoPage";
 import TrustiiReportPage from "./pages/TrustiiReportPage";
+import TrustiiSharedReportPage from "./pages/TrustiiSharedReportPage";
 import CreditCheckReportPage from "./pages/CreditCheckReportPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
@@ -196,6 +197,7 @@ const App = () => (
                 <Route path="/credit-check-report" element={<TrustiiDemoPage />} />
                 <Route path="/trustii-demo" element={<TrustiiDemoPage />} />
                 <Route path="/trustii-report/:inquiryId" element={<TrustiiReportPage />} />
+                <Route path="/trustii-shared-report/:inquiryId" element={<TrustiiSharedReportPage />} />
                 <Route path="/credit-check" element={<CreditCheckReportPage />} />
 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
