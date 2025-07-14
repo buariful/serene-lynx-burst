@@ -1311,6 +1311,26 @@
       "residentPhysician": {
         "title": "Médecin résident - Centre des sciences de la santé de London",
         "type": "Contrat"
+      },
+      "surgeon": {
+        "title": "Chirurgien cardiovasculaire - Hôpital général de Vancouver",
+        "type": "Temps plein"
+      },
+      "pharmacist": {
+        "title": "Pharmacien clinicien - Hôpital général juif",
+        "type": "Temps plein"
+      },
+      "radiologist": {
+        "title": "Radiologiste diagnostique - Centre médical Foothills",
+        "type": "Temps plein"
+      },
+      "physiotherapist": {
+        "title": "Physiothérapeute - Hôpital d'Ottawa",
+        "type": "Temps plein"
+      },
+      "labTechnician": {
+        "title": "Technicien de laboratoire médical - Centre des sciences de la santé Queen Elizabeth II",
+        "type": "Temps plein"
       }
     }
   },

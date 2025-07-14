@@ -1311,6 +1311,26 @@
       "residentPhysician": {
         "title": "Resident Physician - London Health Sciences Centre",
         "type": "Contract"
+      },
+      "surgeon": {
+        "title": "Cardiovascular Surgeon - Vancouver General Hospital",
+        "type": "Full Time"
+      },
+      "pharmacist": {
+        "title": "Clinical Pharmacist - Jewish General Hospital",
+        "type": "Full Time"
+      },
+      "radiologist": {
+        "title": "Diagnostic Radiologist - Foothills Medical Centre",
+        "type": "Full Time"
+      },
+      "physiotherapist": {
+        "title": "Physiotherapist - The Ottawa Hospital",
+        "type": "Full Time"
+      },
+      "labTechnician": {
+        "title": "Medical Laboratory Technician - Queen Elizabeth II Health Sciences Centre",
+        "type": "Full Time"
       }
     }
   },
