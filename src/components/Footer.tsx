@@ -12,6 +12,7 @@ const Footer = () => {
       { label: t('footer.links.blog'), href: "/blog" },
       // { label: t('footer.links.careers'), href: "/careers" },
       { label: t('footer.links.contactUs'), href: "/contact-us" },
+      { label: t('footer.carrer'), href: "/job-board" },
       { label: t('footer.creditCheckReport'), href: "/credit-check-report" },
     ],
     tenants: [
@@ -121,7 +122,7 @@ const Footer = () => {
         <div className="border-t border-[hsl(var(--footer-border))] pt-8 text-center md:text-left">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm mb-4 md:mb-0 text-[hsl(var(--footer-text))]">
-              &copy; {currentYear} Rentals.ca. {t('footer.allRightsReserved')} A{" "}
+              &copy; {currentYear} Scrubhub.ca. {t('footer.allRightsReserved')} A{" "}
               <a
                 href="https://scrubhub.ca"
                 target="_blank"

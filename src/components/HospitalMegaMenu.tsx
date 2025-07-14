@@ -28,7 +28,7 @@ const canadaHospitals = [
 
 const HospitalMegaMenu: React.FC = () => {
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-4 bg-gray-900">
       {" "}
       {/* Overall padding for the content area, now full-width */}
       <h2 className="text-xl font-semibold text-white mb-4 text-center md:text-left">
@@ -47,7 +47,7 @@ const HospitalMegaMenu: React.FC = () => {
             )}&province=${encodeURIComponent(
               hospital.location.split(", ")[1]
             )}`}
-            className="block py-1 text-gray-300 hover:text-white hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Simplified list item styling
+            className="block py-1 text-gray-300 hover:text-blue-300 hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Simplified list item styling
           >
             <h3 className="font-medium text-sm">{hospital.name}</h3>{" "}
             {/* Adjusted text size */}
