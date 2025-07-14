@@ -8,26 +8,40 @@ const Footer = () => {
   const { t } = useTranslation();
   const footerLinks = {
     company: [
-      { label: t('header.about'), href: "/about" },
-      { label: t('header.blog'), href: "/blog" },
-      { label: t('header.contactUs'), href: "/contact-us" },
+      { label: t('footer.links.aboutUs'), href: "/about" },
+      { label: t('footer.links.blog'), href: "/blog" },
+      // { label: t('footer.links.careers'), href: "/careers" },
+      { label: t('footer.links.contactUs'), href: "/contact-us" },
       { label: t('footer.creditCheckReport'), href: "/credit-check-report" },
     ],
     tenants: [
-      { label: t('footer.forTenants'), href: "/faq" },
-      { label: t('footer.forTenants'), href: "/tenant/marketplace" },
+      // { label: t('footer.links.rentReport'), href: "/rent-report" },
+      { label: t('footer.links.faqsForTenants'), href: "/faq" },
+      // { label: t('footer.links.avoidScams'), href: "/avoid-scams" },
+      { label: t('footer.links.searchRentals'), href: "/tenant/marketplace" },
     ],
     landlords: [
-      { label: t('footer.forLandlords'), href: "/login" },
-      { label: t('footer.forLandlords'), href: "/landlords" },
-      { label: t('footer.forLandlords'), href: "/landlords" },
-      { label: t('footer.forLandlords'), href: "/faq" },
+      { label: t('footer.links.postARental'), href: "/login" },
+      { label: t('footer.links.pricing'), href: "/landlords" },
+      { label: t('footer.links.landlordResources'), href: "/landlords" },
+      { label: t('footer.links.faqsForLandlords'), href: "/faq" },
     ],
     cities: [
-      { label: "Toronto Rentals", href: "/toronto/rental" },
-      { label: "Vancouver Rentals", href: "/toronto/rental" },
-      { label: "Montreal Rentals", href: "/toronto/rental" },
-      { label: "Calgary Rentals", href: "/toronto/rental" },
+      // Column 1
+      { label: t('footer.links.torontoRentals'), href: "/toronto/rental" },
+      { label: t('footer.links.vancouverRentals'), href: "/toronto/rental" },
+      { label: t('footer.links.montrealRentals'), href: "/toronto/rental" },
+      { label: t('footer.links.calgaryRentals'), href: "/toronto/rental" },
+      // Column 2
+      // { label: t('footer.links.edmontonRentals'), href: "/rentals/edmonton" },
+      // { label: t('footer.links.ottawaRentals'), href: "/rentals/ottawa" },
+      // { label: t('footer.links.winnipegRentals'), href: "/rentals/winnipeg" },
+      // { label: t('footer.links.quebecCityRentals'), href: "/rentals/quebec-city" },
+      // // Column 3
+      // { label: t('footer.links.hamiltonRentals'), href: "/rentals/hamilton" },
+      // { label: t('footer.links.londonRentals'), href: "/rentals/london" },
+      // { label: t('footer.links.victoriaRentals'), href: "/rentals/victoria" },
+      // { label: t('footer.links.halifaxRentals'), href: "/rentals/halifax" },
     ],
   };
 
