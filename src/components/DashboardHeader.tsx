@@ -50,8 +50,17 @@ const DashboardHeader = () => {
   const { t, i18n } = useTranslation();
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  // Debug language changes
+  useEffect(() => {
+    console.log('DashboardHeader - Current language:', i18n.language);
+    console.log('DashboardHeader - Test translation:', t('header.medicalSchools'));
+  }, [i18n.language, t]);
+
   const handleLanguageChange = (language: string) => {
+    console.log('DashboardHeader - Changing language to:', language);
+    console.log('DashboardHeader - Current language before change:', i18n.language);
     i18n.changeLanguage(language);
+    console.log('DashboardHeader - Language change initiated');
   };
 
   const getCurrentLanguageLabel = () => {

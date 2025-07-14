@@ -39,7 +39,8 @@
     "submit": "Soumettre",
     "back": "Retour",
     "next": "Suivant",
-    "previous": "Précédent"
+    "previous": "Précédent",
+    "address": "Adresse"
   },
   "creditCheck": {
     "title": "Rapport de vérification de crédit",
