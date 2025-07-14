@@ -150,7 +150,7 @@ const TrustiiDemoPage: React.FC = () => {
         </div>
 
         {/* Configuration Status */}
-        <Card className="mb-6 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        {/* <Card className="mb-6 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Settings className="h-5 w-5" />
@@ -171,10 +171,10 @@ const TrustiiDemoPage: React.FC = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* Credit Check CTA */}
-        <Card className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
+      {/*   <Card className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
@@ -212,7 +212,7 @@ const TrustiiDemoPage: React.FC = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* Completed Credit Check Success Message */}
         {completedReport && !showCreditCheck && (
@@ -328,7 +328,7 @@ const TrustiiDemoPage: React.FC = () => {
         </Tabs>
 
         {/* Features Overview */}
-        <Card className="mt-8 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+       {/*  <Card className="mt-8 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
           <CardHeader>
             <CardTitle className="text-gray-900 dark:text-gray-100">{t('trustii.demo.verificationFeatures')}</CardTitle>
           </CardHeader>
@@ -360,10 +360,10 @@ const TrustiiDemoPage: React.FC = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* API Documentation Link */}
-        <Card className="mt-6 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        {/* <Card className="mt-6 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
           <CardContent className="pt-6">
             <div className="text-center">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
@@ -379,7 +379,7 @@ const TrustiiDemoPage: React.FC = () => {
               </a>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );
