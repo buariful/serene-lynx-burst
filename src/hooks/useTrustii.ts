@@ -18,6 +18,7 @@ export const useTrustii = (): TrustiiInquiryState & TrustiiInquiryActions => {
   const [state, setState] = useState<TrustiiInquiryState>({
     inquiry: null,
     report: null,
+    retrievedInquiry: null,
     loading: false,
     error: null,
   });
@@ -31,16 +32,20 @@ export const useTrustii = (): TrustiiInquiryState & TrustiiInquiryActions => {
 
     try {
       // Validate required fields
-      if (!data.data.first_name || !data.data.last_name) {
-        throw new Error('First name and last name are required');
+      if (!data.contactName) {
+        throw new Error('Contact name is required');
       }
 
-      if (!data.data.consent) {
-        throw new Error('Consent is required to proceed with verification');
+      if (!data.name) {
+        throw new Error('Subject name is required');
       }
 
-      if (!data.data.purpose) {
-        throw new Error('Purpose is required for the verification');
+      if (!data.services || data.services.length === 0) {
+        throw new Error('At least one service must be selected');
+      }
+
+      if (!data.language) {
+        throw new Error('Language is required');
       }
 
       const inquiry = await trustiiService.createInquiry(data);
@@ -48,7 +53,6 @@ export const useTrustii = (): TrustiiInquiryState & TrustiiInquiryActions => {
       setState(prev => ({
         ...prev,
         inquiry,
-        report: inquiry.report || null,
         loading: false,
         error: null,
       }));
@@ -75,12 +79,12 @@ export const useTrustii = (): TrustiiInquiryState & TrustiiInquiryActions => {
         throw new Error('Inquiry ID is required');
       }
 
-      const inquiry = await trustiiService.retrieveInquiry(inquiryId);
+      const retrievedInquiry = await trustiiService.retrieveInquiry(inquiryId);
       
       setState(prev => ({
         ...prev,
-        inquiry,
-        report: inquiry.report || null,
+        retrievedInquiry,
+        report: retrievedInquiry.report || null,
         loading: false,
         error: null,
       }));
@@ -102,6 +106,7 @@ export const useTrustii = (): TrustiiInquiryState & TrustiiInquiryActions => {
     setState({
       inquiry: null,
       report: null,
+      retrievedInquiry: null,
       loading: false,
       error: null,
     });

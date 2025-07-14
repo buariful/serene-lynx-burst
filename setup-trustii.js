@@ -10,7 +10,7 @@ const envContent = `# Trustii API Configuration
 VITE_TRUSTII_API_KEY=tr_test_dummy_key_123456789abcdef
 
 # Trustii API Base URL (optional - defaults to production)
-VITE_TRUSTII_API_BASE_URL=https://api.trustii.co/verif
+VITE_TRUSTII_API_BASE_URL=https://api.trustii.co/hr/v1
 
 # Development Configuration
 VITE_DEBUG=true

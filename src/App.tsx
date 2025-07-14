@@ -65,6 +65,7 @@ import DeviceDetailsPage from "./pages/hospital/DeviceDetailsPage";
 import TenantMarketplacePage from "./pages/tenant/TenantMarketplacePage";
 import TenantNoticePage from "./pages/tenant/TenantNoticePage";
 import TrustiiDemoPage from "./pages/TrustiiDemoPage";
+import TrustiiReportPage from "./pages/TrustiiReportPage";
 import CreditCheckReportPage from "./pages/CreditCheckReportPage";
 // Placeholder for specific forms/views if they become separate routes
 // import PostPropertyFormPage from "./pages/doctor/PostPropertyFormPage";
@@ -192,7 +193,9 @@ const App = () => (
                 <Route path="/search-near-me" element={<SearchNearMePage />} />
                 <Route path="/apartment" element={<ApartmentPage />} />
                 <Route path="/hospital-list" element={<ApartmentPage />} />
+                <Route path="/credit-check-report" element={<TrustiiDemoPage />} />
                 <Route path="/trustii-demo" element={<TrustiiDemoPage />} />
+                <Route path="/trustii-report/:inquiryId" element={<TrustiiReportPage />} />
                 <Route path="/credit-check" element={<CreditCheckReportPage />} />
 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

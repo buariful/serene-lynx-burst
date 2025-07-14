@@ -203,7 +203,7 @@ const CreditReportDisplay: React.FC<CreditReportDisplayProps> = ({
               </>
             )}
           </Button>
-          <Button 
+          {/* <Button 
             variant="outline" 
             onClick={async () => {
               try {
@@ -216,7 +216,7 @@ const CreditReportDisplay: React.FC<CreditReportDisplayProps> = ({
           >
             <FileText className="w-4 h-4 mr-2" />
             Test PDF
-          </Button>
+          </Button> */}
           <Button variant="outline" onClick={handleShare}>
             <Share2 className="w-4 h-4 mr-2" />
             Share

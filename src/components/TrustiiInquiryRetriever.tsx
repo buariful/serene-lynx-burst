@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,399 +9,409 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, Search, AlertCircle, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { 
+  Loader2, 
+  CheckCircle, 
+  AlertCircle, 
+  Search, 
+  FileText, 
+  Download, 
+  Share2, 
+  Printer,
+  Clock,
+  User,
+  Shield,
+  CreditCard,
+  Globe,
+  Calendar,
+  Phone,
+  Mail
+} from 'lucide-react';
 import { useTrustii } from '@/hooks/useTrustii';
-import { TrustiiReport } from '@/types/trustii';
-import { showError } from '@/utils/toast';
+import { showSuccess, showError } from '@/utils/toast';
+import { useTranslation } from 'react-i18next';
+
+// Form validation schema
+const retrieveSchema = z.object({
+  inquiryId: z.string().min(1, 'Inquiry ID is required'),
+});
+
+type RetrieveFormData = z.infer<typeof retrieveSchema>;
 
 interface TrustiiInquiryRetrieverProps {
   onInquiryFound?: (inquiryId: string) => void;
 }
 
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'Completed':
+      return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200';
+    case 'Submitted':
+      return 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200';
+    case 'InProgress':
+      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-200';
+    case 'Pending':
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-200';
+    case 'Suspended':
+      return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200';
+    default:
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-200';
+  }
+};
+
+const getStatusIcon = (status: string) => {
+  switch (status) {
+    case 'Completed':
+      return <CheckCircle className="h-4 w-4" />;
+    case 'Submitted':
+      return <FileText className="h-4 w-4" />;
+    case 'InProgress':
+      return <Clock className="h-4 w-4" />;
+    case 'Pending':
+      return <Clock className="h-4 w-4" />;
+    case 'Suspended':
+      return <AlertCircle className="h-4 w-4" />;
+    default:
+      return <Clock className="h-4 w-4" />;
+  }
+};
+
 /**
- * Component for retrieving and displaying Trustii inquiry results
+ * Component for retrieving and displaying Trustii inquiry reports
  */
 export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = ({
   onInquiryFound,
 }) => {
-  const { retrieveInquiry, loading, error, inquiry, report } = useTrustii();
-  const [inquiryId, setInquiryId] = useState('');
+  const { t } = useTranslation();
+  const { retrieveInquiry, loading, error, retrievedInquiry } = useTrustii();
+  const [shareUrl, setShareUrl] = useState<string>('');
 
-  const handleRetrieve = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inquiryId.trim()) {
-      showError('Please enter an inquiry ID');
-      return;
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<RetrieveFormData>({
+    resolver: zodResolver(retrieveSchema),
+  });
 
+  const onSubmit = async (data: RetrieveFormData) => {
     try {
-      await retrieveInquiry(inquiryId.trim());
-      onInquiryFound?.(inquiryId.trim());
+      await retrieveInquiry(data.inquiryId);
+      onInquiryFound?.(data.inquiryId);
+      showSuccess('Inquiry retrieved successfully!');
     } catch (err) {
-      // Error is already handled by the hook
+      const errorMessage = err instanceof Error ? err.message : 'Failed to retrieve inquiry';
+      showError(errorMessage);
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return <CheckCircle className="h-4 w-4 text-green-600" />;
-      case 'failed':
-        return <XCircle className="h-4 w-4 text-red-600" />;
-      case 'pending':
-        return <Clock className="h-4 w-4 text-yellow-600" />;
-      default:
-        return <Clock className="h-4 w-4 text-gray-600" />;
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleDownload = () => {
+    if (!retrievedInquiry) return;
+    
+    const reportData = {
+      inquiry: retrievedInquiry,
+      report: retrievedInquiry.report,
+      generatedAt: new Date().toISOString(),
+    };
+    
+    const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `trustii-report-${retrievedInquiry.id}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleShare = () => {
+    if (!retrievedInquiry) return;
+    
+    const shareUrl = `${window.location.origin}/trustii-report/${retrievedInquiry.id}`;
+    setShareUrl(shareUrl);
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'Trustii Verification Report',
+        text: `Verification report for ${retrievedInquiry.name}`,
+        url: shareUrl,
+      });
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      showSuccess('Share URL copied to clipboard!');
     }
   };
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return <Badge variant="default" className="bg-green-100 text-green-800">Completed</Badge>;
-      case 'failed':
-        return <Badge variant="destructive">Failed</Badge>;
-      case 'pending':
-        return <Badge variant="secondary">Pending</Badge>;
-      default:
-        return <Badge variant="outline">Unknown</Badge>;
-    }
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   };
 
-  const renderReportSection = (report: TrustiiReport) => {
-    const { results, summary } = report;
-
+  if (retrievedInquiry) {
     return (
       <div className="space-y-6">
-        {/* Summary */}
+        {/* Report Header */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              Report Summary
-              {getStatusIcon(report.status)}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{summary.total_checks}</div>
-                <div className="text-sm text-gray-600">Total Checks</div>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Verification Report
+                </CardTitle>
+                <p className="text-sm text-gray-600 mt-1">
+                  Inquiry ID: {retrievedInquiry.id}
+                </p>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">{summary.passed_checks}</div>
-                <div className="text-sm text-gray-600">Passed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">{summary.failed_checks}</div>
-                <div className="text-sm text-gray-600">Failed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-600">{summary.pending_checks}</div>
-                <div className="text-sm text-gray-600">Pending</div>
+              <div className="flex items-center gap-2">
+                <Badge className={getStatusColor(retrievedInquiry.status)}>
+                  {getStatusIcon(retrievedInquiry.status)}
+                  {retrievedInquiry.status}
+                </Badge>
               </div>
             </div>
-            <div className="mt-4 text-center">
-              Overall Status: {getStatusBadge(summary.overall_status)}
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="flex items-center gap-2">
+                <User className="h-4 w-4 text-gray-500" />
+                <div>
+                  <p className="text-sm font-medium">{retrievedInquiry.name}</p>
+                  <p className="text-xs text-gray-500">Subject</p>
+                </div>
+              </div>
+              
+              {retrievedInquiry.email && (
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-gray-500" />
+                  <div>
+                    <p className="text-sm font-medium">{retrievedInquiry.email}</p>
+                    <p className="text-xs text-gray-500">Email</p>
+                  </div>
+                </div>
+              )}
+              
+              {retrievedInquiry.phoneNumber && (
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-gray-500" />
+                  <div>
+                    <p className="text-sm font-medium">{retrievedInquiry.phoneNumber}</p>
+                    <p className="text-xs text-gray-500">Phone</p>
+                  </div>
+                </div>
+              )}
+              
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-gray-500" />
+                <div>
+                  <p className="text-sm font-medium">{formatDate(retrievedInquiry.createdAt)}</p>
+                  <p className="text-xs text-gray-500">Created</p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Employment Verification */}
-        {results.employment_verification && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                Employment Verification
-                {getStatusIcon(results.employment_verification.verified ? 'completed' : 'failed')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {results.employment_verification.company_name && (
-                  <div>
-                    <span className="font-medium">Company:</span> {results.employment_verification.company_name}
-                  </div>
-                )}
-                {results.employment_verification.position && (
-                  <div>
-                    <span className="font-medium">Position:</span> {results.employment_verification.position}
-                  </div>
-                )}
-                {results.employment_verification.start_date && (
-                  <div>
-                    <span className="font-medium">Start Date:</span> {results.employment_verification.start_date}
-                  </div>
-                )}
-                {results.employment_verification.end_date && (
-                  <div>
-                    <span className="font-medium">End Date:</span> {results.employment_verification.end_date}
-                  </div>
-                )}
-                {results.employment_verification.salary && (
-                  <div>
-                    <span className="font-medium">Salary:</span> ${results.employment_verification.salary.toLocaleString()}
-                  </div>
-                )}
-                {results.employment_verification.notes && (
-                  <div>
-                    <span className="font-medium">Notes:</span> {results.employment_verification.notes}
-                  </div>
-                )}
-                <div className="mt-2">
-                  {getStatusBadge(results.employment_verification.verified ? 'completed' : 'failed')}
-                </div>
+        {/* Services */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              Verification Services
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {retrievedInquiry.services.map((service) => (
+                <Badge key={service} variant="outline" className="justify-start">
+                  {service === 'identity' && <User className="h-3 w-3 mr-1" />}
+                  {service === 'credit' && <CreditCard className="h-3 w-3 mr-1" />}
+                  {(service === 'criminal_quebec' || service === 'criminal_canada') && <Shield className="h-3 w-3 mr-1" />}
+                  {service === 'online_reputation' && <Globe className="h-3 w-3 mr-1" />}
+                  {service.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                </Badge>
+              ))}
+            </div>
+            
+            {retrievedInquiry.creditStatus !== 'NotIncluded' && (
+              <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                  Credit Status: {retrievedInquiry.creditStatus}
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        )}
+            )}
+          </CardContent>
+        </Card>
 
-        {/* Identity Verification */}
-        {results.identity_verification && (
+        {/* Report Details */}
+        {retrievedInquiry.report && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                Identity Verification
-                {getStatusIcon(results.identity_verification.verified ? 'completed' : 'failed')}
+                <FileText className="h-5 w-5" />
+                Report Details
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {results.identity_verification.first_name && (
-                  <div>
-                    <span className="font-medium">First Name:</span> {results.identity_verification.first_name}
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                      {retrievedInquiry.report.summary.total_checks}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Total Checks</p>
                   </div>
-                )}
-                {results.identity_verification.last_name && (
-                  <div>
-                    <span className="font-medium">Last Name:</span> {results.identity_verification.last_name}
+                  <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      {retrievedInquiry.report.summary.passed_checks}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Passed</p>
                   </div>
-                )}
-                {results.identity_verification.date_of_birth && (
-                  <div>
-                    <span className="font-medium">Date of Birth:</span> {results.identity_verification.date_of_birth}
+                  <div className="text-center p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                    <p className="text-2xl font-bold text-red-600 dark:text-red-400">
+                      {retrievedInquiry.report.summary.failed_checks}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Failed</p>
                   </div>
-                )}
-                {results.identity_verification.address && (
-                  <div>
-                    <span className="font-medium">Address:</span>
-                    <div className="ml-4 text-sm text-gray-600">
-                      {results.identity_verification.address.street}<br />
-                      {results.identity_verification.address.city}, {results.identity_verification.address.state} {results.identity_verification.address.postal_code}<br />
-                      {results.identity_verification.address.country}
-                    </div>
-                  </div>
-                )}
-                {results.identity_verification.notes && (
-                  <div>
-                    <span className="font-medium">Notes:</span> {results.identity_verification.notes}
-                  </div>
-                )}
-                <div className="mt-2">
-                  {getStatusBadge(results.identity_verification.verified ? 'completed' : 'failed')}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Criminal Background Check */}
-        {results.criminal_background_check && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                Criminal Background Check
-                {getStatusIcon(results.criminal_background_check.verified ? 'completed' : 'failed')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div>
-                  <span className="font-medium">Has Criminal Record:</span>
-                  <Badge variant={results.criminal_background_check.has_criminal_record ? "destructive" : "default"} className="ml-2">
-                    {results.criminal_background_check.has_criminal_record ? 'Yes' : 'No'}
+                
+                <div className="text-center">
+                  <Badge 
+                    className={
+                      retrievedInquiry.report.summary.overall_status === 'pass' 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                        : retrievedInquiry.report.summary.overall_status === 'fail'
+                        ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200'
+                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-200'
+                    }
+                  >
+                    Overall Status: {retrievedInquiry.report.summary.overall_status.toUpperCase()}
                   </Badge>
                 </div>
-                {results.criminal_background_check.records && results.criminal_background_check.records.length > 0 && (
-                  <div>
-                    <span className="font-medium">Records:</span>
-                    <div className="mt-2 space-y-2">
-                      {results.criminal_background_check.records.map((record, index) => (
-                        <div key={index} className="p-3 bg-gray-50 rounded-lg">
-                          <div><span className="font-medium">Offense:</span> {record.offense}</div>
-                          <div><span className="font-medium">Date:</span> {record.date}</div>
-                          <div><span className="font-medium">Disposition:</span> {record.disposition}</div>
-                          <div><span className="font-medium">Jurisdiction:</span> {record.jurisdiction}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {results.criminal_background_check.notes && (
-                  <div>
-                    <span className="font-medium">Notes:</span> {results.criminal_background_check.notes}
-                  </div>
-                )}
-                <div className="mt-2">
-                  {getStatusBadge(results.criminal_background_check.verified ? 'completed' : 'failed')}
-                </div>
               </div>
             </CardContent>
           </Card>
         )}
 
-        {/* Education Verification */}
-        {results.education_verification && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                Education Verification
-                {getStatusIcon(results.education_verification.verified ? 'completed' : 'failed')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {results.education_verification.institution && (
-                  <div>
-                    <span className="font-medium">Institution:</span> {results.education_verification.institution}
-                  </div>
-                )}
-                {results.education_verification.degree && (
-                  <div>
-                    <span className="font-medium">Degree:</span> {results.education_verification.degree}
-                  </div>
-                )}
-                {results.education_verification.graduation_date && (
-                  <div>
-                    <span className="font-medium">Graduation Date:</span> {results.education_verification.graduation_date}
-                  </div>
-                )}
-                {results.education_verification.notes && (
-                  <div>
-                    <span className="font-medium">Notes:</span> {results.education_verification.notes}
-                  </div>
-                )}
-                <div className="mt-2">
-                  {getStatusBadge(results.education_verification.verified ? 'completed' : 'failed')}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <div className="space-y-6">
-      {/* Search Form */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Retrieve Inquiry</CardTitle>
-          <p className="text-sm text-gray-600">
-            Enter an inquiry ID to retrieve the verification results.
-          </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleRetrieve} className="space-y-4">
-            <div>
-              <Label htmlFor="inquiry-id">Inquiry ID</Label>
-              <div className="flex gap-2">
-                <Input
-                  id="inquiry-id"
-                  value={inquiryId}
-                  onChange={(e) => setInquiryId(e.target.value)}
-                  placeholder="Enter inquiry ID"
-                  disabled={loading}
-                />
-                <Button type="submit" disabled={loading || !inquiryId.trim()}>
-                  {loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <Search className="h-4 w-4" />
-                  )}
-                </Button>
-              </div>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-
-      {/* Error Display */}
-      {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      {/* Inquiry Details */}
-      {inquiry && (
+        {/* Action Buttons */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              Inquiry Details
-              {getStatusIcon(inquiry.status)}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <span className="font-medium">Inquiry ID:</span> {inquiry.id}
-                </div>
-                <div>
-                  <span className="font-medium">Status:</span> {getStatusBadge(inquiry.status)}
-                </div>
-                <div>
-                  <span className="font-medium">Created:</span> {new Date(inquiry.created_at).toLocaleDateString()}
-                </div>
-                <div>
-                  <span className="font-medium">Updated:</span> {new Date(inquiry.updated_at).toLocaleDateString()}
-                </div>
-              </div>
-
-              <Separator />
-
-              <div>
-                <h4 className="font-medium mb-2">Personal Information</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  <div><span className="font-medium">Name:</span> {inquiry.data.first_name} {inquiry.data.last_name}</div>
-                  {inquiry.data.email && <div><span className="font-medium">Email:</span> {inquiry.data.email}</div>}
-                  {inquiry.data.phone && <div><span className="font-medium">Phone:</span> {inquiry.data.phone}</div>}
-                  {inquiry.data.date_of_birth && <div><span className="font-medium">DOB:</span> {inquiry.data.date_of_birth}</div>}
-                </div>
-              </div>
-
-              {inquiry.data.employment_details && (
-                <>
-                  <Separator />
-                  <div>
-                    <h4 className="font-medium mb-2">Employment Details</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                      <div><span className="font-medium">Company:</span> {inquiry.data.employment_details.company_name}</div>
-                      <div><span className="font-medium">Position:</span> {inquiry.data.employment_details.position}</div>
-                      <div><span className="font-medium">Start Date:</span> {inquiry.data.employment_details.start_date}</div>
-                      {inquiry.data.employment_details.end_date && (
-                        <div><span className="font-medium">End Date:</span> {inquiry.data.employment_details.end_date}</div>
-                      )}
-                    </div>
-                  </div>
-                </>
-              )}
-
-              <Separator />
-
-              <div>
-                <h4 className="font-medium mb-2">Purpose</h4>
-                <p className="text-sm">{inquiry.data.purpose}</p>
-              </div>
+          <CardContent className="pt-6">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button onClick={handlePrint} variant="outline" className="flex-1">
+                <Printer className="h-4 w-4 mr-2" />
+                Print Report
+              </Button>
+              <Button onClick={handleDownload} variant="outline" className="flex-1">
+                <Download className="h-4 w-4 mr-2" />
+                Download JSON
+              </Button>
+              <Button onClick={handleShare} variant="outline" className="flex-1">
+                <Share2 className="h-4 w-4 mr-2" />
+                Share Report
+              </Button>
             </div>
+            
+            {shareUrl && (
+              <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
+                  Share URL:
+                </p>
+                <div className="flex gap-2">
+                  <Input value={shareUrl} readOnly className="flex-1" />
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      showSuccess('URL copied to clipboard!');
+                    }}
+                  >
+                    Copy
+                  </Button>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
-      )}
 
-      {/* Report Display */}
-      {report && renderReportSection(report)}
-    </div>
+        {/* Back Button */}
+        <Button
+          onClick={() => {
+            reset();
+            window.location.reload();
+          }}
+          variant="outline"
+          className="w-full"
+        >
+          Retrieve Another Report
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Search className="h-5 w-5" />
+          Retrieve Inquiry Report
+        </CardTitle>
+        <p className="text-sm text-gray-600">
+          Enter an inquiry ID to retrieve the verification results and detailed report.
+        </p>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <Label htmlFor="inquiryId">Inquiry ID *</Label>
+            <Input
+              id="inquiryId"
+              {...register('inquiryId')}
+              placeholder="Enter inquiry ID"
+            />
+            {errors.inquiryId && (
+              <p className="text-sm text-red-600 mt-1">{errors.inquiryId.message}</p>
+            )}
+          </div>
+
+          {/* Error Display */}
+          {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Retrieving Report...
+              </>
+            ) : (
+              <>
+                <Search className="mr-2 h-4 w-4" />
+                Retrieve Report
+              </>
+            )}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 }; 

@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { AlertCircle, Settings, FileText, Search, CreditCard, CheckCircle, Shield } from 'lucide-react';
+import { AlertCircle, Settings, FileText, Search, CreditCard, CheckCircle, Shield, Building2 } from 'lucide-react';
 import { TrustiiInquiryForm } from '@/components/TrustiiInquiryForm';
 import { TrustiiInquiryRetriever } from '@/components/TrustiiInquiryRetriever';
 import { useTrustiiConfig } from '@/hooks/useTrustii';
@@ -90,7 +90,7 @@ const TrustiiDemoPage: React.FC = () => {
                 </div>
                 <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
                   <code className="text-sm text-gray-900 dark:text-gray-100">
-                    VITE_TRUSTII_API_BASE_URL=https://api.trustii.co/verif
+                    VITE_TRUSTII_API_BASE_URL=https://api.trustii.co/hr/v1
                   </code>
                 </div>
               </div>
@@ -128,8 +128,19 @@ const TrustiiDemoPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-8">
+        {/* Header with TransUnion/Equifax Logo */}
+        <div className="text-center mb-8 relative">
+          {/* TransUnion/Equifax Logo in top right */}
+          <div className="absolute top-0 right-0 flex items-center gap-2">
+            <div className="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                <span className="font-semibold text-blue-600 dark:text-blue-400">TransUnion</span>
+                <span className="text-gray-400">|</span>
+                <span className="font-semibold text-green-600 dark:text-green-400">Equifax</span>
+              </div>
+            </div>
+          </div>
+          
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {t('trustii.demo.title')}
           </h1>
@@ -257,7 +268,7 @@ const TrustiiDemoPage: React.FC = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-2 bg-gray-100 dark:bg-gray-800">
             <TabsTrigger value="create" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-100 text-gray-700 dark:text-gray-300">
-              <FileText className="h-4 w-4" />
+              <Building2 className="h-4 w-4" />
               {t('trustii.form.createInquiry')}
             </TabsTrigger>
             <TabsTrigger value="retrieve" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-100 text-gray-700 dark:text-gray-300">
@@ -359,7 +370,7 @@ const TrustiiDemoPage: React.FC = () => {
                 {t('trustii.demo.apiDocumentation')}
               </p>
               <a
-                href="https://docs.trustii.co/verif/docs/api/human-resources"
+                href="https://docs.trustii.co/hr/docs/api/inquiries"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline"

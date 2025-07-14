@@ -9,36 +9,49 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Loader2, CheckCircle, AlertCircle, Building2, User, Shield, CreditCard, Search, Globe, Calendar, MapPin, GraduationCap, Briefcase } from 'lucide-react';
 import { useTrustii } from '@/hooks/useTrustii';
-import { TrustiiCreateInquiryRequest } from '@/types/trustii';
+import { TrustiiCreateInquiryRequest, TrustiiService } from '@/types/trustii';
 import { showSuccess, showError } from '@/utils/toast';
 import { useTranslation } from 'react-i18next';
 
 // Form validation schema
 const inquirySchema = z.object({
-  first_name: z.string().min(1, 'First name is required'),
-  last_name: z.string().min(1, 'Last name is required'),
+  contactName: z.string().min(1, 'Contact name is required'),
+  sender: z.string().optional(),
+  customerName: z.string().optional(),
+  delegatePayment: z.boolean().default(false),
+  name: z.string().min(1, 'Subject name is required'),
+  services: z.array(z.enum(['identity', 'credit', 'criminal_quebec', 'criminal_canada', 'online_reputation'])).min(1, 'At least one service must be selected'),
+  serviceAddOns: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
   email: z.string().email('Invalid email address').optional().or(z.literal('')),
-  phone: z.string().optional(),
-  date_of_birth: z.string().optional(),
+  phoneNumber: z.string().optional(),
+  language: z.enum(['FR', 'EN'], { required_error: 'Language is required' }),
+  notificationType: z.enum(['Sms', 'Email']).optional(),
+  // Additional fields for specific services
+  dateOfBirth: z.string().optional(),
   address: z.object({
     street: z.string().optional(),
     city: z.string().optional(),
     state: z.string().optional(),
-    postal_code: z.string().optional(),
+    postalCode: z.string().optional(),
     country: z.string().optional(),
   }).optional(),
-  employment_details: z.object({
-    company_name: z.string().min(1, 'Company name is required'),
-    position: z.string().min(1, 'Position is required'),
-    start_date: z.string().min(1, 'Start date is required'),
-    end_date: z.string().optional(),
+  employmentDetails: z.object({
+    companyName: z.string().optional(),
+    position: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
     salary: z.number().optional(),
-    reason_for_leaving: z.string().optional(),
   }).optional(),
-  purpose: z.string().min(1, 'Purpose is required'),
-  consent: z.boolean().refine(val => val === true, 'You must consent to proceed'),
+  educationDetails: z.object({
+    institution: z.string().optional(),
+    degree: z.string().optional(),
+    graduationDate: z.string().optional(),
+  }).optional(),
 });
 
 type InquiryFormData = z.infer<typeof inquirySchema>;
@@ -47,6 +60,39 @@ interface TrustiiInquiryFormProps {
   onSuccess?: (inquiryId: string) => void;
   onError?: (error: string) => void;
 }
+
+const AVAILABLE_SERVICES: { value: TrustiiService; label: string; description: string; icon: React.ReactNode }[] = [
+  {
+    value: 'identity',
+    label: 'Identity Verification',
+    description: 'Verify personal information and identity documents',
+    icon: <User className="h-4 w-4" />
+  },
+  {
+    value: 'credit',
+    label: 'Credit Check',
+    description: 'Comprehensive credit history and score analysis',
+    icon: <CreditCard className="h-4 w-4" />
+  },
+  {
+    value: 'criminal_quebec',
+    label: 'Criminal Check (Quebec)',
+    description: 'Criminal background check for Quebec jurisdiction',
+    icon: <Shield className="h-4 w-4" />
+  },
+  {
+    value: 'criminal_canada',
+    label: 'Criminal Check (Canada)',
+    description: 'Criminal background check for all of Canada',
+    icon: <Shield className="h-4 w-4" />
+  },
+  {
+    value: 'online_reputation',
+    label: 'Online Reputation',
+    description: 'Social media and online presence analysis',
+    icon: <Search className="h-4 w-4" />
+  },
+];
 
 /**
  * Form component for creating Trustii human resources inquiries
@@ -57,8 +103,7 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { createInquiry, loading, error, inquiry } = useTrustii();
-  const [showEmploymentDetails, setShowEmploymentDetails] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedServices, setSelectedServices] = useState<TrustiiService[]>([]);
 
   const {
     register,
@@ -66,47 +111,42 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
     formState: { errors },
     reset,
     watch,
+    setValue,
   } = useForm<InquiryFormData>({
     resolver: zodResolver(inquirySchema),
     defaultValues: {
-      consent: false,
+      delegatePayment: false,
+      services: [],
+      language: 'EN',
     },
   });
 
-  const consent = watch('consent');
+  const delegatePayment = watch('delegatePayment');
+
+  const handleServiceToggle = (service: TrustiiService) => {
+    const newSelectedServices = selectedServices.includes(service)
+      ? selectedServices.filter(s => s !== service)
+      : [...selectedServices, service];
+    
+    setSelectedServices(newSelectedServices);
+    setValue('services', newSelectedServices);
+  };
 
   const onSubmit = async (data: InquiryFormData) => {
     try {
       const inquiryData: TrustiiCreateInquiryRequest = {
-        type: 'human_resources',
-        data: {
-          first_name: data.first_name,
-          last_name: data.last_name,
-          email: data.email || undefined,
-          phone: data.phone || undefined,
-          date_of_birth: data.date_of_birth || undefined,
-          address: data.address?.street ? {
-            street: data.address.street,
-            city: data.address.city || '',
-            state: data.address.state || '',
-            postal_code: data.address.postal_code || '',
-            country: data.address.country || '',
-          } : undefined,
-          employment_details: data.employment_details ? {
-            company_name: data.employment_details.company_name,
-            position: data.employment_details.position,
-            start_date: data.employment_details.start_date,
-            end_date: data.employment_details.end_date || undefined,
-            salary: data.employment_details.salary || undefined,
-            reason_for_leaving: data.employment_details.reason_for_leaving || undefined,
-          } : undefined,
-          consent: data.consent,
-          purpose: data.purpose,
-        },
-        metadata: {
-          submitted_at: new Date().toISOString(),
-          source: 'web_form',
-        },
+        contactName: data.contactName,
+        sender: data.sender || undefined,
+        customerName: data.customerName || undefined,
+        delegatePayment: data.delegatePayment,
+        name: data.name,
+        services: data.services,
+        serviceAddOns: data.serviceAddOns || undefined,
+        tags: data.tags || undefined,
+        email: data.email || undefined,
+        phoneNumber: data.phoneNumber || undefined,
+        language: data.language,
+        notificationType: data.notificationType || undefined,
       };
 
       await createInquiry(inquiryData);
@@ -116,6 +156,7 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
       
       // Reset form after successful submission
       reset();
+      setSelectedServices([]);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to create inquiry';
       showError(errorMessage);
@@ -139,7 +180,6 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
             </p>
             <div className="bg-gray-50 p-4 rounded-lg">
               <p className="text-sm font-medium">{t('trustii.form.inquiryId')}: {inquiry.id}</p>
-              <p className="text-sm text-gray-600">{t('trustii.form.status')}: {inquiry.status}</p>
             </div>
             <Button
               onClick={() => window.location.reload()}
@@ -155,53 +195,85 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
-        <CardTitle>{t('trustii.form.humanResourcesVerificationRequest')}</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Building2 className="h-5 w-5" />
+          {t('trustii.form.humanResourcesVerificationRequest')}
+        </CardTitle>
         <p className="text-sm text-gray-600">
           {t('trustii.form.provideRequiredInformation')}
         </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Personal Information */}
+          {/* Contact Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">{t('trustii.form.personalInformation')}</h3>
+            <h3 className="text-lg font-medium flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Contact Information
+            </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="first_name">{t('trustii.form.firstName')} *</Label>
+                <Label htmlFor="contactName">Contact Name *</Label>
                 <Input
-                  id="first_name"
-                  {...register('first_name')}
-                  placeholder={t('trustii.form.enterFirstName')}
+                  id="contactName"
+                  {...register('contactName')}
+                  placeholder="Enter contact name"
                 />
-                {errors.first_name && (
-                  <p className="text-sm text-red-600 mt-1">{errors.first_name.message}</p>
+                {errors.contactName && (
+                  <p className="text-sm text-red-600 mt-1">{errors.contactName.message}</p>
                 )}
               </div>
 
               <div>
-                <Label htmlFor="last_name">{t('trustii.form.lastName')} *</Label>
+                <Label htmlFor="sender">Sender (Optional)</Label>
                 <Input
-                  id="last_name"
-                  {...register('last_name')}
-                  placeholder={t('trustii.form.enterLastName')}
+                  id="sender"
+                  {...register('sender')}
+                  placeholder="Enter sender name"
                 />
-                {errors.last_name && (
-                  <p className="text-sm text-red-600 mt-1">{errors.last_name.message}</p>
-                )}
               </div>
+            </div>
+
+            <div>
+              <Label htmlFor="customerName">Customer Name (Optional)</Label>
+              <Input
+                id="customerName"
+                {...register('customerName')}
+                placeholder="Enter customer name"
+              />
+            </div>
+          </div>
+
+          {/* Subject Information */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Subject Information
+            </h3>
+            
+            <div>
+              <Label htmlFor="name">Subject Name *</Label>
+              <Input
+                id="name"
+                {...register('name')}
+                placeholder="Enter subject's full name"
+              />
+              {errors.name && (
+                <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="email">{t('trustii.form.emailAddress')}</Label>
+                <Label htmlFor="email">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
                   {...register('email')}
-                  placeholder={t('trustii.form.enterEmail')}
+                  placeholder="Enter email address"
                 />
                 {errors.email && (
                   <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
@@ -209,206 +281,287 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
               </div>
 
               <div>
-                <Label htmlFor="phone">{t('trustii.form.phoneNumber')}</Label>
+                <Label htmlFor="phoneNumber">Phone Number</Label>
                 <Input
-                  id="phone"
-                  {...register('phone')}
-                  placeholder={t('trustii.form.enterPhone')}
+                  id="phoneNumber"
+                  {...register('phoneNumber')}
+                  placeholder="Enter phone number"
                 />
-                {errors.phone && (
-                  <p className="text-sm text-red-600 mt-1">{errors.phone.message}</p>
-                )}
               </div>
-            </div>
-
-            <div>
-              <Label htmlFor="date_of_birth">{t('trustii.form.dateOfBirth')}</Label>
-              <Input
-                id="date_of_birth"
-                type="date"
-                {...register('date_of_birth')}
-              />
             </div>
           </div>
 
-          {/* Address Information */}
+          {/* Services Selection */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">{t('trustii.form.addressInformation')}</h3>
+            <h3 className="text-lg font-medium flex items-center gap-2">
+              <Shield className="h-4 w-4" />
+              Verification Services *
+            </h3>
             
-            <div>
-              <Label htmlFor="street">{t('trustii.form.streetAddress')}</Label>
-              <Input
-                id="street"
-                {...register('address.street')}
-                placeholder={t('trustii.form.enterStreet')}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="city">{t('trustii.form.city')}</Label>
-                <Input
-                  id="city"
-                  {...register('address.city')}
-                  placeholder={t('trustii.form.enterCity')}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="state">{t('trustii.form.stateProvince')}</Label>
-                <Input
-                  id="state"
-                  {...register('address.state')}
-                  placeholder={t('trustii.form.enterState')}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="postal_code">{t('trustii.form.postalCode')}</Label>
-                <Input
-                  id="postal_code"
-                  {...register('address.postal_code')}
-                  placeholder={t('trustii.form.enterPostalCode')}
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="country">{t('trustii.form.country')}</Label>
-              <Input
-                id="country"
-                {...register('address.country')}
-                placeholder={t('trustii.form.enterCountry')}
-              />
-            </div>
-          </div>
-
-          {/* Employment Details */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium">{t('trustii.form.employmentDetails')}</h3>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => setShowEmploymentDetails(!showEmploymentDetails)}
-              >
-                {showEmploymentDetails ? t('trustii.form.hideEmploymentDetails') : t('trustii.form.addEmploymentDetails')}
-              </Button>
-            </div>
-
-            {showEmploymentDetails && (
-              <div className="space-y-4 p-4 border rounded-lg">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="company_name">{t('trustii.form.companyName')} *</Label>
-                    <Input
-                      id="company_name"
-                      {...register('employment_details.company_name')}
-                      placeholder={t('trustii.form.enterCompany')}
-                    />
-                    {errors.employment_details?.company_name && (
-                      <p className="text-sm text-red-600 mt-1">
-                        {errors.employment_details.company_name.message}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {AVAILABLE_SERVICES.map((service) => (
+                <div
+                  key={`service-${service.value}`}
+                  className={`p-4 border rounded-lg transition-colors ${
+                    selectedServices.includes(service.value)
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                      : 'border-gray-200 dark:border-gray-700'
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0">
+                      {service.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm">{service.label}</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        {service.description}
                       </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="position">{t('trustii.form.position')} *</Label>
-                    <Input
-                      id="position"
-                      {...register('employment_details.position')}
-                      placeholder={t('trustii.form.enterPosition')}
-                    />
-                    {errors.employment_details?.position && (
-                      <p className="text-sm text-red-600 mt-1">
-                        {errors.employment_details.position.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="start_date">{t('trustii.form.startDate')} *</Label>
-                    <Input
-                      id="start_date"
-                      type="date"
-                      {...register('employment_details.start_date')}
-                    />
-                    {errors.employment_details?.start_date && (
-                      <p className="text-sm text-red-600 mt-1">
-                        {errors.employment_details.start_date.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="end_date">{t('trustii.form.endDate')}</Label>
-                    <Input
-                      id="end_date"
-                      type="date"
-                      {...register('employment_details.end_date')}
+                    </div>
+                    <Checkbox
+                      checked={selectedServices.includes(service.value)}
+                      onCheckedChange={() => handleServiceToggle(service.value)}
+                      className="mt-0.5"
                     />
                   </div>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="salary">{t('trustii.form.salary')}</Label>
-                    <Input
-                      id="salary"
-                      type="number"
-                      {...register('employment_details.salary', { valueAsNumber: true })}
-                      placeholder={t('trustii.form.enterSalary')}
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="reason_for_leaving">{t('trustii.form.reasonForLeaving')}</Label>
-                    <Input
-                      id="reason_for_leaving"
-                      {...register('employment_details.reason_for_leaving')}
-                      placeholder={t('trustii.form.enterReason')}
-                    />
-                  </div>
-                </div>
-              </div>
+              ))}
+            </div>
+            {errors.services && (
+              <p className="text-sm text-red-600 mt-1">{errors.services.message}</p>
             )}
           </div>
 
-          {/* Purpose and Consent */}
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="purpose">{t('trustii.form.purposeOfVerification')} *</Label>
-              <Textarea
-                id="purpose"
-                {...register('purpose')}
-                placeholder={t('trustii.form.purposeDescription')}
-                rows={3}
-              />
-              {errors.purpose && (
-                <p className="text-sm text-red-600 mt-1">{errors.purpose.message}</p>
+          {/* Dynamic Service-Specific Fields */}
+          {selectedServices.length > 0 && (
+            <div className="space-y-6">
+              {/* Identity Verification Fields */}
+              {selectedServices.includes('identity') && (
+                <div className="space-y-4 p-4 border border-blue-200 dark:border-blue-800 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                  <h4 className="text-md font-medium flex items-center gap-2 text-blue-900 dark:text-blue-100">
+                    <User className="h-4 w-4" />
+                    Identity Verification Details
+                  </h4>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                      <Input
+                        id="dateOfBirth"
+                        type="date"
+                        {...register('dateOfBirth')}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h5 className="text-sm font-medium flex items-center gap-2">
+                      <MapPin className="h-3 w-3" />
+                      Address Information
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="street">Street Address</Label>
+                        <Input
+                          id="street"
+                          {...register('address.street')}
+                          placeholder="Enter street address"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="city">City</Label>
+                        <Input
+                          id="city"
+                          {...register('address.city')}
+                          placeholder="Enter city"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <Label htmlFor="state">State/Province</Label>
+                        <Input
+                          id="state"
+                          {...register('address.state')}
+                          placeholder="Enter state/province"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="postalCode">Postal Code</Label>
+                        <Input
+                          id="postalCode"
+                          {...register('address.postalCode')}
+                          placeholder="Enter postal code"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="country">Country</Label>
+                        <Input
+                          id="country"
+                          {...register('address.country')}
+                          placeholder="Enter country"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
+
+              {/* Employment Verification Fields */}
+              {(selectedServices.includes('identity') || selectedServices.includes('credit')) && (
+                <div className="space-y-4 p-4 border border-green-200 dark:border-green-800 rounded-lg bg-green-50 dark:bg-green-900/20">
+                  <h4 className="text-md font-medium flex items-center gap-2 text-green-900 dark:text-green-100">
+                    <Briefcase className="h-4 w-4" />
+                    Employment Details
+                  </h4>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="companyName">Company Name</Label>
+                      <Input
+                        id="companyName"
+                        {...register('employmentDetails.companyName')}
+                        placeholder="Enter company name"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="position">Position</Label>
+                      <Input
+                        id="position"
+                        {...register('employmentDetails.position')}
+                        placeholder="Enter position"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="startDate">Start Date</Label>
+                      <Input
+                        id="startDate"
+                        type="date"
+                        {...register('employmentDetails.startDate')}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="endDate">End Date</Label>
+                      <Input
+                        id="endDate"
+                        type="date"
+                        {...register('employmentDetails.endDate')}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="salary">Annual Salary</Label>
+                      <Input
+                        id="salary"
+                        type="number"
+                        {...register('employmentDetails.salary', { valueAsNumber: true })}
+                        placeholder="Enter annual salary"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Education Verification Fields */}
+              {selectedServices.includes('identity') && (
+                <div className="space-y-4 p-4 border border-purple-200 dark:border-purple-800 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+                  <h4 className="text-md font-medium flex items-center gap-2 text-purple-900 dark:text-purple-100">
+                    <GraduationCap className="h-4 w-4" />
+                    Education Details
+                  </h4>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="institution">Institution</Label>
+                      <Input
+                        id="institution"
+                        {...register('educationDetails.institution')}
+                        placeholder="Enter institution name"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="degree">Degree</Label>
+                      <Input
+                        id="degree"
+                        {...register('educationDetails.degree')}
+                        placeholder="Enter degree"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="graduationDate">Graduation Date</Label>
+                    <Input
+                      id="graduationDate"
+                      type="date"
+                      {...register('educationDetails.graduationDate')}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Configuration */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              Configuration
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="language">Language *</Label>
+                <Select 
+                  value={watch('language')} 
+                  onValueChange={(value) => setValue('language', value as 'FR' | 'EN')}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="EN">English</SelectItem>
+                    <SelectItem value="FR">Français</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.language && (
+                  <p className="text-sm text-red-600 mt-1">{errors.language.message}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="notificationType">Notification Type</Label>
+                <Select 
+                  value={watch('notificationType') || ''} 
+                  onValueChange={(value) => setValue('notificationType', value as 'Sms' | 'Email')}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select notification type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Email">Email</SelectItem>
+                    <SelectItem value="Sms">SMS</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="flex items-start space-x-2">
               <Checkbox
-                id="consent"
-                {...register('consent')}
+                id="delegatePayment"
+                checked={delegatePayment}
+                onCheckedChange={(checked) => setValue('delegatePayment', checked as boolean)}
                 className="mt-1"
               />
-              <Label htmlFor="consent" className="text-sm">
-                {t('trustii.form.consent')}
+              <Label htmlFor="delegatePayment" className="text-sm">
+                Delegate Payment to Subject
                 <p className="text-xs text-gray-500 mt-1">
-                  {t('trustii.form.consentDescription')}
+                  Allow the subject to pay for this inquiry via credit card
                 </p>
               </Label>
             </div>
-            {errors.consent && (
-              <p className="text-sm text-red-600 mt-1">{errors.consent.message}</p>
-            )}
           </div>
 
           {/* Error Display */}
@@ -422,10 +575,17 @@ export const TrustiiInquiryForm: React.FC<TrustiiInquiryFormProps> = ({
           {/* Submit Button */}
           <Button
             type="submit"
-            disabled={isSubmitting}
+            disabled={loading}
             className="w-full"
           >
-            {isSubmitting ? t('common.loading') : t('trustii.form.submit')}
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating Inquiry...
+              </>
+            ) : (
+              'Create Inquiry'
+            )}
           </Button>
         </form>
       </CardContent>

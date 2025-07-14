@@ -6,7 +6,7 @@ import {
 } from '@/types/trustii';
 
 // Environment configuration
-const TRUSTII_API_BASE_URL = import.meta.env.VITE_TRUSTII_API_BASE_URL || 'https://api.trustii.co/verif';
+const TRUSTII_API_BASE_URL = import.meta.env.VITE_TRUSTII_API_BASE_URL || 'https://api.trustii.co/hr/v1';
 const TRUSTII_API_KEY = import.meta.env.VITE_TRUSTII_API_KEY;
 
 if (!TRUSTII_API_KEY) {
@@ -132,8 +132,5 @@ class TrustiiService {
   }
 }
 
-// Export a singleton instance
-export const trustiiService = new TrustiiService();
-
-// Export the class for testing purposes
-export { TrustiiService }; 
+// Export singleton instance
+export const trustiiService = new TrustiiService(); 

@@ -193,7 +193,7 @@
     "networkSite": "network site.",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
-    "trustiiDemo": "Trustii Demo",
+    "creditCheckReport": "Credit Check Report",
     "disclaimer": "Disclaimer: Rentals.ca is not responsible for the accuracy of information provided by landlords or users. Always verify information independently and take precautions to avoid scams."
   },
   "madeWithDyad": "Made with Dyad",
@@ -1412,7 +1412,10 @@
       "inquirySubmittedProcessing": "Your inquiry has been submitted and is being processed.",
       "inquiryId": "Inquiry ID",
       "status": "Status",
-      "createAnotherInquiry": "Create Another Inquiry"
+      "createAnotherInquiry": "Create Another Inquiry",
+      "createInquiry": "Create Inquiry",
+      "createNewRequest": "Create New Request",
+      "createDescription": "Fill out the form below to initiate a comprehensive background verification. This will create a new inquiry that will be processed by Trustii."
     },
     "retriever": {
       "title": "Retrieve Verification Results",
