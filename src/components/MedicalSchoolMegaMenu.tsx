@@ -100,7 +100,7 @@ const provinceMedicalSchools = [
 
 const CanadianLocationsMegamenu = () => {
   return (
-    <div className="p-6 text-white text-xs bg-gray-900">
+    <div className="p-6 text-gray-900 dark:text-white text-xs bg-white dark:bg-gray-900">
       <h1 className="text-xl font-bold mb-4">Search by Medical Schools</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
@@ -112,7 +112,7 @@ const CanadianLocationsMegamenu = () => {
               <li key={item + index} className="w-full ">
                 <Link
                   to="/apartment"
-                  className="hover:text-blue-300 hover:underline text-xs"
+                  className="hover:text-blue-600 dark:hover:text-blue-300 hover:underline text-xs text-gray-700 dark:text-gray-300"
                 >
                   {item}
                 </Link>
@@ -127,11 +127,11 @@ const CanadianLocationsMegamenu = () => {
           <Accordion
             type="single"
             collapsible
-            className="w-full bg-transparent text-white"
+            className="w-full bg-transparent text-gray-900 dark:text-white"
           >
             {provinceMedicalSchools.map((province) => (
               <AccordionItem value={province.name} key={province.name}>
-                <AccordionTrigger className="text-white hover:text-blue-300">
+                <AccordionTrigger className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-300">
                   {province.name}
                 </AccordionTrigger>
                 <AccordionContent>
@@ -140,7 +140,7 @@ const CanadianLocationsMegamenu = () => {
                       <li key={schools}>
                         <Link
                           to="/apartment"
-                          className="hover:text-blue-300 hover:underline text-xs"
+                          className="hover:text-blue-600 dark:hover:text-blue-300 hover:underline text-xs text-gray-700 dark:text-gray-300"
                         >
                           {schools}
                         </Link>

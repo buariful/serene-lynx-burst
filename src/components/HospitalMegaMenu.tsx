@@ -28,10 +28,10 @@ const canadaHospitals = [
 
 const HospitalMegaMenu: React.FC = () => {
   return (
-    <div className="w-full p-4 bg-gray-900">
+    <div className="w-full p-4 bg-white dark:bg-gray-900">
       {" "}
-      {/* Overall padding for the content area, now full-width */}
-      <h2 className="text-xl font-semibold text-white mb-4 text-center md:text-left">
+      {/* Theme-aware background */}
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center md:text-left">
         Search by hospital
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2">
@@ -47,12 +47,12 @@ const HospitalMegaMenu: React.FC = () => {
             )}&province=${encodeURIComponent(
               hospital.location.split(", ")[1]
             )}`}
-            className="block py-1 text-gray-300 hover:text-blue-300 hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Simplified list item styling
+            className="block py-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300 hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Theme-aware text colors
           >
             <h3 className="font-medium text-sm">{hospital.name}</h3>{" "}
             {/* Adjusted text size */}
             {/* Location can be hidden or kept, let's keep it for now but smaller */}
-            <p className="text-xs text-gray-400">{hospital.location}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{hospital.location}</p>
           </Link>
         ))}
       </div>
