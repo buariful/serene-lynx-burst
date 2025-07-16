@@ -25,7 +25,9 @@ import {
   Globe,
   Calendar,
   Phone,
-  Mail
+  Mail,
+  Building2,
+  Settings
 } from 'lucide-react';
 import { useTrustii } from '@/hooks/useTrustii';
 import { showSuccess, showError } from '@/utils/toast';
@@ -78,26 +80,26 @@ const getStatusIcon = (status: string) => {
   }
 };
 
-// Static mock data for demonstration
+// Static mock data for demonstration - matches API specification
 const mockInquiryData: TrustiiRetrieveInquiryResponse = {
-  id: "inq_123456789",
+  id: "550e8400-e29b-41d4-a716-446655440000", // UUID format
   createdAt: "2024-01-15T10:30:00Z",
-  completedAt: "2024-01-15T14:45:00Z",
+  completedAt: "2024-01-15T14:45:00Z", // nullable
   expiresAt: "2024-02-15T10:30:00Z",
   cancellable: false,
   name: "John Smith",
-  email: "john.smith@email.com",
-  url: "https://trustii.co/verif/inq_123456789",
-  phoneNumber: "+1-555-123-4567",
-  notificationType: "Email",
-  services: ["identity", "credit", "criminal_canada"],
-  serviceAddOns: [],
-  tags: ["rental_application"],
-  creditStatus: "Available",
-  status: "Completed",
+  email: "john.smith@email.com", // nullable
+  url: "https://trustii.co/verif/550e8400-e29b-41d4-a716-446655440000", // Form URL for embedding
+  phoneNumber: "+1-555-123-4567", // nullable
+  notificationType: "Email", // nullable, possible values: [Sms, Email]
+  services: ["identity", "credit", "criminal_canada"], // possible values: [identity, credit, criminal_quebec, criminal_canada, online_reputation]
+  serviceAddOns: [], // string[]
+  tags: ["rental_application", "background_check"], // string[]
+  creditStatus: "Available", // possible values: [NotIncluded, Available, Unavailable]
+  status: "Completed", // possible values: [Pending, Completed, Submitted, InProgress, Suspended]
   report: {
-    id: "rep_123456789",
-    status: "completed",
+    id: "rep_550e8400-e29b-41d4-a716-446655440000",
+    status: "completed", // pending, completed, failed
     created_at: "2024-01-15T10:30:00Z",
     updated_at: "2024-01-15T14:45:00Z",
     results: {
@@ -120,14 +122,29 @@ const mockInquiryData: TrustiiRetrieveInquiryResponse = {
         company_name: "Tech Solutions Inc.",
         position: "Software Engineer",
         start_date: "2022-01-15",
+        end_date: null,
         salary: 85000,
+        reason_for_leaving: null,
         notes: "Employment verification completed successfully"
+      },
+      criminal_background_check: {
+        verified: true,
+        has_criminal_record: false,
+        records: [],
+        notes: "No criminal records found"
+      },
+      education_verification: {
+        verified: true,
+        institution: "University of Toronto",
+        degree: "Bachelor of Science in Computer Science",
+        graduation_date: "2010-05-15",
+        notes: "Education verification completed successfully"
       }
     },
     summary: {
-      overall_status: "pass",
-      total_checks: 3,
-      passed_checks: 3,
+      overall_status: "pass", // pass, fail, pending
+      total_checks: 4,
+      passed_checks: 4,
       failed_checks: 0,
       pending_checks: 0
     }
@@ -309,6 +326,44 @@ export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = (
             ` : ''}
           </div>
           
+          <div class="section">
+            <h2>Additional Information</h2>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Inquiry ID:</strong> ${retrievedInquiry.id}
+              </div>
+              <div class="info-item">
+                <strong>Created:</strong> ${new Date(retrievedInquiry.createdAt).toLocaleDateString()}
+              </div>
+              ${retrievedInquiry.completedAt ? `
+                <div class="info-item">
+                  <strong>Completed:</strong> ${new Date(retrievedInquiry.completedAt).toLocaleDateString()}
+                </div>
+              ` : ''}
+              <div class="info-item">
+                <strong>Expires:</strong> ${new Date(retrievedInquiry.expiresAt).toLocaleDateString()}
+              </div>
+              <div class="info-item">
+                <strong>Cancellable:</strong> ${retrievedInquiry.cancellable ? 'Yes' : 'No'}
+              </div>
+              ${retrievedInquiry.notificationType ? `
+                <div class="info-item">
+                  <strong>Notification Type:</strong> ${retrievedInquiry.notificationType}
+                </div>
+              ` : ''}
+            </div>
+            ${retrievedInquiry.tags && retrievedInquiry.tags.length > 0 ? `
+              <div class="info-item">
+                <strong>Tags:</strong> ${retrievedInquiry.tags.join(', ')}
+              </div>
+            ` : ''}
+            ${retrievedInquiry.serviceAddOns && retrievedInquiry.serviceAddOns.length > 0 ? `
+              <div class="info-item">
+                <strong>Service Add-ons:</strong> ${retrievedInquiry.serviceAddOns.join(', ')}
+              </div>
+            ` : ''}
+          </div>
+          
           ${retrievedInquiry.report ? `
             <div class="section">
               <h2>Verification Results</h2>
@@ -333,19 +388,79 @@ export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = (
             </div>
             
             <div class="section">
-              <h2>Detailed Results</h2>
-              ${Object.entries(retrievedInquiry.report.results).map(([key, result]) => `
+              <h2>Detailed Verification Results</h2>
+              
+              ${retrievedInquiry.report.results.identity_verification ? `
                 <div class="result-item">
-                  <div class="result-header">${key.replace('_', ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</div>
-                  <div class="result-detail"><strong>Verified:</strong> ${result.verified ? 'Yes' : 'No'}</div>
-                  ${Object.entries(result).filter(([k, v]) => k !== 'verified' && v !== undefined).map(([k, v]) => `
-                    <div class="result-detail">
-                      <strong>${k.replace('_', ' ').replace(/\\b\\w/g, l => l.toUpperCase())}:</strong> 
-                      ${typeof v === 'object' ? JSON.stringify(v) : v}
-                    </div>
-                  `).join('')}
+                  <div class="result-header">Identity Verification</div>
+                  <div class="result-detail"><strong>Verified:</strong> ${retrievedInquiry.report.results.identity_verification.verified ? 'Yes' : 'No'}</div>
+                  <div class="result-detail"><strong>Name:</strong> ${retrievedInquiry.report.results.identity_verification.first_name} ${retrievedInquiry.report.results.identity_verification.last_name}</div>
+                  <div class="result-detail"><strong>Date of Birth:</strong> ${retrievedInquiry.report.results.identity_verification.date_of_birth}</div>
+                  ${retrievedInquiry.report.results.identity_verification.address ? `
+                    <div class="result-detail"><strong>Address:</strong> ${retrievedInquiry.report.results.identity_verification.address.street}, ${retrievedInquiry.report.results.identity_verification.address.city}, ${retrievedInquiry.report.results.identity_verification.address.state} ${retrievedInquiry.report.results.identity_verification.address.postal_code}, ${retrievedInquiry.report.results.identity_verification.address.country}</div>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.identity_verification.notes ? `
+                    <div class="result-detail"><strong>Notes:</strong> ${retrievedInquiry.report.results.identity_verification.notes}</div>
+                  ` : ''}
                 </div>
-              `).join('')}
+              ` : ''}
+              
+              ${retrievedInquiry.report.results.employment_verification ? `
+                <div class="result-item">
+                  <div class="result-header">Employment Verification</div>
+                  <div class="result-detail"><strong>Verified:</strong> ${retrievedInquiry.report.results.employment_verification.verified ? 'Yes' : 'No'}</div>
+                  <div class="result-detail"><strong>Company:</strong> ${retrievedInquiry.report.results.employment_verification.company_name}</div>
+                  <div class="result-detail"><strong>Position:</strong> ${retrievedInquiry.report.results.employment_verification.position}</div>
+                  <div class="result-detail"><strong>Start Date:</strong> ${retrievedInquiry.report.results.employment_verification.start_date}</div>
+                  ${retrievedInquiry.report.results.employment_verification.end_date ? `
+                    <div class="result-detail"><strong>End Date:</strong> ${retrievedInquiry.report.results.employment_verification.end_date}</div>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.employment_verification.salary ? `
+                    <div class="result-detail"><strong>Salary:</strong> $${retrievedInquiry.report.results.employment_verification.salary.toLocaleString()}</div>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.employment_verification.reason_for_leaving ? `
+                    <div class="result-detail"><strong>Reason for Leaving:</strong> ${retrievedInquiry.report.results.employment_verification.reason_for_leaving}</div>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.employment_verification.notes ? `
+                    <div class="result-detail"><strong>Notes:</strong> ${retrievedInquiry.report.results.employment_verification.notes}</div>
+                  ` : ''}
+                </div>
+              ` : ''}
+              
+              ${retrievedInquiry.report.results.criminal_background_check ? `
+                <div class="result-item">
+                  <div class="result-header">Criminal Background Check</div>
+                  <div class="result-detail"><strong>Verified:</strong> ${retrievedInquiry.report.results.criminal_background_check.verified ? 'Yes' : 'No'}</div>
+                  <div class="result-detail"><strong>Has Criminal Record:</strong> ${retrievedInquiry.report.results.criminal_background_check.has_criminal_record ? 'Yes' : 'No'}</div>
+                  ${retrievedInquiry.report.results.criminal_background_check.records && retrievedInquiry.report.results.criminal_background_check.records.length > 0 ? `
+                    <div class="result-detail"><strong>Records:</strong></div>
+                    ${retrievedInquiry.report.results.criminal_background_check.records.map(record => `
+                      <div class="result-detail" style="margin-left: 20px;">
+                        <strong>Offense:</strong> ${record.offense}<br>
+                        <strong>Date:</strong> ${record.date}<br>
+                        <strong>Disposition:</strong> ${record.disposition}<br>
+                        <strong>Jurisdiction:</strong> ${record.jurisdiction}
+                      </div>
+                    `).join('')}
+                  ` : ''}
+                  ${retrievedInquiry.report.results.criminal_background_check.notes ? `
+                    <div class="result-detail"><strong>Notes:</strong> ${retrievedInquiry.report.results.criminal_background_check.notes}</div>
+                  ` : ''}
+                </div>
+              ` : ''}
+              
+              ${retrievedInquiry.report.results.education_verification ? `
+                <div class="result-item">
+                  <div class="result-header">Education Verification</div>
+                  <div class="result-detail"><strong>Verified:</strong> ${retrievedInquiry.report.results.education_verification.verified ? 'Yes' : 'No'}</div>
+                  <div class="result-detail"><strong>Institution:</strong> ${retrievedInquiry.report.results.education_verification.institution}</div>
+                  <div class="result-detail"><strong>Degree:</strong> ${retrievedInquiry.report.results.education_verification.degree}</div>
+                  <div class="result-detail"><strong>Graduation Date:</strong> ${retrievedInquiry.report.results.education_verification.graduation_date}</div>
+                  ${retrievedInquiry.report.results.education_verification.notes ? `
+                    <div class="result-detail"><strong>Notes:</strong> ${retrievedInquiry.report.results.education_verification.notes}</div>
+                  ` : ''}
+                </div>
+              ` : ''}
             </div>
           ` : ''}
           
@@ -395,6 +510,19 @@ export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = (
             <ul>
               ${retrievedInquiry.services.map(service => `<li>${service.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</li>`).join('')}
             </ul>
+            ${retrievedInquiry.creditStatus !== 'NotIncluded' ? `<p><strong>Credit Status:</strong> ${retrievedInquiry.creditStatus}</p>` : ''}
+          </div>
+          
+          <div style="margin-bottom: 20px;">
+            <h2>Additional Information</h2>
+            <p><strong>Inquiry ID:</strong> ${retrievedInquiry.id}</p>
+            <p><strong>Created:</strong> ${new Date(retrievedInquiry.createdAt).toLocaleDateString()}</p>
+            ${retrievedInquiry.completedAt ? `<p><strong>Completed:</strong> ${new Date(retrievedInquiry.completedAt).toLocaleDateString()}</p>` : ''}
+            <p><strong>Expires:</strong> ${new Date(retrievedInquiry.expiresAt).toLocaleDateString()}</p>
+            <p><strong>Cancellable:</strong> ${retrievedInquiry.cancellable ? 'Yes' : 'No'}</p>
+            ${retrievedInquiry.notificationType ? `<p><strong>Notification Type:</strong> ${retrievedInquiry.notificationType}</p>` : ''}
+            ${retrievedInquiry.tags && retrievedInquiry.tags.length > 0 ? `<p><strong>Tags:</strong> ${retrievedInquiry.tags.join(', ')}</p>` : ''}
+            ${retrievedInquiry.serviceAddOns && retrievedInquiry.serviceAddOns.length > 0 ? `<p><strong>Service Add-ons:</strong> ${retrievedInquiry.serviceAddOns.join(', ')}</p>` : ''}
           </div>
           
           ${retrievedInquiry.report ? `
@@ -409,16 +537,79 @@ export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = (
             </div>
             
             <div style="margin-bottom: 20px;">
-              <h2>Detailed Results</h2>
-              ${Object.entries(retrievedInquiry.report.results).map(([key, result]) => `
+              <h2>Detailed Verification Results</h2>
+              
+              ${retrievedInquiry.report.results.identity_verification ? `
                 <div style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
-                  <h3 style="margin: 0 0 10px 0;">${key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
-                  <p><strong>Verified:</strong> ${result.verified ? 'Yes' : 'No'}</p>
-                  ${Object.entries(result).filter(([k, v]) => k !== 'verified' && v !== undefined).map(([k, v]) => `
-                    <p><strong>${k.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> ${typeof v === 'object' ? JSON.stringify(v) : v}</p>
-                  `).join('')}
+                  <h3 style="margin: 0 0 10px 0;">Identity Verification</h3>
+                  <p><strong>Verified:</strong> ${retrievedInquiry.report.results.identity_verification.verified ? 'Yes' : 'No'}</p>
+                  <p><strong>Name:</strong> ${retrievedInquiry.report.results.identity_verification.first_name} ${retrievedInquiry.report.results.identity_verification.last_name}</p>
+                  <p><strong>Date of Birth:</strong> ${retrievedInquiry.report.results.identity_verification.date_of_birth}</p>
+                  ${retrievedInquiry.report.results.identity_verification.address ? `
+                    <p><strong>Address:</strong> ${retrievedInquiry.report.results.identity_verification.address.street}, ${retrievedInquiry.report.results.identity_verification.address.city}, ${retrievedInquiry.report.results.identity_verification.address.state} ${retrievedInquiry.report.results.identity_verification.address.postal_code}, ${retrievedInquiry.report.results.identity_verification.address.country}</p>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.identity_verification.notes ? `
+                    <p><strong>Notes:</strong> ${retrievedInquiry.report.results.identity_verification.notes}</p>
+                  ` : ''}
                 </div>
-              `).join('')}
+              ` : ''}
+              
+              ${retrievedInquiry.report.results.employment_verification ? `
+                <div style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                  <h3 style="margin: 0 0 10px 0;">Employment Verification</h3>
+                  <p><strong>Verified:</strong> ${retrievedInquiry.report.results.employment_verification.verified ? 'Yes' : 'No'}</p>
+                  <p><strong>Company:</strong> ${retrievedInquiry.report.results.employment_verification.company_name}</p>
+                  <p><strong>Position:</strong> ${retrievedInquiry.report.results.employment_verification.position}</p>
+                  <p><strong>Start Date:</strong> ${retrievedInquiry.report.results.employment_verification.start_date}</p>
+                  ${retrievedInquiry.report.results.employment_verification.end_date ? `
+                    <p><strong>End Date:</strong> ${retrievedInquiry.report.results.employment_verification.end_date}</p>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.employment_verification.salary ? `
+                    <p><strong>Salary:</strong> $${retrievedInquiry.report.results.employment_verification.salary.toLocaleString()}</p>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.employment_verification.reason_for_leaving ? `
+                    <p><strong>Reason for Leaving:</strong> ${retrievedInquiry.report.results.employment_verification.reason_for_leaving}</p>
+                  ` : ''}
+                  ${retrievedInquiry.report.results.employment_verification.notes ? `
+                    <p><strong>Notes:</strong> ${retrievedInquiry.report.results.employment_verification.notes}</p>
+                  ` : ''}
+                </div>
+              ` : ''}
+              
+              ${retrievedInquiry.report.results.criminal_background_check ? `
+                <div style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                  <h3 style="margin: 0 0 10px 0;">Criminal Background Check</h3>
+                  <p><strong>Verified:</strong> ${retrievedInquiry.report.results.criminal_background_check.verified ? 'Yes' : 'No'}</p>
+                  <p><strong>Has Criminal Record:</strong> ${retrievedInquiry.report.results.criminal_background_check.has_criminal_record ? 'Yes' : 'No'}</p>
+                  ${retrievedInquiry.report.results.criminal_background_check.records && retrievedInquiry.report.results.criminal_background_check.records.length > 0 ? `
+                    <p><strong>Records:</strong></p>
+                    ${retrievedInquiry.report.results.criminal_background_check.records.map(record => `
+                      <div style="margin-left: 20px; margin-bottom: 10px;">
+                        <p><strong>Offense:</strong> ${record.offense}</p>
+                        <p><strong>Date:</strong> ${record.date}</p>
+                        <p><strong>Disposition:</strong> ${record.disposition}</p>
+                        <p><strong>Jurisdiction:</strong> ${record.jurisdiction}</p>
+                      </div>
+                    `).join('')}
+                  ` : ''}
+                  ${retrievedInquiry.report.results.criminal_background_check.notes ? `
+                    <p><strong>Notes:</strong> ${retrievedInquiry.report.results.criminal_background_check.notes}</p>
+                  ` : ''}
+                </div>
+              ` : ''}
+              
+              ${retrievedInquiry.report.results.education_verification ? `
+                <div style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                  <h3 style="margin: 0 0 10px 0;">Education Verification</h3>
+                  <p><strong>Verified:</strong> ${retrievedInquiry.report.results.education_verification.verified ? 'Yes' : 'No'}</p>
+                  <p><strong>Institution:</strong> ${retrievedInquiry.report.results.education_verification.institution}</p>
+                  <p><strong>Degree:</strong> ${retrievedInquiry.report.results.education_verification.degree}</p>
+                  <p><strong>Graduation Date:</strong> ${retrievedInquiry.report.results.education_verification.graduation_date}</p>
+                  ${retrievedInquiry.report.results.education_verification.notes ? `
+                    <p><strong>Notes:</strong> ${retrievedInquiry.report.results.education_verification.notes}</p>
+                  ` : ''}
+                </div>
+              ` : ''}
             </div>
           ` : ''}
           
@@ -567,6 +758,100 @@ export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = (
           </CardContent>
         </Card>
 
+        {/* Additional Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              Additional Information
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Inquiry Details</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Inquiry ID:</span>
+                    <span className="font-mono text-gray-900 dark:text-gray-100">{retrievedInquiry.id}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Created:</span>
+                    <span className="text-gray-900 dark:text-gray-100">{formatDate(retrievedInquiry.createdAt)}</span>
+                  </div>
+                  {retrievedInquiry.completedAt && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400">Completed:</span>
+                      <span className="text-gray-900 dark:text-gray-100">{formatDate(retrievedInquiry.completedAt)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Expires:</span>
+                    <span className="text-gray-900 dark:text-gray-100">{formatDate(retrievedInquiry.expiresAt)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Cancellable:</span>
+                    <Badge variant={retrievedInquiry.cancellable ? "default" : "secondary"}>
+                      {retrievedInquiry.cancellable ? 'Yes' : 'No'}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Communication</h4>
+                <div className="space-y-2 text-sm">
+                  {retrievedInquiry.notificationType && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400">Notification Type:</span>
+                      <Badge variant="outline">{retrievedInquiry.notificationType}</Badge>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Form URL:</span>
+                    <a 
+                      href={retrievedInquiry.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline text-xs truncate max-w-32"
+                    >
+                      {retrievedInquiry.url}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Tags */}
+            {retrievedInquiry.tags && retrievedInquiry.tags.length > 0 && (
+              <div className="mt-4">
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Tags</h4>
+                <div className="flex flex-wrap gap-2">
+                  {retrievedInquiry.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Service Add-ons */}
+            {retrievedInquiry.serviceAddOns && retrievedInquiry.serviceAddOns.length > 0 && (
+              <div className="mt-4">
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Service Add-ons</h4>
+                <div className="flex flex-wrap gap-2">
+                  {retrievedInquiry.serviceAddOns.map((addon) => (
+                    <Badge key={addon} variant="outline" className="text-xs">
+                      {addon}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Report Details */}
         {retrievedInquiry.report && (
           <Card>
@@ -612,6 +897,239 @@ export const TrustiiInquiryRetriever: React.FC<TrustiiInquiryRetrieverProps> = (
                     Overall Status: {retrievedInquiry.report.summary.overall_status.toUpperCase()}
                   </Badge>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Detailed Verification Results */}
+        {retrievedInquiry.report && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5" />
+                Detailed Verification Results
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Identity Verification */}
+                {retrievedInquiry.report.results.identity_verification && (
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <User className="h-4 w-4 text-blue-600" />
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">Identity Verification</h3>
+                      <Badge 
+                        className={retrievedInquiry.report.results.identity_verification.verified 
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200'
+                        }
+                      >
+                        {retrievedInquiry.report.results.identity_verification.verified ? 'Verified' : 'Not Verified'}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Name:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.identity_verification.first_name} {retrievedInquiry.report.results.identity_verification.last_name}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Date of Birth:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.identity_verification.date_of_birth}
+                        </span>
+                      </div>
+                      {retrievedInquiry.report.results.identity_verification.address && (
+                        <div className="md:col-span-2">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Address:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.identity_verification.address.street}, {retrievedInquiry.report.results.identity_verification.address.city}, {retrievedInquiry.report.results.identity_verification.address.state} {retrievedInquiry.report.results.identity_verification.address.postal_code}, {retrievedInquiry.report.results.identity_verification.address.country}
+                          </span>
+                        </div>
+                      )}
+                      {retrievedInquiry.report.results.identity_verification.notes && (
+                        <div className="md:col-span-2">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Notes:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.identity_verification.notes}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Employment Verification */}
+                {retrievedInquiry.report.results.employment_verification && (
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Building2 className="h-4 w-4 text-green-600" />
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">Employment Verification</h3>
+                      <Badge 
+                        className={retrievedInquiry.report.results.employment_verification.verified 
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200'
+                        }
+                      >
+                        {retrievedInquiry.report.results.employment_verification.verified ? 'Verified' : 'Not Verified'}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Company:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.employment_verification.company_name}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Position:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.employment_verification.position}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Start Date:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.employment_verification.start_date}
+                        </span>
+                      </div>
+                      {retrievedInquiry.report.results.employment_verification.end_date && (
+                        <div>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">End Date:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.employment_verification.end_date}
+                          </span>
+                        </div>
+                      )}
+                      {retrievedInquiry.report.results.employment_verification.salary && (
+                        <div>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Salary:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            ${retrievedInquiry.report.results.employment_verification.salary.toLocaleString()}
+                          </span>
+                        </div>
+                      )}
+                      {retrievedInquiry.report.results.employment_verification.reason_for_leaving && (
+                        <div className="md:col-span-2">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Reason for Leaving:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.employment_verification.reason_for_leaving}
+                          </span>
+                        </div>
+                      )}
+                      {retrievedInquiry.report.results.employment_verification.notes && (
+                        <div className="md:col-span-2">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Notes:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.employment_verification.notes}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Criminal Background Check */}
+                {retrievedInquiry.report.results.criminal_background_check && (
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Shield className="h-4 w-4 text-red-600" />
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">Criminal Background Check</h3>
+                      <Badge 
+                        className={retrievedInquiry.report.results.criminal_background_check.verified 
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200'
+                        }
+                      >
+                        {retrievedInquiry.report.results.criminal_background_check.verified ? 'Verified' : 'Not Verified'}
+                      </Badge>
+                    </div>
+                    <div className="space-y-3 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Has Criminal Record:</span>
+                        <Badge 
+                          className={retrievedInquiry.report.results.criminal_background_check.has_criminal_record 
+                            ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200 ml-2'
+                            : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200 ml-2'
+                          }
+                        >
+                          {retrievedInquiry.report.results.criminal_background_check.has_criminal_record ? 'Yes' : 'No'}
+                        </Badge>
+                      </div>
+                      {retrievedInquiry.report.results.criminal_background_check.records && retrievedInquiry.report.results.criminal_background_check.records.length > 0 && (
+                        <div>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Records:</span>
+                          <div className="mt-2 space-y-2">
+                            {retrievedInquiry.report.results.criminal_background_check.records.map((record, index) => (
+                              <div key={index} className="pl-4 border-l-2 border-gray-200 dark:border-gray-700">
+                                <div><strong>Offense:</strong> {record.offense}</div>
+                                <div><strong>Date:</strong> {record.date}</div>
+                                <div><strong>Disposition:</strong> {record.disposition}</div>
+                                <div><strong>Jurisdiction:</strong> {record.jurisdiction}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {retrievedInquiry.report.results.criminal_background_check.notes && (
+                        <div>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Notes:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.criminal_background_check.notes}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Education Verification */}
+                {retrievedInquiry.report.results.education_verification && (
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <FileText className="h-4 w-4 text-purple-600" />
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">Education Verification</h3>
+                      <Badge 
+                        className={retrievedInquiry.report.results.education_verification.verified 
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200'
+                        }
+                      >
+                        {retrievedInquiry.report.results.education_verification.verified ? 'Verified' : 'Not Verified'}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Institution:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.education_verification.institution}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Degree:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.education_verification.degree}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Graduation Date:</span>
+                        <span className="ml-2 text-gray-900 dark:text-gray-100">
+                          {retrievedInquiry.report.results.education_verification.graduation_date}
+                        </span>
+                      </div>
+                      {retrievedInquiry.report.results.education_verification.notes && (
+                        <div className="md:col-span-2">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Notes:</span>
+                          <span className="ml-2 text-gray-900 dark:text-gray-100">
+                            {retrievedInquiry.report.results.education_verification.notes}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
