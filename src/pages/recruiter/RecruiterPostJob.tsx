@@ -83,7 +83,7 @@ const RecruiterPostJob: React.FC<RecruiterPostJobProps> = ({
 
   return (
     <RecruiterDashboardWrapper>
-      <div className="max-w-xl mx-auto p-6 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-800">
+      <div className=" mx-auto p-6 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-800">
         <button
           type="button"
           onClick={() => setJobPosting(false)}
