@@ -75,6 +75,7 @@ import CreditCheckReportPage from "./pages/CreditCheckReportPage";
 // import PostDeviceFormPage from "./pages/doctor/PostDeviceFormPage";
 // import BrowseDevicesPage from "./pages/doctor/BrowseDevicesPage";
 import { ThemeProvider } from "@/hooks/useTheme";
+import HospitalDashboardPage from "./pages/hospital/HospitalDashboardPage";
 
 const queryClient = new QueryClient();
 
@@ -156,16 +157,14 @@ const App = () => (
                 <Route path="/landloard/landlord-page" element={<LandlordPage />} />
                 <Route path="/landlords" element={<LandlordPage />} />
                 <Route path="/contact-us" element={<ContactUsPage />} />
-                <Route
-                  path="/hospital/dashboard"
-                  element={<HospitalMarketplacePage />}
-                />
+               
                 <Route path="/marketplace" element={<HospitalMarketplacePage />} />
                 <Route path="/product-details/:id" element={<AddViewPage />} />
                 <Route path="/hospital/product/:id" element={<AddViewPage />} />
                 <Route path="/post/view" element={<AddViewPage />} />
 
                 <Route path="/hospital" element={<HospitalLayout />}>
+                  <Route path="dashboard" element={<HospitalDashboardPage />} />
                   <Route path="my-ads" element={<MyAdsPage />} />
                   <Route path="my-messages" element={<MyMessagesPage />} />
                   <Route path="my-favourites" element={<MyFavouritesPage />} />
@@ -173,6 +172,8 @@ const App = () => (
                   <Route path="post-ad" element={<PostAdPage />} />
                   <Route path="post-ad-details" element={<PostAdDetailsPage />} />
                   <Route path="device-details/:id" element={<DeviceDetailsPage />} />
+                  <Route path="marketplace" element={<HospitalMarketplacePage />} />
+                  <Route path="product/:id" element={<ProductDetailsPage />} />
                 </Route>
 
                 <Route
