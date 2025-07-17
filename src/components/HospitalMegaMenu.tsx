@@ -28,15 +28,11 @@ const canadaHospitals = [
 
 const HospitalMegaMenu: React.FC = () => {
   return (
-    <div className="w-full p-4 bg-white dark:bg-gray-900">
-      {" "}
-      {/* Theme-aware background */}
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center md:text-left">
-        Search by hospital
+    <div className="w-full p-3 bg-white dark:bg-gray-900">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center lg:text-left">
+        Search by Hospital
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2">
-        {" "}
-        {/* Adjusted gap for list */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
         {canadaHospitals.map((hospital) => (
           <Link
             key={hospital.name}
@@ -47,12 +43,10 @@ const HospitalMegaMenu: React.FC = () => {
             )}&province=${encodeURIComponent(
               hospital.location.split(", ")[1]
             )}`}
-            className="block py-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300 hover:underline rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500" // Theme-aware text colors
+            className="block py-1 px-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
-            <h3 className="font-medium text-sm">{hospital.name}</h3>{" "}
-            {/* Adjusted text size */}
-            {/* Location can be hidden or kept, let's keep it for now but smaller */}
-            <p className="text-xs text-gray-500 dark:text-gray-400">{hospital.location}</p>
+            <h3 className="font-medium text-sm leading-tight">{hospital.name}</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{hospital.location}</p>
           </Link>
         ))}
       </div>

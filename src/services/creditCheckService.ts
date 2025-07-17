@@ -105,7 +105,7 @@ export interface CreditCheckStatus {
  * 4. Report retrieval
  */
 class CreditCheckService {
-  private baseUrl = import.meta.env.VITE_API_URL || 'https://api.rentals.ca';
+  private baseUrl = import.meta.env.VITE_API_URL || 'https://api.Scrubhub.ca';
   private apiKey = import.meta.env.VITE_API_KEY || '';
   private useApiKey = import.meta.env.VITE_USE_API_KEY === 'true';
   private pollingInterval: NodeJS.Timeout | null = null;

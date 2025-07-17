@@ -152,12 +152,12 @@
   },
   "faq": {
     "title": "Besoin d'aide ? Questions fréquemment posées",
-    "q1": "Comment puis-je publier ma propriété à louer sur Rentals.ca ?",
+    "q1": "Comment puis-je publier ma propriété à louer sur Scrubhub.ca ?",
     "a1": "Inscrivez-vous ou connectez-vous en tant que propriétaire. Vous pouvez ensuite créer et publier facilement votre annonce en quelques minutes via notre tableau de bord convivial.",
-    "q2": "Y a-t-il des frais pour les locataires sur Rentals.ca ?",
+    "q2": "Y a-t-il des frais pour les locataires sur Scrubhub.ca ?",
     "a2": "Non ! La recherche, la consultation des annonces et la candidature sont entièrement gratuites pour les locataires.",
     "q3": "Qu'est-ce que RentReport™ ?",
-    "a3": "RentReport™ est un service proposé par Rentals.ca qui permet aux locataires de déclarer leurs paiements de loyer aux agences de crédit, les aidant ainsi à construire leur historique de crédit.",
+    "a3": "RentReport™ est un service proposé par Scrubhub.ca qui permet aux locataires de déclarer leurs paiements de loyer aux agences de crédit, les aidant ainsi à construire leur historique de crédit.",
     "q4": "Comment puis-je trouver des locations près d'hôpitaux ou d'écoles spécifiques ?",
     "a4": "Utilisez nos filtres de recherche avancés ou parcourez nos sections dédiées aux locations près des institutions médicales et des écoles. Vous pouvez également rechercher par adresse ou point de repère."
   },
@@ -196,7 +196,7 @@
     "terms": "Conditions générales",
     "privacy": "Politique de confidentialité",
     "creditCheckReport": "Rapport de vérification de crédit",
-    "disclaimer": "Avertissement : Rentals.ca n'est pas responsable de l'exactitude des informations fournies par les propriétaires ou les utilisateurs. Vérifiez toujours les informations de manière indépendante et prenez des précautions pour éviter les arnaques.",
+    "disclaimer": "Avertissement : Scrubhub.ca n'est pas responsable de l'exactitude des informations fournies par les propriétaires ou les utilisateurs. Vérifiez toujours les informations de manière indépendante et prenez des précautions pour éviter les arnaques.",
     "links": {
       "aboutUs": "À propos de nous",
       "blog": "Blog",
@@ -232,7 +232,7 @@
     "visitorsTitle": "Des milliers de locataires visitent",
     "visitorsSubtitle": "chaque jour pour trouver leur nouveau logement.",
     "helpTitle": "Nous les aidons à trouver la vôtre",
-    "helpDescription": "Avec plus de 20 ans d'expertise, Rentals.ca se consacre à servir les propriétaires, gestionnaires immobiliers et locataires à travers le pays. Rejoignez la plateforme préférée des locataires au Canada pour faire découvrir votre propriété sans effort.",
+    "helpDescription": "Avec plus de 20 ans d'expertise, Scrubhub.ca se consacre à servir les propriétaires, gestionnaires immobiliers et locataires à travers le pays. Rejoignez la plateforme préférée des locataires au Canada pour faire découvrir votre propriété sans effort.",
     "listProperty": "Publier votre propriété",
     "plansTitle": "Plans et tarifs",
     "plansSubtitle": "Améliorez votre annonce pour qu'elle bouge plus vite",

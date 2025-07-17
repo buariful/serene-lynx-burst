@@ -259,11 +259,7 @@ export default function LandlordDashboardPage() {
 
           {/* Post a Rental */}
           <div className="mt-6 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex flex-col items-center justify-center py-8">
-            {/* Illustration placeholder */}
-            <svg height="48" viewBox="0 0 400 48" fill="none">
-              {/* <rect width="400" height="48" fill="currentColor" className="text-gray-300 dark:text-gray-600" /> */}
-              {/* You can add your own SVG illustration here */}
-            </svg>
+          
             <Button
               onClick={() => setIsPostRentalModalOpen(true)}
               className="mt-3 flex items-center gap-1.5 px-6 py-2.5 bg-blue-600 dark:bg-blue-500 text-white rounded-full font-semibold text-base shadow hover:bg-blue-700 dark:hover:bg-blue-600 transition"

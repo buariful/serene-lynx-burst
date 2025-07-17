@@ -4,7 +4,7 @@ This document shows how to test the credit check API endpoints using cURL comman
 
 ## Base URL
 ```
-https://api.rentals.ca
+https://api.Scrubhub.ca
 ```
 
 ## Authentication
@@ -23,7 +23,7 @@ Authorization: Bearer YOUR_AUTH_TOKEN
 
 ### Method 3: URL Parameter (Testing Only)
 ```bash
-https://api.rentals.ca/credit-check/payment?token=YOUR_TOKEN
+https://api.Scrubhub.ca/credit-check/payment?token=YOUR_TOKEN
 ```
 
 ### Method 4: No Authentication (Public APIs)
@@ -39,7 +39,7 @@ No authentication headers required.
 
 **Method 1: API Key (Recommended)**
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/payment \
+curl -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -H "X-API-Key: YOUR_API_KEY" \
   -d '{
@@ -55,7 +55,7 @@ curl -X POST https://api.rentals.ca/credit-check/payment \
 
 **Method 2: Bearer Token**
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/payment \
+curl -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -d '{
@@ -71,7 +71,7 @@ curl -X POST https://api.rentals.ca/credit-check/payment \
 
 **Method 3: URL Parameter (Testing)**
 ```bash
-curl -X POST "https://api.rentals.ca/credit-check/payment?token=YOUR_TOKEN" \
+curl -X POST "https://api.Scrubhub.ca/credit-check/payment?token=YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "cardNumber": "4111111111111111",
@@ -109,7 +109,7 @@ curl -X POST "https://api.rentals.ca/credit-check/payment?token=YOUR_TOKEN" \
 
 **cURL Command:**
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/initiate \
+curl -X POST https://api.Scrubhub.ca/credit-check/initiate \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -d '{
@@ -156,7 +156,7 @@ curl -X POST https://api.rentals.ca/credit-check/initiate \
 
 **cURL Command:**
 ```bash
-curl -X GET https://api.rentals.ca/credit-check/status/CR-20240115-001 \
+curl -X GET https://api.Scrubhub.ca/credit-check/status/CR-20240115-001 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
@@ -179,7 +179,7 @@ curl -X GET https://api.rentals.ca/credit-check/status/CR-20240115-001 \
 
 **cURL Command:**
 ```bash
-curl -X GET https://api.rentals.ca/credit-check/report/CR-20240115-001 \
+curl -X GET https://api.Scrubhub.ca/credit-check/report/CR-20240115-001 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
@@ -236,7 +236,7 @@ Here's a complete workflow using cURL commands:
 ### Step 1: Process Payment
 ```bash
 # Store the response in a variable
-PAYMENT_RESPONSE=$(curl -s -X POST https://api.rentals.ca/credit-check/payment \
+PAYMENT_RESPONSE=$(curl -s -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -d '{
@@ -256,7 +256,7 @@ echo "Transaction ID: $TRANSACTION_ID"
 
 ### Step 2: Initiate Credit Check
 ```bash
-CHECK_RESPONSE=$(curl -s -X POST https://api.rentals.ca/credit-check/initiate \
+CHECK_RESPONSE=$(curl -s -X POST https://api.Scrubhub.ca/credit-check/initiate \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -d "{
@@ -293,7 +293,7 @@ echo "Report ID: $REPORT_ID"
 ```bash
 # Poll until report is ready
 while true; do
-  STATUS_RESPONSE=$(curl -s -X GET https://api.rentals.ca/credit-check/status/$REPORT_ID \
+  STATUS_RESPONSE=$(curl -s -X GET https://api.Scrubhub.ca/credit-check/status/$REPORT_ID \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer YOUR_AUTH_TOKEN")
   
@@ -311,7 +311,7 @@ done
 ### Step 4: Retrieve Report
 ```bash
 # Get the final report
-curl -X GET https://api.rentals.ca/credit-check/report/$REPORT_ID \
+curl -X GET https://api.Scrubhub.ca/credit-check/report/$REPORT_ID \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   | jq '.'
@@ -335,7 +335,7 @@ Use these test card numbers for development:
 
 ### Invalid Card Number
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/payment \
+curl -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -d '{
@@ -357,7 +357,7 @@ curl -X POST https://api.rentals.ca/credit-check/payment \
 
 ### Missing Authentication
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/payment \
+curl -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -d '{
     "cardNumber": "4111111111111111",
@@ -383,7 +383,7 @@ curl -X POST https://api.rentals.ca/credit-check/payment \
 Set these environment variables for easier testing:
 
 ```bash
-export API_BASE_URL="https://api.rentals.ca"
+export API_BASE_URL="https://api.Scrubhub.ca"
 export AUTH_TOKEN="YOUR_AUTH_TOKEN"
 ```
 

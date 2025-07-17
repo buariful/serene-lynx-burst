@@ -7,7 +7,7 @@ const Logo = () => {
       {/* Ensure logo.png is in the public folder */}
       <img 
         src="/logo.png" 
-        alt="Rentals.ca Logo" 
+        alt="Scrubhub.ca Logo" 
         className="h-8 w-auto dark:bg-white dark:p-1 dark:rounded" 
       />
       {/* Adjust height as needed, h-8 is 32px */}
@@ -20,7 +20,7 @@ export const LogoWhite = () => {
       {/* Ensure logo.png is in the public folder */}
       <img
         src="/logo_white.png"
-        alt="Rentals.ca Logo"
+        alt="Scrubhub.ca Logo"
         className="h-8 w-auto"
       />{" "}
       {/* Adjust height as needed, h-8 is 32px */}

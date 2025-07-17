@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { LogoWhite } from "./Logo"; // Assuming Logo is updated to "Rentals.ca"
+import { LogoWhite } from "./Logo"; // Assuming Logo is updated to "Scrubhub.ca"
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {

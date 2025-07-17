@@ -152,12 +152,12 @@
   },
   "faq": {
     "title": "Need Help? Frequently Asked Questions",
-    "q1": "How do I list my rental property on Rentals.ca?",
+    "q1": "How do I list my rental property on Scrubhub.ca?",
     "a1": "Sign up or log in as a landlord. You can then easily create and publish your rental listing in minutes through our user-friendly dashboard.",
-    "q2": "Are there any fees for tenants to use Rentals.ca?",
+    "q2": "Are there any fees for tenants to use Scrubhub.ca?",
     "a2": "No! Searching for properties, viewing listings, and applying for rentals are completely free for tenants.",
     "q3": "What is RentReport™?",
-    "a3": "RentReport™ is a service offered by Rentals.ca that allows tenants to report their rent payments to credit bureaus, helping them build their credit history.",
+    "a3": "RentReport™ is a service offered by Scrubhub.ca that allows tenants to report their rent payments to credit bureaus, helping them build their credit history.",
     "q4": "How can I find rentals near a specific hospitalsor schools?",
     "a4": "Use our advanced search filters or browse our dedicated sections for rentals near medical institutions and schools. You can also search by address or landmark."
   },
@@ -196,7 +196,7 @@
     "carrer": "Career",
     "privacy": "Privacy Policy",
     "creditCheckReport": "Credit Check Report",
-    "disclaimer": "Disclaimer: Rentals.ca is not responsible for the accuracy of information provided by landlords or users. Always verify information independently and take precautions to avoid scams.",
+    "disclaimer": "Disclaimer: Scrubhub.ca is not responsible for the accuracy of information provided by landlords or users. Always verify information independently and take precautions to avoid scams.",
     "links": {
       "aboutUs": "About Us",
       "blog": "Blog",
@@ -232,7 +232,7 @@
     "visitorsTitle": "Thousands of renters visit",
     "visitorsSubtitle": "every day to find their new home.",
     "helpTitle": "We help them find Yours",
-    "helpDescription": "With over 20 years of expertise, Rentals.ca is dedicated to serving landlords, property managers, and renters nationwide. Join Canada's favourite platform for renters to discover your property effortlessly.",
+    "helpDescription": "With over 20 years of expertise, Scrubhub.ca is dedicated to serving landlords, property managers, and renters nationwide. Join Canada's favourite platform for renters to discover your property effortlessly.",
     "listProperty": "List your property",
     "plansTitle": "Plans and Pricing",
     "plansSubtitle": "Upgrade Your Listing to Move Faster",

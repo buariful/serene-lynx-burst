@@ -367,7 +367,7 @@ export function useCreditCheckInComponent() {
 /**
  * API Endpoints Summary
  * 
- * Base URL: https://api.rentals.ca
+ * Base URL: https://api.Scrubhub.ca
  * 
  * 1. POST /credit-check/payment
  *    - Process $90 payment

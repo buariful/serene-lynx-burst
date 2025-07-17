@@ -30,11 +30,14 @@ import {
   Search,
   FileText,
   Lock,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import HospitalMegaMenu from "./HospitalMegaMenu";
 import MedicalSchoolMegaMenu from "./MedicalSchoolMegaMenu"; // Import the new menu
 import { useTranslation } from 'react-i18next';
+import { useTheme } from "@/hooks/useTheme";
 
 type NavLinkItem = { type: "link"; href: string; label: string };
 type MegaMenuItem = {
@@ -48,6 +51,7 @@ const DashboardHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   // Debug language changes
@@ -274,6 +278,20 @@ const DashboardHeader = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Toggle theme"
+                onClick={toggleTheme}
+                className="h-9 w-9"
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )}
+              </Button>
             </div>
 
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -359,6 +377,20 @@ const DashboardHeader = () => {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
+                    
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Toggle theme"
+                      onClick={toggleTheme}
+                      className="h-9 w-9 self-start mt-2"
+                    >
+                      {theme === "dark" ? (
+                        <Sun className="h-5 w-5" />
+                      ) : (
+                        <Moon className="h-5 w-5" />
+                      )}
+                    </Button>
                   </div>
                 </div>
               </SheetContent>

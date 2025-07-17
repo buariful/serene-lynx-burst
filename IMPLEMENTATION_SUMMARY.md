@@ -146,7 +146,7 @@ VITE_TRUSTII_API_BASE_URL=https://api.trustii.co/verif
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_key_here
 
 # API Configuration
-VITE_API_URL=https://api.rentals.ca
+VITE_API_URL=https://api.Scrubhub.ca
 VITE_API_KEY=your_api_key_here
 VITE_USE_API_KEY=true
 ```

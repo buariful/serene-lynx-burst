@@ -25,7 +25,7 @@ const sampleProperties: Property[] = [
     id: 101,
     imageUrl:
       "https://media.architecturaldigest.com/photos/67bcc8747dfc89b75d51a6ab/16:9/w_2580,c_limit/Kishani%20Perera_Point%20Dume%20Project_Photographer%20Anthony%20Barcelo.jpg",
-    // "https://images.rentals.ca/property-pictures/medium/oshawa-on/852001/apartment-533581394.jpg",
+    // "https://images.Scrubhub.ca/property-pictures/medium/oshawa-on/852001/apartment-533581394.jpg",
 
     address: "1944 Yonge Street, Davisville, Toronto",
     beds: 1,

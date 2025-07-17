@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import DashboardHeader from "./DashboardHeader";
 import { IoIosLogOut } from "react-icons/io";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -20,13 +20,29 @@ const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   const { t } = useTranslation();
 
   const sidebarItems = [
-    { label: t('navigation.listings'), icon: Building2, path: "/landlord/dashboard" },
-    { label: t('navigation.notifications'), icon: Bell, path: "/landlord/notifications" },
-    { label: t('navigation.drafts'), icon: Pencil, path: "/landlord/drafts" },
-    { label: t('navigation.alerts'), icon: AlertCircle, path: "/landlord/alerts" },
-    { label: t('navigation.favourites'), icon: Heart, path: "/landlord/favourites" },
-    { label: t('navigation.account'), icon: User2, path: "/landlord/account" },
-    { label: t('navigation.logout'), icon: IoIosLogOut, path: "/login" },
+    {
+      label: t("navigation.listings"),
+      icon: Building2,
+      path: "/landlord/dashboard",
+    },
+    {
+      label: t("navigation.notifications"),
+      icon: Bell,
+      path: "/landlord/notifications",
+    },
+    { label: t("navigation.drafts"), icon: Pencil, path: "/landlord/drafts" },
+    {
+      label: t("navigation.alerts"),
+      icon: AlertCircle,
+      path: "/landlord/alerts",
+    },
+    {
+      label: t("navigation.favourites"),
+      icon: Heart,
+      path: "/landlord/favourites",
+    },
+    { label: t("navigation.account"), icon: User2, path: "/landlord/account" },
+    { label: t("navigation.logout"), icon: IoIosLogOut, path: "/login" },
   ];
   return (
     <>
@@ -34,7 +50,7 @@ const LandlordDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="container flex">
           {/* Sidebar */}
-          <aside className="w-56 p-6 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+          <aside className=" p-6 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
             <nav className="flex flex-col gap-1">
               {sidebarItems.map((item) => {
                 const isActive = location.pathname.startsWith(item.path);

@@ -13,7 +13,7 @@ This guide shows how to handle authentication in static apps for the credit chec
 ```bash
 VITE_API_KEY=your_api_key_here
 VITE_USE_API_KEY=true
-VITE_API_URL=https://api.rentals.ca
+VITE_API_URL=https://api.Scrubhub.ca
 ```
 
 2. The service automatically uses the API key:
@@ -24,7 +24,7 @@ const response = await creditCheckService.processPayment(paymentData);
 
 #### cURL Example:
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/payment \
+curl -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your_api_key_here" \
   -d '{
@@ -53,7 +53,7 @@ const response = await creditCheckService.processPayment(paymentData);
 
 #### cURL Example:
 ```bash
-curl -X POST https://api.rentals.ca/credit-check/payment \
+curl -X POST https://api.Scrubhub.ca/credit-check/payment \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your_jwt_token_here" \
   -d '{
@@ -80,7 +80,7 @@ const response = await creditCheckService.processPayment(paymentData);
 
 #### cURL Example:
 ```bash
-curl -X POST "https://api.rentals.ca/credit-check/payment?token=your_token_here" \
+curl -X POST "https://api.Scrubhub.ca/credit-check/payment?token=your_token_here" \
   -H "Content-Type: application/json" \
   -d '{
     "cardNumber": "4111111111111111",
@@ -101,7 +101,7 @@ curl -X POST "https://api.rentals.ca/credit-check/payment?token=your_token_here"
 1. Create `.env` file:
 ```bash
 VITE_AUTH_TOKEN=your_bearer_token_here
-VITE_API_URL=https://api.rentals.ca
+VITE_API_URL=https://api.Scrubhub.ca
 ```
 
 2. The service automatically uses the token:
@@ -120,7 +120,7 @@ const response = await creditCheckService.processPayment(paymentData);
 // .env file
 VITE_API_KEY=sk_live_1234567890abcdef
 VITE_USE_API_KEY=true
-VITE_API_URL=https://api.rentals.ca
+VITE_API_URL=https://api.Scrubhub.ca
 
 // In your component
 import { creditCheckService } from '@/services/creditCheckService';
@@ -200,7 +200,7 @@ const CreditCheckPage = () => {
 ### For Development (.env.local)
 ```bash
 # API Configuration
-VITE_API_URL=https://api.rentals.ca
+VITE_API_URL=https://api.Scrubhub.ca
 
 # Authentication (choose one method)
 VITE_API_KEY=your_api_key_here
@@ -218,7 +218,7 @@ VITE_USE_API_KEY=false
 # Set these in your hosting platform (Vercel, Netlify, etc.)
 VITE_API_KEY=sk_live_production_key
 VITE_USE_API_KEY=true
-VITE_API_URL=https://api.rentals.ca
+VITE_API_URL=https://api.Scrubhub.ca
 ```
 
 ---
