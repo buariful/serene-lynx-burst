@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { showSuccess, showError } from "@/utils/toast";
 
 interface Notification {
   id: string;
@@ -31,9 +32,7 @@ const NotificationsPage: React.FC = () => {
   const [filterType, setFilterType] = useState("all");
   const [showRead, setShowRead] = useState(true);
   const [sortBy, setSortBy] = useState("recent");
-
-  // Mock data for notifications
-  const notifications: Notification[] = [
+  const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: "1",
       type: "inquiry",
@@ -135,26 +134,26 @@ const NotificationsPage: React.FC = () => {
       actionRequired: true,
       actionLabel: "Schedule Viewing"
     }
-  ];
+  ]);
 
   const getNotificationIcon = (type: Notification['type']) => {
     switch (type) {
       case 'inquiry':
-        return <MessageSquare className="w-5 h-5 text-blue-500" />;
+        return <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-blue-500" />;
       case 'application':
-        return <User className="w-5 h-5 text-green-500" />;
+        return <User className="w-4 h-4 md:w-5 md:h-5 text-green-500" />;
       case 'payment':
-        return <DollarSign className="w-5 h-5 text-green-500" />;
+        return <DollarSign className="w-4 h-4 md:w-5 md:h-5 text-green-500" />;
       case 'maintenance':
-        return <AlertTriangle className="w-5 h-5 text-orange-500" />;
+        return <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-orange-500" />;
       case 'system':
-        return <Settings className="w-5 h-5 text-gray-500" />;
+        return <Settings className="w-4 h-4 md:w-5 md:h-5 text-gray-500" />;
       case 'market':
-        return <Info className="w-5 h-5 text-purple-500" />;
+        return <Info className="w-4 h-4 md:w-5 md:h-5 text-purple-500" />;
       case 'reminder':
-        return <Calendar className="w-5 h-5 text-yellow-500" />;
+        return <Calendar className="w-4 h-4 md:w-5 md:h-5 text-yellow-500" />;
       default:
-        return <Bell className="w-5 h-5 text-gray-500" />;
+        return <Bell className="w-4 h-4 md:w-5 md:h-5 text-gray-500" />;
     }
   };
 
@@ -203,6 +202,31 @@ const NotificationsPage: React.FC = () => {
     return date.toLocaleDateString();
   };
 
+  const markAsRead = (id: string) => {
+    setNotifications(prev => 
+      prev.map(notification => 
+        notification.id === id ? { ...notification, read: true } : notification
+      )
+    );
+    showSuccess("Notification marked as read");
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(prev => 
+      prev.map(notification => ({ ...notification, read: true }))
+    );
+    showSuccess("All notifications marked as read");
+  };
+
+  const deleteNotification = (id: string) => {
+    setNotifications(prev => prev.filter(notification => notification.id !== id));
+    showSuccess("Notification deleted");
+  };
+
+  const handleAction = (notification: Notification) => {
+    showSuccess(`${notification.actionLabel} action initiated`);
+  };
+
   // Filter notifications based on search and filters
   const filteredNotifications = notifications
     .filter(notification => {
@@ -239,16 +263,16 @@ const NotificationsPage: React.FC = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-              <Bell className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <Bell className="w-5 h-5 md:w-6 md:h-6 text-blue-600 dark:text-blue-400" />
               Notifications
               {unreadCount > 0 && (
-                <Badge variant="destructive" className="ml-2">
+                <Badge variant="destructive" className="ml-2 text-xs md:text-sm">
                   {unreadCount} new
                 </Badge>
               )}
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-1">
               Stay updated with important messages and updates
             </p>
           </div>
@@ -258,65 +282,66 @@ const NotificationsPage: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={() => setShowRead(!showRead)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 text-xs md:text-sm"
             >
-              {showRead ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              {showRead ? <EyeOff className="w-3 h-3 md:w-4 md:h-4" /> : <Eye className="w-3 h-3 md:w-4 md:h-4" />}
               {showRead ? 'Hide Read' : 'Show Read'}
             </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Filter className="w-4 h-4" />
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2 text-xs md:text-sm"
+              onClick={markAllAsRead}
+            >
+              <Filter className="w-3 h-3 md:w-4 md:h-4" />
               Mark All Read
-            </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
-              Settings
             </Button>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Notifications</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{notifications.length}</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Total Notifications</p>
+                  <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">{notifications.length}</p>
                 </div>
-                <Bell className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <Bell className="w-6 h-6 md:w-8 md:h-8 text-blue-600 dark:text-blue-400" />
               </div>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Unread</p>
-                  <p className="text-2xl font-bold text-red-600 dark:text-red-400">{unreadCount}</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Unread</p>
+                  <p className="text-xl md:text-2xl font-bold text-red-600 dark:text-red-400">{unreadCount}</p>
                 </div>
-                <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                  <span className="text-red-600 dark:text-red-400 text-sm font-bold">!</span>
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+                  <span className="text-red-600 dark:text-red-400 text-xs md:text-sm font-bold">!</span>
                 </div>
               </div>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Action Required</p>
-                  <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{actionRequiredCount}</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Action Required</p>
+                  <p className="text-xl md:text-2xl font-bold text-orange-600 dark:text-orange-400">{actionRequiredCount}</p>
                 </div>
-                <CheckCircle className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+                <CheckCircle className="w-6 h-6 md:w-8 md:h-8 text-orange-600 dark:text-orange-400" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Search and Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-6">
           <div className="md:col-span-2">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -324,7 +349,7 @@ const NotificationsPage: React.FC = () => {
                 placeholder="Search notifications..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 text-sm md:text-base"
               />
               {searchTerm && (
                 <Button
@@ -333,14 +358,14 @@ const NotificationsPage: React.FC = () => {
                   onClick={() => setSearchTerm("")}
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3 h-3" />
                 </Button>
               )}
             </div>
           </div>
           
           <Select value={filterType} onValueChange={setFilterType}>
-            <SelectTrigger>
+            <SelectTrigger className="text-sm md:text-base">
               <SelectValue placeholder="Filter by type" />
             </SelectTrigger>
             <SelectContent>
@@ -356,7 +381,7 @@ const NotificationsPage: React.FC = () => {
           </Select>
           
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger>
+            <SelectTrigger className="text-sm md:text-base">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
@@ -368,15 +393,15 @@ const NotificationsPage: React.FC = () => {
         </div>
 
         {/* Notifications List */}
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {filteredNotifications.length === 0 ? (
-            <Card className="text-center py-12">
+            <Card className="text-center py-8 md:py-12">
               <CardContent>
-                <Bell className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                <Bell className="w-12 h-12 md:w-16 md:h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   No notifications found
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
                   {searchTerm || filterType !== 'all' 
                     ? 'Try adjusting your search or filters'
                     : 'You\'re all caught up! No new notifications at this time.'}
@@ -391,8 +416,8 @@ const NotificationsPage: React.FC = () => {
                   !notification.read ? 'border-l-4 border-l-blue-500 bg-blue-50 dark:bg-blue-950/20' : ''
                 }`}
               >
-                <CardContent className="p-4 md:p-6">
-                  <div className="flex items-start gap-4">
+                <CardContent className="p-3 md:p-4">
+                  <div className="flex items-start gap-3 md:gap-4">
                     <div className="flex-shrink-0 mt-1">
                       {getNotificationIcon(notification.type)}
                     </div>
@@ -423,7 +448,12 @@ const NotificationsPage: React.FC = () => {
                         
                         <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                           <span>{formatTimestamp(notification.timestamp)}</span>
-                          <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-6 w-6 p-0"
+                            onClick={() => deleteNotification(notification.id)}
+                          >
                             <X className="w-3 h-3" />
                           </Button>
                         </div>
@@ -434,7 +464,7 @@ const NotificationsPage: React.FC = () => {
                       </p>
                       
                       {(notification.sender || notification.propertyAddress || notification.amount || notification.date) && (
-                        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                        <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs text-gray-500 dark:text-gray-400 mb-3">
                           {notification.sender && (
                             <div className="flex items-center gap-1">
                               <User className="w-3 h-3" />
@@ -462,18 +492,27 @@ const NotificationsPage: React.FC = () => {
                         </div>
                       )}
                       
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         {notification.actionRequired && notification.actionLabel && (
-                          <Button size="sm" className="flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4" />
+                          <Button 
+                            size="sm" 
+                            className="flex items-center gap-2 text-xs md:text-sm"
+                            onClick={() => handleAction(notification)}
+                          >
+                            <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
                             {notification.actionLabel}
                           </Button>
                         )}
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="text-xs md:text-sm" onClick={() => showSuccess(`Viewing details for: ${notification.title}`)}>
                           View Details
                         </Button>
                         {!notification.read && (
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost" 
+                            className="text-xs md:text-sm"
+                            onClick={() => markAsRead(notification.id)}
+                          >
                             Mark as Read
                           </Button>
                         )}

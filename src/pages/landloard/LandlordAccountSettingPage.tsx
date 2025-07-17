@@ -125,12 +125,12 @@ const LandlordAccountSettingsPage: React.FC = () => {
 
   return (
     <LandlordDashboardWrapper>
-      <div className="space-y-8 mt-8 mb-14 max-w-4xl mx-auto p-4 md:p-0">
+      <div className="space-y-8 mt-8 mb-14 mx-auto p-4 md:p-0">
         <header className="mb-6">
-          <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100">
             {t('landlord.accountSettings.title')}
           </h1>
-          <p className="text-lg text-blue-600 dark:text-blue-400 font-medium mt-1">
+          <p className="text-base md:text-lg text-blue-600 dark:text-blue-400 font-medium mt-1 break-all">
             {email}
           </p>
         </header>
@@ -141,10 +141,10 @@ const LandlordAccountSettingsPage: React.FC = () => {
             <div className="flex items-center space-x-3">
               <User className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               <div>
-                <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
+                <CardTitle className="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">
                   {t('landlord.accountSettings.profile')}
                 </CardTitle>
-                <CardDescription className="text-slate-600 dark:text-slate-400">
+                <CardDescription className="text-slate-600 dark:text-slate-400 text-sm md:text-base">
                   {t('landlord.accountSettings.profileDesc')}
                 </CardDescription>
               </div>
@@ -153,24 +153,18 @@ const LandlordAccountSettingsPage: React.FC = () => {
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-1.5">
-                <Label
-                  htmlFor="name"
-                  className="text-slate-700 dark:text-slate-300"
-                >
+                <Label htmlFor="name" className="text-slate-700 dark:text-slate-300 text-sm md:text-base">
                   {t('landlord.accountSettings.name')}
                 </Label>
                 <Input
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
+                  className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 text-sm md:text-base"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label
-                  htmlFor="email-profile"
-                  className="text-slate-700 dark:text-slate-300"
-                >
+                <Label htmlFor="email-profile" className="text-slate-700 dark:text-slate-300 text-sm md:text-base">
                   {t('landlord.accountSettings.email')}
                 </Label>
                 <Input
@@ -178,15 +172,12 @@ const LandlordAccountSettingsPage: React.FC = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
+                  className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 text-sm md:text-base"
                 />
               </div>
             </div>
             <div className="space-y-1.5">
-              <Label
-                htmlFor="phone"
-                className="text-slate-700 dark:text-slate-300"
-              >
+              <Label htmlFor="phone" className="text-slate-700 dark:text-slate-300 text-sm md:text-base">
                 {t('landlord.accountSettings.phone')}
               </Label>
               <Input
@@ -194,14 +185,14 @@ const LandlordAccountSettingsPage: React.FC = () => {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
+                className="rounded-md border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 text-sm md:text-base"
               />
             </div>
           </CardContent>
-          <CardFooter className="border-t dark:border-slate-700 px-6 py-4">
+          <CardFooter className="border-t dark:border-slate-700 px-6 py-4 flex flex-col md:flex-row gap-3 md:gap-0 md:justify-end">
             <Button
               onClick={handleProfileSave}
-              className="ml-auto bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white w-full md:w-auto"
             >
               <Save className="mr-2 h-4 w-4" /> {t('landlord.accountSettings.saveProfile')}
             </Button>
@@ -214,25 +205,22 @@ const LandlordAccountSettingsPage: React.FC = () => {
             <div className="flex items-center space-x-3">
               <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
               <div>
-                <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
+                <CardTitle className="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">
                   {t('landlord.accountSettings.security')}
                 </CardTitle>
-                <CardDescription className="text-slate-600 dark:text-slate-400">
+                <CardDescription className="text-slate-600 dark:text-slate-400 text-sm md:text-base">
                   {t('landlord.accountSettings.securityDesc')}
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <Dialog
-              open={isPasswordDialogOpen}
-              onOpenChange={setIsPasswordDialogOpen}
-            >
+            <Dialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
               <DialogTrigger asChild>
                 <Button
                   variant="outline"
                   onClick={handleChangePassword}
-                  className="dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700"
+                  className="dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 w-full md:w-auto"
                 >
                   <Edit3 className="mr-2 h-4 w-4" /> {t('landlord.accountSettings.changePassword')}
                 </Button>
@@ -243,15 +231,9 @@ const LandlordAccountSettingsPage: React.FC = () => {
                     {t('landlord.accountSettings.changePassword')}
                   </DialogTitle>
                 </DialogHeader>
-                <form
-                  onSubmit={handlePasswordChangeSubmit}
-                  className="space-y-4"
-                >
+                <form onSubmit={handlePasswordChangeSubmit} className="space-y-4">
                   <div>
-                    <Label
-                      htmlFor="current-password"
-                      className="dark:text-slate-200"
-                    >
+                    <Label htmlFor="current-password" className="dark:text-slate-200 text-sm md:text-base">
                       {t('landlord.accountSettings.currentPassword')}
                     </Label>
                     <Input
@@ -259,15 +241,12 @@ const LandlordAccountSettingsPage: React.FC = () => {
                       type="password"
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
-                      className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
+                      className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 text-sm md:text-base"
                       autoComplete="current-password"
                     />
                   </div>
                   <div>
-                    <Label
-                      htmlFor="new-password"
-                      className="dark:text-slate-200"
-                    >
+                    <Label htmlFor="new-password" className="dark:text-slate-200 text-sm md:text-base">
                       {t('landlord.accountSettings.newPassword')}
                     </Label>
                     <Input
@@ -275,15 +254,12 @@ const LandlordAccountSettingsPage: React.FC = () => {
                       type="password"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
+                      className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 text-sm md:text-base"
                       autoComplete="new-password"
                     />
                   </div>
                   <div>
-                    <Label
-                      htmlFor="confirm-password"
-                      className="dark:text-slate-200"
-                    >
+                    <Label htmlFor="confirm-password" className="dark:text-slate-200 text-sm md:text-base">
                       {t('landlord.accountSettings.confirmNewPassword')}
                     </Label>
                     <Input
@@ -291,27 +267,20 @@ const LandlordAccountSettingsPage: React.FC = () => {
                       type="password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200"
+                      className="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-200 text-sm md:text-base"
                       autoComplete="new-password"
                     />
                   </div>
                   {passwordError && (
-                    <div className="text-red-600 text-sm">{passwordError}</div>
+                    <div className="text-red-600 text-sm md:text-base">{passwordError}</div>
                   )}
-                  <DialogFooter>
+                  <DialogFooter className="flex flex-col md:flex-row gap-3 md:gap-0 md:justify-end">
                     <DialogClose asChild>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        className="dark:text-slate-300"
-                      >
+                      <Button type="button" variant="ghost" className="dark:text-slate-300 w-full md:w-auto">
                         {t('common.cancel')}
                       </Button>
                     </DialogClose>
-                    <Button
-                      type="submit"
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
-                    >
+                    <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white w-full md:w-auto">
                       {t('landlord.accountSettings.changePassword')}
                     </Button>
                   </DialogFooter>
@@ -327,10 +296,10 @@ const LandlordAccountSettingsPage: React.FC = () => {
             <div className="flex items-center space-x-3">
               <Mail className="h-6 w-6 text-orange-600 dark:text-orange-400" />
               <div>
-                <CardTitle className="text-xl font-semibold text-slate-800 dark:text-slate-100">
+                <CardTitle className="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">
                   {t('landlord.accountSettings.emailPreferences')}
                 </CardTitle>
-                <CardDescription className="text-slate-600 dark:text-slate-400">
+                <CardDescription className="text-slate-600 dark:text-slate-400 text-sm md:text-base">
                   {t('landlord.accountSettings.emailPreferencesDesc')}
                 </CardDescription>
               </div>
@@ -339,15 +308,12 @@ const LandlordAccountSettingsPage: React.FC = () => {
           <CardContent className="space-y-4">
             {emailPreferences.map((pref, index) => (
               <React.Fragment key={pref.id}>
-                <div className="flex items-center justify-between space-x-4 py-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0 sm:space-x-4 py-3">
                   <div className="flex flex-col">
-                    <Label
-                      htmlFor={pref.id}
-                      className="font-medium text-slate-700 dark:text-slate-200"
-                    >
+                    <Label htmlFor={pref.id} className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base">
                       {pref.label}
                     </Label>
-                    <span className="text-sm text-slate-500 dark:text-slate-400">
+                    <span className="text-xs md:text-sm text-slate-500 dark:text-slate-400">
                       {pref.description}
                     </span>
                   </div>
@@ -364,10 +330,10 @@ const LandlordAccountSettingsPage: React.FC = () => {
               </React.Fragment>
             ))}
           </CardContent>
-          <CardFooter className="border-t dark:border-slate-700 px-6 py-4">
+          <CardFooter className="border-t dark:border-slate-700 px-6 py-4 flex flex-col md:flex-row gap-3 md:gap-0 md:justify-end">
             <Button
               onClick={handleEmailPreferencesSave}
-              className="ml-auto bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white w-full md:w-auto"
             >
               <Save className="mr-2 h-4 w-4" /> {t('landlord.accountSettings.savePreferences')}
             </Button>

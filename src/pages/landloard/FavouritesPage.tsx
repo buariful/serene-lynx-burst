@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { showSuccess, showError } from "@/utils/toast";
 
 interface FavoriteProperty {
   id: string;
@@ -35,9 +36,7 @@ const FavouritesPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [sortBy, setSortBy] = useState("added");
-
-  // Mock data for favorite properties
-  const favorites: FavoriteProperty[] = [
+  const [favorites, setFavorites] = useState<FavoriteProperty[]>([
     {
       id: "1",
       title: "Modern Downtown Condo",
@@ -143,7 +142,7 @@ const FavouritesPage: React.FC = () => {
       amenities: ["Near Hospital", "Public Transit", "Grocery Store"],
       description: "Convenient apartment located near the medical district, perfect for healthcare professionals."
     }
-  ];
+  ]);
 
   const getTrendIcon = (trend: FavoriteProperty['marketTrend']) => {
     switch (trend) {
@@ -182,6 +181,27 @@ const FavouritesPage: React.FC = () => {
     return date.toLocaleDateString();
   };
 
+  const handleView = (favorite: FavoriteProperty) => {
+    showSuccess(`Viewing property: ${favorite.title}`);
+  };
+
+  const handleDelete = (favorite: FavoriteProperty) => {
+    setFavorites(prev => prev.filter(fav => fav.id !== favorite.id));
+    showSuccess(`Removed from favourites: ${favorite.title}`);
+  };
+
+  const handleMarketReport = () => {
+    showSuccess("Generating market report...");
+  };
+
+  const handleShareList = () => {
+    showSuccess("Sharing favourites list...");
+  };
+
+  const handleBrowseProperties = () => {
+    showSuccess("Opening property browser...");
+  };
+
   // Filter and sort favorites
   const filteredFavorites = favorites
     .filter(favorite => {
@@ -215,86 +235,87 @@ const FavouritesPage: React.FC = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-              <Heart className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <Heart className="w-5 h-5 md:w-6 md:h-6 text-red-600 dark:text-red-400" />
               Favourites
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-1">
               Your saved properties and market insights
             </p>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-2">
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              Market Report
-            </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2 text-xs md:text-sm"
+              onClick={handleShareList}
+            >
+              <Users className="w-3 h-3 md:w-4 md:h-4" />
               Share List
             </Button>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Favourites</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{favorites.length}</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Total Favourites</p>
+                  <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">{favorites.length}</p>
                 </div>
-                <Heart className="w-8 h-8 text-red-600 dark:text-red-400" />
+                <Heart className="w-6 h-6 md:w-8 md:h-8 text-red-600 dark:text-red-400" />
               </div>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Value</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Total Value</p>
+                  <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">
                     ${totalValue.toLocaleString()}
                   </p>
                 </div>
-                <DollarSign className="w-8 h-8 text-green-600 dark:text-green-400" />
+                <DollarSign className="w-6 h-6 md:w-8 md:h-8 text-green-600 dark:text-green-400" />
               </div>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Rating</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Rating</p>
+                  <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {averageRating.toFixed(1)}
                   </p>
                 </div>
-                <Star className="w-8 h-8 text-yellow-600 dark:text-yellow-400" />
+                <Star className="w-6 h-6 md:w-8 md:h-8 text-yellow-600 dark:text-yellow-400" />
               </div>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Views</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Views</p>
+                  <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {Math.round(favorites.reduce((sum, fav) => sum + fav.views, 0) / favorites.length).toLocaleString()}
                   </p>
                 </div>
-                <Eye className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <Eye className="w-6 h-6 md:w-8 md:h-8 text-blue-600 dark:text-blue-400" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Search and Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-6">
           <div className="md:col-span-2">
             <div className="relative">
               <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -302,13 +323,13 @@ const FavouritesPage: React.FC = () => {
                 placeholder="Search favourites..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 text-sm md:text-base"
               />
             </div>
           </div>
           
           <Select value={filterType} onValueChange={setFilterType}>
-            <SelectTrigger>
+            <SelectTrigger className="text-sm md:text-base">
               <SelectValue placeholder="Filter by type" />
             </SelectTrigger>
             <SelectContent>
@@ -322,7 +343,7 @@ const FavouritesPage: React.FC = () => {
           </Select>
           
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger>
+            <SelectTrigger className="text-sm md:text-base">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
@@ -335,21 +356,24 @@ const FavouritesPage: React.FC = () => {
         </div>
 
         {/* Favourites Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {filteredFavorites.length === 0 ? (
             <div className="col-span-full">
-              <Card className="text-center py-12">
+              <Card className="text-center py-8 md:py-12">
                 <CardContent>
-                  <Heart className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                  <Heart className="w-12 h-12 md:w-16 md:h-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     No favourites found
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4">
                     {searchTerm || filterType !== 'all' 
                       ? 'Try adjusting your search or filters'
                       : 'You haven\'t added any properties to your favourites yet.'}
                   </p>
-                  <Button className="flex items-center gap-2 mx-auto">
+                  <Button 
+                    className="flex items-center gap-2 mx-auto text-sm md:text-base"
+                    onClick={handleBrowseProperties}
+                  >
                     <MapPin className="w-4 h-4" />
                     Browse Properties
                   </Button>
@@ -363,37 +387,39 @@ const FavouritesPage: React.FC = () => {
                   <img
                     src={favorite.imageUrl}
                     alt={favorite.title}
-                    className="w-full h-48 object-cover rounded-t-lg"
+                    className="w-full h-40 md:h-48 object-cover rounded-t-lg"
                   />
-                  <div className="absolute top-3 right-3 flex gap-2">
+                  <div className="absolute top-2 right-2 flex gap-1">
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="h-8 w-8 p-0 bg-white/90 hover:bg-white"
+                      className="h-7 w-7 md:h-8 md:w-8 bg-white/90"
+                      onClick={() => handleView(favorite)}
                     >
-                      <Eye className="w-4 h-4" />
+                      <Eye className="w-3 h-3 md:w-4 md:h-4" />
                     </Button>
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="h-8 w-8 p-0 bg-white/90 hover:bg-white text-red-600 hover:text-red-700"
+                      className="h-7 w-7 md:h-8 md:w-8 bg-white/90 hover:bg-white text-red-600 hover:text-red-700"
+                      onClick={() => handleDelete(favorite)}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3 md:w-4 md:h-4" />
                     </Button>
                   </div>
-                  <div className="absolute bottom-3 left-3">
-                    <Badge variant="secondary" className="bg-white/90 text-gray-900">
+                  <div className="absolute bottom-2 left-2">
+                    <Badge variant="secondary" className="bg-white/90 text-gray-900 text-xs">
                       {favorite.propertyType}
                     </Badge>
                   </div>
                 </div>
                 
-                <CardContent className="p-4">
+                <CardContent className="p-3">
                   <div className="mb-3">
-                    <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-1 line-clamp-1">
+                    <h3 className="font-semibold text-base md:text-lg text-gray-900 dark:text-gray-100 mb-1 line-clamp-1">
                       {favorite.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
                       {favorite.address}, {favorite.city}
                     </p>
@@ -402,18 +428,18 @@ const FavouritesPage: React.FC = () => {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-1">
                       <DollarSign className="w-4 h-4 text-green-600" />
-                      <span className="font-bold text-lg text-gray-900 dark:text-gray-100">
+                      <span className="font-bold text-base md:text-lg text-gray-900 dark:text-gray-100">
                         ${favorite.rent.toLocaleString()}
                       </span>
-                      <span className="text-sm text-gray-500">/month</span>
+                      <span className="text-xs md:text-sm text-gray-500">/month</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                      <span className="text-sm font-medium">{favorite.rating}</span>
+                      <span className="text-xs md:text-sm font-medium">{favorite.rating}</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <div className="flex items-center gap-3 md:gap-4 text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3">
                     <div className="flex items-center gap-1">
                       <Bed className="w-4 h-4" />
                       <span>{favorite.bedrooms}</span>
