@@ -34,11 +34,12 @@ const TenantAccountPage = () => {
   });
 
   const handleDownload = () => {
-    const pdfUrl =
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
-    const link = document.createElement("a");
+    // Use a valid PDF URL
+    const pdfUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+    const link = document.createElement('a');
     link.href = pdfUrl;
-    link.download = 'dummy-invoice.pdf';
+    link.download = `invoice-${new Date().toISOString().split('T')[0]}.pdf`;
+    link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
