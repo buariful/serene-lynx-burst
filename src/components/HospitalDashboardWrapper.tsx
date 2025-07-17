@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X, Home, FileText, Heart, MessageSquare, User, Plus, Settings, Building2 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { IoIosLogOut } from "react-icons/io";
 
 interface SidebarItem {
   label: string;
@@ -20,6 +21,7 @@ const sidebarItems: SidebarItem[] = [
   { label: "My Profile", href: "/hospital/my-profile", icon: User },
   { label: "Post Ad", href: "/hospital/post-ad", icon: Plus },
   { label: "Marketplace", href: "/hospital/marketplace", icon: Building2 },
+  { label: "Logout", href: "/login", icon: IoIosLogOut },
 ];
 
 const HospitalDashboardWrapper: React.FC<{ children: React.ReactNode }> = ({
