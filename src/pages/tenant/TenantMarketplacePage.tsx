@@ -146,6 +146,7 @@ export default function TenantMarketplacePage() {
   const [activeTab, setActiveTab] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("price-asc");
+  const [showCategories, setShowCategories] = useState(false); // for mobile
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -219,8 +220,31 @@ export default function TenantMarketplacePage() {
       <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row min-h-[80vh] bg-gray-50 dark:bg-gray-900">
         {/* Sidebar for categories */}
         <aside className="w-full lg:w-48 mb-6 lg:mb-0 mr-6 flex-shrink-0">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-4 lg:sticky lg:top-4">
-            <h3 className="font-semibold mb-3 text-gray-800 dark:text-gray-200">
+          {/* Mobile toggle button */}
+          <div className="lg:hidden mb-2">
+            <button
+              className="w-full flex items-center justify-between px-4 py-2 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300"
+              onClick={() => setShowCategories((prev) => !prev)}
+              aria-expanded={showCategories}
+              aria-controls="category-list"
+            >
+              <span>{t('tenant.marketplace.categories')}</span>
+              <svg
+                className={`w-4 h-4 ml-2 transition-transform ${showCategories ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <div
+            id="category-list"
+            className={`bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-4 lg:sticky lg:top-4 transition-all duration-300 ${showCategories ? 'block' : 'hidden'} lg:block`}
+          >
+            <h3 className="font-semibold mb-3 text-gray-800 dark:text-gray-200 lg:block hidden">
               {t('tenant.marketplace.categories')}
             </h3>
             <ul className="space-y-1">
@@ -232,7 +256,10 @@ export default function TenantMarketplacePage() {
                         ? "bg-blue-600 text-white dark:bg-blue-500"
                         : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
                     }`}
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setShowCategories(false); // close on mobile after select
+                    }}
                   >
                     {category === "All" && t('tenant.marketplace.categoryNames.all')}
                     {category === "Apartments" && t('tenant.marketplace.categoryNames.apartments')}

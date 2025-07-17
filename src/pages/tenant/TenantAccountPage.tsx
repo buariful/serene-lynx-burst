@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import TenantDashboardWrapper from "@/components/TenantDashboardWrapper";
+// Add a simple modal implementation
+import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogFooter } from "@/components/ui/dialog";
 
 const TenantAccountPage = () => {
   const { t, i18n } = useTranslation();
@@ -12,12 +14,31 @@ const TenantAccountPage = () => {
     console.log('TenantAccountPage - Test translation:', t('tenantaccount.title'));
   }, [i18n.language, t]);
 
-  const handleDownload = () => { // URL to a dummy PDF file
+  const [editOpen, setEditOpen] = useState(false);
+  const [profile, setProfile] = useState({
+    name: "Alex Tenant",
+    email: "alex.tenant@example.com",
+    phone: "+1223333",
+    avatarUrl: "https://i.pravatar.cc/150?8126704",
+    address: {
+      street: "123Main St",
+      city: "Toronto",
+      province: "ON",
+      postalCode: "M52",
+    },
+  });
+  const [editForm, setEditForm] = useState({
+    name: profile.name,
+    email: profile.email,
+    phone: profile.phone,
+  });
+
+  const handleDownload = () => {
     const pdfUrl =
       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
     const link = document.createElement("a");
     link.href = pdfUrl;
-    link.download = 'dummy-invoice.pdf'; // The name for the downloaded file
+    link.download = 'dummy-invoice.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -29,17 +50,22 @@ const TenantAccountPage = () => {
     { id: 3, item: "May Rent", date: "202451", amount: "$2" },
   ];
 
-  const userProfile = {
-    name: "Alex Tenant",
-    email: "alex.tenant@example.com",
-    phone: "+1223333",
-    avatarUrl: "https://i.pravatar.cc/150?8126704",
-    address: {
-      street: "123Main St",
-      city: "Toronto",
-      province: "ON",
-      postalCode: "M52",
-    },
+  // Modal handlers
+  const openEditModal = () => {
+    setEditForm({
+      name: profile.name,
+      email: profile.email,
+      phone: profile.phone,
+    });
+    setEditOpen(true);
+  };
+  const closeEditModal = () => setEditOpen(false);
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  };
+  const handleEditSave = () => {
+    setProfile({ ...profile, ...editForm });
+    setEditOpen(false);
   };
 
   return (
@@ -49,16 +75,16 @@ const TenantAccountPage = () => {
         <div className="bg-white dark:bg-[hsl(var(--card))] border rounded-lg shadow-sm p-4 max-w-2xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-start space-y-4 sm:space-y-0">
             <img
-              src={userProfile.avatarUrl}
+              src={profile.avatarUrl}
               alt="User Avatar"
               className="w-20 h-20 sm:h-24 rounded-full border-4 border-gray-200 md:mx-0"
             />
             <div className="flex-1 text-center md:text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-[hsl(var(--foreground))]">{userProfile.name}</h3>
-              <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{userProfile.email}</p>
-              <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{userProfile.phone}</p>
+              <h3 className="text-xl md:text-2xl font-bold text-[hsl(var(--foreground))]">{profile.name}</h3>
+              <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{profile.email}</p>
+              <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{profile.phone}</p>
             </div>
-            <Button variant="outline" className="w-full md:w-auto">{t('common.edit')}{t('navigation.profile')}</Button>
+            <Button variant="outline" className="w-full md:w-auto" onClick={openEditModal}>{t('common.edit')}{t('navigation.profile')}</Button>
           </div>
         </div>
         <div className="mt-8">
@@ -66,19 +92,19 @@ const TenantAccountPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenantaccount.street')}</p>
-              <p className="font-medium text-[hsl(var(--foreground))]">{userProfile.address.street}</p>
+              <p className="font-medium text-[hsl(var(--foreground))]">{profile.address.street}</p>
             </div>
             <div>
               <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenantaccount.city')}</p>
-              <p className="font-medium text-[hsl(var(--foreground))]">{userProfile.address.city}</p>
+              <p className="font-medium text-[hsl(var(--foreground))]">{profile.address.city}</p>
             </div>
             <div>
               <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenantaccount.province')}</p>
-              <p className="font-medium text-[hsl(var(--foreground))]">{userProfile.address.province}</p>
+              <p className="font-medium text-[hsl(var(--foreground))]">{profile.address.province}</p>
             </div>
             <div>
               <p className="text-gray-500 dark:text-[hsl(var(--muted-foreground))]">{t('tenantaccount.postalCode')}</p>
-              <p className="font-medium text-[hsl(var(--foreground))]">{userProfile.address.postalCode}</p>
+              <p className="font-medium text-[hsl(var(--foreground))]">{profile.address.postalCode}</p>
             </div>
           </div>
         </div>
@@ -95,7 +121,7 @@ const TenantAccountPage = () => {
             >
               <div>
                 <p className="font-semibold text-[hsl(var(--foreground))]">{payment.item}</p>
-                <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))">
+                <p className="text-sm text-gray-500 dark:text-[hsl(var(--muted-foreground))]">
                   {t('tenantbilling.paidOn')} {payment.date}
                 </p>
               </div>
@@ -112,6 +138,59 @@ const TenantAccountPage = () => {
           ))}
         </div>
       </div>
+      {/* Edit Profile Modal */}
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('common.edit')}{t('navigation.profile')}</DialogTitle>
+          </DialogHeader>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              handleEditSave();
+            }}
+            className="space-y-4"
+          >
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={editForm.name}
+                onChange={handleEditChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={editForm.email}
+                onChange={handleEditChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Phone</label>
+              <input
+                type="text"
+                name="phone"
+                value={editForm.phone}
+                onChange={handleEditChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={closeEditModal}>Cancel</Button>
+              <Button type="submit">Save</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </TenantDashboardWrapper>
   );
 };
