@@ -55,6 +55,11 @@ import HospitalMarketplacePage from "./pages/hospital/HospitalMarketPlace";
 import ProductDetailsPage from "./pages/hospital/ProductDetailsPage";
 import AddViewPage from "./pages/AddViewPage";
 import RecruiterDashboardPage from "./pages/recruiter/RecruiterDashboardPage";
+import RecruiterJobsPage from "./pages/recruiter/RecruiterJobsPage";
+import RecruiterApplicantsPage from "./pages/recruiter/RecruiterApplicantsPage";
+import RecruiterProfilePage from "./pages/recruiter/RecruiterProfilePage";
+import RecruiterJobDetailsPage from "./pages/recruiter/RecruiterJobDetailsPage";
+import RecruiterApplicantDetailsPage from "./pages/recruiter/RecruiterApplicantDetailsPage";
 import LandlordPage from "./pages/landloard/LandlordPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import HospitalListPage from "./pages/hospital/HospitalListPage";
@@ -176,10 +181,14 @@ const App = () => (
                   <Route path="product/:id" element={<ProductDetailsPage />} />
                 </Route>
 
-                <Route
-                  path="/recruiter/dashboard"
-                  element={<RecruiterDashboardPage />}
-                />
+                {/* Recruiter Routes */}
+                <Route path="/recruiter/dashboard" element={<RecruiterDashboardPage />} />
+                <Route path="/recruiter/jobs" element={<RecruiterJobsPage />} />
+                <Route path="/recruiter/jobs/:id" element={<RecruiterJobDetailsPage />} />
+                <Route path="/recruiter/jobs/:id/edit" element={<RecruiterPostJob setJobPosting={() => {}} mode="edit" />} />
+                <Route path="/recruiter/applicants" element={<RecruiterApplicantsPage />} />
+                <Route path="/recruiter/applicants/:id" element={<RecruiterApplicantDetailsPage />} />
+                <Route path="/recruiter/profile" element={<RecruiterProfilePage />} />
                 <Route path="/recruiter/post-job" element={<RecruiterPostJob setJobPosting={() => {}} />} />
 
                 {/* <Route path="/hospitals" element={<HospitalListPage />} /> */}
