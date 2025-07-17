@@ -19,7 +19,6 @@ const sidebarItems: SidebarItem[] = [
   { label: "My Favourites", href: "/hospital/my-favourites", icon: Heart },
   { label: "My Profile", href: "/hospital/my-profile", icon: User },
   { label: "Post Ad", href: "/hospital/post-ad", icon: Plus },
-  { label: "Post Ad Details", href: "/hospital/post-ad-details", icon: FileText },
   { label: "Marketplace", href: "/hospital/marketplace", icon: Building2 },
 ];
 

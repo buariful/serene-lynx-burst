@@ -1,12 +1,10 @@
 import DashboardHeader from "@/components/DashboardHeader";
-import Footer from "@/components/Footer";
-import HospitalHeader from "@/components/HospitalHeader";
 import Card2 from "@/components/ui/Card2";
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import { LuSettings2 } from "react-icons/lu";
+import { Filter, MapPin, DollarSign, Tag, Eye, Heart, Star } from "lucide-react";
 import {
   Drawer,
   DrawerClose,
@@ -17,7 +15,12 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { FaArrowRight, FaCheck } from "react-icons/fa";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 import {
   Accordion,
   AccordionItem,
@@ -26,6 +29,8 @@ import {
 } from "@/components/ui/accordion";
 import { FilterNav } from "@/components/ui/filterNav";
 import { useTranslation } from 'react-i18next';
+import { Label } from "@/components/ui/label";
+import { Search } from "lucide-react";
 
 type Product = {
   id: string;
@@ -38,6 +43,10 @@ type Product = {
   image?: string;
   type: string;
   status: string;
+  condition?: string;
+  seller?: string;
+  rating?: number;
+  reviews?: number;
 };
 
 const LOCATIONS = [
@@ -73,82 +82,103 @@ const SAMPLE_PRODUCTS: Product[] = [
   {
     id: "1",
     title: "Portable Ultrasound Machine",
-    description: "High-resolution imaging for bedside diagnostics.",
+    description: "High-resolution imaging for bedside diagnostics with advanced features.",
     location: "Canada",
     price: "$1,200",
     isForSale: 0,
     category: "Imaging Devices",
-    // image: "https://via.placeholder.com/150?text=Ultrasound",
+    image: "https://images.unsplash.com/photo-15597571485c3500d3c56?w=400&h=300&it=crop",
     type: "Imaging",
     status: "available",
+    condition: "Excellent",
+    seller: "Medical Equipment Plus",
+    rating: 4.8,
+    reviews: 24,
   },
   {
     id: "2",
     title: "ECG Monitor",
-    description: "12-lead ECG with wireless connectivity.",
+    description: "12-lead ECG with wireless connectivity and advanced monitoring.",
     location: "Canada",
     price: "$300",
     isForSale: 0,
     category: "Monitoring Equipment",
-    image:
-      "https://www.sgs.com/-/media/sgscorp/images/temporary/tablet-showing-heart-test-result.cdn.en-BD.1.jpg",
+    image: "https://www.sgs.com/-/media/sgscorp/images/temporary/tablet-showing-heart-test-result.cdn.en-BD.1.jpg",
     type: "Monitoring",
     status: "rented",
+    condition: "Like New",
+    seller: "CardioTech Solutions",
+    rating: 4.6,
+    reviews: 18,
   },
   {
     id: "3",
     title: "Infusion Pump",
-    description: "Accurate fluid delivery for patient care.",
+    description: "Accurate fluid delivery for patient care with safety features.",
     location: "Canada",
     price: "$150",
     isForSale: 1,
     category: "Therapeutic Devices",
-    // image: "https://via.placeholder.com/150?text=Infusion+Pump",
+    image: "https://images.unsplash.com/photo-15597571485c3500d3c56?w=400&h=300&it=crop",
     type: "Therapeutic",
     status: "available",
+    condition: "Good",
+    seller: "Infusion Systems Inc",
+    rating: 4.4,
+    reviews: 12,
   },
   {
     id: "4",
     title: "Infusion Pump",
-    description: "Accurate fluid delivery for patient care.",
+    description: "Accurate fluid delivery for patient care with safety features.",
     location: "Canada",
     price: "$150",
     isForSale: 0,
     category: "Therapeutic Devices",
-    // image: "https://via.placeholder.com/150?text=Infusion+Pump",
+    image: "https://images.unsplash.com/photo-15597571485c3500d3c56?w=400&h=300&it=crop",
     type: "Therapeutic",
     status: "available",
+    condition: "Excellent",
+    seller: "Medical Supplies Co",
+    rating: 4.9,
+    reviews: 31,
   },
   {
     id: "5",
     title: "Surgical Table",
-    description: "Adjustable, stainless steel surgical table.",
+    description: "Adjustable, stainless steel surgical table with advanced positioning.",
     location: "Canada",
     price: "$2,000",
     isForSale: 1,
     category: "Medical Furniture",
-    image:
-      "https://res.cloudinary.com/armis/images/f_auto,q_auto/v1706810885/images/operating-room-with-security-alert-icons-1/operating-room-with-security-alert-icons-1.jpg?_i=AA",
+    image: "https://res.cloudinary.com/armis/images/f_auto,q_auto/v1706810885/images/operating-room-with-security-alert-icons-1/operating-room-with-security-alert-icons-1.jpg?_i=AA",
     type: "Furniture",
     status: "available",
+    condition: "Like New",
+    seller: "Surgical Equipment Ltd",
+    rating: 4.7,
+    reviews: 15,
   },
-
   {
     id: "6",
     title: "Wheelchair",
-    description: "Lightweight, foldable wheelchair for mobility.",
+    description: "Lightweight, foldable wheelchair for mobility with comfort features.",
     location: "Canada",
     price: "$50",
     isForSale: 1,
     category: "Mobility Aids",
-    // image: "https://via.placeholder.com/150?text=Wheelchair",
+    image: "https://images.unsplash.com/photo-15597571485c3500d3c56?w=400&h=300&it=crop",
     type: "Mobility",
     status: "available",
+    condition: "Good",
+    seller: "Mobility Solutions",
+    rating: 4.3,
+    reviews: 8,
   },
   {
     id: "7",
     title: "Wheelchair",
-    description: "Lightweight, foldable wheelchair for mobility.",
+    description: "Lightweight, foldable wheelchair for mobility with comfort features.",
     location: "Canada",
     price: "$50",
     isForSale: 0,
@@ -156,24 +186,27 @@ const SAMPLE_PRODUCTS: Product[] = [
     image: "https://m.media-amazon.com/images/I/71bIKgWuwSL._SS1000_.jpg",
     type: "Mobility",
     status: "unavailable",
+    condition: "Fair",
+    seller: "Accessibility Plus",
+    rating: 4.1,
+    reviews: 6,
   },
   {
     id: "8",
     title: "Wheelchair",
-    description: "Lightweight, foldable wheelchair for mobility.",
+    description: "Lightweight, foldable wheelchair for mobility with comfort features.",
     location: "Canada",
     price: "$50",
     isForSale: 1,
     category: "Mobility Aids",
-    // image: "https://via.placeholder.com/150?text=Wheelchair",
+    image: "https://images.unsplash.com/photo-15597571485c3500d3c56?w=400&h=300&it=crop",
     type: "Mobility",
     status: "unavailable",
+    condition: "Excellent",
+    seller: "Medical Mobility",
+    rating: 4.8,
+    reviews: 22,
   },
-];
-
-const IMAGE_URLS = [
-  "http://img.freepik.com/free-vector/house-rent-concept-background_23-2147779983.jpg",
-  "https://img.freepik.com/free-vector/house-rent-abstract-concept-vector-illustration-booking-house-online-best-rental-property-real-estate-service-accommodation-marketplace-rental-listing-monthly-rent-abstract-metaphor_335657-1954.jpg?semt=ais_hybrid&w=740",
 ];
 
 function ProductCard({
@@ -185,110 +218,90 @@ function ProductCard({
 }) {
   const navigate = useNavigate();
   return (
-    <div
-      className="border rounded overflow-hidden hover:shadow-sm transition-shadow w-40 min-w-0 cursor-pointer hover:ring-2 hover:ring-blue-400"
-      onClick={() => navigate(`/hospital/product/${product.id}`)}
-      role="button"
-      tabIndex={0}
-      onKeyPress={(e) => {
-        if (e.key === "Enter") navigate(`/hospital/product/${product.id}`);
-      }}
-    >
-      <div className="h-20 bg-gray-200">
+    <Card className="group hover:shadow-lg transition-all duration-200 flow-hidden cursor-pointer">
+      <div className="relative">
         <img
-          src={IMAGE_URLS[imageIndex % IMAGE_URLS.length]}
+          src={product.image || "https://medicalstall.com/wp-content/uploads/2025/01/OXTM-10-Liter-Oxygen-Concentrator-Medical-Stall-600x600.jpg"}
           alt={product.title}
-          className="w-full h-full object-cover"
+          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
         />
-      </div>
-      <div className="p-1">
-        <h3 className="font-bold text-sm mb-1 truncate">{product.title}</h3>
-        <p className="text-gray-600 text-sm mb-1 truncate">
-          {product.description}
-        </p>
-        <div className="flex justify-between flex-col">
-          <span className="text-gray-500 text-sm truncate">
-            {product.location}
-          </span>
-          <span
-            className={`font-semibold ${
-              product.price === "Please Contact"
-                ? "text-blue-600"
-                : "text-green-600"
-            } text-sm`}
-          >
-            {product.price}
-          </span>
+        <div className="absolute top-3 right-3 flex space-x-2">
+          <Badge variant="secondary" className="text-xs">
+            {product.status}
+          </Badge>
+          <Button variant="ghost" size="sm" className="h-8 bg-white/80 hover:bg-white">
+            <Heart className="w-4 h-4" />
+          </Button>
         </div>
+        {product.rating && (
+          <div className="absolute bottom-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center">
+            <Star className="w-3 h-3 mr-1 fill-current" />
+            {product.rating} ({product.reviews})
+          </div>
+        )}
       </div>
-    </div>
+      
+      <CardContent className="p-4">
+        <div className="space-y-3">
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-white text-sm line-clamp-2 mb-1">{product.title}</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-xs line-clamp-2">{product.description}</p>
+          </div>
+          
+          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <div className="flex items-center">
+              <MapPin className="w-3 h-3 mr-1" />
+              {product.location}
+            </div>
+            <div className="flex items-center">
+              <Tag className="w-3 h-3 mr-1" />
+              {product.category}
+            </div>
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Badge variant="outline" className="text-xs">
+                {product.condition}
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                {product.isForSale ? "For Sale" : "For Rent"}
+              </Badge>
+            </div>
+            <div className="text-right">
+              <div className="font-bold text-green-600 dark:text-green-400 text-sm">
+                {product.price}
+                {!product.isForSale ? "/month" : ""}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex space-x-2 pt-2">
+            <Button
+              onClick={() => navigate(`/hospital/device-details/${product.id}`)}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm"
+            >
+              <Eye className="w-4 h-4 mr-1" />
+              View Details
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
-function DeviceCard({
-  device,
-  imageIndex = 0,
-}: {
-  device: Product;
-  imageIndex?: number;
-}) {
-  const navigate = useNavigate();
-  return (
-    <div
-      className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 bg-white dark:bg-gray-800"
-      onClick={() => navigate(`/hospital/device-details/${device.id}`)}
-      role="button"
-      tabIndex={0}
-      onKeyPress={(e) => {
-        if (e.key === "Enter")
-          navigate(`/hospital/device-details/${device.id}`);
-      }}
-    >
-      <div className="h-32 bg-gray-200 dark:bg-gray-700">
-        <img
-          // src={device.image}
-          src={
-            device?.image ||
-            "https://medicalstall.com/wp-content/uploads/2025/01/OXTM-10-Liter-Oxygen-Concentrator-Medical-Stall-600x600.jpg"
-          }
-          alt={device.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="p-4">
-        <h3 className="font-bold text-sm mb-1 truncate text-gray-900 dark:text-gray-100">{device.title}</h3>
-        <p className="text-gray-600 dark:text-gray-400 text-xs mb-2 truncate">
-          {device.description}
-        </p>
-        <div className="flex flex-col gap-1">
-          <span className="text-xs text-gray-500 dark:text-gray-400">Type: {device.type}</span>
-          <span
-            className={`text-xs font-semibold ${
-              device.status === "available"
-                ? "text-green-600 dark:text-green-400"
-                : device.status === "rented"
-                ? "text-yellow-600 dark:text-yellow-400"
-                : "text-gray-400 dark:text-gray-500"
-            }`}
-          >
-            Status:{" "}
-            {device.status.charAt(0).toUpperCase() + device.status.slice(1)}
-          </span>
-          <span className="text-xs text-blue-700 dark:text-blue-400 font-bold">
-            {device.price}
-            {!device.isForSale ? "/month" : ""}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
 export default function HospitalMarketplacePage() {
   const [selectedLocation, setSelectedLocation] = useState<string>("Canada");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState("relevance");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchParams] = useSearchParams();
@@ -344,136 +357,218 @@ export default function HospitalMarketplacePage() {
       selectedCategory === "All" || product.category === selectedCategory;
     const matchesSearch =
       product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase());
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.seller?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesPrice = 
+      parseFloat(product.price.replace(/[^0-9.]/g, "")) >= priceRange[0] &&
+      parseFloat(product.price.replace(/[^0-9.]/g, "")) <= priceRange[1];
+    const matchesCondition = 
+      selectedConditions.length === 0 || 
+      (product.condition && selectedConditions.includes(product.condition));
 
-    return matchesLocation && matchesCategory && matchesSearch;
+    return matchesLocation && matchesCategory && matchesSearch && matchesPrice && matchesCondition;
+  });
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return parseFloat(a.price.replace(/[^0-9.]/g, "")) - parseFloat(b.price.replace(/[^0-9.]/g, ""));
+      case "price-high":
+        return parseFloat(b.price.replace(/[^0-9.]/g, "")) - parseFloat(a.price.replace(/[^0-9.]/g, ""));
+      case "rating":
+        return (b.rating || 0) - (a.rating || 0);
+      case "newest":
+        return parseInt(b.id) - parseInt(a.id);
+      default:
+        return 0;
+    }
   });
 
   return (
-    <>
-      {/* <DashboardHeader /> */}
-      <HospitalHeader />
-
-      <div className="max-w-7xl mx-auto px-4 py-8 flex min-h-[80vh] bg-gray-50 dark:bg-gray-900">
-        {/* Sidebar for categories */}
-        <aside className="w-48 mr-6 flex-shrink-0">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-4 sticky top-4">
-            <h3 className="font-semibold mb-3 text-gray-800 dark:text-gray-200">
-              {t('hospital.marketplace.categories')}
-            </h3>
-            <ul className="space-y-1">
-              <li>
-                <button
-                  className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${
-                    selectedCategory === "All"
-                      ? "bg-blue-600 dark:bg-blue-500 text-white"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-                  }`}
-                  onClick={() => setSelectedCategory("All")}
-                >
-                  {t('hospital.marketplace.allCategories')}
-                </button>
-              </li>
-              {CATEGORIES.map((category) => (
-                <li key={category}>
-                  <button
-                    className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${
-                      selectedCategory === category
-                        ? "bg-blue-600 dark:bg-blue-500 text-white"
-                        : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-                    }`}
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category === "Diagnostic Devices" && t('hospital.marketplace.categoryNames.diagnosticEquipment')}
-                    {category === "Surgical Instruments" && t('hospital.marketplace.categoryNames.surgicalInstruments')}
-                    {category === "Monitoring Equipment" && t('hospital.marketplace.categoryNames.monitoringDevices')}
-                    {category === "Imaging Devices" && t('hospital.marketplace.categoryNames.imagingEquipment')}
-                    {category === "Laboratory Equipment" && t('hospital.marketplace.categoryNames.laboratoryEquipment')}
-                    {category === "Mobility Aids" && t('hospital.marketplace.categoryNames.rehabilitationEquipment')}
-                    {category === "Consumables & Disposables" && t('hospital.marketplace.categoryNames.consumables')}
-                    {category === "Therapeutic Devices" && t('hospital.marketplace.categoryNames.rehabilitationEquipment')}
-                    {category === "Medical Furniture" && t('hospital.marketplace.categoryNames.rehabilitationEquipment')}
-                    {category === "IT & Software" && t('hospital.marketplace.categoryNames.diagnosticEquipment')}
-                    {category === "Other" && t('hospital.marketplace.categoryNames.diagnosticEquipment')}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
-
-        <div className={showSidebar ? "flex-1" : "w-full"}>
-          {/* Compact Nav/Filter Bar */}
-          <h2 className="text-gray-800 dark:text-gray-200 text-2xl font-semibold">
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Page Title */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {q ? q : t('hospital.marketplace.title')}
-          </h2>
-
-          <FilterNav
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
-
-          {/* Header */}
-          {/* <div className="text-center mb-8">
-            <h1 className="text-xl font-semibold mb-2 text-gray-500">
-              Canada's most trusted and loved marketplace
-            </h1>
-          </div> */}
-
-          {/* If searching, only show search results and a back button */}
-          {isSearchActive ? (
-            <>
-              <div className="mb-4 flex justify-between items-center">
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {t('hospital.marketplace.searchResultsFor')}{" "}
-                  <span className="font-semibold">{searchQuery}</span>
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Find the best medical equipment and devices for your facility
+          </p>
+        </div>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar for categories and filters */}
+          <aside className="w-full lg:w-80 mb-8 lg:mb-0">
+            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6">
+              <h3 className="font-semibold mb-4 text-gray-800 dark:text-gray-200">
+                Filters
+              </h3>
+              {/* Search */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Search</Label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    type="text"
+                    placeholder="Search devices..."
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              {/* Categories */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Categories</Label>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All Categories</SelectItem>
+                    {CATEGORIES.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              {/* Location */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Location</Label>
+                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All Locations" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All Locations</SelectItem>
+                    {LOCATIONS.map((location) => (
+                      <SelectItem key={location} value={location}>
+                        {location}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              {/* Price Range */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Price Range</Label>
+                <div className="space-y-2">
+                  <Slider
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    max={10000}
+                    step={100}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
+                  </div>
+                </div>
+              </div>
+              {/* Condition */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Condition</Label>
+                <div className="space-y-2">
+                  {["Excellent", "Like New", "Good", "Fair", "Poor"].map((condition) => (
+                    <div key={condition} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={condition}
+                        checked={selectedConditions.includes(condition)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            setSelectedConditions([...selectedConditions, condition]);
+                          } else {
+                            setSelectedConditions(selectedConditions.filter(c => c !== condition));
+                          }
+                        }}
+                      />
+                      <Label htmlFor={condition} className="text-sm font-normal">
+                        {condition}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Sort By */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Sort By</Label>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="relevance">Relevance</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="rating">Highest Rated</SelectItem>
+                    <SelectItem value="newest">Newest First</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </aside>
+          {/* Main Content */}
+          <div className="flex-1">
+            {/* Toolbar */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {sortedProducts.length} results found
                 </span>
-                <button
-                  onClick={handleBackToMain}
-                  className="text-xs text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800 rounded px-3 py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 ml-2 transition-colors"
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant={viewMode === "grid" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("grid")}
+                  aria-label="Grid view"
                 >
-                  {t('hospital.marketplace.backToMainPage')}
-                </button>
+                  Grid
+                </Button>
+                <Button
+                  variant={viewMode === "list" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("list")}
+                  aria-label="List view"
+                >
+                  List
+                </Button>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3  gap-5 mb-10">
-                {filteredProducts.length > 0 ? (
-                  filteredProducts.map((device, idx) => (
-                    <DeviceCard
-                      key={device.id}
-                      device={device}
-                      imageIndex={idx}
-                    />
-                  ))
-                ) : (
-                  <div className="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">
-                    {t('hospital.marketplace.noResultsFound')}
+            </div>
+            {/* Products Grid */}
+            {sortedProducts.length === 0 ? (
+              <Card className="text-center py-12">
+                <CardContent>
+                  <div className="text-gray-400 dark:text-gray-500 mb-4">
+                    <Search className="w-16 h-16 mx-auto" />
                   </div>
-                )}
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                    No devices found
+                  </h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Try adjusting your search criteria or filters
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className={viewMode === "grid" 
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                : "space-y-4"}>
+                {sortedProducts.map((product, idx) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    imageIndex={idx}
+                  />
+                ))}
               </div>
-            </>
-          ) : (
-            <>
-              {/* Only display all filtered items in a single grid, no section titles */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-4">
-                {filteredProducts.length > 0 ? (
-                  filteredProducts.map((device, idx) => (
-                    <DeviceCard
-                      key={device.id}
-                      device={device}
-                      imageIndex={idx}
-                    />
-                  ))
-                ) : (
-                  <div className="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">
-                    {t('hospital.marketplace.noDevicesFound')}
-                  </div>
-                )}
-              </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }
