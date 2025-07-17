@@ -40,6 +40,9 @@ import FavouritesPage from "./pages/landloard/FavouritesPage";
 import LandlordAccountSettingsPage from "./pages/landloard/LandlordAccountSettingPage";
 import TenantDashboardPage from "./pages/tenant/TenantDashboardPage";
 import TenantAccountPage from "./pages/tenant/TenantAccountPage";
+import TenantMarketplacePage from "./pages/tenant/TenantMarketplacePage";
+import TenantJobsPage from "./pages/tenant/TenantJobsPage";
+import TenantRentalServicesPage from "./pages/tenant/TenantRentalServicesPage";
 import PropertyDetailsPage from "./pages/landloard/PropertyDetailsPage";
 import HospitalLayout from "./pages/hospital/HospitalLayout";
 import MyAdsPage from "./pages/hospital/MyAdsPage";
@@ -62,7 +65,6 @@ import RecruiterPostJob from "./pages/recruiter/RecruiterPostJob";
 import PropertyDetailsPublicPage from "./pages/PropertyDetailsPublicPage";
 import Layout from "./components/Layout/Layout";
 import DeviceDetailsPage from "./pages/hospital/DeviceDetailsPage";
-import TenantMarketplacePage from "./pages/tenant/TenantMarketplacePage";
 import TenantNoticePage from "./pages/tenant/TenantNoticePage";
 import TrustiiDemoPage from "./pages/TrustiiDemoPage";
 import TrustiiReportPage from "./pages/TrustiiReportPage";
@@ -139,6 +141,8 @@ const App = () => (
 
                 <Route path="/tenant">
                   <Route path="dashboard" element={<TenantDashboardPage />} />
+                  <Route path="jobs" element={<TenantJobsPage />} />
+                  <Route path="rental-services" element={<TenantRentalServicesPage />} />
                   <Route path="account" element={<TenantAccountPage />} />
                   <Route path="marketplace" element={<TenantMarketplacePage />} />
                   <Route path="job-details/:id" element={<AddViewPage />} />
