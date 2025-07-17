@@ -54,11 +54,11 @@ const DashboardHeader = () => {
   const { theme, toggleTheme } = useTheme();
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  // Debug language changes
-  useEffect(() => {
-    console.log('DashboardHeader - Current language:', i18n.language);
-    console.log('DashboardHeader - Test translation:', t('header.medicalSchools'));
-  }, [i18n.language, t]);
+  // Remove debug language changes
+  // useEffect(() => {
+  //   console.log('DashboardHeader - Current language:', i18n.language);
+  //   console.log('DashboardHeader - Test translation:', t('header.medicalSchools'));
+  // }, [i18n.language, t]);
 
   const handleLanguageChange = (language: string) => {
     console.log('DashboardHeader - Changing language to:', language);
@@ -294,107 +294,110 @@ const DashboardHeader = () => {
               </Button>
             </div>
 
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-9 w-9 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            {/* Hamburger menu for mobile */}
+            <div className="md:hidden">
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-9 w-9 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 md:hidden"
+                    aria-label="Open navigation menu"
+                  >
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent
+                  side="right"
+                  className="w-[300px] sm:w-[320px] p-0 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 gap-0"
                 >
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent
-                side="right"
-                className="w-[300px] sm:w-[320px] p-0 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 gap-0"
-              >
-                <SheetHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
-                  <SheetTitle className="text-gray-900 dark:text-gray-100">
-                    <Logo />
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex-grow overflow-y-auto px-4">
-                  <nav className="flex flex-col space-y-1">
-                    {drawerMenuItems.map((item, index) => {
-                      if (item.type === "separator") {
-                        return (
-                          <hr
-                            key={`sep-${index}`}
-                            className="my-2 border-gray-200 dark:border-gray-700"
-                          />
-                        );
-                      }
+                  <SheetHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
+                    <SheetTitle className="text-gray-900 dark:text-gray-100">
+                      <Logo />
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex-grow overflow-y-auto px-4">
+                    <nav className="flex flex-col space-y-1">
+                      {drawerMenuItems.map((item, index) => {
+                        if (item.type === "separator") {
+                          return (
+                            <hr
+                              key={`sep-${index}`}
+                              className="my-2 border-gray-200 dark:border-gray-700"
+                            />
+                          );
+                        }
 
-                      if (item.type === "link" && item.href) {
-                        return (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2.5 px-3 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                            onClick={closeMobileMenu}
+                        if (item.type === "link" && item.href) {
+                          return (
+                            <Link
+                              key={item.href}
+                              to={item.href}
+                              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-3 px-4 text-base rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                              onClick={closeMobileMenu}
+                            >
+                              {item.label}
+                            </Link>
+                          );
+                        }
+                        return null;
+                      })}
+                    </nav>
+
+                    <div className="mt-auto border-t border-gray-200 dark:border-gray-700 pt-4">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-start text-base border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 py-3"
                           >
-                            {item.label}
-                          </Link>
-                        );
-                      }
-                      return null;
-                    })}
-                  </nav>
-
-                  <div className="mt-auto border-t border-gray-200 dark:border-gray-700 pt-4">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start text-sm border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            <Globe className="h-4 w-4 mr-2" /> {getCurrentLanguageFullName()} {" "}
+                            <ChevronDown className="h-4 w-4 ml-auto opacity-75" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                          side="top"
+                          align="start"
+                          className="w-[calc(100%-2rem)] ml-4 mr-4 mb-1 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
                         >
-                          <Globe className="h-4 w-4 mr-2" /> {getCurrentLanguageFullName()}{" "}
-                          <ChevronDown className="h-4 w-4 ml-auto opacity-75" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        side="top"
-                        align="start"
-                        className="w-[calc(100%-2rem)] ml-4 mr-4 mb-1 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                          <DropdownMenuItem
+                            onSelect={() => {
+                              handleLanguageChange('en');
+                              closeMobileMenu();
+                            }}
+                            className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          >
+                            {t('languages.en')}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onSelect={() => {
+                              handleLanguageChange('fr');
+                              closeMobileMenu();
+                            }}
+                            className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          >
+                            {t('languages.fr')}
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Toggle theme"
+                        onClick={toggleTheme}
+                        className="h-9 w-9 self-start mt-2"
                       >
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            handleLanguageChange('en');
-                            closeMobileMenu();
-                          }}
-                          className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                          {t('languages.en')}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            handleLanguageChange('fr');
-                            closeMobileMenu();
-                          }}
-                          className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                          {t('languages.fr')}
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      aria-label="Toggle theme"
-                      onClick={toggleTheme}
-                      className="h-9 w-9 self-start mt-2"
-                    >
-                      {theme === "dark" ? (
-                        <Sun className="h-5 w-5" />
-                      ) : (
-                        <Moon className="h-5 w-5" />
-                      )}
-                    </Button>
+                        {theme === "dark" ? (
+                          <Sun className="h-5 w-5" />
+                        ) : (
+                          <Moon className="h-5 w-5" />
+                        )}
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </div>

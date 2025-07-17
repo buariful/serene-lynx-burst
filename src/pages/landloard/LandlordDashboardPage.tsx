@@ -46,7 +46,7 @@ const dummyListings = [
     status: "Active",
     statusColor: "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRbcrj53mGyk-u4JwrIb6z1RBAeCpxR78gfQ&s",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
   },
   {
     id: 2,
@@ -56,7 +56,7 @@ const dummyListings = [
     status: "Pending",
     statusColor: "text-yellow-700 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-900",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWwZGWnpdqGGBcZm1jkl1v4KboQYjjNhb9Ag&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX8C0PluoP1nO_bq6S5p5T3ffe_aKvmODJxAIRtiabxZiAW6XqltaBgkB-JPmgMSzh3jI&usqp=CAU",
   },
   {
     id: 3,
@@ -66,7 +66,7 @@ const dummyListings = [
     status: "Disabled",
     statusColor: "text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd0P-8jGLtQjo5Xcy0YxABxzwUQ5Fwgs0ATQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX8C0PluoP1nO_bq6S5p5T3ffe_aKvmODJxAIRtiabxZiAW6XqltaBgkB-JPmgMSzh3jI&usqp=CAU",
   },
 ];
 
@@ -177,18 +177,18 @@ export default function LandlordDashboardPage() {
     <LandlordDashboardWrapper>
       <div className="flex min-h-screen">
         {/* Main Content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 md:p-4">
           {/* Title and Tabs */}
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center gap-2">
-              <Building2 className="w-6 h-6" />
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
+            <h1 className="text-xl md:text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center gap-2">
+              <Building2 className="w-5 h-5 md:w-6 md:h-6" />
               {t('landlord.dashboard.title')}
             </h1>
-            <div className="flex gap-6 ml-6 border-b border-gray-200 dark:border-gray-700 flex-1">
+            <div className="flex gap-4 p-6 border-b border-gray-200 dark:border-gray-700 flex-1 overflow-x-auto">
               {tabs.map((tab) => (
                 <button
                   key={tab}
-                  className={`pb-1.5 text-base font-medium transition border-b-2 ${
+                  className={`pb-1.5 text-sm md:text-base font-medium transition border-b-2 whitespace-nowrap ${
                     activeTab === tab
                       ? "border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400"
                       : "border-transparent text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
@@ -202,21 +202,21 @@ export default function LandlordDashboardPage() {
           </div>
 
           {/* Search and Sort */}
-          <div className="flex items-center gap-3 mt-8">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-8">
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 w-4 h-4" />
               <input
                 type="text"
                 placeholder={t('landlord.dashboard.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-3 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm"
+                className="w-full pl-9 md:pl-10 pr-3 py-2.5 md:py-3 rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm md:text-base"
               />
             </div>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-5 py-2.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium text-sm border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="px-4 md:px-5 py-2.5 md:py-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium text-sm md:text-base border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -227,7 +227,7 @@ export default function LandlordDashboardPage() {
           </div>
 
           {/* Dummy Listing Items */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {filteredListings.map((listing) => (
               <div
                 key={listing.id}
@@ -236,20 +236,20 @@ export default function LandlordDashboardPage() {
                 <img
                   src={listing.image}
                   alt={listing.address}
-                  className="w-full h-40 object-cover rounded mb-3"
+                  className="w-full h-32 md:h-40 object-cover rounded mb-3"
                 />
-                <div className="font-semibold text-lg text-blue-600 dark:text-blue-400 mb-1">
+                <div className="font-semibold text-base md:text-lg text-blue-600 dark:text-blue-400 mb-1">
                   {listing.address}
                 </div>
-                <div className="text-gray-500 dark:text-gray-400 mb-1">{listing.price}</div>
+                <div className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-1">{listing.price}</div>
                 <div
-                  className={`text-xs font-medium rounded px-2 py-1 w-max mb-2 ${listing.statusColor}`}
+                  className={`text-xs md:text-sm font-medium rounded px-2 py-1 w-max mb-2 ${listing.statusColor}`}
                 >
                   {listing.status}
                 </div>
                 <Link
                   to={`/landlord/property/${listing.id}`}
-                  className="mt-auto text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+                  className="mt-auto text-blue-600 dark:text-blue-400 hover:underline text-sm md:text-base font-medium"
                 >
                   {t('landlord.dashboard.viewDetails')}
                 </Link>
@@ -258,11 +258,11 @@ export default function LandlordDashboardPage() {
           </div>
 
           {/* Post a Rental */}
-          <div className="mt-6 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex flex-col items-center justify-center py-8">
+          <div className="mt-6 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex flex-col items-center justify-center py-6 md:py-8">
           
             <Button
               onClick={() => setIsPostRentalModalOpen(true)}
-              className="mt-3 flex items-center gap-1.5 px-6 py-2.5 bg-blue-600 dark:bg-blue-500 text-white rounded-full font-semibold text-base shadow hover:bg-blue-700 dark:hover:bg-blue-600 transition"
+              className="mt-3 flex items-center gap-1.5 px-4 md:px-6 py-2.5 md:py-3 bg-blue-600 dark:bg-blue-500 text-white rounded-full font-semibold text-sm md:text-base shadow hover:bg-blue-700 dark:hover:bg-blue-600 transition"
             >
               <Plus className="w-4 h-4" />
               {t('landlord.dashboard.postRental')}
