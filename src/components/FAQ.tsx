@@ -29,8 +29,8 @@ const FAQ = () => {
     },
   ];
   return (
-    <section className="py-12 md:py-16 bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <div className="container mx-auto px-4 max-w-3xl">
+    <section className="pb-12 bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+      <div className="container mx-auto px-4 ">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-[hsl(var(--foreground))] mb-8 text-center">
           {t('faq.title')}
         </h2>

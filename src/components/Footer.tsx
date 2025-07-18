@@ -20,9 +20,11 @@ const Footer = () => {
       { label: t('footer.links.faqsForTenants'), href: "/faq" },
       // { label: t('footer.links.avoidScams'), href: "/avoid-scams" },
       { label: t('footer.links.searchRentals'), href: "/tenant/marketplace" },
+      { label: "Search Medical Equipment", href: "/medical-equipment" },
     ],
     landlords: [
       { label: t('footer.links.postARental'), href: "/login" },
+      { label: "Post Medical Equipment", href: "/post-medical-equipment" },
       { label: t('footer.links.pricing'), href: "/landlords" },
       { label: t('footer.links.landlordResources'), href: "/landlords" },
       { label: t('footer.links.faqsForLandlords'), href: "/faq" },
@@ -73,7 +75,7 @@ const Footer = () => {
           <div>
             <h5 className="font-semibold text-[hsl(var(--footer-link-hover))] mb-3">{t('footer.forTenants')}</h5>
             <ul className="space-y-2">
-              {footerLinks.tenants.map((link) => (
+              {footerLinks.tenants.map((link, index) => (
                 <li key={link.label}>
                   <Link to={link.href} className="hover:text-[hsl(var(--footer-link-hover))] text-sm">
                     {link.label}
